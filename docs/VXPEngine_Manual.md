@@ -6,7 +6,6 @@ nhận 240×320 (dọc) hoặc 320×240 (ngang), không kéo tự do.
 - Mở IDE: \`run_windows.bat\`
 - Kiểm tra SDK: \`run_windows.bat check\`
 - Build thiết bị: Build → Build ARM
-- Build có chữ ký: Build → Build ARM Signed
 - Chạy: F6; IDE build ARM rồi mở VXPEmu thật trong cửa sổ Nokia 225 riêng
 - Xoay: nút xoay trên cửa sổ Nokia đổi đồng bộ 240×320 ↔ 320×240
 - Toolbar Nokia: chạy/dừng, nạp `.vxp`, chụp PNG, mở thư mục capture, quay MP4,
@@ -17,7 +16,6 @@ nhận 240×320 (dọc) hoặc 320×240 (ngang), không kéo tự do.
   Runtime Log; dữ liệu register/hex/heap lấy trực tiếp từ Unicorn và app MRE
 - Core: \`coremre\` 2.0 static library, kiểm tra chữ ký/toàn vẹn trước build
 - Tool host: w64devkit; compiler thiết bị: ARM GCC
-- Packer và signer: \`engine/coremre/tools\`
 
 ## Thiết kế UI 2D
 
@@ -49,6 +47,3 @@ Mọi thay đổi được ghi vào scene `.dtfe` và C bindings.
 Asset Editor có preset background 240×320/320×240, unit/building isometric và
 style **Pixel Art · Isometric RTS**. Dùng `run_windows.bat test` để chạy trọn
 bộ tự kiểm tra, bao gồm build ARM hai project mẫu trong `examples/`.
-
-Mỗi project có App ID và Vendor riêng. Lần ký đầu tạo identity riêng trong
-\`signing/apps\`; private key không được chép vào project.

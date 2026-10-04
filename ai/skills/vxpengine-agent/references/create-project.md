@@ -25,7 +25,6 @@ IDE sẽ:
 - seed từ `template_blank/` theo `template.manifest.json`
 - patch `CMakeLists.txt` (`APP_NAME`, `APPID`, …)
 - ghi `project.vxp.json` + `assets/scenes/*.dtfe` + `src/main.c`
-- purge mọi artifact signing khỏi project
 
 ## Cách 2 — Gọi `ProjectStore` (agent / script)
 
@@ -64,7 +63,6 @@ store.register_existing(r"D:\path\to\existing")
 [ ] screen.width/height đúng cặp QVGA
 [ ] CMakeLists.txt có set(APPID "...") và include(.vxpe/cmake/...)
 [ ] .vxpe/template-state.json tồn tại
-[ ] Không có *.pem / signing/ trong project
 [ ] scripts\build_arm.bat chạy được
 [ ] scripts\run_vxpemu.bat mở VXPEmu
 ```
@@ -122,16 +120,6 @@ scripts\run_vxpemu.bat
 Hoặc IDE toolbar: **Build · ARM** → **Run**.
 
 Output: `build-arm/main/<app_name>.vxp`.
-
-## Ký bản retail
-
-Chỉ qua IDE **Build ARM Signed** (hoặc pipeline `VxpRunner`):
-
-- inject `-DCOREMRE_PACKAGE_DIR` (gói core đã verify)
-- inject App ID / cert path từ `signing/apps/`
-- `vxp_signer.py` ký + self-verify
-
-Không tạo cert mới mỗi build. Không copy `private.pem` vào project.
 
 ## Lỗi thường gặp khi tạo mới
 

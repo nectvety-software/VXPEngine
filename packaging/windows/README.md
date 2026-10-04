@@ -1,7 +1,7 @@
 # Windows MSI release
 
 VXPEngine is installed per-machine under Program Files and bundles the GUI, coremre, MRE SDK,
-w64devkit, ARM GCC, VXP packers, restricted SDK Python and VXPEmu. Updating the
+w64devkit, ARM GCC, restricted SDK Python and VXPEmu. Updating the
 MSI replaces this frozen set atomically, so libraries cannot drift independently.
 
 ## Local test build

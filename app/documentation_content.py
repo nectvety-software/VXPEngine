@@ -41,21 +41,11 @@ def build_topics() -> list[DocumentationTopic]:
                "Một lệnh chạy IDE và kiểm tra toàn bộ toolchain.",
                ("setup", "w64devkit", "arm gcc", "run_windows", "sdk"),
                _code("run_windows.bat\nrun_windows.bat check\nrun_windows.bat deps", "bat") +
-               "<p>SDK tự dò w64devkit, ARM GCC, MRE API, các packer Python và VXPEmu.</p>"),
+               "<p>SDK tự dò w64devkit, ARM GCC, MRE API và VXPEmu.</p>"),
         _topic("build", "Build và chạy VXP", "fa5s.hammer", "Build",
-               "Compile ARM, đóng gói tài nguyên/VXP và mở bằng VXPEmu.",
-               ("build", "arm", "resource", "vxpemu", "packer"),
-               _code("scripts\\build_arm.bat\nscripts\\run_vxpemu.bat", "bat") + """
-               <p><code>vxp_resource.py</code> tạo bảng resource; <code>vxp_pack.py</code>
-               chèn section <code>.vm_res</code>, tags và trailer vào ELF32 ARM.</p>"""),
-        _topic("sign", "App ID, Vendor và khóa riêng", "fa5s.signature", "Bảo mật",
-               "Mỗi cặp App ID/Vendor có một identity RSA-512 riêng.",
-               ("sign", "ký", "appid", "vendor", "rsa", "sha1"), """
-               <p>Build ARM Signed tạo khóa tại <code>signing/apps/&lt;appid&gt;-&lt;vendor&gt;</code>,
-               chuẩn hóa cert ID 100 và IMSI <code>*</code>, ký RSA-SHA1 PKCS#1 v1.5,
-               tự verify rồi ghi SHA-256. Private key không nằm trong project.</p>
-               <div class="warning">Public key mới phải được firmware đích tin cậy; firmware
-               thương mại nguyên bản có thể từ chối identity tự tạo.</div>"""),
+               "Compile ARM, đóng gói `.vxp` và mở bằng VXPEmu.",
+               ("build", "arm", "resource", "vxpemu"),
+               _code("scripts\\build_arm.bat\nscripts\\run_vxpemu.bat", "bat")),
         _topic("core", "coremre 2.0", "fa5s.cubes", "Engine",
                "Core static C++17 tối ưu cho runtime MRE event-driven.",
                ("coremre", "physics", "ui", "game", "c++17"), """

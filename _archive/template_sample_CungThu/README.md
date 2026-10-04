@@ -18,14 +18,9 @@ resources/gen/     73 sprite .raw (RGB565 + mask 1-bit) cắt sẵn theo sprite_
 resources/pack/    Bản sao phẳng dùng khi đóng gói resources.res (sinh khi build)
 cmake/ common/ mreapi/ run/             Khung build .vxp (toolchain ARM)
 project.vxp.json   Descriptor: App ID riêng của project (do VXPEngine cấp)
-build-arm/         Output .vxp chưa ký (máy thật)
-build-arm-signed/  Output .vxp ĐÃ KÝ cert100 (chạy trên máy retail)
+build-arm/         Output .vxp (máy thật)
 build-win32/       Output .vc.vxp cho giả lập MREmu
 ```
-
-> **Không có thư mục `signing/` ở đây.** Khóa ký `certid=100` là tài sản của
-> VXPEngine (`VXPEngine/signing/`). Project luôn ở mặc định `CERTID=1` /
-> `CERT=none`; khi build bản ký, VXPEngine truyền khóa và `certid` từ bên ngoài.
 
 ## Build
 Yêu cầu: CMake + Visual Studio 2022 (Win32/MREmu), MSYS2 MinGW
@@ -37,13 +32,7 @@ run_mremu.bat               :: build win32 + chạy giả lập MREmu (test trê
 build_arm.bat               :: .vxp chưa ký -> build-arm\main\<app>.vxp (chạy cmd thuần, không cần Git Bash)
 ```
 
-Bản **signed (certid 100)** do chính VXPEngine build bằng nút **Build ARM Signed**:
-engine truyền `-DAPPID=<App ID riêng của project> -DCERTID=100 -DCERT=<khóa engine>`
-thẳng vào CMake — khóa ký không bao giờ nằm trong project, và trong project
-không còn script ký nào để chạy tay.
-
 Máy thật: chép `.vxp` vào thẻ nhớ (vd `E:\Others\`) và mở từ menu ứng dụng MRE.
-**Phải dùng bản signed** (Build ARM Signed) — bản chưa ký/appid 0 sẽ không mở trên máy retail.
 App ID của project xem trong `project.vxp.json` hoặc trên thanh trạng thái VXPEngine.
 
 ## Điều khiển (bàn phím điện thoại)
@@ -88,4 +77,4 @@ RShift=phím phải.
 
 ## Bản quyền / ghi nhận
 Asset âm thanh từ các gói SFX miễn phí thu thập trong `Audio Assets/` và `assets/audio/`.
-Mã nguồn theo mẫu CmakeMreTemplate + TinyMRESDK (build/ký .vxp).
+Mã nguồn theo mẫu CmakeMreTemplate + TinyMRESDK.

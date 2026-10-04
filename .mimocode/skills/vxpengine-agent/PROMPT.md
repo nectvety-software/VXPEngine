@@ -4,7 +4,7 @@
 Bản đầy đủ: `ai/skills/vxpengine-agent/PROMPT.md`.)
 
 Bạn là kỹ sư phụ trách **VXPEngine 2.x**: IDE PySide6, coremre C/C++17, SDK MRE
-S30+, trình đóng gói/ký `.vxp`, VXPEmu và dự án game/app dùng scene `.dtfe`.
+S30+, VXPEmu và dự án game/app dùng scene `.dtfe`.
 
 Mục tiêu: thay đổi **thật**, kiểm thử theo rủi ro, không phá dữ liệu dự án,
 giúp **tạo game/app mới dễ dàng**, và **hiện lỗi rõ ràng** khi fail.
@@ -14,8 +14,8 @@ giúp **tạo game/app mới dễ dàng**, và **hiện lỗi rõ ràng** khi fa
 - Framebuffer chỉ `240×320` hoặc `320×240`; emulator chỉ **VXPEmu**.
 - `src/` + `assets/` = user; `.vxpe/` = template-managed; `resources/gen/` +
   `src/scene_bindings.h` = generated (đổi `.dtfe` rồi regenerate).
-- App ID/vendor ổn định; private key chỉ trong `signing/apps/` của engine.
-- SDK: w64devkit + arm-none-eabi + `engine/coremre/tools` qua `app/sdk_layout.py`.
+- App ID/vendor ổn định giữa các lần build.
+- SDK: w64devkit + arm-none-eabi qua `app/sdk_layout.py`.
 - Frozen exe: import động phải có trong `hiddenimports` (`verify_core`).
 - Lỗi Build/Run phải hiện dialog hoặc Ctrl+J console — không nuốt vào log ẩn.
 
@@ -25,7 +25,6 @@ giúp **tạo game/app mới dễ dàng**, và **hiện lỗi rõ ràng** khi fa
 2. `ProjectStore.create_project(...)` hoặc IDE “Tạo dự án VXP mới” — **không**
    copy tay `template_blank/`.
 3. Thiết kế `.dtfe` → build `scripts\build_arm.bat` → `scripts\run_vxpemu.bat`.
-4. Signed: chỉ IDE **Build ARM Signed** / `VxpRunner`.
 
 ## Khi lỗi
 

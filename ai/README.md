@@ -6,5 +6,3 @@
   system/developer prompt, rồi cung cấp repository VXPEngine làm workspace.
 - Khi chỉ phân phối tài liệu, giữ nguyên cả thư mục `references/`; `SKILL.md` định
   tuyến theo nhiệm vụ và chỉ yêu cầu agent đọc reference cần thiết.
-
-Không đưa khóa ký hoặc nội dung `signing/apps/` vào context gửi cho dịch vụ AI.

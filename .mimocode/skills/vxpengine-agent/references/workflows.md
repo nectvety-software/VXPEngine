@@ -39,16 +39,15 @@ scripts\build_arm.bat
 scripts\run_vxpemu.bat
 ```
 
-Use the IDE's `VxpRunner` for authoritative signed builds because it injects the
-validated core package and signing identity. A successful build produces
-`build-arm/main/<app_name>.vxp` or its signed counterpart.
+Use the IDE's `VxpRunner` for authoritative builds because it injects the
+validated core package. A successful build produces
+`build-arm/main/<app_name>.vxp`.
 
 ## Create → design → build loop
 
 ```text
 create_project  →  edit .dtfe / src  →  regenerate bindings
        →  build_arm (CMake + **Ninja** + arm-none-eabi)  →  run_vxpemu
-       →  (optional) build_arm_signed
 ```
 
 Generator là **Ninja** (không phải MinGW Makefiles) vì path cài đặt/project
@@ -62,10 +61,8 @@ Details: `create-project.md`.
 - **UI-only change**: focused offscreen harness and reopen/persistence check.
 - **DTFE/generator change**: regenerate bindings/resources and compare semantics.
 - **CMake/toolchain/core/resource change**: clean configure and real ARM build.
-- **Signing change**: build signed, cryptographically verify, and scan output/project
-  for private-key leakage.
 - **Template change**: create new portrait and landscape projects, test safe sync,
-  and verify no build/cache/engine/signing directories are materialized.
+  and verify no build/cache/engine directories are materialized.
 - **Frozen/MSI change**: `verify_release.py` probe (`VXPE_RELEASE_ACTION_PROBE=1`),
   confirm dynamic imports (`verify_core`) in archive, elevated MSI smoke.
 

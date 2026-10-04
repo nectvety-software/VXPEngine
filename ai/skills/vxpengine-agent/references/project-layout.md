@@ -43,7 +43,7 @@ Preserved across open/sync — do not regenerate casually:
 |-------|---------|
 | `app_id` | MRE App ID (engine-issued; retail wants ≠ 0) |
 | `app_name` | Base name for `.vxp` |
-| `developer` | Vendor string used in signing identity |
+| `developer` | Vendor string for the project |
 | `screen.width/height` | Only 240×320 or 320×240 |
 | `template` / `template_version` / `layout_version` | Sync contract |
 | `mre.api`, `mre.ram_kb`, `mre.imsi` | MRE metadata |

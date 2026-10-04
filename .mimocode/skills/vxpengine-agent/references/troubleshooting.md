@@ -50,7 +50,7 @@ Dialog **Build/Run thất bại** / **Lỗi khi chạy tác vụ** (nếu app đ
 |------|--------|
 | Bundle module | `packaging/windows/VXPEngine.spec` → `hiddenimports=[..., "verify_core"]`, `pathex` gồm `tools/` |
 | Hiện lỗi UI | `app/vxp_runner.py` → `last_error` + `_fail_early`; `app/main.py` → `_build_target` catch + `NoticeDialog` |
-| Rebuild release | `packaging\windows\build_release.ps1` (xem `security-and-signing.md`) |
+| Rebuild release | `packaging\windows\build_release.ps1` |
 | Cài lại | MSI elevated: `msiexec /i "...msi" /qn` **as Administrator** |
 
 Verify sau fix:
@@ -152,13 +152,6 @@ App đang mở → đóng `VXPEngine.exe` trước khi cài lại.
 
 ---
 
-## 8. Ký / firmware
-
-- Retail từ chối `.vxp` self-signed → trust store không có public key (giới hạn
-  thiết bị, **không** phải bug signer).
-- Không mô tả RSA-512/SHA-1 là “bảo mật mạnh”.
-- Debug: build **unsigned** trước trên VXPEmu; signed riêng.
-
 ---
 
 ## 9. Checklist trước khi nói “đã sửa”
@@ -169,7 +162,7 @@ App đang mở → đóng `VXPEngine.exe` trước khi cài lại.
 [ ] py_compile / harness phù hợp đã chạy
 [ ] Nếu đụng build/SDK: có ARM .vxp artifact thật
 [ ] Nếu đụng frozen: verify_core (và import động khác) có trong archive
-[ ] Không có private key trong output/log/project
+[ ] Không có secret trong output/log/project
 [ ] Báo cáo: symptom → cause → fix → test → residual risk
 ```
 

@@ -10,23 +10,13 @@ lập duy nhất là **VXPEmu**.
 - w64devkit: CMake, GNU Make/Ninja và compiler host.
 - ARM GCC `arm-none-eabi`: tạo ELF32 ARMv5TE cho MRE.
 - `engine/coremre/sdk/mre`: headers và import libraries MRE tích hợp.
-- `engine/coremre/tools/vxp_resource.py`: tạo `.res` chuẩn MRE.
-- `engine/coremre/tools/vxp_pack.py`: chèn `.vm_res`, tags và trailer để tạo `.vxp`.
-- `engine/coremre/tools/vxp_signer.py`: chuẩn hóa App ID/Vendor, ký RSA-512/SHA-1
-  PKCS#1 v1.5, tự xác minh và xuất SHA-256.
 - VXPEmu: chạy file ARM `.vxp` thật trong cửa sổ Nokia 225 riêng, có màn hình
   240×320/320×240, phím MRE và thanh công cụ chạy/dừng, nạp VXP, chụp ảnh,
   mở thư mục, quay MP4, xoay và toàn màn hình. Tab `VXPEmu`
   của Bottom Panel là bảng chẩn đoán trực tiếp gồm thanh ghi ARM, CPSR, byte mã
   quanh PC, heap MRE, FPS đo thực, TestAPI và runtime log.
 
-Pipeline không phụ thuộc bộ đóng gói hoặc trình giả lập cũ. Mỗi project có App ID
-riêng. Khi build signed lần đầu, VXPEngine tạo một khóa riêng theo cặp App ID/Vendor
-trong `signing/apps/`; khóa bí mật không được chép vào project.
-
-> Khóa RSA-512 mới chỉ chạy trên firmware tin cậy public key tương ứng. Firmware
-> thương mại nguyên bản có thể từ chối identity tự tạo; đây là giới hạn trust store
-> của thiết bị, không phải lỗi chữ ký.
+Pipeline không phụ thuộc trình giả lập cũ. Mỗi project có App ID riêng.
 
 ## Chạy
 
@@ -49,9 +39,7 @@ run_windows.bat deps
 app/                         IDE PySide6
 engine/coremre/              core C++17 cho MRE
 engine/coremre/sdk/          SDK headers/libs và cấu hình toolchain
-engine/coremre/tools/        pack resource, pack VXP, signer
 packaging/coremre/2.0.0/     core dùng chung đã ký và kiểm tra toàn vẹn
-signing/apps/                identity riêng theo App ID/Vendor
 template_blank/              mẫu project S30+ MRE VXP
 ai/skills/vxpengine-agent/   SKILL.md, PROMPT.md và tài liệu cho AI Agents
 .mimocode/skills/            skill nạp bởi MiMo Desktop (bản sao định tuyến)
@@ -62,9 +50,7 @@ nằm trong `.vxpe/`, còn `template_blank/template.manifest.json` điều khi�
 cập nhật động. VXPEngine chỉ cập nhật tệp managed chưa bị sửa cục bộ; code/asset
 người dùng không bị ghi đè.
 
-Build ARM signed trong IDE thực hiện: compile → resource pack → VXP pack → tạo/đọc
-identity riêng → ký → verify → ghi checksum. Build thường tạo VXP chưa ký để thử
-trên môi trường development.
+Build ARM trong IDE thực hiện compile, đóng gói `.vxp` rồi ghi checksum.
 
 Hộp **Tạo dự án VXP mới** cho chọn trực tiếp `240×320 — Dọc` hoặc
 `320×240 — Ngang`; descriptor, scene, Camera2D và cửa sổ Nokia dùng đồng bộ lựa chọn.
@@ -124,9 +110,7 @@ powershell -ExecutionPolicy Bypass -File packaging\windows\build_release.ps1
 Kết quả là một file `dist-installer/VXPEngine-2.0.0-Setup.exe`. Bộ cài theo
 tài khoản Windows, không yêu cầu quyền Administrator, chứa GUI không console,
 w64devkit, ARM GCC, MRE SDK, VXPEmu và media runtime. Pipeline tự quét dependency,
-Bandit, private key, chạy thử GUI/SDK và build game ARM trước khi tạo SHA-256.
-Khóa ký VXP không được đóng gói; mỗi App ID/vendor tự tạo khóa trong
-`%LOCALAPPDATA%\VXPEngine\signing`.
+Bandit, secret, chạy thử GUI/SDK và build game ARM trước khi tạo SHA-256.
 
 Bottom Panel/Console mặc định ẩn và không tự chiếm chỗ khi Run/VXPEmu;
 dùng `Ctrl+J`, menu View hoặc nút terminal trên status bar để mở. UI Design

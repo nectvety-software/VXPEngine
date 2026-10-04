@@ -50,9 +50,7 @@ Module mới `app/environment_setup.py` mô tả 9 thành phần môi trường 
 | `arm_gcc` | arm-none-eabi-gcc | `C:/msys64/usr/bin/bash -lc "pacman -S --noconfirm --needed mingw-w64-x86_64-arm-none-eabi-toolchain"`, thiếu MSYS2 thì dùng `winget` |
 | `python_deps` | PySide6, QtAwesome… | `python -m pip install -r requirements.txt` |
 | `mre_sdk` | MRE SDK | thủ công |
-| `tiny_mresdk` | TinyMRESDK (ký .vxp) | thủ công |
 | `vxpemu` | VXPEmu | thủ công |
-| `signing_key` | `signing/cert100-key.pem` | thủ công (khóa thuộc engine, không copy vào project) |
 
 **Vì sao cần `winget_path()` riêng:** `winget.exe` là App Execution Alias nằm trong
 `%LOCALAPPDATA%\Microsoft\WindowsApps\winget.exe`. Thư mục này thường **không có trong
