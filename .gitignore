@@ -23,9 +23,8 @@ __pycache__/
 .freebuff/
 .workbuddy-ai/
 
-# Secrets: private signing keys (public keys stay tracked)
-signing/**/private.pem
-signing/*-key*.pem
+# Secrets: toàn bộ kho signing (khóa riêng + public key + identity) không push
+signing/
 
 # Build artifacts & binaries — không push (vượt giới hạn 100MB/file của GitHub)
 dist-installer/
