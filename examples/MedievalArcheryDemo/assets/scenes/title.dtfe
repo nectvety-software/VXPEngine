@@ -1,0 +1,56 @@
+{
+  "name": "Title",
+  "screen_id": "title",
+  "type": "VXPScreen",
+  "viewport": {
+    "type": "FitViewport",
+    "width": 240,
+    "height": 340,
+    "orientation": "portrait"
+  },
+  "children": [
+    {
+      "id": "camera2d",
+      "name": "Camera2D",
+      "type": "OrthographicCamera",
+      "position": [
+        0,
+        0
+      ],
+      "zoom": [
+        1,
+        1
+      ],
+      "code_name": "Camera2D",
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "logo",
+      "name": "Logo",
+      "type": "Sprite2D",
+      "asset": "assets/spritefusion/logo.png",
+      "position": [
+        0,
+        -85
+      ],
+      "display_size": [
+        176,
+        70
+      ],
+      "z_index": 2,
+      "code_name": "Logo",
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    }
+  ],
+  "groups": []
+}

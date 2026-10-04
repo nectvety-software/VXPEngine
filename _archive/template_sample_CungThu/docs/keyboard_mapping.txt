@@ -1,0 +1,63 @@
+================================================================
+ CUNG THU BONG DEN - BAN PHIM (keyboard mapping)
+================================================================
+
+--- Tren dien thoai MRE (ban phim so) --------------------------
+
+Title (man hinh dau):
+  5            Bat dau choi
+  OK           Bat dau choi
+
+Trong tran dau (ST_PLAY):
+  2            Nhay (giu = nhay cao hon khong co, 1 lan 1 gac)
+  4            Di trai
+  6            Di phai
+  8            Leo XUONG thang (2/8 de leo len/xuong khi dang tren thang)
+  5            Ban ten (thu cong chinh, hao 1 ten)
+  7            POWER SHOT : ten lon x3 sat thuong, XUYEN qua dich (30 MP, hoi 8s)
+  9            MULTI SHOT : ban 3 ten hinh quat      (40 MP, hoi 10s)
+  0            DASH       : luot nhanh 0.7s, mien sat thuong (20 MP, hoi 6s)
+  *            Uong thuoc: hoi 50 HP (toi da 3 chai)
+  Phim trai    TAM DUNG (pause)
+  Phim phai / C TAM DUNG khi dang choi; thoat khi dang pause
+  (cham vao 3 nut skill o duoi man hinh cung du - man hinh cam ung)
+
+Man hinh SHOP (giua cac dot):
+  1            Mua DAMAGE +2        (60 vang tro len)
+  2            Mua MAX HP +20       (80 vang tro len)
+  3            Mua +10 TEN          (30 vang)
+  4            Mua MAX MP +10       (70 vang tro len)
+  5 / OK       Sang dot tiep theo
+
+Man hinh PAUSE:
+  5 / OK / Phim trai  Tiep tuc
+  Phim phai    Luu diem va thoat
+
+Man hinh GAME OVER:
+  5 / OK       Choi lai tu dot 1 (giu diem cao)
+  Phim phai    Thoat
+
+--- Khi chay tren gia lap MREmu (ban phim PC) ------------------
+
+  MREmu map Numpad theo layout dien thoai (Numpad nguoc so voi phone):
+    Numpad 7 8 9  ->  phim 1 2 3
+    Numpad 4 5 6  ->  phim 4 5 6
+    Numpad 1 2 3  ->  phim 7 8 9
+    Numpad 0      ->  phim 0
+    Numpad /      ->  phim *
+    Numpad *      ->  phim #
+   Mui ten       ->  Len/Xuong/Trai/Phai
+    Enter         ->  OK ( = phim 5 trong game)
+    /  (slash)    ->  Phim trai (LSK)
+    RShift        ->  Phim phai (RSK)
+    BackSpace     ->  C
+    Escape        ->  Back
+
+  Vi du nhanh: Numpad5 = ban ten, Numpad6 = di phai, Numpad8 = phim 2 = nhay.
+
+--- Ma hoa phim trong code (vmkeydef / vmio.h) ------------------
+
+  VM_KEY_NUM0..NUM9 = 48..57     VM_KEY_STAR = 42    VM_KEY_POUND = 35
+  VM_KEY_UP = -1   DOWN = -2   LEFT = -3   RIGHT = -4
+  VM_KEY_OK = -5   LSK = -6    RSK = -7    CLEAR = -8   BACK = -9
+  Su kien: VM_KEY_EVENT_DOWN = 2, VM_KEY_EVENT_UP = 1, LONG_PRESS = 3

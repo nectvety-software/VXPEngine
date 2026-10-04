@@ -1,0 +1,4 @@
+interface:
+  display_name: "VXPEngine Agent"
+  short_description: "Build and maintain MRE VXP games safely"
+  default_prompt: "Use $vxpengine-agent to implement and verify this VXPEngine or S30+ MRE VXP task."

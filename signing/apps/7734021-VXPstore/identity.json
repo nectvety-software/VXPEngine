@@ -1,0 +1,9 @@
+{
+  "format": "VXPEngine VXP signing identity",
+  "app_id": 7734021,
+  "vendor": "VXPstore",
+  "cert_id": 100,
+  "algorithm": "RSA-512/SHA-1/PKCS#1-v1.5",
+  "public_key_sha256": "04627760BE795CF9B219B79AC69086C5318F25B52A85B94D98857364EA6E6166",
+  "firmware_note": "A newly generated key must be trusted by target firmware."
+}

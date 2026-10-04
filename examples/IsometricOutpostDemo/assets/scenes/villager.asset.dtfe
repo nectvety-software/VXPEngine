@@ -1,0 +1,48 @@
+{
+  "format": "VXPEngine Asset",
+  "format_version": 2,
+  "asset": "assets/scenes/villager.png",
+  "asset_type": "Nhân vật / Sprite",
+  "size": {
+    "width": 24,
+    "height": 32
+  },
+  "texture": {
+    "pixels_per_unit": 100,
+    "render_mode": "nearest",
+    "transparent": true,
+    "pixel_mode_bits": 32
+  },
+  "grid": {
+    "width": 16,
+    "height": 16,
+    "margin": 0,
+    "spacing": 0
+  },
+  "animation": {
+    "name": "default",
+    "fps": 10,
+    "loop": true,
+    "descriptor": "assets/scenes/villager.ani..dtfe",
+    "source_mode": "atlas_frames",
+    "selected_indices": [],
+    "selected_by_source": {
+      "atlas_frames": [],
+      "scene_timeline": []
+    },
+    "preview_background": "checker",
+    "preview_zoom": 1
+  },
+  "frames": [],
+  "scene_timeline": [],
+  "collisions": [
+    {
+      "name": "bounds",
+      "kind": "solid",
+      "x": 5,
+      "y": 3,
+      "width": 15,
+      "height": 27
+    }
+  ]
+}

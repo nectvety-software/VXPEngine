@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "core": "coremre",
+  "cpp_standard": 17,
+  "target": "MRE ARMv5TE",
+  "host_tools": "w64devkit",
+  "emulator": "VXPEmu",
+  "signing": "RSA-SHA1 PKCS#1 v1.5 / 86-byte VXP trailer"
+}

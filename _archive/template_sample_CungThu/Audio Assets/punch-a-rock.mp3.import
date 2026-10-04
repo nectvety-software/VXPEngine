@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dawal2upgad7n"
+path="res://.godot/imported/punch-a-rock.mp3-22f7b5003e1187ca8f1b646c7d201932.mp3str"
+
+[deps]
+
+source_file="res://Audio Assets/punch-a-rock.mp3"
+dest_files=["res://.godot/imported/punch-a-rock.mp3-22f7b5003e1187ca8f1b646c7d201932.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

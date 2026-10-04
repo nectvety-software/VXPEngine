@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cv4hte7a8saft"
+path="res://.godot/imported/ogre.mp3-f59fc2933b46cba262359a04170e0be7.mp3str"
+
+[deps]
+
+source_file="res://Audio Assets/new/ogre.mp3"
+dest_files=["res://.godot/imported/ogre.mp3-f59fc2933b46cba262359a04170e0be7.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

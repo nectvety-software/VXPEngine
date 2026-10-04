@@ -1,0 +1,10 @@
+{
+  "name": "coremre",
+  "description": "C++17 engine core for MediaTek MRE VXP applications",
+  "version": "2.0.0",
+  "license": "MIT",
+  "build": {"srcDir": "src", "includeDir": "include"},
+  "frameworks": ["mre"],
+  "platforms": ["mre-armv5te"],
+  "dependencies": {}
+}

@@ -1,0 +1,100 @@
+# CungThuBongDen sprite manifest
+# name sheet x y w h outW outH [opaque]
+# sheets: assets/54365.png (labeled sheet), assets/titleset.png (characters),
+#         assets/splash.png (title art)
+
+# --- ground / platform tiles (54365 "GROUND / PLATFORM TILES") ---
+ground1 assets/54365.png 35 47 91 87 24 24
+ground2 assets/54365.png 135 47 91 89 24 24
+ground3 assets/54365.png 235 47 91 88 24 24
+ground4 assets/54365.png 336 55 91 81 24 24
+gh1 assets/54365.png 35 153 91 78 24 20
+gh2 assets/54365.png 133 155 93 78 24 20
+gh3 assets/54365.png 235 155 91 72 24 19
+
+# --- wall bricks (54365 "WALL / BRICK TILES") ---
+wall1 assets/54365.png 29 282 83 99 20 24
+wall2 assets/54365.png 121 282 84 99 20 24
+wall3 assets/54365.png 212 282 82 99 20 24
+wall4 assets/54365.png 303 282 83 99 20 24
+wall5 assets/54365.png 29 389 83 100 20 24
+wall6 assets/54365.png 303 389 83 100 20 24
+
+# --- structures / props (54365) ---
+block assets/54365.png 544 751 101 95 24 23
+spikes assets/54365.png 341 748 195 97 48 24
+ladder assets/54365.png 529 45 53 163 18 55
+window assets/54365.png 749 257 129 214 22 37
+chain1 assets/54365.png 532 266 14 190 4 42
+chain2 assets/54365.png 605 269 25 195 6 43
+shopdoor assets/54365.png 483 546 172 155 40 36
+archway assets/54365.png 686 542 225 159 48 34
+crate assets/54365.png 29 590 61 63 16 17
+barrel assets/54365.png 104 585 61 68 15 17
+banner assets/54365.png 176 561 57 92 13 21
+pillar assets/54365.png 256 540 47 126 11 30
+rubble assets/54365.png 369 608 95 60 24 15
+collapsed assets/54365.png 27 741 304 101 72 24
+
+# --- archer (titleset "SPRITES" row 1: idle/walk/jump/aim/hit) ---
+arch_a assets/titleset.png 637 72 79 97 24 30
+arch_b assets/titleset.png 734 73 86 96 24 30
+arch_c assets/titleset.png 838 58 82 96 24 31
+arch_d assets/titleset.png 927 72 90 97 24 30
+arch_shoot assets/titleset.png 1032 70 110 99 27 30
+arch_hit assets/titleset.png 1152 80 83 89 24 29
+
+# --- ogre (titleset row 2) ---
+ogre_a assets/titleset.png 630 215 100 118 34 40
+ogre_b assets/titleset.png 758 223 98 110 34 40
+ogre_c assets/titleset.png 885 201 104 132 34 42
+ogre_hit assets/titleset.png 1142 225 96 108 34 40
+boss_ogre assets/54365.png 565 1208 248 179 56 40
+
+# --- dragon (titleset row 3, flap cycle) ---
+dragon_a assets/titleset.png 641 380 124 61 42 21
+dragon_b assets/titleset.png 792 383 125 71 42 24
+dragon_c assets/titleset.png 932 379 87 76 34 26
+
+# --- torch animation 4 frames (titleset) ---
+torch1 assets/titleset.png 652 498 33 80 12 29
+torch2 assets/titleset.png 708 496 36 83 12 29
+torch3 assets/titleset.png 768 496 32 82 12 29
+torch4 assets/titleset.png 824 496 31 82 12 29
+
+# --- pickups / fx (titleset) ---
+coin assets/titleset.png 905 529 29 32 11 12
+gem assets/titleset.png 959 510 42 61 14 20
+spark_s assets/titleset.png 1045 586 34 32 12 11
+spark_b assets/titleset.png 1172 573 56 54 20 19
+arrow1 assets/titleset.png 1045 528 56 27 18 9
+arrow2 assets/titleset.png 1101 528 64 27 20 9
+arrow3 assets/titleset.png 1165 528 64 27 20 9
+
+# --- icons / HUD (54365 "RESOURCES 32x32", "HUD ELEMENTS") ---
+ic_gold assets/54365.png 963 64 65 68 13 14
+ic_silver assets/54365.png 962 149 65 58 14 12
+ic_gem assets/54365.png 962 222 64 73 13 15
+ic_hpotion assets/54365.png 969 311 46 65 11 15
+ic_mpotion assets/54365.png 969 387 46 64 11 15
+ic_quiver assets/54365.png 964 466 57 78 12 16
+portrait assets/54365.png 656 904 133 137 30 31
+badge_dash assets/54365.png 703 756 105 122 22 26
+badge_power assets/54365.png 831 755 103 123 22 26
+badge_multi assets/54365.png 957 754 103 124 22 26
+btn_dash assets/54365.png 208 1273 99 95 24 23
+btn_power assets/54365.png 326 1273 96 95 24 24
+btn_multi assets/54365.png 443 1273 93 95 23 24
+
+# --- parallax strips (54365, seamless, opaque) ---
+bg_far assets/54365.png 93 908 524 99 240 45 opaque
+bg_mid assets/54365.png 93 1012 524 89 240 41 opaque
+bg_near assets/54365.png 93 1106 524 100 240 46 opaque
+
+# --- texture fills (titleset "TEXTURES") ---
+tex_brick assets/titleset.png 18 685 96 95 24 24
+tex_wood assets/titleset.png 18 787 96 95 24 24
+tex_fog assets/titleset.png 531 787 96 95 24 24
+
+# --- title screen (full art, opaque) ---
+splash assets/splash.png 0 0 1086 1448 240 320 opaque

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://uk2xl71uaxbq"
+path="res://.godot/imported/matchstrike04-33791.mp3-4478f146132ba2588ea56dc818c0c223.mp3str"
+
+[deps]
+
+source_file="res://Audio Assets/matchstrike04-33791.mp3"
+dest_files=["res://.godot/imported/matchstrike04-33791.mp3-4478f146132ba2588ea56dc818c0c223.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

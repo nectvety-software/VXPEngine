@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cd4p71kxycgdj"
+path="res://.godot/imported/placement sfx.mp3-bf50a12910f6c4940943dbfbfcc9d6a0.mp3str"
+
+[deps]
+
+source_file="res://Audio Assets/placement sfx.mp3"
+dest_files=["res://.godot/imported/placement sfx.mp3-bf50a12910f6c4940943dbfbfcc9d6a0.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

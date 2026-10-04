@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b3crn42chrv2y"
+path="res://.godot/imported/pickaxe-blow.mp3-603dab712dfbc25ad7e1b4da3c3738f0.mp3str"
+
+[deps]
+
+source_file="res://Audio Assets/pickaxe-blow.mp3"
+dest_files=["res://.godot/imported/pickaxe-blow.mp3-603dab712dfbc25ad7e1b4da3c3738f0.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

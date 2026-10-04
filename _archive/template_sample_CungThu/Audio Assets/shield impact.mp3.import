@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b4fn1adpqy8gp"
+path="res://.godot/imported/shield impact.mp3-d24e3d02a0bf78607077a54ac5826e51.mp3str"
+
+[deps]
+
+source_file="res://Audio Assets/shield impact.mp3"
+dest_files=["res://.godot/imported/shield impact.mp3-d24e3d02a0bf78607077a54ac5826e51.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

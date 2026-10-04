@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cgrae0axh0ycp"
+path="res://.godot/imported/treechop_hollowtonal.mp3-2f1bef3c95aef97075eafabb2f851cf8.mp3str"
+
+[deps]
+
+source_file="res://Audio Assets/treechop_hollowtonal.mp3"
+dest_files=["res://.godot/imported/treechop_hollowtonal.mp3-2f1bef3c95aef97075eafabb2f851cf8.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

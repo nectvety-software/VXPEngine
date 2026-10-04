@@ -1,0 +1,213 @@
+{
+  "name": "MainScreen",
+  "screen_id": "main",
+  "type": "VXPScreen",
+  "viewport": {
+    "type": "FitViewport",
+    "width": 240,
+    "height": 320,
+    "orientation": "portrait"
+  },
+  "engine": {
+    "core": "coremre",
+    "version": "2.0.0"
+  },
+  "children": [
+    {
+      "id": "camera2d",
+      "name": "Camera2D",
+      "type": "OrthographicCamera",
+      "position": [
+        0,
+        0
+      ],
+      "rotation": 0,
+      "zoom": [
+        1,
+        1
+      ],
+      "projection": "Pixel Perfect",
+      "preview_background": "Editor Grid",
+      "code_name": "Camera2D",
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "app_bg",
+      "name": "Background",
+      "code_name": "Background",
+      "type": "Sprite2D",
+      "asset": "assets/map/background/toolkit_background_240x320.png",
+      "position": [
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0
+      ],
+      "display_size": [
+        240.0,
+        320.0
+      ],
+      "z_index": -10,
+      "locked": true,
+      "lock_aspect": true,
+      "pixel_snap": true,
+      "component_category": "background",
+      "ui_role": "Background",
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {},
+      "rotation": 0.0,
+      "opacity": 1.0,
+      "visible": true,
+      "group_id": "",
+      "resizable": false,
+      "input_binding": ""
+    },
+    {
+      "id": "panel",
+      "name": "InfoPanel",
+      "code_name": "InfoPanel",
+      "type": "Rectangle2D",
+      "position": [
+        0.0,
+        -20.0
+      ],
+      "shape": {
+        "width": 200,
+        "height": 112,
+        "fill": "#162943E8",
+        "stroke": "#7396B8",
+        "stroke_width": 2
+      },
+      "scale": [
+        1.0,
+        1.0
+      ],
+      "display_size": [
+        202.0,
+        114.0
+      ],
+      "z_index": 1,
+      "anchor": {
+        "mode": "Center",
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pixel_snap": true,
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {},
+      "rotation": 0.0,
+      "opacity": 1.0,
+      "visible": true,
+      "group_id": "",
+      "resizable": true,
+      "lock_aspect": false
+    },
+    {
+      "id": "title",
+      "name": "Title",
+      "code_name": "Title",
+      "type": "Text2D",
+      "position": [
+        -101.0,
+        -128.0
+      ],
+      "text": {
+        "content": "POCKET TOOLS",
+        "font_size": 18,
+        "color": "#f4d77b",
+        "font": "Segoe UI"
+      },
+      "scale": [
+        1.0,
+        1.0
+      ],
+      "z_index": 2,
+      "anchor": {
+        "mode": "Top Left",
+        "x": 0,
+        "y": 0
+      },
+      "pixel_snap": true,
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {},
+      "rotation": 0.0,
+      "opacity": 1.0,
+      "visible": true,
+      "group_id": "",
+      "resizable": true,
+      "lock_aspect": false,
+      "display_size": [
+        171.266,
+        40.0
+      ]
+    },
+    {
+      "id": "action",
+      "name": "StartButton",
+      "code_name": "StartButton",
+      "type": "Rectangle2D",
+      "position": [
+        0.0,
+        128.0
+      ],
+      "shape": {
+        "width": 136,
+        "height": 34,
+        "fill": "#3B7C65",
+        "stroke": "#9AD4B3",
+        "stroke_width": 2
+      },
+      "scale": [
+        0.8213,
+        0.4972
+      ],
+      "display_size": [
+        113.34,
+        17.901
+      ],
+      "z_index": 3,
+      "automation": {
+        "enabled": true,
+        "role": "action_button",
+        "input_action": "ACTION",
+        "physics": "none",
+        "collision_enabled": true,
+        "collision_shape": "bounds",
+        "tags": [
+          "ui"
+        ]
+      },
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "clipping_mask": {},
+      "rotation": 0.0,
+      "opacity": 1.0,
+      "visible": true,
+      "group_id": "",
+      "resizable": true,
+      "lock_aspect": false,
+      "pixel_snap": true
+    }
+  ],
+  "groups": []
+}

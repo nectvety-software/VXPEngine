@@ -1,0 +1,39 @@
+{
+  "format": "VXPEngine Asset",
+  "format_version": 2,
+  "asset": "assets/map/background/isometric_grassland_320x240.png",
+  "asset_type": "Nhân vật / Sprite",
+  "size": {
+    "width": 320,
+    "height": 240
+  },
+  "texture": {
+    "pixels_per_unit": 100,
+    "render_mode": "nearest",
+    "transparent": true,
+    "pixel_mode_bits": 32
+  },
+  "grid": {
+    "width": 16,
+    "height": 16,
+    "margin": 0,
+    "spacing": 0
+  },
+  "animation": {
+    "name": "default",
+    "fps": 10,
+    "loop": true,
+    "descriptor": "assets/scenes/isometric_grassland_320x240.ani..dtfe",
+    "source_mode": "atlas_frames",
+    "selected_indices": [],
+    "selected_by_source": {
+      "atlas_frames": [],
+      "scene_timeline": []
+    },
+    "preview_background": "checker",
+    "preview_zoom": 1
+  },
+  "frames": [],
+  "scene_timeline": [],
+  "collisions": []
+}

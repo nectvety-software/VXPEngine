@@ -1,0 +1,202 @@
+{
+  "name": "Battlefield",
+  "screen_id": "main",
+  "type": "VXPScreen",
+  "viewport": {
+    "type": "FitViewport",
+    "width": 240,
+    "height": 320,
+    "orientation": "portrait"
+  },
+  "engine": {
+    "core": "coremre",
+    "version": "2.0.0"
+  },
+  "children": [
+    {
+      "id": "camera2d",
+      "name": "Camera2D",
+      "code_name": "Camera2D",
+      "type": "OrthographicCamera",
+      "position": [
+        0,
+        0
+      ],
+      "rotation": 0,
+      "zoom": [
+        1,
+        1
+      ],
+      "projection": "Pixel Perfect",
+      "preview_background": "Editor Grid"
+    },
+    {
+      "id": "background",
+      "name": "Battlefield",
+      "code_name": "Battlefield",
+      "type": "Sprite2D",
+      "asset": "assets/spritefusion/battlefield.png",
+      "position": [
+        0.0,
+        0.0
+      ],
+      "display_size": [
+        240.0,
+        320.0
+      ],
+      "scale": [
+        1.0,
+        0.9412
+      ],
+      "z_index": -10,
+      "locked": true,
+      "lock_aspect": true,
+      "pixel_snap": true,
+      "component_category": "background",
+      "ui_role": "Background",
+      "rotation": 0.0,
+      "opacity": 1.0,
+      "visible": true,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "group_id": "",
+      "resizable": false,
+      "events": [],
+      "automation": {},
+      "clipping_mask": {},
+      "input_binding": ""
+    },
+    {
+      "id": "enemy",
+      "name": "IronStag",
+      "code_name": "IronStag",
+      "type": "Sprite2D",
+      "asset": "assets/spritefusion/enemy_archer.png",
+      "position": [
+        72.0,
+        92.0
+      ],
+      "display_size": [
+        40.0,
+        54.0
+      ],
+      "scale": [
+        -1.0,
+        1.0
+      ],
+      "z_index": 3,
+      "lock_aspect": true,
+      "pixel_snap": true,
+      "automation": {
+        "enabled": true,
+        "role": "enemy",
+        "physics": "static",
+        "collision_enabled": true,
+        "collision_shape": "bounds",
+        "tags": [
+          "archer",
+          "enemy"
+        ]
+      },
+      "rotation": 0.0,
+      "opacity": 1.0,
+      "visible": true,
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "group_id": "",
+      "resizable": true,
+      "events": [],
+      "clipping_mask": {},
+      "component_category": "sprite",
+      "ui_role": "",
+      "input_binding": ""
+    },
+    {
+      "id": "player",
+      "name": "PlayerArcher",
+      "code_name": "PlayerArcher",
+      "type": "Sprite2D",
+      "asset": "assets/spritefusion/player_archer.png",
+      "position": [
+        -72.0,
+        92.0
+      ],
+      "display_size": [
+        40.0,
+        54.0
+      ],
+      "scale": [
+        1.0,
+        1.0
+      ],
+      "z_index": 3,
+      "lock_aspect": true,
+      "pixel_snap": true,
+      "automation": {
+        "enabled": true,
+        "role": "player",
+        "physics": "static",
+        "collision_enabled": true,
+        "collision_shape": "bounds",
+        "tags": [
+          "archer",
+          "player"
+        ]
+      },
+      "rotation": 0.0,
+      "opacity": 1.0,
+      "visible": true,
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "group_id": "",
+      "resizable": true,
+      "events": [],
+      "clipping_mask": {},
+      "component_category": "character",
+      "ui_role": "Player",
+      "input_binding": ""
+    },
+    {
+      "id": "hud",
+      "name": "HUD",
+      "code_name": "HUD",
+      "type": "Rectangle2D",
+      "position": [
+        0.0,
+        -151.0
+      ],
+      "shape": {
+        "width": 240,
+        "height": 38,
+        "fill": "#0d1f2a",
+        "stroke": "#ae6e30",
+        "stroke_width": 2
+      },
+      "display_size": [
+        240.0,
+        38.0
+      ],
+      "scale": [
+        1.0,
+        1.0
+      ],
+      "z_index": 20,
+      "pixel_snap": true,
+      "rotation": 0.0,
+      "opacity": 1.0,
+      "visible": true,
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "group_id": "",
+      "resizable": true,
+      "lock_aspect": false,
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    }
+  ],
+  "groups": []
+}

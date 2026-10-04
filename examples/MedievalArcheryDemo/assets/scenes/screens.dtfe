@@ -1,0 +1,32 @@
+{
+  "format": "VXPEngine Screen Registry",
+  "format_version": 2,
+  "active_screen": "main",
+  "screens": [
+    {
+      "id": "title",
+      "name": "Title",
+      "file": "assets/scenes/title.dtfe",
+      "code_name": "Title"
+    },
+    {
+      "id": "help",
+      "name": "Instructions",
+      "file": "assets/scenes/help.dtfe",
+      "code_name": "Instructions"
+    },
+    {
+      "id": "main",
+      "name": "Battlefield",
+      "file": "assets/scenes/main.dtfe",
+      "code_name": "Battlefield"
+    },
+    {
+      "id": "result",
+      "name": "Results",
+      "file": "assets/scenes/result.dtfe",
+      "code_name": "Results"
+    }
+  ],
+  "transitions": []
+}

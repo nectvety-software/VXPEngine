@@ -1,0 +1,15 @@
+{
+  "api": "https://www.spritefusion.com/api/v1",
+  "style_anchor": "player_archer",
+  "assets": [
+    {"name":"player_archer","operation":"generate","size":64,"prompt":"Green-hooded medieval archer with brown leather equipment and a wooden bow, side view, compact readable silhouette, muted dusk palette"},
+    {"name":"enemy_archer","operation":"style-reference","size":64,"references":["player_archer"],"prompt":"Iron Stag armored archer with closed steel helmet, short forked antlers, ochre tunic, dark sleeves, small purple mantle and pale recurve bow, side view"},
+    {"name":"arrow","operation":"style-reference","size":16,"references":["player_archer"],"prompt":"Single medieval arrow with wooden shaft, pale arrowhead and ochre fletching, side view"},
+    {"name":"battlefield","operation":"style-reference","size":64,"references":["player_archer"],"prompt":"Dusk medieval valley scenery with pale sun, purple mountains, distant pines, castle silhouettes and flat grassy firing ground"},
+    {"name":"logo","operation":"style-reference","size":64,"references":["player_archer"],"prompt":"Crowned shield crest with two crossed arrows, dark teal bronze cream and gold medieval game emblem"}
+  ],
+  "animations": [
+    {"source":"player_archer","operation":"animate","prompt":"Subtle breathing idle with bow held ready, seamless loop","output_frames":4,"colors":24},
+    {"source":"enemy_archer","operation":"animate","prompt":"Subtle armored breathing idle with bow held ready, seamless loop","output_frames":4,"colors":24}
+  ]
+}

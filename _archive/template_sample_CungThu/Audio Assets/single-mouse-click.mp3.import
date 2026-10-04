@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b6n7iidpo3idv"
+path="res://.godot/imported/single-mouse-click.mp3-899f3a3c1d0a70b889fc914c437b1186.mp3str"
+
+[deps]
+
+source_file="res://Audio Assets/single-mouse-click.mp3"
+dest_files=["res://.godot/imported/single-mouse-click.mp3-899f3a3c1d0a70b889fc914c437b1186.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

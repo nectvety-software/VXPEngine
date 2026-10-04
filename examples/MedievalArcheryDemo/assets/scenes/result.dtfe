@@ -1,0 +1,34 @@
+{
+  "name": "Results",
+  "screen_id": "result",
+  "type": "VXPScreen",
+  "viewport": {
+    "type": "FitViewport",
+    "width": 240,
+    "height": 340,
+    "orientation": "portrait"
+  },
+  "children": [
+    {
+      "id": "camera2d",
+      "name": "Camera2D",
+      "type": "OrthographicCamera",
+      "position": [
+        0,
+        0
+      ],
+      "zoom": [
+        1,
+        1
+      ],
+      "code_name": "Camera2D",
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    }
+  ],
+  "groups": []
+}

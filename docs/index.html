@@ -1,0 +1,11 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><title>VXPEngine 2.0</title>
+<style>body{font:15px Segoe UI,sans-serif;max-width:900px;margin:40px auto;background:#121722;color:#d6deeb;line-height:1.6}code{color:#9ecbff}h1,h2{color:#fff}</style></head><body>
+<h1>VXPEngine 2.0</h1><p>IDE và SDK C/C++17 cho game/app S30+ MRE VXP 240×320.</p>
+<h2>Toolchain</h2><ul><li>w64devkit + ARM GCC</li><li>SDK MRE tích hợp</li>
+<li>Packer/resource/signing tools của coremre</li><li>Runtime giả lập duy nhất: VXPEmu</li></ul>
+<h2>Build</h2><pre><code>run_windows.bat check
+&lt;project&gt;\scripts\build_arm.bat
+&lt;project&gt;\scripts\run_vxpemu.bat</code></pre>
+<h2>Ký ứng dụng</h2><p>Build ARM Signed dùng khóa riêng theo App ID/Vendor,
+RSA-512/SHA-1 PKCS#1 v1.5, tự verify và xuất SHA-256.</p>
+</body></html>

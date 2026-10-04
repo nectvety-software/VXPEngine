@@ -1,0 +1,227 @@
+{
+  "name": "MainScreen",
+  "screen_id": "main",
+  "type": "VXPScreen",
+  "viewport": {
+    "type": "FitViewport",
+    "width": 320,
+    "height": 240,
+    "orientation": "landscape"
+  },
+  "engine": {
+    "core": "coremre",
+    "version": "2.0.0"
+  },
+  "children": [
+    {
+      "id": "camera2d",
+      "name": "Camera2D",
+      "type": "OrthographicCamera",
+      "position": [
+        0,
+        0
+      ],
+      "rotation": 0,
+      "zoom": [
+        1,
+        1
+      ],
+      "projection": "Pixel Perfect",
+      "preview_background": "Editor Grid",
+      "frame_perspective": {
+        "kind": "isometric",
+        "fit_mode": "camera_frame",
+        "editor_guide": true
+      },
+      "code_name": "Camera2D",
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "world",
+      "name": "WorldBackground",
+      "code_name": "WorldBackground",
+      "type": "Sprite2D",
+      "asset": "assets/map/background/isometric_grassland_320x240.png",
+      "position": [
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0
+      ],
+      "display_size": [
+        320.0,
+        240.0
+      ],
+      "z_index": -10,
+      "locked": true,
+      "lock_aspect": true,
+      "pixel_snap": true,
+      "component_category": "background",
+      "ui_role": "Background",
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {},
+      "rotation": 0.0,
+      "opacity": 1.0,
+      "visible": true,
+      "group_id": "",
+      "resizable": false,
+      "input_binding": ""
+    },
+    {
+      "id": "hall",
+      "name": "TownHall",
+      "code_name": "TownHall",
+      "type": "Sprite2D",
+      "asset": "assets/scenes/town_hall.png",
+      "position": [
+        30.0,
+        -12.0
+      ],
+      "scale": [
+        1.0,
+        1.0
+      ],
+      "display_size": [
+        72.0,
+        64.0
+      ],
+      "z_index": 2,
+      "lock_aspect": true,
+      "pixel_snap": true,
+      "anchor": {
+        "mode": "Bottom",
+        "x": 0.5,
+        "y": 1
+      },
+      "automation": {
+        "enabled": true,
+        "role": "static_obstacle",
+        "physics": "static",
+        "collision_enabled": true,
+        "collision_shape": "bounds",
+        "tags": [
+          "building"
+        ]
+      },
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "clipping_mask": {},
+      "rotation": 0.0,
+      "opacity": 1.0,
+      "visible": true,
+      "group_id": "",
+      "resizable": true,
+      "component_category": "sprite",
+      "ui_role": "",
+      "input_binding": ""
+    },
+    {
+      "id": "worker1",
+      "name": "Villager",
+      "code_name": "Villager",
+      "type": "Sprite2D",
+      "asset": "assets/scenes/villager.png",
+      "position": [
+        -46.0,
+        34.0
+      ],
+      "scale": [
+        1.0,
+        1.0
+      ],
+      "display_size": [
+        24.0,
+        32.0
+      ],
+      "z_index": 4,
+      "lock_aspect": true,
+      "pixel_snap": true,
+      "anchor": {
+        "mode": "Bottom",
+        "x": 0.5,
+        "y": 1
+      },
+      "automation": {
+        "enabled": true,
+        "role": "player",
+        "physics": "kinematic",
+        "collision_enabled": true,
+        "collision_shape": "bounds",
+        "tags": [
+          "unit",
+          "worker"
+        ]
+      },
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "clipping_mask": {},
+      "rotation": 0.0,
+      "opacity": 1.0,
+      "visible": true,
+      "group_id": "",
+      "resizable": true,
+      "component_category": "sprite",
+      "ui_role": "",
+      "input_binding": ""
+    },
+    {
+      "id": "hud",
+      "name": "ResourceBar",
+      "code_name": "ResourceBar",
+      "type": "Rectangle2D",
+      "position": [
+        0.0,
+        -106.0
+      ],
+      "shape": {
+        "width": 304,
+        "height": 22,
+        "fill": "#172235E8",
+        "stroke": "#C7A269",
+        "stroke_width": 1
+      },
+      "scale": [
+        1.0,
+        1.0
+      ],
+      "display_size": [
+        305.0,
+        23.0
+      ],
+      "z_index": 20,
+      "pixel_snap": true,
+      "anchor": {
+        "mode": "Top",
+        "x": 0.5,
+        "y": 0
+      },
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {},
+      "rotation": 0.0,
+      "opacity": 1.0,
+      "visible": true,
+      "group_id": "",
+      "resizable": true,
+      "lock_aspect": false
+    }
+  ],
+  "groups": []
+}

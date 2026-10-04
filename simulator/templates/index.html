@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=1280, initial-scale=1" />
+  <title>VXPEngine Frame Simulator — SDK Extensions</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <span class="brand-dot"></span>
+      <span class="brand-text">VXPEngine</span>
+      <span class="brand-sub">Frame Simulator · cắt giảm, không phải toàn bộ UI VXPEmu</span>
+    </div>
+    <nav class="header-actions">
+      <button id="btn-recheck" class="ghost" title="Quét lại môi trường">
+        <span class="ic">⟳</span> Quét lại
+      </button>
+      <button id="btn-install-all" class="primary" title="Cài mọi thành phần có thể cài tự động">
+        <span class="ic">⬇</span> Cài tất cả
+      </button>
+      <button id="btn-check-updates" class="primary" title="Kiểm tra cập nhật SDK/thư viện">
+        <span class="ic">↻</span> Check for updates
+      </button>
+    </nav>
+  </header>
+
+  <main class="layout">
+    <!-- ============================================================ KHUNG MÁY -->
+    <section class="frame-column" aria-label="Khung máy VXPEmu">
+      <div class="frame-card">
+
+        <!-- ============ Thanh công cụ 7 nút ============ -->
+        <div class="toolbar" role="toolbar" aria-label="Thanh công cụ VXPEmu">
+          <button class="tbtn" data-tip="Mở thư mục screenshot">
+            <span class="ic">▭</span>
+          </button>
+          <button class="tbtn" data-tip="Nạp ARM .vxp">
+            <span class="ic">↓</span>
+          </button>
+          <button class="tbtn" data-tip="Chụp màn hình">
+            <span class="ic">◉</span>
+          </button>
+          <button class="tbtn" data-tip="Mở thư mục build">
+            <span class="ic">▤</span>
+          </button>
+          <button class="tbtn record" data-tip="Dừng tác vụ">
+            <span class="ic">●</span>
+          </button>
+          <button class="tbtn" data-tip="Khởi động lại">
+            <span class="ic">↻</span>
+          </button>
+          <button class="tbtn" data-tip="Tách cửa sổ">
+            <span class="ic">⤢</span>
+          </button>
+        </div>
+
+        <!-- ============ Ô màn hình 240×320 ============ -->
+        <div class="screen-frame" aria-label="Màn hình 240×320">
+          <div class="screen-inner">
+            <div class="screen-overlay">
+              <div class="overlay-line">Case ID: <span>FB-1984-ZUL-10</span></div>
+              <div class="overlay-line">Subject: <span class="subject">G_M_A_S</span><span class="caret">|</span></div>
+            </div>
+            <div class="screen-illu" aria-hidden="true">
+              <!-- Bản đồ đô thị ý tưởng: lưới đường + chấm sáng — chỉ để trông
+                   như đang chạy. Không tải tài nguyên ngoài. -->
+              <svg viewBox="0 0 240 320" width="100%" height="100%">
+                <defs>
+                  <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                    <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#1A2030" stroke-width="1"/>
+                  </pattern>
+                  <radialGradient id="markerGlow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#5EEAD4" stop-opacity="0.9"/>
+                    <stop offset="100%" stop-color="#5EEAD4" stop-opacity="0"/>
+                  </radialGradient>
+                </defs>
+                <rect width="240" height="320" fill="#06080C"/>
+                <rect width="240" height="320" fill="url(#grid)"/>
+                <!-- Avenues -->
+                <path d="M 0 80 L 240 80 M 0 160 L 240 160 M 0 240 L 240 240" stroke="#0F172A" stroke-width="22"/>
+                <path d="M 60 0 L 60 320 M 120 0 L 120 320 M 180 0 L 180 320" stroke="#0F172A" stroke-width="22"/>
+                <!-- Streets -->
+                <path d="M 0 40 L 240 40 M 0 120 L 240 120 M 0 200 L 240 200 M 0 280 L 240 280"
+                      stroke="#0B1120" stroke-width="10"/>
+                <path d="M 30 0 L 30 320 M 90 0 L 90 320 M 150 0 L 150 320 M 210 0 L 210 320"
+                      stroke="#0B1120" stroke-width="10"/>
+                <!-- Subject trail -->
+                <circle cx="60" cy="40" r="14" fill="url(#markerGlow)"/>
+                <circle cx="60" cy="40" r="3" fill="#5EEAD4"/>
+                <circle cx="90" cy="80" r="14" fill="url(#markerGlow)"/>
+                <circle cx="90" cy="80" r="3" fill="#5EEAD4"/>
+                <circle cx="120" cy="120" r="14" fill="url(#markerGlow)"/>
+                <circle cx="120" cy="120" r="3" fill="#FB7185"/>
+                <circle cx="180" cy="200" r="14" fill="url(#markerGlow)"/>
+                <circle cx="180" cy="200" r="3" fill="#FB7185"/>
+                <circle cx="210" cy="240" r="14" fill="url(#markerGlow)"/>
+                <circle cx="210" cy="240" r="3" fill="#5EEAD4"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ Dòng nhắc Multi-tan ============ -->
+        <div class="multitan" id="multitan-hint">
+          Multi-tan:&nbsp;<b>2</b>=a·b·c &nbsp; <b>3</b>=d·e·f &nbsp;
+          <b>7</b>=p·q·r·s &nbsp; <b>0</b>=space
+        </div>
+
+        <!-- ============ Bàn phím MRE 20 phím ============ -->
+        <div class="keypad" role="group" aria-label="Bàn phím MRE">
+          <div class="keypad-grid">
+            <!-- Hàng 0: 1 . 2 abc . 3 def -->
+            <button class="k phone" data-char="1">1</button>
+            <button class="k phone" data-char="2">2 abc</button>
+            <button class="k phone" data-char="3">3 def</button>
+            <!-- Cụm điều hướng -->
+            <button class="k nav up" data-nav="up" title="Lên"><span class="ic">↑</span></button>
+            <button class="k soft" data-nav="left_soft" title="Phím mềm trái">—</button>
+
+            <!-- Hàng 1 -->
+            <button class="k phone" data-char="4">4 ghi</button>
+            <button class="k phone" data-char="5">5 jkl</button>
+            <button class="k phone" data-char="6">6 mno</button>
+            <button class="k nav" data-nav="left"  title="Trái"><span class="ic">←</span></button>
+            <button class="k nav ok" data-nav="ok"   title="OK / Xác nhận">OK</button>
+            <button class="k nav" data-nav="right" title="Phải"><span class="ic">→</span></button>
+
+            <!-- Hàng 2 -->
+            <button class="k phone" data-char="7">7 pqrs</button>
+            <button class="k phone" data-char="8">8 tuv</button>
+            <button class="k phone" data-char="9">9 wxyz</button>
+            <button class="k nav" data-nav="back" title="Quay lại"><span class="ic">⌫</span></button>
+            <button class="k nav" data-nav="down" title="Xuống"><span class="ic">↓</span></button>
+            <button class="k nav" data-nav="clear" title="Xoá ký tự"><span class="ic">↵</span></button>
+
+            <!-- Hàng 3: * . 0 . # -->
+            <button class="k phone wide" data-char="*">*</button>
+            <button class="k phone wide" data-char="0">0</button>
+            <button class="k phone wide" data-char="#">#</button>
+
+            <!-- Cột phải ngoài (vertical) -->
+            <div class="vert-keys" aria-hidden="false">
+              <button class="k tall" data-nav="underscore_ext" title="Phụ">_</button>
+              <button class="k tall" data-nav="back_arrow" title="Trở lại"><span class="ic">←</span></button>
+              <button class="k tall" data-nav="enter_hash" title="Nhập">#<span class="ic enter">↵</span></button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================ PANEL SDK -->
+    <aside class="sdk-panel" aria-label="Panel SDK và môi trường">
+      <div class="sdk-header">
+        <h2>Môi trường &amp; thư viện SDK</h2>
+        <p class="muted">
+          Danh sách mọi công cụ mà VXPEngine cần — giống khung
+          <b>Extensions</b> của VS Code. Mục có huy hiệu xanh đã cài,
+          vàng có thể cài tự động, đỏ cần làm thủ công.
+        </p>
+      </div>
+
+      <div class="toolbar-row">
+        <div class="search">
+          <span class="ic">⌕</span>
+          <input id="search" type="text" placeholder="Tìm thành phần (vd: w64devkit, VXPEmu, SDK)…" />
+        </div>
+        <select id="filter" aria-label="Bộ lọc">
+          <option value="all">Tất cả</option>
+          <option value="installed">Đã cài đặt</option>
+          <option value="missing">Chưa cài đặt</option>
+          <option value="installable">Có thể cài tự động</option>
+        </select>
+      </div>
+
+      <div id="summary" class="summary"></div>
+
+      <div id="extension-list" class="extension-list" aria-live="polite"></div>
+
+      <footer class="update-strip">
+        <div class="update-info" id="update-info">
+          Chưa kiểm tra cập nhật — bấm <b>Check for updates</b> ở trên.
+        </div>
+        <div class="log-tail" id="log-tail" hidden></div>
+      </footer>
+    </aside>
+  </main>
+
+  <!-- Toast -->
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

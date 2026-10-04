@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cl6853d5bu8vs"
+path="res://.godot/imported/health-pickup-6860.mp3-30faa23a9dc994c5dd6979ab2ea697e9.mp3str"
+
+[deps]
+
+source_file="res://Audio Assets/health-pickup-6860.mp3"
+dest_files=["res://.godot/imported/health-pickup-6860.mp3-30faa23a9dc994c5dd6979ab2ea697e9.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

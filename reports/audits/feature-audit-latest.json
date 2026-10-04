@@ -1,0 +1,32 @@
+{
+  "engine_version": "2.0.0",
+  "summary": {
+    "error": 2,
+    "warning": 1,
+    "info": 0,
+    "total": 3
+  },
+  "findings": [
+    {
+      "severity": "warning",
+      "code": "empty-handler",
+      "file": "widgets/vxpemu_panel.py",
+      "line": 211,
+      "message": "VxpEmuPanel.shutdown chưa có logic thực thi."
+    },
+    {
+      "severity": "error",
+      "code": "missing-callback",
+      "file": "widgets/vxpemu_panel.py",
+      "line": 43,
+      "message": "Signal nối tới self.run_requested, nhưng class VxpEmuPanel không định nghĩa handler này."
+    },
+    {
+      "severity": "error",
+      "code": "missing-callback",
+      "file": "widgets/vxpemu_panel.py",
+      "line": 50,
+      "message": "Signal nối tới self.stop_requested, nhưng class VxpEmuPanel không định nghĩa handler này."
+    }
+  ]
+}

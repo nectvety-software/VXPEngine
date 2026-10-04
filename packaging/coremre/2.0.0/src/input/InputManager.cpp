@@ -1,0 +1,196 @@
+/*
+ * Original work:
+ * Copyright (c) nbourre
+ * Licensed under the MIT License
+ *
+ * Modifications:
+ * Copyright (c) 2026 PixelRoot32
+ *
+ * This file remains licensed under the MIT License.
+ */
+#include "input/InputConfig.h"
+#include "input/InputManager.h"
+
+#ifdef PLATFORM_NATIVE
+#include <SDL2/SDL.h>
+#endif
+
+namespace pixelroot32::input {
+
+    InputManager::InputManager(const InputConfig& config) 
+        : config(config)
+        #ifdef PLATFORM_NATIVE
+        , mouseButtonDown(false)
+        #endif
+    {}
+
+    void InputManager::init(){
+        if (config.count <= 0 || config.count > MAX_BUTTONS) return;
+
+        // Initialize button pins - arrays are pre-initialized to zero/false
+        // Set all pins as INPUT_PULLUP
+        for (size_t i = 0; i < config.count; i++) {
+            #ifdef PLATFORM_NATIVE
+                buttonPins[i] = config.buttonNames[i];
+            #else
+                buttonPins[i] = config.inputPins[i];
+            #endif
+            pinMode(buttonPins[i], INPUT_PULLUP);
+        }
+    }
+
+    void InputManager::update(unsigned long dt, const uint8_t* keyboardState) {
+        if (config.count <= 0) return;
+
+        for (size_t i = 0; i < config.count; i++) {
+            // Reset stateChanged at the start of each update for every button
+            stateChanged[i] = false;
+
+            // Check if in debounce time window for each button
+            if (waitTime[i] >= dt) {
+                waitTime[i] -= dt;
+                continue;
+            }
+        
+
+            waitTime[i] = 0;
+            bool reading = (keyboardState[buttonPins[i]]);
+            
+            if (reading != buttonState[i]) {
+                // Button pressed or released.
+                waitTime[i] = 100;  // Debounce delay
+                buttonState[i] = reading;
+                stateChanged[i] = true;
+            }
+        }   
+    }
+
+    #ifndef PLATFORM_NATIVE
+    void InputManager::update(unsigned long dt) {
+        if (config.count <= 0) return;
+
+        for (size_t i = 0; i < config.count; i++) {
+            // Reset stateChanged at the start of each update for every button
+            stateChanged[i] = false;
+
+            // Check if in debounce time window for each button
+            if (waitTime[i] >= dt) {
+                waitTime[i] -= dt;
+                continue;
+            }
+
+            waitTime[i] = 0;
+            bool reading = digitalRead(buttonPins[i]) == LOW;
+            
+            if (reading != buttonState[i]) {
+                // Button pressed or released.
+                waitTime[i] = 100;  // Debounce delay
+                buttonState[i] = reading;
+                stateChanged[i] = true;
+            }
+        }
+    }
+    #endif
+
+    //has the button been pressed
+    bool InputManager::isButtonPressed(uint8_t buttonIndex) const {
+        if (buttonIndex >= config.count) return false;
+
+        return buttonState[buttonIndex] && stateChanged[buttonIndex];
+    }
+
+    //has the button been released
+    bool InputManager::isButtonReleased(uint8_t buttonIndex) const {
+        if (buttonIndex >= config.count) return false;
+
+        return !buttonState[buttonIndex] && stateChanged[buttonIndex];
+    }
+
+    //is the button currently being held
+    bool InputManager::isButtonDown(uint8_t buttonIndex) const {
+        if (buttonIndex >= config.count) return false;
+
+        return buttonState[buttonIndex];
+    }
+
+    //has the button been pressed and released
+    bool InputManager::isButtonClicked(uint8_t buttonIndex) const {
+        if (buttonIndex >= config.count) return false;
+
+        // Function to look for press and release
+        if (clickFlag[buttonIndex] && isButtonReleased(buttonIndex)) {
+            clickFlag[buttonIndex] = false;
+            return true;
+        }
+
+        if (isButtonPressed(buttonIndex)) {
+            clickFlag[buttonIndex] = true;
+        }
+        return false;    
+    }
+
+    // =========================================================================
+    // Touch Event API Implementation
+    // =========================================================================
+
+    uint8_t InputManager::getTouchEvents(TouchEvent* buffer, uint8_t maxCount) {
+        return touchDispatcher.getEvents(buffer, maxCount);
+    }
+
+    bool InputManager::hasTouchEvents() const {
+        return touchDispatcher.hasEvents();
+    }
+
+    TouchState InputManager::getTouchState(uint8_t touchId) const {
+        return touchDispatcher.getTouchState(touchId);
+    }
+
+    #ifdef PLATFORM_NATIVE
+    void InputManager::processSDLEvent(const void* sdlEvent) {
+        const SDL_Event* e = static_cast<const SDL_Event*>(sdlEvent);
+        
+        // Handle mouse events - map to touch
+        switch (e->type) {
+            case SDL_MOUSEBUTTONDOWN:
+                if (e->button.button == SDL_BUTTON_LEFT) {
+                    mouseButtonDown = true;
+                    touchDispatcher.processTouch(0, true, 
+                        static_cast<int16_t>(e->button.x),
+                        static_cast<int16_t>(e->button.y),
+                        e->button.timestamp);
+                }
+                break;
+                
+            case SDL_MOUSEBUTTONUP:
+                if (e->button.button == SDL_BUTTON_LEFT) {
+                    mouseButtonDown = false;
+                    touchDispatcher.processTouch(0, false,
+                        static_cast<int16_t>(e->button.x),
+                        static_cast<int16_t>(e->button.y),
+                        e->button.timestamp);
+                }
+                break;
+                
+            case SDL_MOUSEMOTION:
+                // Only process motion as drag if mouse button is held
+                if (mouseButtonDown) {
+                    touchDispatcher.processTouch(0, true,
+                        static_cast<int16_t>(e->motion.x),
+                        static_cast<int16_t>(e->motion.y),
+                        e->motion.timestamp);
+                }
+                break;
+                
+            default:
+                // Not a mouse event - ignore
+                break;
+        }
+    }
+    #endif
+
+    #ifndef PLATFORM_NATIVE
+    void InputManager::injectTouchPoint(int16_t x, int16_t y, bool pressed, uint8_t id, uint32_t timestamp) {
+        touchDispatcher.processTouch(id, pressed, x, y, timestamp);
+    }
+    #endif
+}

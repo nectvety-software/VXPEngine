@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ggvmsioat4h2"
+path="res://.godot/imported/medieval-waltz-music-412748.mp3-51cb5f6e4613b2b57b15be623c9179fd.mp3str"
+
+[deps]
+
+source_file="res://Audio Assets/Music/medieval-waltz-music-412748.mp3"
+dest_files=["res://.godot/imported/medieval-waltz-music-412748.mp3-51cb5f6e4613b2b57b15be623c9179fd.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

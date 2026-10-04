@@ -1,0 +1,135 @@
+# VXPEngine 2.0
+
+IDE và SDK C/C++17 để phát triển game, ứng dụng MRE VXP cho điện thoại S30+.
+Frame Camera2D được khóa theo đúng hai hướng 240×320 và 320×240. Runtime giả
+lập duy nhất là **VXPEmu**.
+
+## Chuỗi công cụ
+
+- `run_windows.bat`: mở IDE, tự sửa/tạo `.venv` và cài dependency còn thiếu.
+- w64devkit: CMake, GNU Make/Ninja và compiler host.
+- ARM GCC `arm-none-eabi`: tạo ELF32 ARMv5TE cho MRE.
+- `engine/coremre/sdk/mre`: headers và import libraries MRE tích hợp.
+- `engine/coremre/tools/vxp_resource.py`: tạo `.res` chuẩn MRE.
+- `engine/coremre/tools/vxp_pack.py`: chèn `.vm_res`, tags và trailer để tạo `.vxp`.
+- `engine/coremre/tools/vxp_signer.py`: chuẩn hóa App ID/Vendor, ký RSA-512/SHA-1
+  PKCS#1 v1.5, tự xác minh và xuất SHA-256.
+- VXPEmu: chạy file ARM `.vxp` thật trong cửa sổ Nokia 225 riêng, có màn hình
+  240×320/320×240, phím MRE và thanh công cụ chạy/dừng, nạp VXP, chụp ảnh,
+  mở thư mục, quay MP4, xoay và toàn màn hình. Tab `VXPEmu`
+  của Bottom Panel là bảng chẩn đoán trực tiếp gồm thanh ghi ARM, CPSR, byte mã
+  quanh PC, heap MRE, FPS đo thực, TestAPI và runtime log.
+
+Pipeline không phụ thuộc bộ đóng gói hoặc trình giả lập cũ. Mỗi project có App ID
+riêng. Khi build signed lần đầu, VXPEngine tạo một khóa riêng theo cặp App ID/Vendor
+trong `signing/apps/`; khóa bí mật không được chép vào project.
+
+> Khóa RSA-512 mới chỉ chạy trên firmware tin cậy public key tương ứng. Firmware
+> thương mại nguyên bản có thể từ chối identity tự tạo; đây là giới hạn trust store
+> của thiết bị, không phải lỗi chữ ký.
+
+## Chạy
+
+```bat
+run_windows.bat
+```
+
+Các lệnh hữu ích:
+
+```bat
+run_windows.bat check
+run_windows.bat deps
+<project>\scripts\build_arm.bat
+<project>\scripts\run_vxpemu.bat
+```
+
+## Bố cục chính
+
+```text
+app/                         IDE PySide6
+engine/coremre/              core C++17 cho MRE
+engine/coremre/sdk/          SDK headers/libs và cấu hình toolchain
+engine/coremre/tools/        pack resource, pack VXP, signer
+packaging/coremre/2.0.0/     core dùng chung đã ký và kiểm tra toàn vẹn
+signing/apps/                identity riêng theo App ID/Vendor
+template_blank/              mẫu project S30+ MRE VXP
+ai/skills/vxpengine-agent/   SKILL.md, PROMPT.md và tài liệu cho AI Agents
+.mimocode/skills/            skill nạp bởi MiMo Desktop (bản sao định tuyến)
+```
+
+Dự án mới dùng layout v2: `src/` và `assets/` thuộc người dùng, pipeline nội bộ
+nằm trong `.vxpe/`, còn `template_blank/template.manifest.json` điều khiển tạo và
+cập nhật động. VXPEngine chỉ cập nhật tệp managed chưa bị sửa cục bộ; code/asset
+người dùng không bị ghi đè.
+
+Build ARM signed trong IDE thực hiện: compile → resource pack → VXP pack → tạo/đọc
+identity riêng → ký → verify → ghi checksum. Build thường tạo VXP chưa ký để thử
+trên môi trường development.
+
+Hộp **Tạo dự án VXP mới** cho chọn trực tiếp `240×320 — Dọc` hoặc
+`320×240 — Ngang`; descriptor, scene, Camera2D và cửa sổ Nokia dùng đồng bộ lựa chọn.
+
+## UI Design và Pixel Paint
+
+- `TitleSet / Component Library` có tab UI với Canvas, Button, Label, Checkbox,
+  TextBox, Image, ProgressBar, Slider và Switch. Kéo hoặc nhấp đúp để đặt vào
+  Camera2D; node và C bindings được cập nhật tự động từ scene `.dtfe`.
+- Tab UI có thêm hai background pixel dựng sẵn cho 240×320 và 320×240. Khi kéo
+  vào Camera2D, nền tự căn giữa, khớp framebuffer, khóa transform và nằm sau các
+  thành phần khác.
+- Tab **Frame Perspective** có bốn guide editor-only: Side-Scroller, Top-Down,
+  góc 3/4 và Isometric 2:1. Kéo preset vào Camera2D sẽ tự khít 240×320/320×240,
+  lưu projection, góc camera và trục di chuyển vào `.dtfe`, đồng thời sinh macro C.
+- Mọi ảnh bên trong `assets/` đều xuất hiện trong tab Assets. Vì vậy ảnh pixel vừa
+  **Áp dụng & lưu** trong Editor Assets có thể được kéo vào Camera2D ngay, không tự
+  chèn vào scene khi người dùng chưa yêu cầu.
+- Ảnh từ thư viện mẫu hoặc ngoài project được chép một lần vào
+  `assets/imported/` trước khi scene tham chiếu, tránh đường dẫn tuyệt đối và file
+  trùng lặp.
+- Kéo asset luôn tạo Sprite2D mới; thao tác thay ảnh chỉ chạy từ lệnh **Thay hình**
+  riêng, nên một background phủ toàn frame không còn chặn việc thả asset khác.
+- Layer được xếp như Photoshop: hàng trên vẽ phía trước, hàng dưới vẽ phía sau;
+  Camera2D được ghim ngoài z-order. Các node `Vùng_vẽ`/Canvas cũ tự chuyển thành
+  guide trong suốt nên không còn che background khi nền được đưa xuống dưới cùng.
+- Smart Guides dùng snap mềm: kéo tự do giữa các điểm lưới, chỉ hít khi
+  gần tâm/mép. Ngưỡng bám và ngưỡng nhả tách biệt chống rung; đường
+  dóng gạch nét xanh/vàng hiển thị khi thẳng hàng với Camera2D hoặc node khác.
+- `Paint Tile` vẽ theo lưới 16 px tương đối với góc Camera2D, giới hạn hoàn toàn
+  trong frame 240×320 hoặc 320×240 và lưu dữ liệu terrain/rule tile vào `.dtfe`.
+
+### Inspector chuyên dụng cho game/app 2D
+
+- Nhập trực tiếp **Size W/H (px)** cho sprite, shape và text; kích thước logic
+  không bị thay đổi khi xoay node.
+- Có **khóa tỉ lệ**, **Pixel snap**, chín vị trí **Anchor**, layer/Z-index,
+  opacity, blend, tint, collision shape và physics.
+- Các thuộc tính được lưu vào `.dtfe` và sinh macro trong
+  `src/scene_bindings.h`, không phải controls minh họa.
+
+Asset Editor có thêm canvas preset QVGA, unit/building isometric và style
+**Pixel Art · Isometric RTS**. Hai project kiểm thử hoàn chỉnh nằm trong
+`examples/PocketToolkitDemo` (240×320) và `examples/IsometricOutpostDemo`
+(320×240).
+
+Chạy `run_windows.bat test` để tự động kiểm tra Inspector, Asset Editor,
+Component Library, DTFE/C bindings, simulator, SDK/VXPEmu và build ARM của cả hai project mẫu.
+
+## Đóng gói Windows
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements-build.txt
+powershell -ExecutionPolicy Bypass -File packaging\windows\build_release.ps1
+```
+
+Kết quả là một file `dist-installer/VXPEngine-2.0.0-Setup.exe`. Bộ cài theo
+tài khoản Windows, không yêu cầu quyền Administrator, chứa GUI không console,
+w64devkit, ARM GCC, MRE SDK, VXPEmu và media runtime. Pipeline tự quét dependency,
+Bandit, private key, chạy thử GUI/SDK và build game ARM trước khi tạo SHA-256.
+Khóa ký VXP không được đóng gói; mỗi App ID/vendor tự tạo khóa trong
+`%LOCALAPPDATA%\VXPEngine\signing`.
+
+Bottom Panel/Console mặc định ẩn và không tự chiếm chỗ khi Run/VXPEmu;
+dùng `Ctrl+J`, menu View hoặc nút terminal trên status bar để mở. UI Design
+có vỏ máy bao quanh Camera2D. Background mặc định được ghim đúng
+240×320/320×240; mọi component được kẹp trong frame. Menu **Căn chỉnh**
+trên toolbar và menu chuột phải hỗ trợ căn mép/tâm, phân bố và căn theo Camera2D.

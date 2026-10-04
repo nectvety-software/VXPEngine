@@ -1,0 +1,39 @@
+/*
+ * Copyright (c) 2026 PixelRoot32
+ * Licensed under the MIT License
+ */
+#pragma once
+
+#include "core/EngineModules.h"
+#if PIXELROOT32_ENABLE_PARTICLES
+
+#include <cstdint>
+#include "graphics/Color.h"
+#include "math/Scalar.h"
+#include "math/Vector2.h"
+
+namespace pixelroot32::graphics::particles {
+
+/**
+ * @struct Particle
+ * @brief Represents a single particle in the particle system.
+ *
+ * Designed to be lightweight to fit many instances in memory (RAM optimization).
+ */
+struct Particle {
+    pixelroot32::math::Vector2 position; ///< Current position.
+    pixelroot32::math::Vector2 velocity; ///< Velocity vector.
+
+    uint16_t color;      ///< Current color (RGB565).
+    Color startColor; ///< Initial color for interpolation.
+    Color endColor;   ///< Final color for interpolation.
+
+    uint8_t life;    ///< Current remaining life (frames or ticks).
+    uint8_t maxLife; ///< Total life duration.
+
+    bool active = false; ///< Whether the particle is currently in use.
+};
+
+} // namespace pixelroot32::graphics::particles
+
+#endif // PIXELROOT32_ENABLE_PARTICLES

@@ -1,0 +1,29 @@
+{
+  "format": "VXPEngine VXP Project",
+  "format_version": 1,
+  "engine_version": "2.0.0",
+  "name": "IsometricOutpostDemo",
+  "app_name": "iso_outpost",
+  "developer": "VXPstore",
+  "template": "blank",
+  "created_at": "2026-09-12T23:25:09.727766+00:00",
+  "modified_at": "2026-09-13T00:11:29.568983+00:00",
+  "screen": {
+    "width": 320,
+    "height": 240,
+    "type": "MRE QVGA Landscape"
+  },
+  "mre": {
+    "sdk_version": "3.0",
+    "api": "File Audio ProMng",
+    "ram_kb": "800",
+    "imsi": "91234567890",
+    "app_id": "6049873"
+  },
+  "app_id": "6049873",
+  "signing": {
+    "owner": "VXPEngine",
+    "cert_id": "1",
+    "app_id_source": "engine"
+  }
+}

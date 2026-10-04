@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ba21plplyqgax"
+path="res://.godot/imported/spear_thrust3.mp3-391c198fbca2af31bf5bbce1e3d451fc.mp3str"
+
+[deps]
+
+source_file="res://Audio Assets/spear_thrust3.mp3"
+dest_files=["res://.godot/imported/spear_thrust3.mp3-391c198fbca2af31bf5bbce1e3d451fc.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

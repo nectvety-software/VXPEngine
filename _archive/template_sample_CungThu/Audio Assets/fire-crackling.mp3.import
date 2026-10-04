@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c5gyr718ooos0"
+path="res://.godot/imported/fire-crackling.mp3-5d60c6891d40f93613d6b0276855cb8d.mp3str"
+
+[deps]
+
+source_file="res://Audio Assets/fire-crackling.mp3"
+dest_files=["res://.godot/imported/fire-crackling.mp3-5d60c6891d40f93613d6b0276855cb8d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

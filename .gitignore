@@ -1,0 +1,36 @@
+build*/
+out/
+.vs/
+*.user
+*.vcxproj.filters
+*.vc.vxp
+*.vxp
+*.res
+*.map
+Release/
+Debug/
+x64/
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Agent / tool state
+.freebuff/
+.workbuddy-ai/
+
+# Secrets: private signing keys (public keys stay tracked)
+signing/**/private.pem
+signing/*-key*.pem
+
+# Build artifacts & binaries — không push (vượt giới hạn 100MB/file của GitHub)
+dist-installer/
+*.msi
+*.wixpdb
+*.exe
+_archive/obsolete-installers-*/
+_archive/installer-debug-*/

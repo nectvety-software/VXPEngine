@@ -1,0 +1,226 @@
+/*
+ * Copyright (c) 2026 PixelRoot32
+ * Licensed under the MIT License
+ */
+#pragma once
+
+#if defined(ARDUINO_ARCH_ESP32)
+#include <sdkconfig.h>
+#endif
+
+// =============================================================================
+// Feature Defaults
+// =============================================================================
+// The following defines enable or disable optional features in the engine.
+// By default, all features are enabled.
+
+// -----------------------------------------------------------------------------
+// Audio Feature Defaults
+// -----------------------------------------------------------------------------
+// By default, the audio system is enabled.
+#if !defined(PIXELROOT32_ENABLE_AUDIO)
+#define PIXELROOT32_ENABLE_AUDIO 1
+#endif
+
+// -----------------------------------------------------------------------------
+// Physics Feature Defaults
+// -----------------------------------------------------------------------------
+// By default, the physics system is enabled.
+#if !defined(PIXELROOT32_ENABLE_PHYSICS)
+#define PIXELROOT32_ENABLE_PHYSICS 1
+#endif
+
+// -----------------------------------------------------------------------------
+// UI System Feature Defaults
+// -----------------------------------------------------------------------------
+// By default, the UI system is enabled.
+#if !defined(PIXELROOT32_ENABLE_UI_SYSTEM)
+#define PIXELROOT32_ENABLE_UI_SYSTEM 1
+#endif
+
+// -----------------------------------------------------------------------------
+// Particle System Feature Defaults
+// -----------------------------------------------------------------------------   
+// By default, the particle system is enabled.
+#if !defined(PIXELROOT32_ENABLE_PARTICLES)
+#define PIXELROOT32_ENABLE_PARTICLES 1
+#endif
+
+// -----------------------------------------------------------------------------
+// Camera Effects Feature Defaults
+// -----------------------------------------------------------------------------
+// By default, the camera effects system is enabled.
+#if !defined(PIXELROOT32_ENABLE_CAMERA_EFFECTS)
+#define PIXELROOT32_ENABLE_CAMERA_EFFECTS 1
+#endif
+
+// -----------------------------------------------------------------------------
+// Scene Transition Effects Feature Defaults
+// -----------------------------------------------------------------------------
+// By default, scene transition effects (fade, iris) are enabled.
+#if !defined(PIXELROOT32_ENABLE_SCENE_TRANSITIONS)
+#define PIXELROOT32_ENABLE_SCENE_TRANSITIONS 1
+#endif
+
+// -----------------------------------------------------------------------------
+// Static tilemap framebuffer cache (4bpp direct sprite buffer path)
+// -----------------------------------------------------------------------------
+// When enabled, StaticTilemapLayerCache can snapshot the logical 8bpp framebuffer
+// after drawing “static” layers and restore it on subsequent frames until the
+// camera moves or the cache is invalidated. Set to 0 per env to force the
+// full-draw fallback on low-RAM targets or when profiling without the fast path.
+#if !defined(PIXELROOT32_ENABLE_STATIC_TILEMAP_FB_CACHE)
+#define PIXELROOT32_ENABLE_STATIC_TILEMAP_FB_CACHE 1
+#endif
+
+// -----------------------------------------------------------------------------
+// Gameplay Framework Feature Defaults
+// -----------------------------------------------------------------------------
+// By default, the gameplay framework capabilities are disabled. No existing
+// example uses them, so games that do not opt in pay zero RAM/flash cost.
+#if !defined(PIXELROOT32_ENABLE_GAMEPLAY_EVENTS)
+#define PIXELROOT32_ENABLE_GAMEPLAY_EVENTS 0
+#endif
+
+#if !defined(PIXELROOT32_ENABLE_INTERACTION_TRIGGERS)
+#define PIXELROOT32_ENABLE_INTERACTION_TRIGGERS 0
+#endif
+
+#if !defined(PIXELROOT32_ENABLE_SPATIAL_QUERY)
+#define PIXELROOT32_ENABLE_SPATIAL_QUERY 0
+#endif
+
+#if !defined(PIXELROOT32_ENABLE_DEPTH_SORT)
+#define PIXELROOT32_ENABLE_DEPTH_SORT 0
+#endif
+
+#if !defined(PIXELROOT32_ENABLE_GAMEPLAY_STATE_MACHINE)
+#define PIXELROOT32_ENABLE_GAMEPLAY_STATE_MACHINE 0
+#endif
+
+#if !defined(PIXELROOT32_ENABLE_GAMEPLAY_OBJECT_POOL)
+#define PIXELROOT32_ENABLE_GAMEPLAY_OBJECT_POOL 0
+#endif
+
+#if !defined(PIXELROOT32_ENABLE_GAMEPLAY_GRID_SPACE)
+#define PIXELROOT32_ENABLE_GAMEPLAY_GRID_SPACE 0
+#endif
+
+#if !defined(PIXELROOT32_ENABLE_GAMEPLAY_ROOM)
+#define PIXELROOT32_ENABLE_GAMEPLAY_ROOM 0
+#endif
+
+#if !defined(PIXELROOT32_ENABLE_CAMERA_TWEEN)
+#define PIXELROOT32_ENABLE_CAMERA_TWEEN 0
+#endif
+
+// No dependency guard is declared for the three flags above: unlike
+// interaction triggers and spatial queries, none of the state machine, the
+// object pool, or the grid space helper includes any physics-gated header,
+// so all three are usable with PIXELROOT32_ENABLE_PHYSICS=0 and are
+// independent of each other.
+
+// Interaction triggers and spatial queries are built on top of CollisionSystem
+// and SpatialGrid, which only exist when physics is enabled (see
+// include/core/Scene.h:213-216). Fail the build loudly instead of silently
+// disabling the flag.
+#if (PIXELROOT32_ENABLE_INTERACTION_TRIGGERS || PIXELROOT32_ENABLE_SPATIAL_QUERY) && !PIXELROOT32_ENABLE_PHYSICS
+#error "PIXELROOT32_ENABLE_INTERACTION_TRIGGERS and PIXELROOT32_ENABLE_SPATIAL_QUERY require PIXELROOT32_ENABLE_PHYSICS=1 (CollisionSystem and SpatialGrid only exist when physics is enabled)"
+#endif
+
+// =============================================================================
+// Target-dependent feature defaults
+// =============================================================================
+// This header is the single place for defaults that depend on the build target
+// (classic ESP32, ESP32-S3, native, etc.). Optional drivers/backends that are
+// only available on certain targets get their enable defines set here by default.
+
+// -----------------------------------------------------------------------------
+// Core Affinity Defaults
+// -----------------------------------------------------------------------------
+// Default core for audio processing tasks (pinned to Core 0 by default on ESP32)
+#ifndef PR32_DEFAULT_AUDIO_CORE
+#define PR32_DEFAULT_AUDIO_CORE 0
+#endif
+
+// Default core for the main engine loop (pinned to Core 1 by default on ESP32)
+#ifndef PR32_DEFAULT_MAIN_CORE
+#define PR32_DEFAULT_MAIN_CORE 1
+#endif
+
+// -----------------------------------------------------------------------------
+// Display Driver Selection
+// -----------------------------------------------------------------------------
+// Support for multiple display drivers. TFT_eSPI is the default for ESP32.
+// U8G2 support can be enabled via PIXELROOT32_USE_U8G2.
+#if defined(ARDUINO_ARCH_ESP32)
+    #if defined(PIXELROOT32_USE_U8G2)
+        // U8G2 active, we usually disable TFT_eSPI to save space
+        #define PIXELROOT32_USE_U8G2_DRIVER 1
+    #else
+        #ifndef PIXELROOT32_NO_TFT_ESPI
+            #define PIXELROOT32_USE_TFT_ESPI_DRIVER 1
+        #endif
+    #endif
+#endif
+
+// -----------------------------------------------------------------------------
+// TFT_eSPI present path (DMA line batches)
+// -----------------------------------------------------------------------------
+// Rows of RGB565 assembled per CPU step before pushPixelsDMA. Larger = fewer
+// DMA transactions, more internal RAM per line buffer. Override per board.
+#if defined(PIXELROOT32_USE_TFT_ESPI_DRIVER)
+#if !defined(PIXELROOT32_TFT_ESPI_LINES_PER_BLOCK)
+#define PIXELROOT32_TFT_ESPI_LINES_PER_BLOCK 60
+#endif
+#if !defined(PIXELROOT32_TFT_ESPI_LINES_PER_BLOCK_FALLBACK)
+#define PIXELROOT32_TFT_ESPI_LINES_PER_BLOCK_FALLBACK 30
+#endif
+
+// 12-bit (RGB444) colour on the wire. Off by default.
+//
+// The display SPI clock is capped at 40 MHz by hardware, so a full-frame push
+// is bus bound: 240x240 RGB565 is 115,200 bytes = 23.04 ms = a 43.4 FPS
+// ceiling. The framebuffer is 8bpp RGB332, so a frame carries at most 256
+// distinct colours and all of them survive RGB444 without a collision (see
+// include/graphics/Rgb444.h). Sending 12 bits instead of 16 removes 25% of the
+// bus time (17.28 ms = 57.9 FPS) and shrinks each DMA line buffer by 25%.
+//
+// Set to 1 per board once the panel is known to accept MIPI DCS COLMOD 0x03.
+// The driver silently keeps RGB565 when the physical width is not a multiple
+// of 4, because the packed stream would then not end on a whole 16-bit DMA
+// word for every block.
+#if !defined(PIXELROOT32_TFT_12BIT_COLOR)
+#define PIXELROOT32_TFT_12BIT_COLOR 0
+#endif
+#endif
+
+// -----------------------------------------------------------------------------
+// Audio Backend Selection
+// -----------------------------------------------------------------------------
+
+// ESP32 DAC audio backend (classic ESP32 only)
+// Internal DAC (GPIO 25/26) exists only on classic ESP32.
+// NOT available on: ESP32-S3, ESP32-C3, ESP32-S2, ESP32-C6
+// Override: -D PIXELROOT32_NO_DAC_AUDIO to disable on classic ESP32.
+#if defined(ARDUINO_ARCH_ESP32) && defined(CONFIG_IDF_TARGET_ESP32) && !defined(PIXELROOT32_NO_DAC_AUDIO)
+#define PIXELROOT32_USE_DAC_AUDIO 1
+#endif
+
+// ESP32 I2S audio backend (Available on most ESP32 variants)
+// Available on: ESP32 Classic, ESP32-S3, ESP32-C3, ESP32-S2, ESP32-C6
+// Override: -D PIXELROOT32_NO_I2S_AUDIO to disable.
+
+// =============================================================================
+// Platform-Specific Notes
+// =============================================================================
+// FPU (Floating Point Unit) Availability:
+// - Available: ESP32 Classic, ESP32-S3, Native platforms
+// - Not Available: ESP32-C3, ESP32-S2, ESP32-C6 (uses Fixed16 automatically)
+//
+// When FPU is not available, the engine automatically uses Fixed16 math
+// instead of float for the Scalar type, providing ~30% performance improvement
+// over software floating-point emulation.
+#if defined(ARDUINO_ARCH_ESP32) && !defined(PIXELROOT32_NO_I2S_AUDIO)
+#define PIXELROOT32_USE_I2S_AUDIO 1
+#endif

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*"
+           Name="VXPEngine"
+           Language="1066"
+           Codepage="1252"
+           Version="2.0.0"
+           Manufacturer="VXPEngine"
+           UpgradeCode="6D6D3C60-EE09-4B5B-98E2-9AA68A12A07B">
+    <Package InstallerVersion="500" Compressed="yes" InstallScope="perMachine" Platform="x64" SummaryCodepage="1252"
+             Description="VXPEngine IDE, coremre SDK and VXPEmu" />
+    <MajorUpgrade DowngradeErrorMessage="A newer version of VXPEngine is already installed."
+                  AllowSameVersionUpgrades="yes"
+                  Schedule="afterInstallInitialize" />
+    <MediaTemplate EmbedCab="yes" CompressionLevel="high" />
+
+    <Property Id="ARPNOMODIFY" Value="1" />
+    <Property Id="ARPPRODUCTICON" Value="VXPEngineIcon" />
+    <Icon Id="VXPEngineIcon" SourceFile="$(var.ProjectRoot)\app\resources\resources\app-icon.ico" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFiles64Folder">
+        <Directory Id="INSTALLFOLDER" Name="VXPEngine" />
+      </Directory>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="VXPEngine" />
+      </Directory>
+      <Directory Id="DesktopFolder" />
+    </Directory>
+
+    <DirectoryRef Id="INSTALLFOLDER">
+      <Component Id="ApplicationShortcuts" Guid="F4AFBF15-9811-4497-B8EA-901B3E7931DE">
+        <Shortcut Id="StartMenuShortcut" Directory="ApplicationProgramsFolder"
+                  Name="VXPEngine" WorkingDirectory="INSTALLFOLDER"
+                  Target="[INSTALLFOLDER]VXPEngine.exe" Icon="VXPEngineIcon" />
+        <Shortcut Id="DesktopShortcut" Directory="DesktopFolder"
+                  Name="VXPEngine" WorkingDirectory="INSTALLFOLDER"
+                  Target="[INSTALLFOLDER]VXPEngine.exe" Icon="VXPEngineIcon" />
+        <RemoveFolder Id="RemoveApplicationProgramsFolder" Directory="ApplicationProgramsFolder" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="Software\VXPEngine\Installer"
+                       Name="InstallDir" Type="string" Value="[INSTALLFOLDER]" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+
+    <Feature Id="Complete" Title="VXPEngine" Level="1" Display="expand">
+      <ComponentGroupRef Id="VXPEngineFiles" />
+      <ComponentRef Id="ApplicationShortcuts" />
+    </Feature>
+  </Product>
+</Wix>
