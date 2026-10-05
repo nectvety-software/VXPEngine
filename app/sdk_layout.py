@@ -95,9 +95,15 @@ def status() -> dict[str, tuple[Path, bool]]:
     mre = mre_sdk_root()
     pack = packaging_tools_root()
     emulator = vxpemu_executable()
+    arm_bin = arm / "bin"
+    arm_ready = (
+        (arm_bin / "arm-none-eabi-gcc.exe").is_file()
+        and (arm_bin / "arm-none-eabi-g++.exe").is_file()
+        and (arm_bin / "zlib1.dll").is_file()
+    )
     return {
         "w64devkit": (w64, (w64 / "bin" / "cmake.exe").is_file() and (w64 / "bin" / "make.exe").is_file()),
-        "arm_gcc": (arm, (arm / "bin" / "arm-none-eabi-gcc.exe").is_file()),
+        "arm_gcc": (arm, arm_ready),
         "mre_sdk": (mre, (mre / "include").is_dir() and (mre / "lib").is_dir()),
         "packaging": (pack, (pack / "vxp_pack.py").is_file() and (pack / "vxp_resource.py").is_file()),
         "vxpemu": (emulator, emulator.is_file()),

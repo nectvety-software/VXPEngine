@@ -6,10 +6,15 @@ function(add_pack_vxp TARGET_NAME)
         ${ARGN}
     )
 
-    if(${CMAKE_SYSTEM_NAME} STREQUAL Generic)
+    if(CMAKE_SYSTEM_NAME STREQUAL "Generic" AND CMAKE_SYSTEM_PROCESSOR MATCHES "^[Aa][Rr][Mm]$")
         set(SUFFIX ".vxp")
     else()
-        message(FATAL_ERROR "VXPEngine packages ARM MRE VXP only.")
+        message(FATAL_ERROR
+            "VXPEngine packages ARM MRE VXP only. "
+            "Current target: system='${CMAKE_SYSTEM_NAME}', processor='${CMAKE_SYSTEM_PROCESSOR}', "
+            "C compiler='${CMAKE_C_COMPILER}'. "
+            "Delete the generated build-arm cache and reconfigure with toolchain-arm-none-eabi.cmake."
+        )
     endif()
 
     set(NULL_CPP "null_${TARGET_NAME}.cpp")

@@ -165,9 +165,14 @@ class VxpRunner(QObject):
             return self._fail_early(f"[VXPEngine] {detail}")
         build_root = root / build_dir
         generator_mismatch = self._cmake_generator_mismatch(build_root, "Ninja")
-        if generator_mismatch and build_root.is_dir():
+        arm_cache_mismatch = self._cmake_arm_cache_mismatch(build_root)
+        if (generator_mismatch or arm_cache_mismatch) and build_root.is_dir():
+            if generator_mismatch:
+                reason = "generator cũ không phải Ninja"
+            else:
+                reason = "cache cũ là host/non-ARM"
             self.output.emit(
-                f"[CMake] Đổi generator sang Ninja — xóa cache cũ trong {build_dir}."
+                f"[CMake] {reason} — xóa cache cũ trong {build_dir} và cấu hình lại ARM."
             )
             shutil.rmtree(build_root, ignore_errors=True)
         configure = {
@@ -277,6 +282,50 @@ class VxpRunner(QObject):
             if line.startswith("CMAKE_GENERATOR:INTERNAL="):
                 current = line.split("=", 1)[1].strip()
                 return current != expected
+        return False
+
+    @staticmethod
+    def _cmake_arm_cache_mismatch(build_root: Path) -> bool:
+        """True khi build-arm cache thực tế là host/non-ARM.
+
+        CMake khóa compiler/platform ở lần configure đầu. Chỉ truyền lại
+        CMAKE_TOOLCHAIN_FILE không thể chuyển một cache Windows/MinGW sang
+        Generic/ARM; build tree phải được tạo lại.
+        """
+        cache_path = build_root / "CMakeCache.txt"
+        if not cache_path.is_file():
+            return False
+        try:
+            text = cache_path.read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            return False
+
+        compiler = ""
+        toolchain = ""
+        for line in text.splitlines():
+            if line.startswith("CMAKE_C_COMPILER:FILEPATH="):
+                compiler = line.split("=", 1)[1].strip().replace("\\", "/").lower()
+            elif line.startswith("CMAKE_TOOLCHAIN_FILE:"):
+                toolchain = line.split("=", 1)[1].strip().replace("\\", "/").lower()
+
+        # The toolchain variable may be UNINITIALIZED in a stale host cache;
+        # the actual compiler is the authoritative signal.
+        if compiler and "arm-none-eabi-gcc" not in compiler:
+            return True
+        if toolchain and "toolchain-arm-none-eabi.cmake" not in toolchain:
+            return True
+
+        # CMAKE_SYSTEM_NAME is stored in CMakeFiles, not always in cache.
+        system_files = list((build_root / "CMakeFiles").glob("*/CMakeSystem.cmake"))
+        for system_file in system_files:
+            try:
+                system_text = system_file.read_text(encoding="utf-8", errors="replace")
+            except OSError:
+                continue
+            if 'set(CMAKE_SYSTEM_NAME "Generic")' not in system_text:
+                return True
+            if 'set(CMAKE_SYSTEM_PROCESSOR "ARM")' not in system_text:
+                return True
         return False
 
     def run_vxpemu(self, project_path: str) -> bool:

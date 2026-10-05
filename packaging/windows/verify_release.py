@@ -6,6 +6,7 @@ import os
 import re
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 import pefile
@@ -23,10 +24,52 @@ def main() -> int:
     sdk_python = require(stage / "engine/coremre/sdk/python/VXPEPython.exe")
     require(stage / "engine/coremre/sdk/w64devkit/bin/cmake.exe")
     require(stage / "engine/coremre/sdk/w64devkit/bin/ninja.exe")
-    require(stage / "engine/coremre/sdk/arm-toolchain/bin/arm-none-eabi-gcc.exe")
+    arm_gcc = require(stage / "engine/coremre/sdk/arm-toolchain/bin/arm-none-eabi-gcc.exe")
+    require(stage / "engine/coremre/sdk/arm-toolchain/bin/zlib1.dll")
     require(stage / "engine/coremre/sdk/mre/include/vmsys.h")
     require(stage / "engine/coremre/sdk/vxpemu/VXPEmu.exe")
     require(stage / "engine/coremre/tools/vxp_pack.py")
+
+    # Do not trust file presence alone.  GCC may start successfully while its
+    # internal cc1.exe fails later because a runtime DLL is missing.  Probe the
+    # staged compiler with an isolated PATH so a developer machine cannot mask
+    # an incomplete release with DLLs from another MinGW installation.
+    arm_bin = arm_gcc.parent
+    arm_env = dict(os.environ)
+    windows_dir = Path(os.environ.get("WINDIR", r"C:\Windows"))
+    arm_env["PATH"] = os.pathsep.join(
+        (
+            str(arm_bin),
+            str(windows_dir / "System32"),
+            str(windows_dir),
+        )
+    )
+    with tempfile.TemporaryDirectory(prefix="vxpe-arm-probe-") as temp_dir:
+        temp = Path(temp_dir)
+        source = temp / "probe.c"
+        obj = temp / "probe.o"
+        source.write_text("int vxpe_arm_probe(void) { return 0; }\n", encoding="ascii")
+        arm_probe = subprocess.run(
+            [
+                str(arm_gcc),
+                "-march=armv5te",
+                "-mthumb",
+                "-c",
+                str(source),
+                "-o",
+                str(obj),
+            ],
+            capture_output=True,
+            text=True,
+            env=arm_env,
+            timeout=20,
+        )
+        if arm_probe.returncode != 0 or not obj.is_file():
+            detail = (arm_probe.stdout + arm_probe.stderr).strip()
+            raise SystemExit(
+                "Bundled ARM GCC failed its compile probe"
+                + (f": {detail}" if detail else "")
+            )
 
     # QtCore must see the same MSVC runtime as PySide6. A stale runtime copied
     # from the Python installation can import on a developer PC but fail on a
@@ -108,6 +151,7 @@ def main() -> int:
         "gui_subsystem": "WINDOWS_GUI",
         "private_keys_in_release": 0,
         "sdk_tool_probe": "OK",
+        "arm_toolchain_probe": "OK",
         "gui_startup_probe": "OK",
         "qt_msvc_runtime": "MATCHED",
         "qt_system_icu": "OK",

@@ -153,6 +153,20 @@ Copy-Tree "D:\MRE\lib\w64devkit" (Join-Path $Stage "engine\coremre\sdk\w64devkit
 
 $ArmSource = "C:\msys64\mingw64"
 Copy-Tree (Join-Path $ArmSource "bin") (Join-Path $ArmTarget "bin")
+
+# GCC's cc1.exe dynamically depends on zlib1.dll.  Robocopying the source bin
+# should include it, but enforce it explicitly so an incomplete ARM runtime can
+# never reach the MSI stage unnoticed.
+$ArmZlibSource = Join-Path $ArmSource "bin\zlib1.dll"
+$ArmZlibTarget = Join-Path $ArmTarget "bin\zlib1.dll"
+if (-not (Test-Path -LiteralPath $ArmZlibSource)) {
+    throw "ARM toolchain runtime missing on build host: $ArmZlibSource"
+}
+Copy-Item -LiteralPath $ArmZlibSource -Destination $ArmZlibTarget -Force
+if (-not (Test-Path -LiteralPath $ArmZlibTarget)) {
+    throw "Release ARM toolchain is missing required zlib1.dll: $ArmZlibTarget"
+}
+
 Copy-Tree (Join-Path $ArmSource "arm-none-eabi\bin") (Join-Path $ArmTarget "arm-none-eabi\bin")
 Copy-Tree (Join-Path $ArmSource "arm-none-eabi\include") (Join-Path $ArmTarget "arm-none-eabi\include")
 Copy-ImmediateFiles (Join-Path $ArmSource "arm-none-eabi\lib") (Join-Path $ArmTarget "arm-none-eabi\lib")
@@ -165,7 +179,20 @@ foreach ($name in @("include", "include-fixed", "install-tools", "thumb\nofp")) 
     Copy-Tree (Join-Path $GccSource $name) (Join-Path $GccTarget $name)
 }
 
-Copy-Tree "D:\MRE\VXPEmu\deploy" (Join-Path $Stage "engine\coremre\sdk\vxpemu") @("/XF", "*.log")
+$VxpEmuSource = $env:VXPE_VXPEMU_SOURCE
+if (-not $VxpEmuSource) {
+    $VxpEmuSource = @(
+        "D:\MRE\VXPEmu\deploy",
+        "D:\MRE\VXPEmu\build\Release"
+    ) | Where-Object { Test-Path -LiteralPath $_ } | Select-Object -First 1
+}
+if (-not $VxpEmuSource -or -not (Test-Path -LiteralPath (Join-Path $VxpEmuSource "VXPEmu.exe"))) {
+    throw "VXPEmu runtime not found. Set VXPE_VXPEMU_SOURCE or build VXPEmu first."
+}
+Write-Host "[Package] VXPEmu runtime: $VxpEmuSource"
+Copy-Tree $VxpEmuSource (Join-Path $Stage "engine\coremre\sdk\vxpemu") @(
+    "/XF", "*.log", "*.pdb", "*.lib", "*.exp"
+)
 New-Item -ItemType Directory -Path (Join-Path $Stage "libs") -Force | Out-Null
 Copy-Item -LiteralPath (Join-Path $Root "libs\ffmpeg.exe") -Destination (Join-Path $Stage "libs\ffmpeg.exe") -Force
 } elseif (-not (Test-Path -LiteralPath (Join-Path $Stage "VXPEngine.exe"))) {

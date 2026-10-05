@@ -43,6 +43,7 @@ $required = @(
     "VXPEngine.exe",
     "engine\coremre\sdk\w64devkit\bin\cmake.exe",
     "engine\coremre\sdk\arm-toolchain\bin\arm-none-eabi-gcc.exe",
+    "engine\coremre\sdk\arm-toolchain\bin\zlib1.dll",
     "engine\coremre\sdk\mre\include\vmsys.h",
     "engine\coremre\sdk\vxpemu\VXPEmu.exe",
     "engine\coremre\sdk\python\VXPEPython.exe",
