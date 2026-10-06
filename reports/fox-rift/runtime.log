@@ -1,0 +1,10 @@
+[19:25:05.944] [INFO ] [EmulatorCore] Display resize requested: 240x320
+[19:25:05.964] [INFO ] [EmulatorCore] VXP queued: D:\MRE\VXPEngine\examples\FoxRiftDemo\build-arm\main\fox_rift.vxp
+[19:25:05.964] [INFO ] [EmulatorCore] worker: Memory::init
+[19:25:05.964] [INFO ] [EmulatorCore] worker: Cpu::init
+[19:25:05.968] [INFO ] [EmulatorCore] worker: Bridge::init
+[19:25:05.969] [INFO ] [EmulatorCore] worker: SIM/System/CharSet/Audio/IO init
+[19:25:05.972] [INFO ] [EmulatorCore] worker: AppManager new
+[19:25:05.972] [INFO ] [EmulatorCore] worker: init done
+[19:25:05.972] [INFO ] [EmulatorCore] worker: queueing VXP for launch
+[19:25:05.972] [INFO ] [EmulatorCore] worker: VXP queued

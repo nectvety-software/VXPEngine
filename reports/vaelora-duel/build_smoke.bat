@@ -1,0 +1,6 @@
+@echo off
+call "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvars64.bat" >nul
+"C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\Hostx64\x64\cl.exe" /nologo /MD /EHsc /std:c++20 /Zc:__cplusplus /O2 /DNOMINMAX /DQT_NO_DEBUG /ID:\MRE\VXPEmu\src /ID:\Qt\6.7.0\msvc2019_64\include /ID:\Qt\6.7.0\msvc2019_64\include\QtCore /ID:\Qt\6.7.0\msvc2019_64\include\QtGui /ID:\Qt\6.7.0\msvc2019_64\mkspecs\win32-msvc /FoD:\MRE\VXPEngine\reports\vaelora-duel\smoke.obj /c D:\MRE\VXPEngine\examples\FoxRiftDemo\tests\vxpemu_smoke.cpp
+if errorlevel 1 exit /b 1
+"C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\Hostx64\x64\link.exe" /nologo /OUT:D:\MRE\VXPEngine\reports\vaelora-duel\FoxRiftSmoke.exe @D:\MRE\VXPEngine\reports\vaelora-duel\objects.rsp D:\Qt\6.7.0\msvc2019_64\lib\Qt6Core.lib D:\Qt\6.7.0\msvc2019_64\lib\Qt6Gui.lib D:\MRE\VXPEmu\build-new\unicorn_build\unicorn.lib winmm.lib ws2_32.lib mpr.lib userenv.lib d3d11.lib dxgi.lib dxguid.lib d3d12.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+if errorlevel 1 exit /b 1

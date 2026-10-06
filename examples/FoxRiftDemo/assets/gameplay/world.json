@@ -1,0 +1,479 @@
+{
+  "world": [
+    240,
+    960
+  ],
+  "viewport": [
+    240,
+    320
+  ],
+  "movement_bounds": [
+    26,
+    80,
+    214,
+    880
+  ],
+  "hero_radius": 7,
+  "objects": [
+    {
+      "id": "wall_horizontal_0",
+      "kind": 0,
+      "asset": "assets/sprites/environment_wall_horizontal.png",
+      "position": [
+        14,
+        275
+      ],
+      "size": [
+        58,
+        30
+      ],
+      "solid": true,
+      "collision": [
+        3,
+        17,
+        52,
+        11
+      ]
+    },
+    {
+      "id": "wall_horizontal_1",
+      "kind": 0,
+      "asset": "assets/sprites/environment_wall_horizontal.png",
+      "position": [
+        168,
+        460
+      ],
+      "size": [
+        58,
+        30
+      ],
+      "solid": true,
+      "collision": [
+        3,
+        17,
+        52,
+        11
+      ]
+    },
+    {
+      "id": "wall_horizontal_2",
+      "kind": 0,
+      "asset": "assets/sprites/environment_wall_horizontal.png",
+      "position": [
+        15,
+        685
+      ],
+      "size": [
+        58,
+        30
+      ],
+      "solid": true,
+      "collision": [
+        3,
+        17,
+        52,
+        11
+      ]
+    },
+    {
+      "id": "wall_horizontal_3",
+      "kind": 0,
+      "asset": "assets/sprites/environment_wall_horizontal.png",
+      "position": [
+        167,
+        120
+      ],
+      "size": [
+        58,
+        30
+      ],
+      "solid": true,
+      "collision": [
+        3,
+        17,
+        52,
+        11
+      ]
+    },
+    {
+      "id": "wall_vertical_4",
+      "kind": 1,
+      "asset": "assets/sprites/environment_wall_vertical.png",
+      "position": [
+        8,
+        140
+      ],
+      "size": [
+        28,
+        72
+      ],
+      "solid": true,
+      "collision": [
+        6,
+        5,
+        16,
+        63
+      ]
+    },
+    {
+      "id": "wall_vertical_5",
+      "kind": 1,
+      "asset": "assets/sprites/environment_wall_vertical.png",
+      "position": [
+        204,
+        550
+      ],
+      "size": [
+        28,
+        72
+      ],
+      "solid": true,
+      "collision": [
+        6,
+        5,
+        16,
+        63
+      ]
+    },
+    {
+      "id": "wall_vertical_6",
+      "kind": 1,
+      "asset": "assets/sprites/environment_wall_vertical.png",
+      "position": [
+        8,
+        410
+      ],
+      "size": [
+        28,
+        72
+      ],
+      "solid": true,
+      "collision": [
+        6,
+        5,
+        16,
+        63
+      ]
+    },
+    {
+      "id": "wall_vertical_7",
+      "kind": 1,
+      "asset": "assets/sprites/environment_wall_vertical.png",
+      "position": [
+        204,
+        790
+      ],
+      "size": [
+        28,
+        72
+      ],
+      "solid": true,
+      "collision": [
+        6,
+        5,
+        16,
+        63
+      ]
+    },
+    {
+      "id": "watch_hut_8",
+      "kind": 2,
+      "asset": "assets/sprites/environment_watch_hut.png",
+      "position": [
+        6,
+        510
+      ],
+      "size": [
+        62,
+        64
+      ],
+      "solid": true,
+      "collision": [
+        12,
+        43,
+        38,
+        18
+      ]
+    },
+    {
+      "id": "watch_hut_9",
+      "kind": 2,
+      "asset": "assets/sprites/environment_watch_hut.png",
+      "position": [
+        172,
+        260
+      ],
+      "size": [
+        62,
+        64
+      ],
+      "solid": true,
+      "collision": [
+        12,
+        43,
+        38,
+        18
+      ]
+    },
+    {
+      "id": "watch_hut_10",
+      "kind": 2,
+      "asset": "assets/sprites/environment_watch_hut.png",
+      "position": [
+        172,
+        700
+      ],
+      "size": [
+        62,
+        64
+      ],
+      "solid": true,
+      "collision": [
+        12,
+        43,
+        38,
+        18
+      ]
+    },
+    {
+      "id": "grass_11",
+      "kind": 3,
+      "asset": "assets/sprites/environment_grass.png",
+      "position": [
+        20,
+        340
+      ],
+      "size": [
+        50,
+        32
+      ],
+      "solid": false,
+      "collision": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "grass_12",
+      "kind": 3,
+      "asset": "assets/sprites/environment_grass.png",
+      "position": [
+        171,
+        390
+      ],
+      "size": [
+        50,
+        32
+      ],
+      "solid": false,
+      "collision": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "grass_13",
+      "kind": 3,
+      "asset": "assets/sprites/environment_grass.png",
+      "position": [
+        20,
+        775
+      ],
+      "size": [
+        50,
+        32
+      ],
+      "solid": false,
+      "collision": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "grass_14",
+      "kind": 3,
+      "asset": "assets/sprites/environment_grass.png",
+      "position": [
+        168,
+        630
+      ],
+      "size": [
+        50,
+        32
+      ],
+      "solid": false,
+      "collision": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "grass_15",
+      "kind": 3,
+      "asset": "assets/sprites/environment_grass.png",
+      "position": [
+        22,
+        570
+      ],
+      "size": [
+        50,
+        32
+      ],
+      "solid": false,
+      "collision": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "grass_16",
+      "kind": 3,
+      "asset": "assets/sprites/environment_grass.png",
+      "position": [
+        168,
+        175
+      ],
+      "size": [
+        50,
+        32
+      ],
+      "solid": false,
+      "collision": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "tree_17",
+      "kind": 4,
+      "asset": "assets/sprites/environment_tree.png",
+      "position": [
+        0,
+        660
+      ],
+      "size": [
+        56,
+        72
+      ],
+      "solid": true,
+      "collision": [
+        23,
+        56,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "tree_18",
+      "kind": 4,
+      "asset": "assets/sprites/environment_tree.png",
+      "position": [
+        182,
+        430
+      ],
+      "size": [
+        56,
+        72
+      ],
+      "solid": true,
+      "collision": [
+        23,
+        56,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "tree_19",
+      "kind": 4,
+      "asset": "assets/sprites/environment_tree.png",
+      "position": [
+        0,
+        200
+      ],
+      "size": [
+        56,
+        72
+      ],
+      "solid": true,
+      "collision": [
+        23,
+        56,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "tree_20",
+      "kind": 4,
+      "asset": "assets/sprites/environment_tree.png",
+      "position": [
+        184,
+        820
+      ],
+      "size": [
+        56,
+        72
+      ],
+      "solid": true,
+      "collision": [
+        23,
+        56,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "ruins_21",
+      "kind": 5,
+      "asset": "assets/sprites/environment_ruins.png",
+      "position": [
+        17,
+        850
+      ],
+      "size": [
+        55,
+        32
+      ],
+      "solid": true,
+      "collision": [
+        12,
+        18,
+        30,
+        10
+      ]
+    },
+    {
+      "id": "ruins_22",
+      "kind": 5,
+      "asset": "assets/sprites/environment_ruins.png",
+      "position": [
+        168,
+        520
+      ],
+      "size": [
+        55,
+        32
+      ],
+      "solid": true,
+      "collision": [
+        12,
+        18,
+        30,
+        10
+      ]
+    }
+  ]
+}

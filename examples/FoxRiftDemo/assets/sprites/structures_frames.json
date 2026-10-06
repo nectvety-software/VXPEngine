@@ -1,0 +1,86 @@
+{
+  "frame_size": [
+    64,
+    80
+  ],
+  "frames": [
+    {
+      "name": "tower_blue",
+      "rect": [
+        0,
+        0,
+        64,
+        80
+      ],
+      "foot_anchor": [
+        32,
+        78
+      ]
+    },
+    {
+      "name": "tower_red",
+      "rect": [
+        64,
+        0,
+        64,
+        80
+      ],
+      "foot_anchor": [
+        32,
+        78
+      ]
+    },
+    {
+      "name": "tower_ruins",
+      "rect": [
+        128,
+        0,
+        64,
+        80
+      ],
+      "foot_anchor": [
+        32,
+        78
+      ]
+    },
+    {
+      "name": "core_blue",
+      "rect": [
+        0,
+        80,
+        64,
+        80
+      ],
+      "foot_anchor": [
+        32,
+        78
+      ]
+    },
+    {
+      "name": "core_red",
+      "rect": [
+        64,
+        80,
+        64,
+        80
+      ],
+      "foot_anchor": [
+        32,
+        78
+      ]
+    },
+    {
+      "name": "core_ruins",
+      "rect": [
+        128,
+        80,
+        64,
+        80
+      ],
+      "foot_anchor": [
+        32,
+        78
+      ]
+    }
+  ]
+}

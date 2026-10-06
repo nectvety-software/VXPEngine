@@ -1,0 +1,12 @@
+vxp=D:/MRE/VXPEngine/examples/EmberChronicleDemo/build-arm/main/ember_chronicle.vxp
+seconds=12.006
+state=Stopped
+frames=64
+fps=5
+loadError=
+consoleLines=4
+--- console tail (last 60) ---
+[INFO ] [Loader] Queued D:/MRE/VXPEngine/examples/EmberChronicleDemo/build-arm/main/ember_chronicle.vxp
+[INFO ] [AudioOut] waveOut backend ready
+[INFO ] [Engine] Worker running — vm_app_log will appear here live
+[INFO ] [Launcher] App started (VM_MSG_CREATE/PAINT queued)

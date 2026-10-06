@@ -1,0 +1,32 @@
+{
+  "format": "VXPEngine Screen Registry",
+  "format_version": 2,
+  "active_screen": "main",
+  "screens": [
+    {
+      "id": "main",
+      "name": "Main",
+      "file": "assets/scenes/main.dtfe",
+      "code_name": "Main"
+    },
+    {
+      "id": "library",
+      "name": "Library",
+      "file": "assets/scenes/library.dtfe",
+      "code_name": "Library"
+    },
+    {
+      "id": "terrace",
+      "name": "Terrace",
+      "file": "assets/scenes/terrace.dtfe",
+      "code_name": "Terrace"
+    },
+    {
+      "id": "village",
+      "name": "Village",
+      "file": "assets/scenes/village.dtfe",
+      "code_name": "Village"
+    }
+  ],
+  "transitions": []
+}

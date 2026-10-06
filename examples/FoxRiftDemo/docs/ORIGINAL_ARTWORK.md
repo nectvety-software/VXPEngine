@@ -1,0 +1,14 @@
+# Original Vaelora artwork
+
+Generated with the built-in ImageGen tool. The three hero identities, costumes and prism-ribbon logo were designed for this demo. No supplied franchise logo or existing hero art is embedded.
+
+## Heroes — assets/source/heroes.png
+
+Production game asset: genuinely transparent pixel-art sprite sheet, exact 3 columns x 4 rows evenly spaced on a 1200x1600 canvas, empty transparent gutters, no words or numbers or labels. Three completely original heroes unrelated to any existing game or franchise, not Ahri, no fox ears or tails, no copyrighted costume motifs. Column 1 VELIN: androgynous prism keeper with cropped silver hair, violet asymmetric coat, floating brass triangular lantern at shoulder, human face, three small angular amber light shards. Column 2 TORVAN: broad stocky human engineer knight, copper and moss-green riveted armor, rectangular tower shield and heavy square-ended mechanical hammer, exposed dark beard, no horned helmet. Column 3 NIMARA: athletic brown-skinned female wind ranger with short dark braided hair, teal scarf, cream jacket, plum trousers and compact wooden crossbow with angular silver limbs, no hood or animal traits. Row1 full-body idle standing; row2 full-body stepping forward; row3 full-body attack/casting pose, Row4 head-and-shoulders portrait. Every body sprite oriented in isometric 3/4 looking down and right, same identity and colors all rows, each completely inside its cell, feet on consistent baseline. Original designs, ornate but readable, crisp handcrafted pixel clusters, easy to scale to 64x64, no background terrain, no shadows outside figures, no logos. Do not imitate or include recognizable League of Legends or Arena of Valor characters.
+
+## Logo — assets/source/logo.png
+
+Create an original transparent-background fantasy indie game logo reading exactly VAELORA on the main line and DUEL below in smaller letters. Typography custom angular ivory serif letters with subtle antique brass rim, clean readable at 180x65 pixels. Above and beside wordmark a unique compact crest built from three asymmetric floating prism shards joined by a curved teal ribbon, no swords, no shield shape, no wings, no crown. Palette ivory gold teal violet, elegant mysterious but restrained, crisp pixel-art-compatible edges, fully isolated with true alpha, no background, no mockup, no extra text. Independent original identity, do not imitate any existing video game logo, especially League of Legends or Arena of Valor.
+
+Runtime baking preserves transparency and uses nearest-neighbor scaling. The saved hero sheet uses actual row seams 0/382/755/1110/1436 and three equal columns. Runtime atlas: 192x256, twelve 64x64 cells. Logo: 200x114 within the native 240x320 splash. Stats live in assets/gameplay/heroes.json, interpreted by tools/generate_roster.py.
+

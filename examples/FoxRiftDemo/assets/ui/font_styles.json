@@ -1,0 +1,52 @@
+{
+  "title": {
+    "font_id": 1,
+    "scale": 1,
+    "spacing": 1,
+    "effects": 5,
+    "color565": 60907,
+    "shadow565": 0,
+    "outline565": 2146,
+    "highlight565": 65535
+  },
+  "body": {
+    "font_id": 0,
+    "scale": 1,
+    "spacing": 1,
+    "effects": 1,
+    "color565": 65464,
+    "shadow565": 0,
+    "outline565": 2146,
+    "highlight565": 65535
+  },
+  "numbers": {
+    "font_id": 2,
+    "scale": 1,
+    "spacing": 1,
+    "effects": 1,
+    "color565": 65535,
+    "shadow565": 0,
+    "outline565": 2146,
+    "highlight565": 65535
+  },
+  "hero": {
+    "font_id": 0,
+    "scale": 1,
+    "spacing": 1,
+    "effects": 3,
+    "color565": 53087,
+    "shadow565": 0,
+    "outline565": 2146,
+    "highlight565": 65535
+  },
+  "accent": {
+    "font_id": 0,
+    "scale": 1,
+    "spacing": 1,
+    "effects": 5,
+    "color565": 60907,
+    "shadow565": 0,
+    "outline565": 2146,
+    "highlight565": 65535
+  }
+}

@@ -1,0 +1,9 @@
+[18:21:25.629] [INFO ] [EmulatorCore] VXP queued: D:/MRE/VXPEngine/examples/EmberChronicleDemo/build-arm/main/ember_chronicle.vxp
+[18:21:25.630] [INFO ] [EmulatorCore] worker: Memory::init
+[18:21:25.630] [INFO ] [EmulatorCore] worker: Cpu::init
+[18:21:25.632] [INFO ] [EmulatorCore] worker: Bridge::init
+[18:21:25.633] [INFO ] [EmulatorCore] worker: SIM/System/CharSet/Audio/IO init
+[18:21:25.635] [INFO ] [EmulatorCore] worker: AppManager new
+[18:21:25.635] [INFO ] [EmulatorCore] worker: init done
+[18:21:25.635] [INFO ] [EmulatorCore] worker: queueing VXP for launch
+[18:21:25.635] [INFO ] [EmulatorCore] worker: VXP queued

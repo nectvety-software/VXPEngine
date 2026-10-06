@@ -1,0 +1,164 @@
+{
+  "frame_size": [
+    64,
+    64
+  ],
+  "frames": [
+    {
+      "name": "velin_idle",
+      "rect": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "foot_anchor": [
+        32,
+        62
+      ]
+    },
+    {
+      "name": "torvan_idle",
+      "rect": [
+        64,
+        0,
+        64,
+        64
+      ],
+      "foot_anchor": [
+        32,
+        62
+      ]
+    },
+    {
+      "name": "nimara_idle",
+      "rect": [
+        128,
+        0,
+        64,
+        64
+      ],
+      "foot_anchor": [
+        32,
+        62
+      ]
+    },
+    {
+      "name": "velin_walk",
+      "rect": [
+        0,
+        64,
+        64,
+        64
+      ],
+      "foot_anchor": [
+        32,
+        62
+      ]
+    },
+    {
+      "name": "torvan_walk",
+      "rect": [
+        64,
+        64,
+        64,
+        64
+      ],
+      "foot_anchor": [
+        32,
+        62
+      ]
+    },
+    {
+      "name": "nimara_walk",
+      "rect": [
+        128,
+        64,
+        64,
+        64
+      ],
+      "foot_anchor": [
+        32,
+        62
+      ]
+    },
+    {
+      "name": "velin_cast",
+      "rect": [
+        0,
+        128,
+        64,
+        64
+      ],
+      "foot_anchor": [
+        32,
+        62
+      ]
+    },
+    {
+      "name": "torvan_cast",
+      "rect": [
+        64,
+        128,
+        64,
+        64
+      ],
+      "foot_anchor": [
+        32,
+        62
+      ]
+    },
+    {
+      "name": "nimara_cast",
+      "rect": [
+        128,
+        128,
+        64,
+        64
+      ],
+      "foot_anchor": [
+        32,
+        62
+      ]
+    },
+    {
+      "name": "velin_portrait",
+      "rect": [
+        0,
+        192,
+        64,
+        64
+      ],
+      "foot_anchor": [
+        32,
+        62
+      ]
+    },
+    {
+      "name": "torvan_portrait",
+      "rect": [
+        64,
+        192,
+        64,
+        64
+      ],
+      "foot_anchor": [
+        32,
+        62
+      ]
+    },
+    {
+      "name": "nimara_portrait",
+      "rect": [
+        128,
+        192,
+        64,
+        64
+      ],
+      "foot_anchor": [
+        32,
+        62
+      ]
+    }
+  ]
+}

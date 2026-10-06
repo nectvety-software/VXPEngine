@@ -1,0 +1,157 @@
+{
+  "name": "Vaelora Heroes",
+  "screen_id": "heroes",
+  "type": "VXPScreen",
+  "viewport": {
+    "width": 240,
+    "height": 320,
+    "type": "FitViewport",
+    "orientation": "portrait"
+  },
+  "engine": {
+    "core": "coremre",
+    "version": "2.0.0"
+  },
+  "children": [
+    {
+      "id": "camera2d",
+      "name": "Camera2D",
+      "type": "OrthographicCamera",
+      "position": [
+        0,
+        0
+      ],
+      "rotation": 0,
+      "zoom": [
+        1,
+        1
+      ],
+      "projection": "Pixel Perfect",
+      "code_name": "Camera2D",
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "Arena",
+      "name": "Arena",
+      "code_name": "Arena",
+      "type": "Sprite2D",
+      "asset": "assets/backgrounds/arena.png",
+      "position": [
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        240,
+        320
+      ],
+      "z_index": -10,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "velin",
+      "name": "velin",
+      "code_name": "Velin",
+      "type": "Sprite2D",
+      "asset": "assets/sprites/velin_portrait.png",
+      "position": [
+        -78,
+        -80
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        62,
+        62
+      ],
+      "z_index": 1,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "torvan",
+      "name": "torvan",
+      "code_name": "Torvan",
+      "type": "Sprite2D",
+      "asset": "assets/sprites/torvan_portrait.png",
+      "position": [
+        0,
+        -80
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        62,
+        62
+      ],
+      "z_index": 1,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "nimara",
+      "name": "nimara",
+      "code_name": "Nimara",
+      "type": "Sprite2D",
+      "asset": "assets/sprites/nimara_portrait.png",
+      "position": [
+        78,
+        -80
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        62,
+        62
+      ],
+      "z_index": 1,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    }
+  ],
+  "runtime": {
+    "controller": "FoxScene",
+    "screen": "heroes",
+    "notes": "Editable composition; UI and gameplay use src/scene.cpp."
+  },
+  "groups": []
+}

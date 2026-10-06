@@ -39,23 +39,23 @@
       "code_name": "Background",
       "type": "Rectangle2D",
       "position": [
-        0,
-        0
+        0.0,
+        0.0
       ],
       "scale": [
-        1,
-        1
+        1.0,
+        1.0
       ],
       "display_size": [
-        240,
-        320
+        240.0,
+        320.0
       ],
       "shape": {
-        "width": 240,
-        "height": 320,
+        "width": 240.0,
+        "height": 320.0,
         "fill": "#0F1B2E",
         "stroke": "#263B57",
-        "stroke_width": 0
+        "stroke_width": 0.0
       },
       "component_category": "background",
       "ui_role": "Background",
@@ -68,7 +68,11 @@
       "tint": "#FFFFFFFF",
       "events": [],
       "automation": {},
-      "clipping_mask": {}
+      "clipping_mask": {},
+      "rotation": 0.0,
+      "opacity": 1.0,
+      "visible": true,
+      "group_id": ""
     }
   ],
   "groups": []

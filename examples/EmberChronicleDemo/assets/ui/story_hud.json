@@ -1,0 +1,26 @@
+{
+  "title": "EMBER CHRONICLE",
+  "gold": 60907,
+  "ivory": 65464,
+  "muted": 44373,
+  "panel": 4227,
+  "border": 25224,
+  "keycap": 10565,
+  "alpha": 238,
+  "keys": [
+    "2468",
+    "5",
+    "7",
+    "0",
+    "9",
+    "1"
+  ],
+  "labels": [
+    "MOVE",
+    "TALK",
+    "CAST",
+    "SCENE",
+    "PAUSE",
+    "RESET"
+  ]
+}

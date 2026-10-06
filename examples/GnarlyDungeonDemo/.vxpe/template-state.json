@@ -1,7 +1,7 @@
 {
   "format": "VXPEngine Project Template State",
   "layout_version": 2,
-  "template_version": "2.0.2",
+  "template_version": "2.0.0",
   "files": {
     "CMakeLists.txt": {
       "base_sha256": "5bdeb16d6340a8a2db69b2dcf6f2e9118dc9e1f15e3611e427308ec0923332c3",
@@ -16,11 +16,11 @@
       "template_sha256": "535ef63d1cd979d7a4203bd2016a2378154b4737a1cd07c3114ac237fb5807e2"
     },
     "scripts/build_arm.bat": {
-      "base_sha256": "3efbc77c4f14a8b9f418868a533003fdf5cdc0068bf3c084d7e2d9f675872033",
-      "template_sha256": "1bf7728b268bf871932748d941dc4c60aec264ac4b855459cfd9a7b2fe06a9ac"
+      "base_sha256": "4bd2f53fa078c4dfcba60e5f218ee7e93642324a2316c1b95a693a5399d7e308",
+      "template_sha256": "a2f074d495134d44730887a98fef08191a2c50d1d55819d7faadeb0237c7571f"
     },
     "scripts/run_vxpemu.bat": {
-      "base_sha256": "805f74d367cb81cda4a63e6f8913467103097307f9f794f45ec1d6dbc9a4aa48",
+      "base_sha256": "8e799a37ee36d85bcea6618b60c6fa2e5e51799a789310b0ebfd82cb9ff6c7b2",
       "template_sha256": "f72ea9c30e7a1dd6708a8862ac6d57213807e8afccae2dee39a8c8152264ea74"
     },
     ".vxpe/cmake/AddExecVsm.cmake": {
@@ -40,8 +40,8 @@
       "template_sha256": "390e415c300000238bfb668fc05c7c59f480d1ba96e1d9c097b491ae0103c69a"
     },
     ".vxpe/cmake/AddPackVxp.cmake": {
-      "base_sha256": "4b179a85e732087e1054723c78213e04e7da022f2a76356ecf921d124db1a414",
-      "template_sha256": "4b179a85e732087e1054723c78213e04e7da022f2a76356ecf921d124db1a414"
+      "base_sha256": "59093b36580bcedd676ad1b86b9012948fad405f70d285ff726b6a19a2ea07a9",
+      "template_sha256": "59093b36580bcedd676ad1b86b9012948fad405f70d285ff726b6a19a2ea07a9"
     },
     ".vxpe/cmake/MreUtils.cmake": {
       "base_sha256": "5926aad98a0ed07a95ef010034495e883a3a418ba790488c09c3f8050f9a3e84",

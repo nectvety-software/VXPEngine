@@ -23,6 +23,8 @@ set(COREMRE_SOURCES
   ${_COREMRE_ROOT}/src/graphics/VxpLight2D.cpp
   ${_COREMRE_ROOT}/src/graphics/VxpSpriteFx.cpp
   ${_COREMRE_ROOT}/src/graphics/VxpActorSprite2D.cpp
+  ${_COREMRE_ROOT}/src/graphics/VxpStory2D.cpp
+  ${_COREMRE_ROOT}/src/graphics/VxpPixelFont.cpp
   ${_COREMRE_ROOT}/src/graphics/VxpVfx2D.cpp
   ${_COREMRE_ROOT}/src/graphics/particles/VxpParticlePool.cpp
   ${_COREMRE_ROOT}/src/graphics/particles/ParticleEmitter.cpp

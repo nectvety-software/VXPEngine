@@ -1,0 +1,87 @@
+{
+  "format": "VXPEngine Project Template State",
+  "layout_version": 2,
+  "template_version": "2.0.2",
+  "files": {
+    "CMakeLists.txt": {
+      "base_sha256": "6b4aa56a4b99986ef2d7b48521573bd49080d593216250f3b24e878d8bd2d7f3",
+      "template_sha256": "419be2370d8fd6c6365ce74e343ebf032accf614eea7f0b2292badcc600fc334"
+    },
+    "README.md": {
+      "base_sha256": "0a0e04dbc31dece0526afb9d8dbbce9ce76fdaba080846f7dcb4795b276f714d",
+      "template_sha256": "920e10326ddd648e52397572e5f429b6bb1539a6917204f055fa5f6d6666f8f2"
+    },
+    ".gitignore": {
+      "base_sha256": "535ef63d1cd979d7a4203bd2016a2378154b4737a1cd07c3114ac237fb5807e2",
+      "template_sha256": "535ef63d1cd979d7a4203bd2016a2378154b4737a1cd07c3114ac237fb5807e2"
+    },
+    "scripts/build_arm.bat": {
+      "base_sha256": "9107ee4a235f5892e60ba4d9552cfcc4cebabc574b8cfb0150c1a5122dc110c2",
+      "template_sha256": "1bf7728b268bf871932748d941dc4c60aec264ac4b855459cfd9a7b2fe06a9ac"
+    },
+    "scripts/run_vxpemu.bat": {
+      "base_sha256": "7fc1e68e94edbccf3ec9fc9b539fda8fccd874ac75ffa9e414f1492ef5672bc2",
+      "template_sha256": "f72ea9c30e7a1dd6708a8862ac6d57213807e8afccae2dee39a8c8152264ea74"
+    },
+    ".vxpe/cmake/AddExecVsm.cmake": {
+      "base_sha256": "a66c356921a855686c2bfeab3fdca286b755e7d83d0df4c96944c526709ea500",
+      "template_sha256": "a66c356921a855686c2bfeab3fdca286b755e7d83d0df4c96944c526709ea500"
+    },
+    ".vxpe/cmake/AddExecVxp.cmake": {
+      "base_sha256": "9a92387b9ce5a9d6118832527c6d65a183d7f1df8ffcecfccef29d7f72cdf1cb",
+      "template_sha256": "9a92387b9ce5a9d6118832527c6d65a183d7f1df8ffcecfccef29d7f72cdf1cb"
+    },
+    ".vxpe/cmake/AddMreExec.cmake": {
+      "base_sha256": "c82e91511d9e3a2e739d4a52c422f761dfcd031d7c525f357003588f160f8027",
+      "template_sha256": "c82e91511d9e3a2e739d4a52c422f761dfcd031d7c525f357003588f160f8027"
+    },
+    ".vxpe/cmake/AddPackVsm.cmake": {
+      "base_sha256": "390e415c300000238bfb668fc05c7c59f480d1ba96e1d9c097b491ae0103c69a",
+      "template_sha256": "390e415c300000238bfb668fc05c7c59f480d1ba96e1d9c097b491ae0103c69a"
+    },
+    ".vxpe/cmake/AddPackVxp.cmake": {
+      "base_sha256": "4b179a85e732087e1054723c78213e04e7da022f2a76356ecf921d124db1a414",
+      "template_sha256": "4b179a85e732087e1054723c78213e04e7da022f2a76356ecf921d124db1a414"
+    },
+    ".vxpe/cmake/MreUtils.cmake": {
+      "base_sha256": "5926aad98a0ed07a95ef010034495e883a3a418ba790488c09c3f8050f9a3e84",
+      "template_sha256": "5926aad98a0ed07a95ef010034495e883a3a418ba790488c09c3f8050f9a3e84"
+    },
+    ".vxpe/cmake/toolchain-arm-none-eabi.cmake": {
+      "base_sha256": "31523737559c0fba2bad000bb151a39a1136bd45874a07c4d67158baa7b1d396",
+      "template_sha256": "31523737559c0fba2bad000bb151a39a1136bd45874a07c4d67158baa7b1d396"
+    },
+    ".vxpe/platform/common/dll.def": {
+      "base_sha256": "d5176c085d9d2c614700f0a39d3c7144375e0fa72b3c28e26cbb57f5c5b42657",
+      "template_sha256": "d5176c085d9d2c614700f0a39d3c7144375e0fa72b3c28e26cbb57f5c5b42657"
+    },
+    ".vxpe/platform/common/gccmain.c": {
+      "base_sha256": "cd4ea51283323baf62be5336aa9dc937821969550f56e96d9104565c9b54b3e9",
+      "template_sha256": "cd4ea51283323baf62be5336aa9dc937821969550f56e96d9104565c9b54b3e9"
+    },
+    ".vxpe/platform/common/scat.ld": {
+      "base_sha256": "c478a3b3332aa319a45cc9aefb3d5b2a7f6065cb36e0f0afc9a9e90f93fb65b9",
+      "template_sha256": "c478a3b3332aa319a45cc9aefb3d5b2a7f6065cb36e0f0afc9a9e90f93fb65b9"
+    },
+    ".vxpe/platform/main/CMakeLists.txt": {
+      "base_sha256": "36c1df5bdc0744ec35c6d3685b99c2e05d186193d455fb555a8699f8100b21c6",
+      "template_sha256": "36c1df5bdc0744ec35c6d3685b99c2e05d186193d455fb555a8699f8100b21c6"
+    },
+    ".vxpe/platform/mreapi/CMakeLists.txt": {
+      "base_sha256": "094f3af7613930a6347a86cb0b9e1199136a38fd3ec0a970507731c561b9a257",
+      "template_sha256": "094f3af7613930a6347a86cb0b9e1199136a38fd3ec0a970507731c561b9a257"
+    },
+    ".vxpe/platform/mreapi/null.cpp": {
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "template_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".vxpe/platform/resources/CMakeLists.txt": {
+      "base_sha256": "e9d0c921927ea2a3493134e11436078cc85ef74c1ed89f8bbde80f62b368923e",
+      "template_sha256": "e9d0c921927ea2a3493134e11436078cc85ef74c1ed89f8bbde80f62b368923e"
+    },
+    ".vxpe/platform/run/CMakeLists.txt": {
+      "base_sha256": "8cac96cdc747c5764afe344da7492fe9492dbe6f9bee723339f8f937cdf17bcd",
+      "template_sha256": "8cac96cdc747c5764afe344da7492fe9492dbe6f9bee723339f8f937cdf17bcd"
+    }
+  }
+}

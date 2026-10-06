@@ -154,7 +154,7 @@ goto :menu
 :ensure_runtime
 call :ensure_venv
 if errorlevel 1 exit /b 1
-"%VENV_PY%" -c "import PySide6, qtawesome" >nul 2>&1
+"%VENV_PY%" -c "import PySide6, qtawesome, PIL, numpy" >nul 2>&1
 if errorlevel 1 (
     echo [VXPEngine] Dang cai cac thu vien Python con thieu...
     call :install_deps

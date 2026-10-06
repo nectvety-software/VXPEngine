@@ -1,0 +1,240 @@
+/* Terra Editor — theme tokens are substituted from src/ui/theme.py palettes. */
+
+* { outline: 0; }
+
+QWidget {
+    color: $text;
+    font-family: "Segoe UI", "Inter", "Helvetica Neue", sans-serif;
+    font-size: 13px;
+    background: transparent;
+}
+
+QMainWindow, QDialog, QWidget#ShellRoot { background: transparent; }
+
+/* ------------------------------------------------------------- window frame */
+
+QFrame#RootContainer {
+    background: $container;
+    border: 1px solid $border;
+    border-radius: 10px;
+}
+
+QFrame#RootContainer[state="maximized"] { border-radius: 0; border: 0; }
+
+QFrame#TitleBar {
+    background: $titlebar;
+    border: none;
+    border-bottom: 1px solid $border;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+QFrame#TitleBar[state="maximized"] { border-top-left-radius: 0; border-top-right-radius: 0; }
+
+QLabel#AppTitle { font-size: 13px; font-weight: 600; color: $text; letter-spacing: 0.2px; }
+QLabel#AppSubtitle { font-size: 12px; color: $text_faint; }
+QLabel#DragRegion { background: transparent; }
+
+QPushButton[role="caption"] {
+    background: transparent; border: none; border-radius: 6px;
+    min-width: 30px; min-height: 26px; margin: 2px 1px;
+}
+QPushButton[role="caption"]:hover { background: $hover; }
+QPushButton[role="caption"]:pressed { background: $pressed; }
+QPushButton[role="caption"][kind="close"]:hover { background: $danger; }
+
+/* ------------------------------------------------------------------ layout */
+
+QFrame[role="panel"] {
+    background: $panel;
+    border: 1px solid $border;
+    border-radius: 10px;
+}
+
+QFrame[role="inset"] {
+    background: $input;
+    border: 1px solid $border;
+    border-radius: 8px;
+}
+
+QFrame[role="divider"] { background: $border; border: none; min-height: 1px; min-width: 1px; }
+
+QStatusBar, QToolBar { background: transparent; border: none; spacing: 4px; }
+
+/* ------------------------------------------------------------------ labels */
+
+QLabel { background: transparent; }
+QLabel[role="h1"] { font-size: 19px; font-weight: 600; color: $text; }
+QLabel[role="h2"] { font-size: 14px; font-weight: 600; color: $text; }
+QLabel[role="section"] {
+    font-size: 11px; font-weight: 700; color: $text_faint;
+    letter-spacing: 1.1px; text-transform: uppercase; padding: 2px 0;
+}
+QLabel[role="muted"] { color: $text_muted; font-size: 12px; }
+QLabel[role="faint"] { color: $text_faint; font-size: 11px; }
+QLabel[role="mono"] { font-family: "Cascadia Mono", "Consolas", monospace; font-size: 12px; }
+QLabel[role="badge"] {
+    background: $accent_soft; color: $accent;
+    border-radius: 9px; padding: 2px 9px; font-size: 11px; font-weight: 600;
+}
+QLabel[role="badge"][tone="warn"] { background: $danger_soft; color: $warn; }
+QLabel[role="badge"][tone="ok"] { background: $accent_soft; color: $success; }
+QLabel[role="stat"] { font-size: 12px; color: $text_muted; }
+QLabel[role="statValue"] { font-size: 13px; font-weight: 600; color: $text; }
+QLabel[role="dialogTitle"] { font-size: 16px; font-weight: 600; }
+QLabel[role="error"] { color: $danger; font-size: 12px; }
+
+/* ----------------------------------------------------------------- buttons */
+
+QPushButton, QToolButton {
+    background: $panel_alt;
+    border: 1px solid $border;
+    border-radius: 8px;
+    padding: 7px 14px;
+    min-height: 16px;
+    color: $text;
+    font-size: 13px;
+    font-weight: 500;
+}
+QPushButton:hover, QToolButton:hover { background: $hover; border-color: $border_strong; }
+QPushButton:pressed, QToolButton:pressed { background: $pressed; }
+QPushButton:disabled, QToolButton:disabled { color: $text_faint; background: $panel; border-color: $border; }
+
+QPushButton[role="primary"] {
+    background: $accent; border-color: $accent; color: $accent_text; font-weight: 600;
+}
+QPushButton[role="primary"]:hover { background: $accent_hover; border-color: $accent_hover; }
+QPushButton[role="primary"]:pressed { background: $accent; }
+QPushButton[role="primary"]:disabled { background: $accent_soft; color: $text_faint; border-color: $accent_soft; }
+
+QPushButton[role="ghost"] { background: transparent; border-color: transparent; color: $text_muted; }
+QPushButton[role="ghost"]:hover { background: $hover; color: $text; border-color: transparent; }
+
+QPushButton[role="danger"] { background: transparent; border-color: $danger; color: $danger; }
+QPushButton[role="danger"]:hover { background: $danger; color: $text; }
+
+QPushButton[role="chip"] {
+    background: $panel_alt; border: 1px solid $border; border-radius: 13px;
+    padding: 4px 11px; font-size: 12px; color: $text_muted;
+}
+QPushButton[role="chip"]:hover { color: $text; border-color: $border_strong; }
+QPushButton[role="chip"][checked="true"] {
+    background: $accent_soft; border-color: $accent; color: $accent; font-weight: 600;
+}
+
+QPushButton[role="tool"] {
+    background: transparent; border: 1px solid transparent; border-radius: 7px;
+    padding: 5px 9px; color: $text_muted;
+}
+QPushButton[role="tool"]:hover { background: $hover; color: $text; }
+QPushButton[role="tool"]:checked { background: $accent_soft; border-color: $accent; color: $accent; }
+QPushButton[role="tool"]:pressed { background: $pressed; }
+
+/* ------------------------------------------------------------------ inputs */
+
+QLineEdit, QPlainTextEdit, QTextEdit, QSpinBox, QDoubleSpinBox, QComboBox {
+    background: $input;
+    border: 1px solid $border;
+    border-radius: 8px;
+    padding: 7px 10px;
+    color: $text;
+    selection-background-color: $selection;
+    selection-color: $text;
+}
+QLineEdit:focus, QPlainTextEdit:focus, QTextEdit:focus, QSpinBox:focus, QComboBox:focus {
+    border: 1px solid $accent;
+}
+QLineEdit:disabled, QComboBox:disabled { color: $text_faint; background: $panel; }
+QLineEdit[role="search"] { padding-left: 8px; }
+QSpinBox::up-button, QSpinBox::down-button { width: 0; height: 0; border: none; }
+
+QComboBox::drop-down { border: none; width: 22px; }
+QComboBox::down-arrow {
+    image: none; width: 0; height: 0;
+    border-left: 4px solid transparent; border-right: 4px solid transparent;
+    border-top: 5px solid $text_muted; margin-right: 8px;
+}
+QComboBox QAbstractItemView {
+    background: $panel; border: 1px solid $border_strong; border-radius: 8px;
+    padding: 4px; outline: none;
+}
+QComboBox QAbstractItemView::item { padding: 6px 10px; border-radius: 6px; }
+QComboBox QAbstractItemView::item:hover,
+QComboBox QAbstractItemView::item:selected { background: $selection; color: $text; }
+
+QCheckBox, QRadioButton { spacing: 8px; background: transparent; color: $text; }
+QCheckBox::indicator, QRadioButton::indicator {
+    width: 16px; height: 16px; border: 1px solid $border_strong;
+    border-radius: 4px; background: $input;
+}
+QRadioButton::indicator { border-radius: 9px; }
+QCheckBox::indicator:hover, QRadioButton::indicator:hover { border-color: $accent; }
+QCheckBox::indicator:checked { background: $accent; border-color: $accent; }
+QRadioButton::indicator:checked { background: $accent; border-color: $accent; }
+QCheckBox::indicator:disabled { opacity: 0.4; }
+
+/* ------------------------------------------------------------------ sliders */
+
+QSlider::groove:horizontal { height: 4px; background: $surface; border-radius: 2px; }
+QSlider::sub-page:horizontal { height: 4px; background: $accent; border-radius: 2px; }
+QSlider::handle:horizontal {
+    width: 14px; height: 14px; margin: -5px 0; border-radius: 7px;
+    background: $text; border: 1px solid $border;
+}
+QSlider::handle:horizontal:hover { background: $accent; border-color: $accent; }
+
+QProgressBar {
+    background: $surface; border: none; border-radius: 4px; height: 8px; text: none;
+}
+QProgressBar::chunk { background: $accent; border-radius: 4px; }
+
+/* -------------------------------------------------------------- item views */
+
+QListWidget, QListView, QTreeWidget, QTreeView, QTableWidget {
+    background: $panel; border: 1px solid $border; border-radius: 8px;
+    padding: 4px; color: $text; outline: none;
+}
+QListWidget::item, QTreeView::item { padding: 6px 8px; border-radius: 6px; }
+QListWidget::item:hover, QTreeView::item:hover { background: $hover; }
+QListWidget::item:selected, QTreeView::item:selected { background: $selection; color: $text; }
+QListWidget::item:selected:active, QTreeView::item:selected:active { border: 1px solid $accent; }
+QHeaderView::section {
+    background: $panel_alt; border: none; border-bottom: 1px solid $border;
+    padding: 6px 8px; color: $text_muted; font-weight: 600;
+}
+QMenu {
+    background: $panel; border: 1px solid $border_strong; border-radius: 8px; padding: 5px;
+}
+QMenu::item { padding: 6px 22px 6px 12px; border-radius: 6px; }
+QMenu::item:selected { background: $selection; }
+QMenu::separator { height: 1px; background: $border; margin: 5px 8px; }
+
+/* -------------------------------------------------------------- scrollbars */
+
+QScrollBar:vertical { background: transparent; width: 11px; margin: 2px; }
+QScrollBar::handle:vertical { background: $scrollbar; border-radius: 5px; min-height: 28px; }
+QScrollBar::handle:vertical:hover { background: $accent; }
+QScrollBar:horizontal { background: transparent; height: 11px; margin: 2px; }
+QScrollBar::handle:horizontal { background: $scrollbar; border-radius: 5px; min-width: 28px; }
+QScrollBar::handle:horizontal:hover { background: $accent; }
+QScrollBar::add-line, QScrollBar::sub-line,
+QScrollBar::add-page, QScrollBar::sub-page { background: none; border: none; height: 0; width: 0; }
+
+/* ------------------------------------------------------------------- misc */
+
+QToolTip {
+    background: $panel_alt; color: $text; border: 1px solid $border_strong;
+    padding: 6px 9px; border-radius: 6px; font-size: 12px;
+}
+QGraphicsDropShadowEffect { border: none; }
+QWidget#Canvas { background: $canvas; border-radius: 6px; }
+QFrame#Toast {
+    background: $panel_alt; border: 1px solid $border_strong; border-radius: 10px;
+}
+QLabel#ToastText { color: $text; font-size: 12px; }
+QFrame#DialogHeader { border: none; border-bottom: 1px solid $border; }
+QLabel#DialogTitle { font-size: 15px; font-weight: 600; }
+QLabel#DialogBody { color: $text_muted; font-size: 13px; }
+QFrame#AccentBar { background: $accent; border-radius: 2px; }
+QFrame#AccentBar[tone="danger"] { background: $danger; }
+QFrame#AccentBar[tone="warn"] { background: $warn; }

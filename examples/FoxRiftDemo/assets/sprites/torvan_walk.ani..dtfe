@@ -1,0 +1,42 @@
+{
+  "format": "VXPEngine Animation",
+  "format_version": 2,
+  "extension": ".ani..dtfe",
+  "asset": "assets/sprites/heroes_atlas.png",
+  "texture": "assets/sprites/heroes_atlas.png",
+  "source_mode": "atlas_frames",
+  "asset_kind": "character",
+  "package": "atlas+descriptor",
+  "animation": {
+    "name": "torvan_walk",
+    "fps": 7,
+    "loop": true,
+    "frame_count": 2,
+    "source_mode": "atlas_frames",
+    "asset_kind": "character",
+    "selected_indices": [
+      1,
+      4
+    ]
+  },
+  "frames": [
+    {
+      "name": "torvan_0",
+      "x": 64,
+      "y": 0,
+      "width": 64,
+      "height": 64,
+      "source_index": 1,
+      "duration_ms": 140
+    },
+    {
+      "name": "torvan_1",
+      "x": 64,
+      "y": 64,
+      "width": 64,
+      "height": 64,
+      "source_index": 4,
+      "duration_ms": 140
+    }
+  ]
+}

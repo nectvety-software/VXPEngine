@@ -57,6 +57,9 @@ Hộp **Tạo dự án VXP mới** cho chọn trực tiếp `240×320 — Dọc`
 
 ## UI Design và Pixel Paint
 
+Editor Assets có tab **Terra · Tilemap** để cắt atlas, vẽ map theo layer,
+lưu `.terra.json` và chuyển map PNG sang Assets. Xem [hướng dẫn Terra](docs/TERRA_INTEGRATION.md).
+
 Editor Assets tích hợp **VPE Pixel** trong cùng cửa sổ, dùng chung thư viện
 `Documents/VPE Pixel`, mở `.vpe/.vpea` và chuyển ảnh/animation hai chiều
 để lưu vào project. Xem [hướng dẫn tích hợp](docs/VPE_PIXEL_INTEGRATION.md).
@@ -114,6 +117,11 @@ Component Library, DTFE/C bindings, simulator, SDK/VXPEmu và build ARM của c�
 
 ## Đóng gói Windows
 
+[Ember Chronicle](examples/EmberChronicleDemo/README.md) là mẫu fantasy 2.5D
+240×320: thư viện, sân đá, làng hoàng hôn, sprite hoạt ảnh, hội thoại phân trang
+và phép lửa. Lõi [VxpStory2D](docs/STORY_STAGES_2D.md) dùng chung hỗ trợ foot depth,
+scale theo chiều sâu và hộp hội thoại không cấp phát heap.
+
 Mẫu [Nightfall Survival](examples/NightfallSurvival/README.md) minh họa FPS
 zombie sinh tồn 320×240: raycasting 2.5D, texture pixel, zombie billboard,
 wave, ammo/reload, cửa mở bằng điểm, rào chắn và vật phẩm. Artwork PNG và
@@ -138,3 +146,9 @@ dùng `Ctrl+J`, menu View hoặc nút terminal trên status bar để mở. UI D
 có vỏ máy bao quanh Camera2D. Background mặc định được ghim đúng
 240×320/320×240; mọi component được kẹp trong frame. Menu **Căn chỉnh**
 trên toolbar và menu chuột phải hỗ trợ căn mép/tâm, phân bố và căn theo Camera2D.
+
+Editor Assets also includes **Story HUD**: native QVGA title/location/progress and keypad previews, editable RGB565 colors and project JSON/C header export for the shared `VxpStory2D` HUD API.
+
+`examples/FoxRiftDemo` now runs **Vaelora Duel**, a native 240×320 solo 1vs1 demo with an original logo, splash, hero selection, three original heroes, shared player/bot skills and match results.
+
+Editor Assets → **Font Styles** adds three authored pixel font families (Vale UI, Prism Display, Duel Digits), five roles and four palette/effect presets. The shared core C renderer and editor preview use identical masks.

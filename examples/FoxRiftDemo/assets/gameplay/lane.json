@@ -1,0 +1,36 @@
+{
+  "viewport": [
+    240,
+    320
+  ],
+  "world": [
+    240,
+    960
+  ],
+  "respawn_ms": 5000,
+  "time_limit_ms": 300000,
+  "structure_hp": {
+    "tower": 900,
+    "core": 1800
+  },
+  "unlock_order": [
+    "outer_tower",
+    "inner_tower",
+    "core"
+  ],
+  "skins": {
+    "Velin": [
+      "Prism",
+      "Frost Prism"
+    ],
+    "Torvan": [
+      "Copper",
+      "Obsidian"
+    ],
+    "Nimara": [
+      "Wind",
+      "Sunset"
+    ]
+  },
+  "skin_type": "cosmetic RGB565 palette tint, no stat changes"
+}

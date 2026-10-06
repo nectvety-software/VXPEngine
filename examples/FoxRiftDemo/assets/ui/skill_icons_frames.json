@@ -1,0 +1,140 @@
+{
+  "frame_size": [
+    32,
+    32
+  ],
+  "frames": [
+    {
+      "name": "velin_prism_bolt",
+      "hero": 0,
+      "skill": 0,
+      "rect": [
+        0,
+        0,
+        32,
+        32
+      ]
+    },
+    {
+      "name": "velin_light_burst",
+      "hero": 0,
+      "skill": 1,
+      "rect": [
+        32,
+        0,
+        32,
+        32
+      ]
+    },
+    {
+      "name": "velin_anchor_ray",
+      "hero": 0,
+      "skill": 2,
+      "rect": [
+        64,
+        0,
+        32,
+        32
+      ]
+    },
+    {
+      "name": "velin_prism_nova",
+      "hero": 0,
+      "skill": 3,
+      "rect": [
+        96,
+        0,
+        32,
+        32
+      ]
+    },
+    {
+      "name": "torvan_hammer_arc",
+      "hero": 1,
+      "skill": 0,
+      "rect": [
+        0,
+        32,
+        32,
+        32
+      ]
+    },
+    {
+      "name": "torvan_iron_guard",
+      "hero": 1,
+      "skill": 1,
+      "rect": [
+        32,
+        32,
+        32,
+        32
+      ]
+    },
+    {
+      "name": "torvan_charge",
+      "hero": 1,
+      "skill": 2,
+      "rect": [
+        64,
+        32,
+        32,
+        32
+      ]
+    },
+    {
+      "name": "torvan_earthbreak",
+      "hero": 1,
+      "skill": 3,
+      "rect": [
+        96,
+        32,
+        32,
+        32
+      ]
+    },
+    {
+      "name": "nimara_wind_bolt",
+      "hero": 2,
+      "skill": 0,
+      "rect": [
+        0,
+        64,
+        32,
+        32
+      ]
+    },
+    {
+      "name": "nimara_gust_step",
+      "hero": 2,
+      "skill": 1,
+      "rect": [
+        32,
+        64,
+        32,
+        32
+      ]
+    },
+    {
+      "name": "nimara_pinning_shot",
+      "hero": 2,
+      "skill": 2,
+      "rect": [
+        64,
+        64,
+        32,
+        32
+      ]
+    },
+    {
+      "name": "nimara_arrowstorm",
+      "hero": 2,
+      "skill": 3,
+      "rect": [
+        96,
+        64,
+        32,
+        32
+      ]
+    }
+  ]
+}

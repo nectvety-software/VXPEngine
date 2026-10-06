@@ -1,0 +1,99 @@
+{
+  "format": "Vaelora Hero Roster",
+  "version": 1,
+  "heroes": [
+    {
+      "id": "velin",
+      "name": "VELIN",
+      "role": "PRISM MAGE",
+      "passive": "EVERY 3 CASTS: +50 SHIELD",
+      "skills": [
+        "PRISM BOLT",
+        "LIGHT BURST",
+        "ANCHOR RAY",
+        "PRISM NOVA"
+      ],
+      "max_hp": 1100,
+      "max_mana": 600,
+      "speed": 2,
+      "attack": 34,
+      "attack_range": 108,
+      "attack_cd": 850,
+      "cost": [
+        40,
+        65,
+        60,
+        100
+      ],
+      "cd": [
+        1100,
+        3000,
+        4000,
+        6500
+      ],
+      "color": 50591
+    },
+    {
+      "id": "torvan",
+      "name": "TORVAN",
+      "role": "IRON VANGUARD",
+      "passive": "15% DAMAGE REDUCTION",
+      "skills": [
+        "HAMMER ARC",
+        "IRON GUARD",
+        "CHARGE",
+        "EARTH BREAK"
+      ],
+      "max_hp": 1600,
+      "max_mana": 400,
+      "speed": 2,
+      "attack": 60,
+      "attack_range": 40,
+      "attack_cd": 700,
+      "cost": [
+        35,
+        55,
+        45,
+        90
+      ],
+      "cd": [
+        1300,
+        4000,
+        3300,
+        7000
+      ],
+      "color": 52714
+    },
+    {
+      "id": "nimara",
+      "name": "NIMARA",
+      "role": "WIND RANGER",
+      "passive": "MOVING RESTORES +2 MANA",
+      "skills": [
+        "WIND BOLT",
+        "GUST STEP",
+        "PINNING SHOT",
+        "ARROW STORM"
+      ],
+      "max_hp": 1000,
+      "max_mana": 650,
+      "speed": 3,
+      "attack": 30,
+      "attack_range": 125,
+      "attack_cd": 750,
+      "cost": [
+        40,
+        55,
+        60,
+        110
+      ],
+      "cd": [
+        1000,
+        2800,
+        4200,
+        6000
+      ],
+      "color": 22519
+    }
+  ]
+}

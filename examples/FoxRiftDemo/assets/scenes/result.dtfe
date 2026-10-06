@@ -1,0 +1,297 @@
+{
+  "name": "Vaelora Result",
+  "screen_id": "result",
+  "type": "VXPScreen",
+  "viewport": {
+    "width": 240,
+    "height": 320,
+    "type": "FitViewport",
+    "orientation": "portrait"
+  },
+  "engine": {
+    "core": "coremre",
+    "version": "2.0.0"
+  },
+  "children": [
+    {
+      "id": "camera2d",
+      "name": "Camera2D",
+      "type": "OrthographicCamera",
+      "position": [
+        0,
+        0
+      ],
+      "rotation": 0,
+      "zoom": [
+        1,
+        1
+      ],
+      "projection": "Pixel Perfect",
+      "code_name": "Camera2D",
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "Arena",
+      "name": "Arena",
+      "code_name": "Arena",
+      "type": "Sprite2D",
+      "asset": "assets/backgrounds/arena.png",
+      "position": [
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        240,
+        320
+      ],
+      "z_index": -10,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "Player",
+      "name": "Player",
+      "code_name": "Player",
+      "type": "Sprite2D",
+      "asset": "assets/sprites/velin_idle.png",
+      "position": [
+        -55,
+        21
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        60,
+        60
+      ],
+      "z_index": 1,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "Bot",
+      "name": "Bot",
+      "code_name": "Bot",
+      "type": "Sprite2D",
+      "asset": "assets/sprites/torvan_idle.png",
+      "position": [
+        59,
+        -51
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        60,
+        60
+      ],
+      "z_index": 1,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "BlueTower",
+      "name": "BlueTower",
+      "code_name": "BlueTower",
+      "type": "Sprite2D",
+      "asset": "assets/sprites/tower_blue.png",
+      "position": [
+        0,
+        20
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        56,
+        70
+      ],
+      "z_index": 1,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "RedTower",
+      "name": "RedTower",
+      "code_name": "RedTower",
+      "type": "Sprite2D",
+      "asset": "assets/sprites/tower_red.png",
+      "position": [
+        0,
+        -95
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        56,
+        70
+      ],
+      "z_index": 1,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "Skill0",
+      "name": "Skill0",
+      "code_name": "Skill0",
+      "type": "Sprite2D",
+      "asset": "assets/ui/velin_prism_bolt.png",
+      "position": [
+        -55,
+        109
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        24,
+        24
+      ],
+      "z_index": 20,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "Skill1",
+      "name": "Skill1",
+      "code_name": "Skill1",
+      "type": "Sprite2D",
+      "asset": "assets/ui/velin_light_burst.png",
+      "position": [
+        -11,
+        109
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        24,
+        24
+      ],
+      "z_index": 20,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "Skill2",
+      "name": "Skill2",
+      "code_name": "Skill2",
+      "type": "Sprite2D",
+      "asset": "assets/ui/velin_anchor_ray.png",
+      "position": [
+        33,
+        109
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        24,
+        24
+      ],
+      "z_index": 20,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "Skill3",
+      "name": "Skill3",
+      "code_name": "Skill3",
+      "type": "Sprite2D",
+      "asset": "assets/ui/velin_prism_nova.png",
+      "position": [
+        77,
+        109
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        24,
+        24
+      ],
+      "z_index": 20,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    }
+  ],
+  "runtime": {
+    "controller": "FoxScene",
+    "screen": "result",
+    "notes": "Editable composition; UI and gameplay use src/scene.cpp."
+  },
+  "groups": []
+}

@@ -83,14 +83,17 @@ def pack() -> Path:
     # Ship the VXPGDX asset pipeline with the SDK package so projects can
     # convert Tiled JSON/TMJ and atlas manifests without cloning the repo.
     (out / "tools").mkdir(parents=True, exist_ok=True)
-    for tool_name in ("vxpgdx_pack_tiled.py", "vxpgdx_pack_atlas.py"):
+    for tool_name in ("vxpgdx_pack_tiled.py", "vxpgdx_pack_atlas.py", "generate_pixel_fonts.py"):
         shutil.copy2(ROOT / "tools" / tool_name, out / "tools" / tool_name)
+    shutil.copytree(CORE_SRC / "fonts", out / "fonts")
     (out / "docs").mkdir(parents=True, exist_ok=True)
     shutil.copy2(ROOT / "docs" / "VXPGDX.md", out / "docs" / "VXPGDX.md")
     shutil.copy2(ROOT / "docs" / "GAME_ART_STYLES.md", out / "docs" / "GAME_ART_STYLES.md")
     shutil.copy2(ROOT / "docs" / "URBAN_TOON_3D.md", out / "docs" / "URBAN_TOON_3D.md")
     shutil.copy2(ROOT / "docs" / "DUNGEON_SYNTH_3D.md", out / "docs" / "DUNGEON_SYNTH_3D.md")
     shutil.copy2(ROOT / "docs" / "ACTOR_SPRITES.md", out / "docs" / "ACTOR_SPRITES.md")
+    shutil.copy2(ROOT / "docs" / "STORY_STAGES_2D.md", out / "docs" / "STORY_STAGES_2D.md")
+    shutil.copy2(ROOT / "docs" / "PIXEL_FONT_STYLES.md", out / "docs" / "PIXEL_FONT_STYLES.md")
 
     cmake_text = (CORE_SRC / "CMakeLists.txt").read_text(encoding="utf-8")
     match = re.search(r"set\(COREMRE_SOURCES\s+(.*?)\n\)", cmake_text, re.DOTALL)

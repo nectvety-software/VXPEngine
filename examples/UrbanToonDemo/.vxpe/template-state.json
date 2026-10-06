@@ -1,7 +1,7 @@
 {
   "format": "VXPEngine Project Template State",
   "layout_version": 2,
-  "template_version": "2.0.2",
+  "template_version": "2.0.0",
   "files": {
     "CMakeLists.txt": {
       "base_sha256": "5bdeb16d6340a8a2db69b2dcf6f2e9118dc9e1f15e3611e427308ec0923332c3",
@@ -40,8 +40,8 @@
       "template_sha256": "390e415c300000238bfb668fc05c7c59f480d1ba96e1d9c097b491ae0103c69a"
     },
     ".vxpe/cmake/AddPackVxp.cmake": {
-      "base_sha256": "4b179a85e732087e1054723c78213e04e7da022f2a76356ecf921d124db1a414",
-      "template_sha256": "4b179a85e732087e1054723c78213e04e7da022f2a76356ecf921d124db1a414"
+      "base_sha256": "59093b36580bcedd676ad1b86b9012948fad405f70d285ff726b6a19a2ea07a9",
+      "template_sha256": "59093b36580bcedd676ad1b86b9012948fad405f70d285ff726b6a19a2ea07a9"
     },
     ".vxpe/cmake/MreUtils.cmake": {
       "base_sha256": "5926aad98a0ed07a95ef010034495e883a3a418ba790488c09c3f8050f9a3e84",

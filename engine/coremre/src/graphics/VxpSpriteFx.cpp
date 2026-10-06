@@ -252,6 +252,43 @@ void vxpe2d_blit_a8(uint16_t* fb,int fb_w,int fb_h,
     const int x0=clamp_i(op->dst_x,cx0,cx1),y0=clamp_i(op->dst_y,cy0,cy1);
     const int x1=clamp_i(op->dst_x+m.dw,cx0,cx1),y1=clamp_i(op->dst_y+m.dh,cy0,cy1);
     if(x1<=x0||y1<=y0)return;
+    /* Common QVGA actor/background path: map X once per column and Y once
+     * per row. ARMv5 has no hardware division, so avoid two software divides
+     * per destination pixel. Preserve the scalar path for other effects. */
+    if(!op->flip_d && op->alpha==255 && op->tint565==0xFFFF &&
+       (op->blend==VXPE_BLEND_COPY || op->blend==VXPE_BLEND_ALPHA)) {
+        const bool opaque=sprite->opaque || !sprite->alpha;
+        if(opaque && !op->flip_x && !op->flip_y && m.dw==m.sw && m.dh==m.sh) {
+            for(int dy=y0;dy<y1;++dy)
+                memcpy(fb+dy*fb_w+x0,
+                    sprite->pixels+(m.sy0+dy-op->dst_y)*m.stride+m.sx0+x0-op->dst_x,
+                    (size_t)(x1-x0)*sizeof(uint16_t));
+            return;
+        }
+        if(x1-x0<=320) {
+            int source_x[320];
+            for(int dx=x0;dx<x1;++dx) {
+                int lx=dx-op->dst_x;
+                if(op->flip_x)lx=m.dw-1-lx;
+                source_x[dx-x0]=m.sx0+(int)((uint32_t)lx*(uint32_t)m.sw/(uint32_t)m.dw);
+            }
+            for(int dy=y0;dy<y1;++dy) {
+                int ly=dy-op->dst_y;
+                if(op->flip_y)ly=m.dh-1-ly;
+                const int sy=m.sy0+(int)((uint32_t)ly*(uint32_t)m.sh/(uint32_t)m.dh);
+                const uint16_t* src=sprite->pixels+sy*m.stride;
+                const uint8_t* alpha=opaque?nullptr:sprite->alpha+sy*m.astride;
+                uint16_t* row=fb+dy*fb_w;
+                for(int dx=x0;dx<x1;++dx) {
+                    const int sx=source_x[dx-x0];
+                    const uint8_t a=alpha?alpha[sx]:255;
+                    if(a==255)row[dx]=src[sx];
+                    else if(a)row[dx]=alpha565_local(row[dx],src[sx],a);
+                }
+            }
+            return;
+        }
+    }
     for(int dy=y0;dy<y1;++dy){
         int ly=dy-op->dst_y;uint16_t* row=fb+dy*fb_w;
         for(int dx=x0;dx<x1;++dx){

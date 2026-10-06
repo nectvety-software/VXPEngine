@@ -1,0 +1,32 @@
+{
+  "format": "VXPEngine Screen Registry",
+  "format_version": 2,
+  "active_screen": "splash",
+  "screens": [
+    {
+      "id": "splash",
+      "name": "Splash",
+      "file": "assets/scenes/splash.dtfe",
+      "code_name": "Splash"
+    },
+    {
+      "id": "heroes",
+      "name": "Heroes",
+      "file": "assets/scenes/heroes.dtfe",
+      "code_name": "Heroes"
+    },
+    {
+      "id": "main",
+      "name": "Main",
+      "file": "assets/scenes/main.dtfe",
+      "code_name": "Main"
+    },
+    {
+      "id": "result",
+      "name": "Result",
+      "file": "assets/scenes/result.dtfe",
+      "code_name": "Result"
+    }
+  ],
+  "transitions": []
+}

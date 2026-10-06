@@ -1,0 +1,101 @@
+{
+  "name": "Vaelora Splash",
+  "screen_id": "splash",
+  "type": "VXPScreen",
+  "viewport": {
+    "width": 240,
+    "height": 320,
+    "type": "FitViewport",
+    "orientation": "portrait"
+  },
+  "engine": {
+    "core": "coremre",
+    "version": "2.0.0"
+  },
+  "children": [
+    {
+      "id": "camera2d",
+      "name": "Camera2D",
+      "type": "OrthographicCamera",
+      "position": [
+        0,
+        0
+      ],
+      "rotation": 0,
+      "zoom": [
+        1,
+        1
+      ],
+      "projection": "Pixel Perfect",
+      "code_name": "Camera2D",
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "Arena",
+      "name": "Arena",
+      "code_name": "Arena",
+      "type": "Sprite2D",
+      "asset": "assets/backgrounds/arena.png",
+      "position": [
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        240,
+        320
+      ],
+      "z_index": -10,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "Logo",
+      "name": "Logo",
+      "code_name": "Logo",
+      "type": "Sprite2D",
+      "asset": "assets/ui/logo.png",
+      "position": [
+        0,
+        -27
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        200,
+        114
+      ],
+      "z_index": 1,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    }
+  ],
+  "runtime": {
+    "controller": "FoxScene",
+    "screen": "splash",
+    "notes": "Editable composition; UI and gameplay use src/scene.cpp."
+  },
+  "groups": []
+}

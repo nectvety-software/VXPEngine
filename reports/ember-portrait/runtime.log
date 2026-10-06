@@ -1,0 +1,30 @@
+[19:01:39.719] [INFO ] [EmulatorCore] Display resize requested: 240x320
+[19:01:39.723] [INFO ] [EmulatorCore] VXP queued: D:\MRE\VXPEngine\examples\EmberChronicleDemo\build-arm\main\ember_chronicle.vxp
+[19:01:39.724] [INFO ] [EmulatorCore] worker: Memory::init
+[19:01:39.724] [INFO ] [EmulatorCore] worker: Cpu::init
+[19:01:39.727] [INFO ] [EmulatorCore] worker: Bridge::init
+[19:01:39.728] [INFO ] [EmulatorCore] worker: SIM/System/CharSet/Audio/IO init
+[19:01:39.730] [INFO ] [EmulatorCore] worker: AppManager new
+[19:01:39.730] [INFO ] [EmulatorCore] worker: init done
+[19:01:39.730] [INFO ] [EmulatorCore] worker: queueing VXP for launch
+[19:01:39.730] [INFO ] [EmulatorCore] worker: VXP queued
+[19:05:51.629] [INFO ] [EmulatorCore] Display resize requested: 240x320
+[19:05:51.630] [INFO ] [EmulatorCore] VXP queued: D:\MRE\VXPEngine\examples\EmberChronicleDemo\build-arm\main\ember_chronicle.vxp
+[19:05:51.630] [INFO ] [EmulatorCore] worker: Memory::init
+[19:05:51.630] [INFO ] [EmulatorCore] worker: Cpu::init
+[19:05:51.633] [INFO ] [EmulatorCore] worker: Bridge::init
+[19:05:51.633] [INFO ] [EmulatorCore] worker: SIM/System/CharSet/Audio/IO init
+[19:05:51.635] [INFO ] [EmulatorCore] worker: AppManager new
+[19:05:51.635] [INFO ] [EmulatorCore] worker: init done
+[19:05:51.635] [INFO ] [EmulatorCore] worker: queueing VXP for launch
+[19:05:51.635] [INFO ] [EmulatorCore] worker: VXP queued
+[19:10:11.047] [INFO ] [EmulatorCore] Display resize requested: 240x320
+[19:10:11.047] [INFO ] [EmulatorCore] VXP queued: D:\MRE\VXPEngine\examples\EmberChronicleDemo\build-arm\main\ember_chronicle.vxp
+[19:10:11.048] [INFO ] [EmulatorCore] worker: Memory::init
+[19:10:11.048] [INFO ] [EmulatorCore] worker: Cpu::init
+[19:10:11.050] [INFO ] [EmulatorCore] worker: Bridge::init
+[19:10:11.051] [INFO ] [EmulatorCore] worker: SIM/System/CharSet/Audio/IO init
+[19:10:11.053] [INFO ] [EmulatorCore] worker: AppManager new
+[19:10:11.053] [INFO ] [EmulatorCore] worker: init done
+[19:10:11.053] [INFO ] [EmulatorCore] worker: queueing VXP for launch
+[19:10:11.053] [INFO ] [EmulatorCore] worker: VXP queued

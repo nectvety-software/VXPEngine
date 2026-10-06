@@ -63,6 +63,9 @@ from PySide6.QtWidgets import (
 
 from .animation_player import AnimationPlayerWindow, AnimationPreviewFrame
 from .vpe_pixel_panel import VpePixelPanel
+from .terra_panel import TerraPanel
+from .story_hud_panel import StoryHudPanel
+from .font_styles_panel import FontStylesPanel
 from .custom_dialog import ColorPickerDialog, CustomDialog, NoticeDialog
 from .icons import icon
 from smart_slice import detect_content_regions
@@ -913,6 +916,15 @@ class AssetEditorDialog(QDialog):
         self.vpe_pixel.received.connect(self._receive_vpe_pixel)
         self.vpe_pixel.send_requested.connect(self._send_to_vpe_pixel)
         self.workspace_tabs.addTab(self.vpe_pixel, "VPE Pixel")
+        self.terra = TerraPanel(self)
+        self.terra.received.connect(self._receive_terra)
+        self.workspace_tabs.addTab(self.terra, "Terra · Tilemap")
+        self.story_hud = StoryHudPanel(self.project_root, self)
+        self.story_hud.saved.connect(self.asset_saved.emit)
+        self.workspace_tabs.addTab(self.story_hud, "Story HUD")
+        self.font_styles = FontStylesPanel(self.project_root, self)
+        self.font_styles.saved.connect(self.asset_saved.emit)
+        self.workspace_tabs.addTab(self.font_styles, "Font Styles")
         self.workspace_tabs.currentChanged.connect(self._workspace_tab_changed)
         root_layout.addWidget(self.workspace_tabs, 1)
         root_layout.addWidget(self._build_footer())
@@ -4239,6 +4251,13 @@ class AssetEditorDialog(QDialog):
             self.vpe_pixel.ensure_editor()
         else:
             self.vpe_pixel.stop()
+        if index == 2:
+            self.stop_playback()
+            self.terra.ensure_editor()
+
+    def _receive_terra(self, images, name: str) -> None:
+        self._receive_vpe_pixel(images, name, 100, False)
+        self._set_status("Đã nhận tilemap từ Terra. Dùng Áp dụng & lưu để lưu vào project.")
 
     def _send_to_vpe_pixel(self) -> None:
         settings = self._normalized_player_settings()
@@ -4354,13 +4373,15 @@ class AssetEditorDialog(QDialog):
         self.status_label.style().polish(self.status_label)
 
     def reject(self) -> None:
-        if not self.vpe_pixel.can_close():
+        if not self.terra.can_close() or not self.vpe_pixel.can_close():
             return
         self.vpe_pixel.stop()
         self.stop_playback()
         super().reject()
 
     def accept(self) -> None:
+        if not self.terra.can_close():
+            return
         self.vpe_pixel.stop()
         self.stop_playback()
         super().accept()

@@ -1,0 +1,8 @@
+ARM VXP via VXPEmu EmulatorCore
+viewport=240x320
+frames=171
+shots=7
+distinctShotHashes=7
+loadError=
+backgroundPixelParity=PASS
+result=PASS
