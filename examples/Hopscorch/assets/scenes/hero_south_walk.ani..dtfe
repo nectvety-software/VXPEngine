@@ -1,0 +1,64 @@
+{
+  "format": "VXPEngine Animation",
+  "format_version": 2,
+  "extension": ".ani..dtfe",
+  "asset": "assets/sprites/hero_atlas.png",
+  "texture": "assets/sprites/hero_atlas.png",
+  "source_mode": "atlas_frames",
+  "asset_kind": "character",
+  "package": "atlas+descriptor",
+  "preview_background": "checker",
+  "preview_zoom": 4,
+  "animation": {
+    "name": "hero_south_walk",
+    "fps": 10,
+    "loop": true,
+    "frame_count": 4,
+    "source_mode": "atlas_frames",
+    "asset_kind": "character",
+    "selected_indices": [
+      17,
+      18,
+      19,
+      20
+    ]
+  },
+  "frames": [
+    {
+      "name": "south_1",
+      "x": 20,
+      "y": 60,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 100,
+      "source_index": 17
+    },
+    {
+      "name": "south_2",
+      "x": 40,
+      "y": 60,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 100,
+      "source_index": 18
+    },
+    {
+      "name": "south_3",
+      "x": 60,
+      "y": 60,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 100,
+      "source_index": 19
+    },
+    {
+      "name": "south_4",
+      "x": 80,
+      "y": 60,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 100,
+      "source_index": 20
+    }
+  ]
+}

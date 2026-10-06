@@ -1,0 +1,20 @@
+{
+  "format": "VXPEngine Asset",
+  "format_version": 2,
+  "asset": "assets/floor.png",
+  "asset_type": "Texture",
+  "size": {
+    "width": 64,
+    "height": 64
+  },
+  "texture": {
+    "render_mode": "nearest",
+    "transparent": false,
+    "pixel_mode_bits": 32
+  },
+  "art_style": {
+    "name": "Game \u00b7 Dungeon Synth",
+    "role": "environment",
+    "runtime_preset": "VXPE_ARTSTYLE_DUNGEON_SYNTH"
+  }
+}

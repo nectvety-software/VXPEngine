@@ -57,6 +57,17 @@ Hộp **Tạo dự án VXP mới** cho chọn trực tiếp `240×320 — Dọc`
 
 ## UI Design và Pixel Paint
 
+Editor Assets tích hợp **VPE Pixel** trong cùng cửa sổ, dùng chung thư viện
+`Documents/VPE Pixel`, mở `.vpe/.vpea` và chuyển ảnh/animation hai chiều
+để lưu vào project. Xem [hướng dẫn tích hợp](docs/VPE_PIXEL_INTEGRATION.md).
+
+Asset Editor có năm palette game mới: Cozy Farm, Dark Fantasy, Neon Action,
+Pastel Platformer và Retro Handheld. Runtime có `VxpColorGrade.h` để chỉnh màu
+RGB565 theo vùng trước khi vẽ HUD, dùng LUT 256 byte không cấp phát heap.
+Xem [hướng dẫn Game Art Styles](docs/GAME_ART_STYLES.md).
+Lõi có thêm controller sprite bốn hướng `VxpActorSprite2D`; Hopscorch minh họa
+atlas RGB565+A8 với idle/walk/cast/reel. Xem [Actor Sprites](docs/ACTOR_SPRITES.md).
+
 - `TitleSet / Component Library` có tab UI với Canvas, Button, Label, Checkbox,
   TextBox, Image, ProgressBar, Slider và Switch. Kéo hoặc nhấp đúp để đặt vào
   Camera2D; node và C bindings được cập nhật tự động từ scene `.dtfe`.
@@ -93,14 +104,24 @@ Hộp **Tạo dự án VXP mới** cho chọn trực tiếp `240×320 — Dọc`
   `src/scene_bindings.h`, không phải controls minh họa.
 
 Asset Editor có thêm canvas preset QVGA, unit/building isometric và style
-**Pixel Art · Isometric RTS**. Hai project kiểm thử hoàn chỉnh nằm trong
+**Pixel Art · Isometric RTS**. Hai project kiểm thử UI hoàn chỉnh nằm trong
 `examples/PocketToolkitDemo` (240×320) và `examples/IsometricOutpostDemo`
-(320×240).
+(320×240). Demo `examples/ParticleFireDemo` minh hoạ particle pool C cố định
+64 slot với lifetime, alpha fade, tint RGB565 và blend ADD/ALPHA chạy ở 30 FPS.
 
 Chạy `run_windows.bat test` để tự động kiểm tra Inspector, Asset Editor,
 Component Library, DTFE/C bindings, simulator, SDK/VXPEmu và build ARM của cả hai project mẫu.
 
 ## Đóng gói Windows
+
+Mẫu [Nightfall Survival](examples/NightfallSurvival/README.md) minh họa FPS
+zombie sinh tồn 320×240: raycasting 2.5D, texture pixel, zombie billboard,
+wave, ammo/reload, cửa mở bằng điểm, rào chắn và vật phẩm. Artwork PNG và
+animation descriptor đi kèm để mở trong Editor Assets.
+
+[Urban Toon Demo](examples/UrbanToonDemo/README.md) minh họa lõi
+[VxpToon3D](docs/URBAN_TOON_3D.md): mesh/texture phối cảnh, cel band, ink,
+depth, clipping, A8 billboard và camera đô thị theo nhân vật patin.
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements-build.txt

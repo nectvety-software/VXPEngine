@@ -5,7 +5,7 @@
   "viewport": {
     "type": "FitViewport",
     "width": 240,
-    "height": 340,
+    "height": 320,
     "orientation": "portrait"
   },
   "children": [

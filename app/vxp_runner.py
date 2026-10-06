@@ -126,8 +126,8 @@ class VxpRunner(QObject):
         """Build ARM bằng CMake (Ninja + arm-none-eabi).
 
         Không cần Git Bash: configure và build chạy thẳng qua ``cmake``.
-        Bản signed nhận khóa ký của engine qua ``-DAPPID/-DCERTID/-DCERT``;
-        project luôn giữ trạng thái chưa ký (CERTID=1, CERT=none).
+        Bản signed được đóng gói unsigned trước, sau đó ký bằng post-build signer;
+        private key không truyền qua CMake và không bao giờ nằm trong project.
         """
         self.last_error = ""
         root = self._resolve(project_path)
@@ -195,7 +195,8 @@ class VxpRunner(QObject):
         build = {
             "program": cmake,
             "args": ["--build", str(build_root), "--target", "main_vxp"],
-            "phase": "Biên dịch ARM (.vxp cho máy thật)",
+            "phase": ("Biên dịch ARM gói nền (sẽ ký certid 100)" if signed
+                      else "Biên dịch ARM (.vxp dev/VXPEmu — chưa ký)"),
             "env": env,
         }
         app_name = self._read_app_name(root)
@@ -208,9 +209,13 @@ class VxpRunner(QObject):
                 args = signer_arguments(unsigned, signed_output, root)
             except (FileNotFoundError, ValueError, OSError) as error:
                 return self._fail_early(f"[VXPEngine] ✗ {error}")
+            display_args = list(args)
+            if len(display_args) >= 4:
+                display_args[3] = "<LOCAL_SIGNING_KEY>"
             steps.append({
                 "program": sdk_python(),
                 "args": args,
+                "display_args": display_args,
                 "phase": "Ký RSA-SHA1 và xác minh bằng backend re3",
                 "env": env,
             })
@@ -517,6 +522,7 @@ class VxpRunner(QObject):
         step = self._steps.pop(0)
         program = str(step["program"])
         args = [str(item) for item in step["args"]]
+        display_args = [str(item) for item in (step.get("display_args") or args)]
         phase = str(step.get("phase") or self._label)
         if not shutil.which(program) and not Path(program).exists():
             self.last_error = f"[VXPEngine] Không tìm thấy lệnh: {program}"
@@ -525,7 +531,7 @@ class VxpRunner(QObject):
             return False
         self.phase_changed.emit(phase)
         self.output.emit(f"[VXPEngine] {phase}")
-        self.output.emit(f"[VXPEngine] Lệnh: {display_command(program, args)}")
+        self.output.emit(f"[VXPEngine] Lệnh: {display_command(program, display_args)}")
         self._output_buffer = ""
         environment = QProcessEnvironment.systemEnvironment()
         for key, value in (step.get("env") or {}).items():

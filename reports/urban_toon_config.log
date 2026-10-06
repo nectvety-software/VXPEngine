@@ -1,0 +1,9 @@
+-- The C compiler identification is GNU 16.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: D:/MRE/lib/w64devkit/bin/gcc.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Configuring done (4.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: D:/MRE/VXPEngine/reports/build_urban_toon

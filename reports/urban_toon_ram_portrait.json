@@ -1,0 +1,23 @@
+{
+  "screen": [
+    240,
+    320
+  ],
+  "world_render": [
+    120,
+    160
+  ],
+  "before_bss_bytes": 328900,
+  "after_bss_bytes": 92104,
+  "saved_bss_bytes": 236796,
+  "before_color_depth_rotation_buffers_bytes": 307200,
+  "after_color_depth_buffers_bytes": 76800,
+  "mre_declared_ram_kb": 1024,
+  "measurement": "arm-none-eabi-size main.axf; BSS excludes MRE layer framebuffer, heap and stack",
+  "actor_detail_render": [
+    80,
+    120
+  ],
+  "actor_tile_storage": "reuses world colour buffer after upscale",
+  "upscale": "Scale2x"
+}

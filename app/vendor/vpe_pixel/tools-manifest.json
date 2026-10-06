@@ -1,0 +1,90 @@
+{
+  "format": 1,
+  "files": [
+    {
+      "path": "make_app_icon.py",
+      "size": 1664,
+      "sha256": "726eafd88082fb65b01459ab71879c627560a567ad0ed43c056f7aa487966368"
+    },
+    {
+      "path": "make_dragon_anim.py",
+      "size": 23835,
+      "sha256": "a16f4480730cfd1bc9fb3a1c5a81ad43c9d18c777327fa5ebbd0c7791daae7fa"
+    },
+    {
+      "path": "make_effect_anim.py",
+      "size": 17828,
+      "sha256": "dab79c87197b8e54d8775b873b7a4e8bbe141be0d7771d3dde508ccb4c89897e"
+    },
+    {
+      "path": "make_fnynn_anim.py",
+      "size": 18155,
+      "sha256": "970d3f06f570ca7691dae70994b8af673da542bf33fce4e3272bf7f2e6f32114"
+    },
+    {
+      "path": "make_fnynn_map.py",
+      "size": 42738,
+      "sha256": "7829d0a3893abd4176a0b223c5e1e40ae09284e363269a57c061e7c4b0f00b2f"
+    },
+    {
+      "path": "make_golem_anim.py",
+      "size": 26302,
+      "sha256": "e3e723f2972c811fd1264c6d002dc7b722ab58b88921001c6ac64afff0996b61"
+    },
+    {
+      "path": "make_knight_anim.py",
+      "size": 24072,
+      "sha256": "90025b7f3df4caf089ef44e910d40603854ffba8fa01f9dfc30e81dfd850a1b6"
+    },
+    {
+      "path": "make_player_anim.py",
+      "size": 16898,
+      "sha256": "a419163b1dbf5f5b79a5e9bc0be26180c5e71a1ac9815478372df1aff5700b2a"
+    },
+    {
+      "path": "make_samples.py",
+      "size": 128793,
+      "sha256": "66a32e9ab89c3c149419cc3d3053fc762c16bf1de86b67f6c5b28e8d7af4a6db"
+    },
+    {
+      "path": "make_scorpion_anim.py",
+      "size": 36175,
+      "sha256": "a024c8e4dc76caf36ba857b6312ec9f5cc67df4acd689010a4dd52fc47b013dc"
+    },
+    {
+      "path": "make_slime_anim.py",
+      "size": 22419,
+      "sha256": "fe7aba808b0fbbe6aa5ae899081f2b2f1030fa977a99bcad6cb9414e71a08950"
+    },
+    {
+      "path": "make_summit_echo.py",
+      "size": 29088,
+      "sha256": "23ec4967ec9ed2a71ac702e13b57388d58a41bd0312c158009cb84b349784673"
+    },
+    {
+      "path": "make_ui_buttons.py",
+      "size": 19536,
+      "sha256": "2c533828703967a539996b09b106dc107ea3c9aecad1ba1df1073056c9fed214"
+    },
+    {
+      "path": "make_vqeaf_icons.py",
+      "size": 11218,
+      "sha256": "f53871ea9288b576bffd81fdf0fa2a4cfae44f25d8cf32ba971cf5c8767bbb0d"
+    },
+    {
+      "path": "make_vqeaf_screens.py",
+      "size": 42038,
+      "sha256": "7f18a7bf9ab07bb401c7d1dba162a68d61d71129c267eb0f028433dafb642891"
+    },
+    {
+      "path": "make_wizard_anim.py",
+      "size": 29714,
+      "sha256": "ec29a4a570a894627b53a9dcd7ada845c9fd30a23c29327d5a41f8794104bdf6"
+    },
+    {
+      "path": "play_animations.py",
+      "size": 6229,
+      "sha256": "7c6dc8215f011b569329faeda31c0555c149966a3e5263de9970fa532ec358ee"
+    }
+  ]
+}

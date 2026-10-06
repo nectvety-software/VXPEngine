@@ -1,0 +1,46 @@
+﻿cmake_minimum_required(VERSION 3.10)
+project("infiltrate_mission_demo")
+
+set(APP_NAME "infiltrate_mission")
+set(DEVELOPER_NAME "VXPstore")
+set(RAM "800")
+set(IMSI "91234567890" CACHE STRING "Imsi of first SIM-card")
+set(API "File ProMng")
+set(APPID "6052863" CACHE STRING "App id")
+set(CERTID "1" CACHE STRING "Cert id")
+set(CERT "none" CACHE STRING "Path to cert")
+option(BACKGROUND "App can work background" OFF)
+
+set(MRE_SDK "$ENV{MRE_SDK}" CACHE STRING "MRE SDK dir")
+set(VXPE_PYTHON "$ENV{VXPE_PYTHON}" CACHE FILEPATH "Python used by VXPEngine SDK tools")
+set(VXPE_SDK_TOOLS "$ENV{VXPE_SDK_TOOLS}" CACHE PATH "VXPEngine SDK tools directory")
+
+if(NOT VXPE_PYTHON)
+    find_package(Python3 REQUIRED COMPONENTS Interpreter)
+    set(VXPE_PYTHON "${Python3_EXECUTABLE}")
+endif()
+if(NOT EXISTS "${VXPE_SDK_TOOLS}/vxp_pack.py")
+    message(FATAL_ERROR "Missing VXPEngine SDK tools")
+endif()
+
+if(BACKGROUND)
+    add_definitions(-DSUPPORT_BG)
+endif()
+
+include(cmake/MreUtils.cmake)
+
+get_filename_component(VXPE_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../.." ABSOLUTE)
+if(DEFINED COREMRE_PACKAGE_DIR AND EXISTS "${COREMRE_PACKAGE_DIR}/cmake/UseCoremre.cmake")
+    include("${COREMRE_PACKAGE_DIR}/cmake/UseCoremre.cmake")
+elseif(EXISTS "${VXPE_ROOT}/engine/coremre/CMakeLists.txt")
+    add_subdirectory("${VXPE_ROOT}/engine/coremre" "${CMAKE_BINARY_DIR}/coremre")
+else()
+    message(FATAL_ERROR "Missing VXPEngine coremre")
+endif()
+
+add_subdirectory(resources)
+add_subdirectory(mreapi)
+add_subdirectory(run)
+add_subdirectory(main)
+
+

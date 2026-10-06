@@ -78,6 +78,19 @@ def pack() -> Path:
     (out / "cmake").mkdir(parents=True)
     for part in ("include", "src"):
         shutil.copytree(CORE_SRC / part, out / part)
+    shutil.copytree(CORE_SRC / "tests", out / "tests")
+
+    # Ship the VXPGDX asset pipeline with the SDK package so projects can
+    # convert Tiled JSON/TMJ and atlas manifests without cloning the repo.
+    (out / "tools").mkdir(parents=True, exist_ok=True)
+    for tool_name in ("vxpgdx_pack_tiled.py", "vxpgdx_pack_atlas.py"):
+        shutil.copy2(ROOT / "tools" / tool_name, out / "tools" / tool_name)
+    (out / "docs").mkdir(parents=True, exist_ok=True)
+    shutil.copy2(ROOT / "docs" / "VXPGDX.md", out / "docs" / "VXPGDX.md")
+    shutil.copy2(ROOT / "docs" / "GAME_ART_STYLES.md", out / "docs" / "GAME_ART_STYLES.md")
+    shutil.copy2(ROOT / "docs" / "URBAN_TOON_3D.md", out / "docs" / "URBAN_TOON_3D.md")
+    shutil.copy2(ROOT / "docs" / "DUNGEON_SYNTH_3D.md", out / "docs" / "DUNGEON_SYNTH_3D.md")
+    shutil.copy2(ROOT / "docs" / "ACTOR_SPRITES.md", out / "docs" / "ACTOR_SPRITES.md")
 
     cmake_text = (CORE_SRC / "CMakeLists.txt").read_text(encoding="utf-8")
     match = re.search(r"set\(COREMRE_SOURCES\s+(.*?)\n\)", cmake_text, re.DOTALL)
@@ -92,7 +105,19 @@ def pack() -> Path:
         encoding="utf-8",
     )
     (out / "cmake" / "UseCoremre.cmake").write_text(USE_COREMRE_CMAKE, encoding="utf-8")
-    shutil.copy2(PUB_KEY, out / "coremre-sign-pub.pem")
+
+    # The repository no longer tracks signing/coremre-sign-pub.pem.  Derive the
+    # public key from the local private signing key when needed so packaging
+    # remains reproducible without restoring a stale tracked public-key file.
+    ssl = _openssl()
+    packaged_pub = out / "coremre-sign-pub.pem"
+    if PUB_KEY.is_file():
+        shutil.copy2(PUB_KEY, packaged_pub)
+    else:
+        subprocess.run(
+            [ssl, "pkey", "-in", str(SIGN_KEY), "-pubout", "-out", str(packaged_pub)],
+            check=True, capture_output=True,
+        )
 
     manifest = {"name": "coremre", "version": VERSION, "files": {}}
     for path in sorted(out.rglob("*")):
@@ -101,7 +126,6 @@ def pack() -> Path:
         manifest["files"][path.relative_to(out).as_posix()] = _sha256(path)
     (out / "manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
-    ssl = _openssl()
     subprocess.run(
         [ssl, "dgst", "-sha256", "-sign", str(SIGN_KEY),
          "-out", str(out / "manifest.sig"), str(out / "manifest.json")],

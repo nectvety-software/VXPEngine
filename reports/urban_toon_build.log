@@ -1,0 +1,14 @@
+[1/14] Building CXX object CMakeFiles/vxpe_toon3d_regression.dir/vxpe_toon3d_regression.cpp.obj
+[2/14] Building CXX object CMakeFiles/vxpgdx_test_runtime.dir/D_/MRE/VXPEngine/engine/coremre/src/graphics/VxpToon3D.cpp.obj
+[3/14] Linking CXX static library libvxpgdx_test_runtime.a
+[4/14] Building C object CMakeFiles/vxpe_toon3d_c_api.dir/vxpe_toon3d_c_api.c.obj
+[5/14] Linking CXX executable vxpe_toon3d_regression.exe
+[6/14] Linking CXX executable vxpe_actor_sprite_regression.exe
+[7/14] Linking CXX executable vxpe_color_grade_regression.exe
+[8/14] Linking CXX executable vxpgdx_vxtm3_regression.exe
+[9/14] Linking CXX executable vxpe_toon3d_c_api.exe
+[10/14] Linking CXX executable vxpe_scene25d_regression.exe
+[11/14] Linking CXX executable vxpgdx_strategy_rpg_regression.exe
+[12/14] Linking CXX executable vxpe_stage2d_regression.exe
+[13/14] Linking CXX executable vxpe_artstyle_regression.exe
+[14/14] Linking CXX executable vxpgdx_ui_arm_regression.exe

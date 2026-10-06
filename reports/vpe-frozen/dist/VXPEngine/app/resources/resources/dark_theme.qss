@@ -1,0 +1,1906 @@
+/* =========================================================
+   VXPEngine - Dark Enterprise Theme (QSS)
+   ========================================================= */
+
+* {
+    outline: none;
+    font-family: "Segoe UI", "Inter", "Cantarell", sans-serif;
+    font-size: 12.5px;
+    color: #cbd3e1;
+}
+
+QWidget {
+    background-color: #14171f;
+}
+
+QMainWindow, #CentralHost {
+    background-color: #14171f;
+}
+
+/* ---------------------------------------------------------
+   Root window frame (rounded corners + border)
+   --------------------------------------------------------- */
+#RootFrame {
+    background-color: #14171f;
+    border: 1px solid #262b38;
+    border-radius: 10px;
+}
+
+/* ---------------------------------------------------------
+   Custom Title Bar
+   --------------------------------------------------------- */
+#TitleBar {
+    background-color: #10131a;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: 1px solid #21252f;
+}
+
+#TitleBarLogo {
+    color: #4f8cff;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+#TitleBarText {
+    color: #9aa4b8;
+    font-size: 12px;
+}
+
+#TitleBarProject {
+    color: #6d7690;
+    font-size: 12px;
+}
+
+QMenuBar#MainMenuBar {
+    background: transparent;
+    padding: 2px 4px;
+    spacing: 2px;
+}
+QMenuBar#MainMenuBar::item {
+    background: transparent;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #b7c0d1;
+}
+QMenuBar#MainMenuBar::item:selected {
+    background-color: #232838;
+    color: #ffffff;
+}
+QMenuBar#MainMenuBar::item:pressed {
+    background-color: #2c3244;
+}
+
+QMenu {
+    background-color: #1a1e28;
+    border: 1px solid #2b303e;
+    border-radius: 8px;
+    padding: 6px;
+}
+QMenu::item {
+    padding: 6px 26px 6px 14px;
+    border-radius: 5px;
+    color: #cbd3e1;
+}
+QMenu::item:selected {
+    background-color: #2b6bf2;
+    color: #ffffff;
+}
+QMenu::separator {
+    height: 1px;
+    background: #2b303e;
+    margin: 6px 4px;
+}
+
+/* Title bar window control buttons */
+QPushButton#BtnMin, QPushButton#BtnMax, QPushButton#BtnClose {
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    min-width: 34px;
+    max-width: 34px;
+    min-height: 26px;
+    max-height: 26px;
+    font-size: 13px;
+    color: #9aa4b8;
+}
+QPushButton#BtnMin:hover, QPushButton#BtnMax:hover {
+    background-color: #232838;
+    color: #ffffff;
+}
+QPushButton#BtnClose:hover {
+    background-color: #e5484d;
+    color: #ffffff;
+}
+
+/* ---------------------------------------------------------
+   Toolbar
+   --------------------------------------------------------- */
+#MainToolBar {
+    background-color: #171b25;
+    border-bottom: 1px solid #21252f;
+    padding: 6px 8px;
+    spacing: 4px;
+}
+
+QToolButton {
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    padding: 6px;
+    min-width: 34px;
+    min-height: 34px;
+    color: #aab4c6;
+}
+QToolButton:hover {
+    background-color: #202533;
+    border: 1px solid #2b303e;
+    color: #ffffff;
+}
+QToolButton:checked {
+    background-color: #2b6bf2;
+    color: #ffffff;
+    border: 1px solid #4f8cff;
+}
+QToolButton:pressed {
+    background-color: #244086;
+}
+
+QToolBar QLabel#ToolSep {
+    color: #2b303e;
+    padding: 0 4px;
+}
+
+/* Run / Play / Debug action buttons */
+QToolButton#RunBtn {
+    color: #57d38c;
+}
+QToolButton#RunBtn:hover { background-color: #163828; border-color: #1f5a3c; }
+QToolButton#PlayBtn { color: #4f8cff; }
+QToolButton#PlayBtn:hover { background-color: #16233d; border-color: #1f3f6e; }
+QToolButton#DebugBtn { color: #f2b84f; }
+QToolButton#DebugBtn:hover { background-color: #3a2c14; border-color: #6e4f1f; }
+
+QComboBox {
+    background-color: #1c2029;
+    border: 1px solid #2b303e;
+    border-radius: 6px;
+    padding: 4px 10px;
+    min-height: 22px;
+    color: #cbd3e1;
+}
+QComboBox:hover { border: 1px solid #3a4154; }
+QComboBox::drop-down { border: none; width: 20px; }
+QComboBox QAbstractItemView {
+    background-color: #1a1e28;
+    border: 1px solid #2b303e;
+    selection-background-color: #2b6bf2;
+    selection-color: #ffffff;
+    outline: none;
+    padding: 4px;
+}
+
+/* ---------------------------------------------------------
+   Dock widgets / panels
+   --------------------------------------------------------- */
+QDockWidget {
+    color: #cbd3e1;
+    titlebar-close-icon: none;
+    border: none;
+}
+QDockWidget::title {
+    background-color: #171b25;
+    padding: 0;
+    height: 0;
+}
+
+#PanelFrame {
+    background-color: #171b25;
+    border: 1px solid #21252f;
+    border-radius: 8px;
+}
+
+#PanelHeader {
+    background-color: transparent;
+    border-bottom: 1px solid #21252f;
+}
+#PanelHeaderTitle {
+    color: #dfe4ee;
+    font-weight: 600;
+    font-size: 12px;
+    padding: 8px 10px;
+}
+QToolButton#PanelMenuBtn {
+    min-width: 20px; min-height: 20px; padding: 2px;
+    color: #6d7690;
+}
+QToolButton#PanelMenuBtn:hover { background-color: #232838; color: #fff; }
+
+/* Tabs used inside panels (Scene/History, Console/Debugger...) */
+QTabWidget::pane {
+    border: none;
+    background: transparent;
+}
+QTabBar {
+    background: transparent;
+}
+QTabBar::tab {
+    background: transparent;
+    color: #7c869c;
+    padding: 8px 14px;
+    border-bottom: 2px solid transparent;
+    margin-right: 2px;
+}
+QTabBar::tab:selected {
+    color: #ffffff;
+    border-bottom: 2px solid #4f8cff;
+}
+QTabBar::tab:hover:!selected {
+    color: #cbd3e1;
+}
+QTabBar::close-button {
+    image: none;
+}
+/* Qt creates these arrow buttons when a tab row does not fit. Keep them
+   compact everywhere instead of inheriting the large toolbar button size. */
+QTabBar::scroller {
+    width: 24px;
+}
+QTabBar QToolButton {
+    min-width: 10px;
+    max-width: 10px;
+    min-height: 20px;
+    max-height: 24px;
+    padding: 0px;
+    margin: 2px 1px;
+    border-radius: 4px;
+    border: 1px solid #30394a;
+    background-color: #181f2a;
+}
+QTabBar QToolButton:hover:enabled {
+    border-color: #4f6f9f;
+    background-color: #243247;
+}
+QTabBar QToolButton:disabled {
+    border-color: transparent;
+    background-color: transparent;
+}
+QToolButton#CompactScrollArrow {
+    min-width: 17px;
+    max-width: 17px;
+    min-height: 24px;
+    max-height: 24px;
+    padding: 0px;
+    margin: 6px 0px;
+    border-radius: 5px;
+    border: 1px solid #30394a;
+    background-color: #18202c;
+}
+QToolButton#CompactScrollArrow:hover {
+    border-color: #5d97ff;
+    background-color: #253a59;
+}
+
+/* ---------------------------------------------------------
+   Trees / Lists / Tables
+   --------------------------------------------------------- */
+QTreeWidget, QTreeView, QListWidget, QListView, QTableWidget {
+    background-color: transparent;
+    border: none;
+    alternate-background-color: #191d27;
+    show-decoration-selected: 1;
+}
+QTreeWidget::item, QListWidget::item {
+    padding: 4px 4px;
+    border-radius: 5px;
+    color: #b7c0d1;
+}
+QTreeWidget::item:selected, QListWidget::item:selected {
+    background-color: #223058;
+    color: #ffffff;
+}
+QTreeWidget::item:hover:!selected, QListWidget::item:hover:!selected {
+    background-color: #1c212c;
+}
+QTreeView::branch { background: transparent; }
+QHeaderView::section {
+    background-color: #171b25;
+    color: #7c869c;
+    padding: 6px;
+    border: none;
+    border-bottom: 1px solid #21252f;
+    font-weight: 600;
+}
+
+/* Search boxes */
+QLineEdit {
+    background-color: #1c2029;
+    border: 1px solid #2b303e;
+    border-radius: 6px;
+    padding: 6px 8px;
+    color: #cbd3e1;
+    selection-background-color: #2b6bf2;
+}
+QLineEdit:focus {
+    border: 1px solid #4f8cff;
+}
+QLineEdit#SearchBox {
+    padding-left: 26px;
+}
+
+/* ---------------------------------------------------------
+   Inspector property grid
+   --------------------------------------------------------- */
+QLabel.PropGroupLabel {
+    color: #7c869c;
+    font-weight: 700;
+    font-size: 11px;
+    padding: 6px 2px;
+}
+QFrame.PropRow {
+    background: transparent;
+}
+QLabel.PropName {
+    color: #8b93a7;
+}
+QDoubleSpinBox, QSpinBox {
+    background-color: #1c2029;
+    border: 1px solid #2b303e;
+    border-radius: 6px;
+    padding: 3px 6px;
+    color: #dfe4ee;
+}
+QDoubleSpinBox:focus, QSpinBox:focus { border: 1px solid #4f8cff; }
+QCheckBox { color: #b7c0d1; spacing: 6px; }
+QCheckBox::indicator {
+    width: 15px; height: 15px;
+    border-radius: 4px;
+    border: 1px solid #3a4154;
+    background: #1c2029;
+}
+QCheckBox::indicator:checked {
+    background-color: #2b6bf2;
+    border: 1px solid #4f8cff;
+}
+
+/* ---------------------------------------------------------
+   Console / Output text areas
+   --------------------------------------------------------- */
+QPlainTextEdit, QTextEdit {
+    background-color: #12151c;
+    border: none;
+    color: #b7c0d1;
+    font-family: "Cascadia Code", "Consolas", monospace;
+    font-size: 12px;
+    selection-background-color: #2b6bf2;
+}
+
+/* ---------------------------------------------------------
+   Status bar
+   --------------------------------------------------------- */
+#StatusBar {
+    background-color: #10131a;
+    border-top: 1px solid #21252f;
+    color: #7c869c;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+#StatusBar QLabel { color: #7c869c; padding: 0 10px; }
+#StatusDot {
+    color: #57d38c;
+    font-size: 14px;
+}
+
+/* ---------------------------------------------------------
+   Splitters
+   --------------------------------------------------------- */
+QSplitter::handle {
+    background-color: #14171f;
+}
+QSplitter::handle:hover {
+    background-color: #2b6bf2;
+}
+
+/* ---------------------------------------------------------
+   Scrollbars
+   --------------------------------------------------------- */
+QScrollBar:vertical {
+    background: transparent;
+    width: 10px;
+    margin: 2px;
+}
+QScrollBar::handle:vertical {
+    background: #2b303e;
+    border-radius: 5px;
+    min-height: 30px;
+}
+QScrollBar::handle:vertical:hover { background: #3a4154; }
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0; }
+
+QScrollBar:horizontal {
+    background: transparent;
+    height: 10px;
+    margin: 2px;
+}
+QScrollBar::handle:horizontal {
+    background: #2b303e;
+    border-radius: 5px;
+    min-width: 30px;
+}
+QScrollBar::handle:horizontal:hover { background: #3a4154; }
+QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal { height: 0; }
+
+/* ---------------------------------------------------------
+   Buttons (general)
+   --------------------------------------------------------- */
+QPushButton {
+    background-color: #1c2029;
+    border: 1px solid #2b303e;
+    border-radius: 7px;
+    padding: 7px 16px;
+    color: #cbd3e1;
+}
+QPushButton:hover {
+    background-color: #232838;
+    border: 1px solid #3a4154;
+}
+QPushButton:pressed {
+    background-color: #171b25;
+}
+QPushButton#AccentBtn {
+    background-color: #2b6bf2;
+    border: 1px solid #4f8cff;
+    color: #ffffff;
+    font-weight: 600;
+}
+QPushButton#AccentBtn:hover { background-color: #3b78f6; }
+QPushButton#AccentBtn:pressed { background-color: #1f57d1; }
+QPushButton#GhostBtn {
+    background: transparent;
+    border: 1px solid #2b303e;
+}
+
+/* ---------------------------------------------------------
+   Custom modal dialog
+   --------------------------------------------------------- */
+#DialogRoot {
+    background-color: #171b25;
+    border: 1px solid #2b303e;
+    border-radius: 12px;
+}
+#DialogTitleBar {
+    background: transparent;
+    border-bottom: 1px solid #21252f;
+}
+#DialogTitleText {
+    color: #dfe4ee;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 4px 2px;
+}
+#DialogBody { background: transparent; }
+#DialogFooter {
+    background: transparent;
+    border-top: 1px solid #21252f;
+}
+
+QRadioButton { color: #b7c0d1; spacing: 8px; }
+QRadioButton::indicator {
+    width: 15px; height: 15px;
+    border-radius: 8px;
+    border: 1px solid #3a4154;
+    background: #1c2029;
+}
+QRadioButton::indicator:checked {
+    background-color: #2b6bf2;
+    border: 3px solid #171b25;
+    outline: 1px solid #4f8cff;
+}
+
+QToolTip {
+    background-color: #232838;
+    color: #dfe4ee;
+    border: 1px solid #2b303e;
+    padding: 5px 8px;
+    border-radius: 5px;
+}
+
+/* =========================================================
+   VXPEngine Home Dashboard / font-icon controls
+   ========================================================= */
+#MainStack, #HomePage, #HomeContent, #EditorPage {
+    background-color: #121722;
+}
+
+QPushButton#TitleLogoButton {
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 2px;
+}
+QPushButton#TitleLogoButton:hover { background-color: #202738; }
+
+#ToolbarSeparator {
+    background-color: #2A3140;
+    border: none;
+    min-width: 1px;
+    max-width: 1px;
+    margin: 0 5px;
+}
+QToolButton#ToolbarHome {
+    background-color: #1C2432;
+    border: 1px solid #2D3748;
+}
+QToolButton#ToolbarHome:hover {
+    background-color: #25324A;
+    border-color: #476A9E;
+}
+
+#HomeSidebar {
+    background-color: #101620;
+    border-right: 1px solid #222B39;
+    border-bottom-left-radius: 10px;
+}
+QPushButton#SidebarButton,
+QPushButton#SidebarUtility {
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    min-height: 42px;
+    padding: 0 14px;
+    text-align: left;
+    color: #AEBBCD;
+    font-size: 13px;
+}
+QPushButton#SidebarButton:hover,
+QPushButton#SidebarUtility:hover {
+    background-color: #172131;
+    color: #FFFFFF;
+}
+QPushButton#SidebarButton:checked {
+    background-color: #19335D;
+    border-color: #2B66B8;
+    color: #FFFFFF;
+    font-weight: 600;
+}
+QPushButton#SidebarUtility:disabled {
+    color: #536176;
+    background: transparent;
+}
+#SidebarDivider {
+    background-color: #283243;
+    border: none;
+    max-height: 1px;
+    margin: 12px 4px;
+}
+#SidebarSection {
+    color: #65748A;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 10px 6px 10px;
+}
+#EngineCard {
+    background-color: #151D29;
+    border: 1px solid #293547;
+    border-radius: 10px;
+}
+#EngineCardTitle { color: #DDE7F5; font-weight: 600; }
+#EngineCardMeta { color: #697991; font-size: 11px; }
+
+#HomeScroll {
+    background: #121722;
+    border: none;
+}
+#HomeTitle {
+    color: #F2F6FC;
+    font-size: 24px;
+    font-weight: 700;
+}
+#HomeSubtitle {
+    color: #7F8DA4;
+    font-size: 13px;
+    padding-top: 3px;
+}
+#HomeDivider {
+    background-color: #252E3D;
+    border: none;
+    max-height: 1px;
+}
+#SectionTitle {
+    color: #E7EDF7;
+    font-size: 15px;
+    font-weight: 700;
+}
+#SectionCount {
+    color: #78879D;
+    background-color: #19212D;
+    border: 1px solid #293446;
+    border-radius: 10px;
+    padding: 3px 9px;
+}
+
+QPushButton#PrimaryAction,
+QPushButton#SecondaryAction {
+    min-height: 40px;
+    padding: 0 18px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+QPushButton#PrimaryAction {
+    background-color: #246FE5;
+    border: 1px solid #4287F5;
+    color: #FFFFFF;
+}
+QPushButton#PrimaryAction:hover { background-color: #337FF0; }
+QPushButton#PrimaryAction:pressed { background-color: #185CCA; }
+QPushButton#SecondaryAction {
+    background-color: #171E29;
+    border: 1px solid #334055;
+    color: #D7E1EE;
+}
+QPushButton#SecondaryAction:hover {
+    background-color: #1D2838;
+    border-color: #4A5D79;
+}
+QPushButton#LinkButton {
+    background: transparent;
+    border: none;
+    color: #5B93FF;
+    padding: 5px 2px;
+}
+QPushButton#LinkButton:hover { color: #86B1FF; }
+
+#ProjectCard {
+    background-color: #171E29;
+    border: 1px solid #293446;
+    border-radius: 11px;
+}
+#ProjectCard:hover {
+    background-color: #1A2330;
+    border-color: #3C5D89;
+}
+#ProjectCardTitle {
+    color: #E9EEF7;
+    font-size: 13px;
+    font-weight: 700;
+}
+#ProjectCardMeta {
+    color: #74839A;
+    font-size: 11px;
+}
+#ProjectCardPath {
+    color: #66758B;
+    font-size: 10.5px;
+}
+#PlatformBadge {
+    background-color: #1D2C40;
+    border: 1px solid #2B4567;
+    border-radius: 5px;
+    min-width: 22px;
+    min-height: 20px;
+    padding: 1px 5px;
+}
+QToolButton#CardMenuButton {
+    min-width: 26px;
+    max-width: 26px;
+    min-height: 24px;
+    max-height: 24px;
+    padding: 1px;
+    border-radius: 6px;
+}
+
+#EmptyState {
+    background-color: #151D28;
+    border: 1px dashed #34445C;
+    border-radius: 12px;
+}
+#EmptyTitle {
+    color: #E6EDF7;
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 8px;
+}
+#EmptyDescription { color: #74839A; }
+
+/* Project modal */
+#DialogDescription {
+    color: #8290A4;
+    padding-bottom: 5px;
+}
+#ProjectPathPreview {
+    color: #6F8097;
+    background-color: #121821;
+    border: 1px solid #252F3E;
+    border-radius: 6px;
+    padding: 9px 10px;
+    font-family: "Cascadia Code", "Consolas", monospace;
+    font-size: 11px;
+}
+#InlineError {
+    color: #FF777E;
+    background-color: #341D24;
+    border: 1px solid #63313A;
+    border-radius: 6px;
+    padding: 8px 10px;
+}
+#NoticeText {
+    color: #C7D1DF;
+    font-size: 13px;
+    line-height: 1.4;
+}
+QPushButton#IconButton {
+    background-color: #1C2430;
+    border: 1px solid #334055;
+    border-radius: 7px;
+    padding: 0;
+}
+QPushButton#IconButton:hover {
+    background-color: #253247;
+    border-color: #4D678C;
+}
+#StatusPath { color: #65748A; }
+#StatusAppId { color: #7f8ca6; font-weight: 600; }
+#StatusAppId[appIdReady="false"] { color: #C2705A; }
+
+/* =========================================================
+   VXPEngine 1.2 — MRE VXP / C/C++ integration
+   ========================================================= */
+#FrameworkBadge, #NativeBadge, #TechBadge {
+    background-color: #1D2C40;
+    border: 1px solid #2B4567;
+    border-radius: 6px;
+    color: #AFCBFA;
+    padding: 3px 7px;
+    font-size: 10px;
+    font-weight: 600;
+}
+#NativeBadge {
+    background-color: #25233B;
+    border-color: #493F73;
+    color: #C7BBFF;
+}
+#TechBadge {
+    font-size: 11px;
+    padding: 5px 9px;
+}
+#NativeOptionCard {
+    background-color: #131B27;
+    border: 1px solid #2B3B51;
+    border-radius: 8px;
+}
+#DialogHint {
+    color: #728198;
+    font-size: 11px;
+}
+QCheckBox {
+    color: #CBD5E4;
+    spacing: 8px;
+}
+QCheckBox::indicator {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    background-color: #121923;
+    border: 1px solid #3A485D;
+}
+QCheckBox::indicator:hover {
+    border-color: #5B93FF;
+}
+QCheckBox::indicator:checked {
+    background-color: #2B6BF2;
+    border-color: #5994FF;
+}
+QToolButton#StopBtn {
+    background-color: #2A1B22;
+    border: 1px solid #55303B;
+    color: #F0B8BF;
+}
+QToolButton#StopBtn:hover:enabled {
+    background-color: #3A202A;
+    border-color: #814151;
+}
+QToolButton#StopBtn:disabled {
+    color: #5B4B50;
+    background-color: #1A171B;
+    border-color: #2A252A;
+}
+QToolButton#BuildBtn {
+    background-color: #1B2636;
+    border: 1px solid #334C6D;
+    color: #CFE1FC;
+}
+QToolButton#BuildBtn:hover {
+    background-color: #24344A;
+    border-color: #4E74A6;
+}
+QPlainTextEdit#CodeEditor {
+    background-color: #0F141D;
+    border: none;
+    color: #D5DEEB;
+    selection-background-color: #214A86;
+    font-family: "Cascadia Code", "Consolas", monospace;
+    font-size: 12px;
+    padding: 10px;
+}
+
+/* Frameless-window state: remove transparent resize gutter and rounded corners
+   while maximized so the client area fills the Windows work area. */
+#RootFrame[windowMaximized="true"] {
+    border: none;
+    border-radius: 0px;
+}
+#TitleBar[windowMaximized="true"] {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+/* =========================================================
+   VXPEngine 1.4 — Searchable offline documentation page
+   ========================================================= */
+#DocumentationPage, #DocsContentHost {
+    background-color: #121722;
+}
+#DocsHeader {
+    background-color: #111722;
+    border-bottom: 1px solid #273142;
+}
+#DocsTitle {
+    color: #F0F5FC;
+    font-size: 18px;
+    font-weight: 700;
+}
+#DocsSubtitle {
+    color: #74839A;
+    font-size: 11.5px;
+}
+QToolButton#DocsHomeButton,
+QToolButton#DocsNavButton {
+    background-color: #182130;
+    border: 1px solid #2D3A4E;
+    border-radius: 7px;
+    min-width: 34px;
+    max-width: 34px;
+    min-height: 34px;
+    max-height: 34px;
+    padding: 0;
+}
+QToolButton#DocsHomeButton:hover,
+QToolButton#DocsNavButton:hover:enabled {
+    background-color: #223149;
+    border-color: #4A668E;
+}
+QToolButton#DocsNavButton:disabled {
+    background-color: #151B25;
+    border-color: #222B39;
+}
+#DocsSearchHost {
+    background-color: #151D29;
+    border: 1px solid #2C394C;
+    border-radius: 8px;
+    min-height: 38px;
+    max-height: 38px;
+}
+QLineEdit#DocsSearch {
+    background: transparent;
+    border: none;
+    padding: 0;
+    color: #DCE6F3;
+    selection-background-color: #2B6BF2;
+}
+QLineEdit#DocsSearch:focus { border: none; }
+QPushButton#DocsPrimaryButton,
+QPushButton#DocsSecondaryButton {
+    min-height: 38px;
+    padding: 0 14px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+QPushButton#DocsPrimaryButton {
+    background-color: #246FE5;
+    border: 1px solid #4287F5;
+    color: #FFFFFF;
+}
+QPushButton#DocsPrimaryButton:hover { background-color: #337FF0; }
+QPushButton#DocsSecondaryButton {
+    background-color: #171F2B;
+    border: 1px solid #334156;
+    color: #D4DEEC;
+}
+QPushButton#DocsSecondaryButton:hover {
+    background-color: #202C3D;
+    border-color: #4A607D;
+}
+#DocsNavigation {
+    background-color: #101620;
+    border-right: 1px solid #253043;
+}
+#DocsNavTitle {
+    color: #677891;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px 0 8px;
+}
+#DocsResultLabel {
+    color: #7F8DA3;
+    font-size: 11px;
+    padding: 0 8px 4px 8px;
+}
+QListWidget#DocsTopicList {
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+QListWidget#DocsTopicList::item {
+    color: #AEBBCD;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    padding: 7px 9px;
+}
+QListWidget#DocsTopicList::item:hover:enabled {
+    background-color: #172131;
+    color: #FFFFFF;
+}
+QListWidget#DocsTopicList::item:selected:enabled {
+    background-color: #1B3764;
+    border-color: #2E68BC;
+    color: #FFFFFF;
+}
+QListWidget#DocsTopicList::item:disabled {
+    color: #5D6D83;
+    background: transparent;
+    padding-top: 10px;
+    font-size: 10px;
+    font-weight: 700;
+}
+#DocsTipCard {
+    background-color: #151E2B;
+    border: 1px solid #2A384C;
+    border-radius: 9px;
+}
+#DocsTipTitle {
+    color: #DCE5F2;
+    font-weight: 600;
+}
+#DocsTipText {
+    color: #75859C;
+    font-size: 11px;
+}
+#DocsContentToolbar {
+    background-color: #151B26;
+    border-bottom: 1px solid #273142;
+}
+#DocsBreadcrumb {
+    color: #8796AB;
+    padding-left: 6px;
+}
+QPushButton#DocsToolbarLink {
+    background: transparent;
+    border: none;
+    color: #72A8FF;
+    padding: 5px 7px;
+}
+QPushButton#DocsToolbarLink:hover { color: #9CC2FF; }
+QTextBrowser#DocsBrowser {
+    background-color: #121722;
+    border: none;
+    padding: 0;
+    color: #CBD5E1;
+}
+#DocsFooter {
+    background-color: #101620;
+    border-top: 1px solid #253043;
+}
+#DocsStatus {
+    color: #728198;
+    font-size: 11px;
+}
+QSplitter#DocsSplitter::handle {
+    background-color: #121722;
+}
+QSplitter#DocsSplitter::handle:hover {
+    background-color: #2B6BF2;
+}
+
+/* =========================================================
+   VXPEngine 1.6 — three-column workspace and center-width console
+   ========================================================= */
+#MainToolBar {
+    padding: 3px 8px;
+    spacing: 2px;
+}
+#MainToolBar QToolButton {
+    min-height: 29px;
+    max-height: 29px;
+    padding: 4px 6px;
+    border-radius: 6px;
+}
+#MainToolBar QToolButton#ToolbarHome {
+    min-width: 29px;
+    max-width: 29px;
+}
+#MainToolBar QComboBox {
+    min-height: 21px;
+    max-height: 29px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+QPlainTextEdit#CodeEditor {
+    background-color: #0D121A;
+    border: none;
+    color: #D5DEEB;
+    selection-background-color: #214A86;
+    font-family: "Cascadia Code", "JetBrains Mono", "Consolas", monospace;
+    font-size: 13px;
+    padding: 6px 8px;
+}
+QWidget#CodeLineNumberArea {
+    background-color: #0B1018;
+    border-right: 1px solid #313B4D;
+}
+QLabel#EmptyTileMapLabel {
+    color: #69758A;
+    padding: 18px;
+}
+
+/* ---------------------------------------------------------
+   VXPEngine Asset Editor v1.9
+   --------------------------------------------------------- */
+#AssetEditorRoot {
+    background-color: #121720;
+    border: 1px solid #2c3443;
+    border-radius: 10px;
+}
+#AssetEditorTitleBar {
+    background-color: #0f141c;
+    border-bottom: 1px solid #272f3d;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+#AssetEditorTitle {
+    color: #eef4ff;
+    font-weight: 600;
+    font-size: 13px;
+}
+#AssetEditorSource {
+    color: #8390a6;
+}
+QPushButton#AssetEditorWindowButton,
+QPushButton#AssetEditorClose {
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+}
+QPushButton#AssetEditorWindowButton:hover {
+    background-color: #263142;
+}
+QPushButton#AssetEditorClose:hover {
+    background-color: #e5484d;
+    color: white;
+}
+#AssetEditorToolbar {
+    background-color: #171d27;
+    border-bottom: 1px solid #28303e;
+}
+#AssetEditorToolbar QToolButton {
+    min-width: 28px;
+    min-height: 28px;
+    padding: 4px 8px;
+}
+#AssetEditorSplitter::handle {
+    background-color: #252d3a;
+}
+#AssetEditorSidePanel {
+    background-color: #151b24;
+    border-right: 1px solid #252d3a;
+}
+QScrollArea#AssetEditorSidePanel > QWidget > QWidget,
+#AssetEditorSideContent {
+    background-color: #151b24;
+}
+#AssetEditorCenter {
+    background-color: #0e1118;
+}
+#AssetCanvas {
+    background-color: #0e1118;
+    border: none;
+}
+#AssetSectionLabel {
+    color: #8ea0bb;
+    font-size: 10.5px;
+    font-weight: 700;
+    padding-top: 6px;
+}
+QPushButton[assetTypeChip="true"] {
+    min-height: 25px;
+    padding: 3px 10px;
+    border-radius: 13px;
+    border: 1px solid #303b4d;
+    background-color: #1a2230;
+    color: #aab7cc;
+}
+QPushButton[assetTypeChip="true"]:hover {
+    border-color: #4f6f9f;
+    background-color: #202b3b;
+}
+QPushButton[assetTypeChip="true"]:checked {
+    border-color: #5d97ff;
+    background-color: #263f68;
+    color: #ffffff;
+}
+#AssetInfoLabel, #AssetHelpText {
+    color: #8794aa;
+    background-color: #111720;
+    border: 1px solid #293242;
+    border-radius: 7px;
+    padding: 8px;
+}
+#AssetColorButton {
+    min-width: 42px;
+}
+#AssetFrameStrip {
+    background-color: #151b24;
+    border-top: 1px solid #28303e;
+}
+#AssetFrameStrip QListWidget {
+    background-color: #111720;
+    border: 1px solid #28303e;
+    border-radius: 6px;
+}
+#AssetFrameStrip QListWidget::item {
+    border: 1px solid transparent;
+    border-radius: 6px;
+    padding: 4px;
+}
+#AssetFrameStrip QListWidget::item:selected {
+    background-color: #263d68;
+    border-color: #4f8cff;
+}
+#AssetEditorFooter {
+    background-color: #111720;
+    border-top: 1px solid #28303e;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+#AssetEditorStatus {
+    color: #8fa0b8;
+}
+#AssetEditorStatus[error="true"] {
+    color: #ff747a;
+}
+#AssetExportPreview {
+    color: #8fb8ff;
+    background-color: #10151d;
+    border: 1px solid #293242;
+    border-radius: 6px;
+    padding: 8px;
+}
+
+/* Folder-owned Assets menus (v2.2) */
+QToolButton#AssetFolderMenuButton {
+    background: transparent;
+    border: none;
+    border-radius: 5px;
+    padding: 2px;
+    color: #8fa0b8;
+}
+QToolButton#AssetFolderMenuButton:hover,
+QToolButton#AssetFolderMenuButton:pressed,
+QToolButton#AssetFolderMenuButton::menu-button:hover {
+    background-color: #252b38;
+    color: #ffffff;
+}
+QToolButton#AssetFolderMenuButton::menu-indicator { image: none; width: 0px; }
+
+/* =========================================================
+   VXPEngine v2.4 — responsive shell, native-size title bar,
+   hidden Inspector scroll and interactive viewport
+   ========================================================= */
+#TitleBar {
+    min-height: 31px;
+    max-height: 31px;
+}
+#TitleBarText, #TitleBarProject {
+    font-size: 11.5px;
+}
+QPushButton#TitleLogoButton {
+    background: transparent;
+    border: none;
+    padding: 2px;
+    min-width: 24px;
+    max-width: 24px;
+    min-height: 24px;
+    max-height: 24px;
+}
+QPushButton#BtnMin, QPushButton#BtnMax, QPushButton#BtnClose {
+    border-radius: 0;
+    min-width: 46px;
+    max-width: 46px;
+    min-height: 30px;
+    max-height: 30px;
+    padding: 0;
+}
+QMenuBar#MainMenuBar {
+    padding: 0 2px;
+    spacing: 0;
+}
+QMenuBar#MainMenuBar::item {
+    padding: 4px 8px;
+    border-radius: 3px;
+}
+
+QScrollArea#DialogBodyScroll {
+    background: transparent;
+    border: none;
+}
+QScrollArea#DialogBodyScroll > QWidget > QWidget,
+#DialogBody {
+    background: transparent;
+}
+#DialogTitleBar {
+    min-height: 32px;
+    max-height: 32px;
+}
+#DialogFooter {
+    min-height: 48px;
+}
+#DialogBodyScroll QScrollBar:vertical {
+    width: 5px;
+}
+#DialogBodyScroll QScrollBar::handle:vertical {
+    background: #30394a;
+    border-radius: 2px;
+}
+
+QScrollArea#InspectorScroll {
+    background: transparent;
+    border: none;
+}
+QWidget#InspectorForm {
+    background: transparent;
+}
+QPushButton#InspectorDeleteButton {
+    margin-top: 8px;
+    color: #ef8b90;
+    border-color: #4a2b31;
+    background-color: #21191f;
+}
+QPushButton#InspectorDeleteButton:hover {
+    background-color: #352027;
+    border-color: #71404a;
+}
+
+QTreeWidget::item:selected {
+    background-color: #253d72;
+}
+QTreeWidget::item:hover {
+    background-color: #1d2636;
+}
+
+QScrollArea#InspectorScroll QScrollBar:vertical { width: 0px; margin: 0; }
+QScrollArea#InspectorScroll QScrollBar:horizontal { height: 0px; margin: 0; }
+
+/* VXPEngine global: hide scrollbar chrome without disabling scrolling. */
+QScrollBar:vertical { width:0px; min-width:0px; max-width:0px; margin:0px; border:none; background:transparent; }
+QScrollBar:horizontal { height:0px; min-height:0px; max-height:0px; margin:0px; border:none; background:transparent; }
+QScrollBar::handle, QScrollBar::add-line, QScrollBar::sub-line, QScrollBar::add-page, QScrollBar::sub-page { width:0px; height:0px; border:none; background:transparent; }
+QAbstractScrollArea::corner { width:0px; height:0px; background:transparent; }
+
+/* ---------------------------------------------------------
+   VXPEngine v2.4 — right-aligned folder actions and center tabs
+   --------------------------------------------------------- */
+QWidget#AssetFolderMenuCell {
+    background: transparent;
+}
+QToolButton#AssetFolderMenuButton {
+    border: none;
+    border-radius: 5px;
+    background: transparent;
+    color: #8d98ad;
+    padding: 2px;
+}
+QToolButton#AssetFolderMenuButton:hover,
+QToolButton#AssetFolderMenuButton:pressed,
+QToolButton#AssetFolderMenuButton:checked {
+    background-color: #252b38;
+    color: #ffffff;
+}
+QToolButton#CenterTabCloseButton {
+    border: none;
+    border-radius: 5px;
+    background: transparent;
+    color: #a9b3c6;
+    padding: 2px;
+    margin-left: 3px;
+}
+QToolButton#CenterTabCloseButton:hover {
+    background-color: #353c4d;
+    color: #ffffff;
+}
+QToolButton#CenterTabCloseButton:pressed {
+    background-color: #bf4452;
+    color: #ffffff;
+}
+#AssetPreviewPage {
+    background-color: #0e131b;
+}
+#AssetPreviewInfo {
+    background-color: #151a23;
+    border-bottom: 1px solid #262c38;
+    color: #9eabc0;
+    font-size: 11px;
+}
+QScrollArea#AssetPreviewScroll {
+    background-color: #0e131b;
+    border: none;
+}
+QLabel#AssetPreviewImage {
+    background-color: #10151e;
+}
+QLabel#AssetPreviewTitle {
+    color: #eef3fb;
+    font-size: 18px;
+    font-weight: 600;
+}
+QLabel#AssetPreviewDetails {
+    color: #8491a8;
+    font-size: 11px;
+}
+
+/* =========================================================
+   VXPEngine v2.7 - Canva-style scene direct manipulation and frame tools
+   ========================================================= */
+#DialogTitleBar {
+    min-height: 32px;
+    max-height: 32px;
+    background-color: #121722;
+    border-bottom: 1px solid #252b38;
+}
+#DialogTitleIcon { background: transparent; }
+QPushButton#DialogMinButton,
+QPushButton#DialogMaxButton,
+QPushButton#DialogCloseButton {
+    min-width: 42px;
+    max-width: 44px;
+    min-height: 30px;
+    max-height: 30px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+}
+QPushButton#DialogMinButton:hover,
+QPushButton#DialogMaxButton:hover { background-color: #222938; }
+QPushButton#DialogCloseButton:hover { background-color: #c42b36; }
+QPushButton#DangerBtn {
+    color: #fff4f5;
+    background-color: #a8323b;
+    border: 1px solid #c54852;
+    border-radius: 7px;
+    padding: 7px 14px;
+}
+QPushButton#DangerBtn:hover { background-color: #c23a45; }
+QPushButton#DangerBtn:disabled { color: #7d8088; background-color: #35252a; border-color: #493036; }
+#CustomFileTree {
+    background-color: #111722;
+    alternate-background-color: #141b27;
+    border: 1px solid #2b3444;
+    border-radius: 8px;
+    color: #d9e1ee;
+    selection-background-color: #244f9e;
+    selection-color: #ffffff;
+}
+#CustomFileTree::item { min-height: 26px; padding: 2px 4px; }
+#CustomFileTree::item:hover { background-color: #1b2637; }
+#CustomFileTree QHeaderView::section {
+    background-color: #171e2a;
+    color: #9eabc0;
+    border: none;
+    border-right: 1px solid #2a3342;
+    border-bottom: 1px solid #2a3342;
+    padding: 6px 8px;
+}
+#RunSessionStatus { color: #e5ebf5; font-weight: 700; }
+#RunSessionOutput {
+    background-color: #0c1119;
+    color: #cbd6e6;
+    border: 1px solid #283140;
+    border-radius: 8px;
+    padding: 8px;
+    font-family: "Cascadia Mono", "Consolas", monospace;
+    selection-background-color: #315f9d;
+}
+#DialogRoot QProgressBar {
+    min-height: 5px;
+    max-height: 5px;
+    border: none;
+    border-radius: 2px;
+    background-color: #252d3b;
+}
+#DialogRoot QProgressBar::chunk {
+    border-radius: 2px;
+    background-color: #4f8cff;
+}
+#DialogSizeGrip { background: transparent; }
+
+/* =========================================================
+   VXPEngine v2.8 — bottom panel and IDE task progress
+   ========================================================= */
+QToolButton#ConsoleCollapseButton,
+QToolButton#StatusBottomPanelButton,
+QToolButton#BottomTaskOpenButton,
+QToolButton#BottomTaskCancelButton {
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    padding: 2px;
+}
+QToolButton#ConsoleCollapseButton:hover,
+QToolButton#StatusBottomPanelButton:hover,
+QToolButton#BottomTaskOpenButton:hover,
+QToolButton#BottomTaskCancelButton:hover {
+    background-color: #273142;
+}
+QToolButton#StatusBottomPanelButton[panelVisible="true"] {
+    background-color: #253d72;
+}
+QFrame#BottomTaskProgress {
+    background-color: #171e2a;
+    border: 1px solid #2a3445;
+    border-radius: 5px;
+    min-height: 25px;
+    max-height: 25px;
+}
+QLabel#BottomTaskTitle {
+    color: #aeb9cc;
+    font-size: 11px;
+}
+QProgressBar#BottomTaskProgressBar {
+    min-height: 5px;
+    max-height: 5px;
+    border: none;
+    border-radius: 2px;
+    background-color: #293345;
+}
+QProgressBar#BottomTaskProgressBar::chunk {
+    border-radius: 2px;
+    background-color: #5b93ff;
+}
+QToolButton#AdbBtn {
+    border: 1px solid #2b3444;
+    border-radius: 5px;
+    background-color: #171e2a;
+    color: #b9c4d6;
+    padding: 3px 7px;
+}
+QToolButton#AdbBtn:hover,
+QToolButton#AdbBtn::menu-button:hover {
+    background-color: #202a3a;
+    border-color: #3d5c88;
+}
+QToolButton#AdbBtn::menu-button {
+    border-left: 1px solid #2b3444;
+    width: 16px;
+}
+QToolButton#AdbBtn::menu-indicator {
+    image: none;
+}
+
+/* =========================================================
+   VXPEngine v2.9 — Screens, Photoshop-like groups and Inspector arrange
+   ========================================================= */
+QComboBox#SceneScreenCombo {
+    min-height: 27px;
+    border: 1px solid #2b3444;
+    border-radius: 6px;
+    background-color: #151c28;
+    color: #d9e3f2;
+    padding: 2px 26px 2px 8px;
+}
+QComboBox#SceneScreenCombo:hover,
+QComboBox#SceneScreenCombo:focus {
+    border-color: #4d78b7;
+    background-color: #192333;
+}
+QComboBox#SceneScreenCombo::drop-down {
+    width: 22px;
+    border: none;
+}
+QToolButton#SceneScreenAction {
+    min-width: 28px;
+    max-width: 28px;
+    min-height: 27px;
+    max-height: 27px;
+    border: 1px solid #2b3444;
+    border-radius: 6px;
+    background-color: #151c28;
+    padding: 0;
+}
+QToolButton#SceneScreenAction:hover {
+    background-color: #243149;
+    border-color: #4d78b7;
+}
+#InspectorForm QToolButton {
+    min-width: 28px;
+    min-height: 26px;
+    border: 1px solid #2b3444;
+    border-radius: 5px;
+    background-color: #171e2a;
+    padding: 1px;
+}
+#InspectorForm QToolButton:hover {
+    background-color: #253450;
+    border-color: #4d78b7;
+}
+QLabel[class="PropGroupLabel"] {
+    color: #8fa4c2;
+    font-size: 10px;
+    font-weight: 700;
+    padding-top: 7px;
+    padding-bottom: 2px;
+}
+
+#KeyframeEditorRoot {
+    background: #111722;
+    border: 1px solid #2A3445;
+    border-radius: 10px;
+}
+#KeyframePreview {
+    background: #0D131D;
+    border: 1px solid #263144;
+}
+
+/* Scene layer controls: compact Photoshop-like buttons */
+QToolButton#SceneLayerMiniButton {
+    min-width: 16px;
+    max-width: 16px;
+    min-height: 16px;
+    max-height: 16px;
+    padding: 2px;
+    margin: 0px;
+    border: 0px;
+    border-radius: 3px;
+    background-color: transparent;
+}
+QToolButton#SceneLayerMiniButton:hover {
+    background-color: #243149;
+}
+QToolButton#SceneLayerMiniButton:checked {
+    background-color: #1e63d8;
+}
+QToolButton#SceneLayerMiniButton:pressed {
+    background-color: #174ca6;
+}
+
+/* In-app update/environment toast */
+QFrame#AppToast {
+    background-color: #1b2534;
+    border: 1px solid #3c5476;
+    border-radius: 9px;
+}
+QLabel#AppToastText {
+    color: #e4ebf6;
+}
+QPushButton#AppToastAction {
+    min-height: 28px;
+    padding: 3px 10px;
+    border-radius: 5px;
+    background-color: #2d6cdf;
+    color: white;
+    font-weight: 700;
+}
+QPushButton#AppToastAction:hover { background-color: #3b7cf0; }
+QToolButton#AppToastClose {
+    min-width: 22px;
+    max-width: 22px;
+    min-height: 22px;
+    max-height: 22px;
+    border: none;
+    background: transparent;
+}
+QToolButton#AppToastClose:hover { background-color: #2b394d; }
+
+/* ===================== VXPEmu emulator panel ===================== */
+QWidget#EmulatorPanel {
+    background-color: #101725;
+}
+
+/* --- toolbar (bám TOOLBAR_STYLE của VXPEmu: nền trong suốt, viền mảnh) --- */
+QWidget#EmulatorToolbar {
+    background-color: #0B101A;
+    border-bottom: 1px solid #263247;
+}
+/* Nút glyph MDL2 — không set font-family để font Segoe MDL2 Assets do code
+   gán (QFont) giữ quyền ưu tiên. */
+QPushButton#EmulatorToolButton {
+    background-color: transparent;
+    border: 1px solid #263247;
+    border-radius: 4px;
+    color: #94A3B8;
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+    min-width: 34px;
+    max-width: 34px;
+    min-height: 30px;
+    max-height: 30px;
+}
+QPushButton#EmulatorToolButton:hover {
+    background-color: #1A2536;
+    color: #F1F5F9;
+}
+QPushButton#EmulatorToolButton:pressed { background-color: #1A2536; }
+QPushButton#EmulatorToolButton:disabled {
+    color: #3A4557;
+    border-color: #1f2937;
+}
+QPushButton#EmulatorToolButton:checked {
+    background-color: #1A2536;
+    border-color: #4ADE80;
+    color: #4ADE80;
+}
+/* Nút "dừng" — viền đỏ kiểu VXPEmu, không tô nền. */
+/* Nút ghi/dừng — VXPEmu chỉ thay màu của TOOLBAR_STYLE sang hồng #FB7185,
+   giữ nguyên hình dạng (viền 1px, radius 4px). */
+QPushButton#EmulatorRecordButton {
+    background-color: transparent;
+    border: 1px solid #263247;
+    border-radius: 4px;
+    color: #FB7185;
+}
+QPushButton#EmulatorRecordButton:hover {
+    background-color: #1A2536;
+    color: #FB7185;
+}
+/* (Nút đầu toolbar "khung ảnh" dùng style mặc định của EmulatorToolButton —
+   không tô màu riêng cho khớp VXPEmu. Nút Run đã chuyển sang menu Run + F6.) */
+/* (Nhãn đường dẫn đã bị cắt giảm cùng thanh trạng thái — xem EmulatorBody.) */
+
+/* --- thân khung máy: chỉ còn [toolbar] / [màn hình + gợi ý T9] / [bàn phím] --- */
+QWidget#EmulatorBody {
+    background-color: #0E1522;
+}
+
+/* --- device-design preview host --- */
+QWidget#EmulatorHost {
+    background-color: #050810;
+    border: 2px solid #2B3A52;
+    border-radius: 6px;
+}
+QLabel#EmulatorHostPlaceholder {
+    background-color: transparent;
+    color: #64748B;
+    font-size: 12px;
+    padding: 24px;
+}
+
+/* --- cột chứa màn hình (screen column) --- */
+QFrame#EmulatorScreenColumn {
+    background-color: transparent;
+}
+/* --- dòng nhắc multi-tan (VXPEmu: #64748B, 11px, cao 20px) --- */
+QLabel#EmulatorMultiTanHint {
+    color: #64748B;
+    font-size: 11px;
+    background-color: transparent;
+    padding: 0;
+}
+QLabel#EmulatorMultiTanHint b { color: #94A3B8; }
+
+/* --- virtual MRE keypad (phone book 6 cột × 4 hàng) --- */
+QWidget#EmulatorKeypad {
+    background-color: #0B101A;
+    border-left: 1px solid #263247;
+}
+/* Khung phím: border 1px #263247, radius 8px — đúng createKeyButton container. */
+QFrame#EmulatorPhoneBook {
+    background-color: transparent;
+    border: 1px solid #263247;
+    border-radius: 8px;
+}
+
+/* --- keys --- */
+QPushButton[kind="phone"], QPushButton[kind="nav"], QPushButton[kind="soft"] {
+    background-color: #1A2536;
+    border: 1px solid #263247;
+    border-radius: 6px;
+    color: #F1F5F9;
+    font-size: 14px;
+    min-height: 44px;
+    padding: 2px 4px;
+}
+/* Phím số ghi nhãn một dòng "2 abc" nên cần chữ nhỏ hơn một chút. */
+QPushButton[kind="phone"] {
+    font-size: 12px;
+    color: #F1F5F9;
+}
+QPushButton[kind="phone"]:hover, QPushButton[kind="nav"]:hover, QPushButton[kind="soft"]:hover {
+    background-color: #263247;
+    border-color: #334155;
+}
+/* Màu nhấn khi bấm của VXPEmu là tím #8B5CF6, không phải xanh dương. */
+QPushButton[kind="phone"]:pressed, QPushButton[kind="nav"]:pressed, QPushButton[kind="soft"]:pressed {
+    background-color: #8B5CF6;
+    border-color: #8B5CF6;
+    color: #FFFFFF;
+}
+/* Các phím mũi tên dùng glyph MDL2 14px. */
+QPushButton[kind="nav"] {
+    font-size: 14px;
+    color: #F1F5F9;
+}
+/* Phím mềm của VXPEmu chỉ là một gạch ngang mảnh, cỡ 10px. */
+QPushButton[kind="soft"] {
+    font-size: 10px;
+    color: #F1F5F9;
+}
+QPushButton#NavOk {
+    font-weight: 700;
+    font-size: 12px;
+    color: #F1F5F9;
+}
+
+/* --- trạng thái chạy: thể hiện bằng viền khung máy (không có thanh trạng thái) --- */
+EmulatorPanel[state="stopped"]  QFrame#EmulatorPhoneBook { border-color: #263247; }
+EmulatorPanel[state="starting"] QFrame#EmulatorPhoneBook { border-color: #D9B27A; }
+EmulatorPanel[state="running"]  QFrame#EmulatorPhoneBook { border-color: #3FB27F; }
+EmulatorPanel[state="detached"] QFrame#EmulatorPhoneBook { border-color: #4C9BE8; }
+EmulatorPanel[state="error"]    QFrame#EmulatorPhoneBook { border-color: #C2705A; }
+
+/* ============ Hộp thoại thiết lập lần đầu (First Run) ============ */
+QLabel#SetupIntro {
+    color: #A9B7CC;
+    font-size: 12px;
+    line-height: 150%;
+}
+QLabel#SetupStatus {
+    color: #E4EBF6;
+    font-size: 12px;
+    font-weight: 600;
+}
+QProgressBar#SetupProgress {
+    background-color: #1A2536;
+    border: 1px solid #263247;
+    border-radius: 3px;
+}
+QProgressBar#SetupProgress::chunk {
+    background-color: #2d6cdf;
+    border-radius: 2px;
+}
+QFrame#SetupRow {
+    background-color: #151E2D;
+    border: 1px solid #223047;
+    border-radius: 7px;
+}
+QFrame#SetupRow[satisfied="true"] {
+    background-color: #14251D;
+    border-color: #24402F;
+}
+QLabel#SetupRowName {
+    color: #DCE5F2;
+    font-size: 12px;
+    font-weight: 600;
+}
+QLabel#SetupRowState {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 9px;
+}
+QLabel#SetupRowState[state="ok"]     { color: #7ED9AB; background-color: #1B3327; }
+QLabel#SetupRowState[state="auto"]   { color: #8FBBFF; background-color: #1C2C45; }
+QLabel#SetupRowState[state="manual"] { color: #E0AE72; background-color: #332A1B; }
+QLabel#SetupLogLabel {
+    color: #8A9AB2;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding-top: 6px;
+}
+QLabel#SetupLog {
+    background-color: #0B101A;
+    border: 1px solid #223047;
+    border-radius: 7px;
+    padding: 8px 10px;
+    color: #93A4BD;
+    font-family: "Cascadia Mono", "Consolas", monospace;
+    font-size: 11px;
+}
+
+/* ============ Danh sách môi trường (kiểu Extensions của VS Code) ============ */
+QLabel#EnvIntro {
+    color: #A9B7CC;
+    font-size: 12px;
+    line-height: 150%;
+}
+QLineEdit#EnvSearch {
+    background-color: #101A29;
+    border: 1px solid #263247;
+    border-radius: 6px;
+    padding: 7px 10px;
+    color: #E4EBF6;
+    font-size: 12px;
+    selection-background-color: #2d6cdf;
+}
+QLineEdit#EnvSearch:focus { border: 1px solid #3d6cc4; }
+QComboBox#EnvFilterCombo {
+    background-color: #101A29;
+    border: 1px solid #263247;
+    border-radius: 6px;
+    padding: 6px 10px;
+    min-width: 150px;
+    color: #C7D3E5;
+    font-size: 12px;
+}
+QComboBox#EnvFilterCombo:hover { border: 1px solid #3a4154; }
+QComboBox#EnvFilterCombo QAbstractItemView {
+    background-color: #101A29;
+    border: 1px solid #263247;
+    selection-background-color: #2d6cdf;
+    color: #E4EBF6;
+}
+QLabel#EnvSummary {
+    color: #C7D3E5;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 0 6px 0;
+}
+QScrollArea#EnvListScroll {
+    background-color: transparent;
+    border: none;
+}
+QLabel#EnvEmpty {
+    color: #65748A;
+    font-size: 12px;
+    padding: 28px;
+}
+/* Mỗi dòng = một "extension": icon · tên · mô tả · huy hiệu · nút. */
+QFrame#EnvRow {
+    background-color: #151E2D;
+    border: 1px solid #223047;
+    border-radius: 8px;
+}
+QFrame#EnvRow:hover { border-color: #334863; }
+QFrame#EnvRow[state="installed"] { border-left: 3px solid #3FB27F; }
+QFrame#EnvRow[state="auto"]      { border-left: 3px solid #D9B27A; }
+QFrame#EnvRow[state="manual"]    { border-left: 3px solid #C2705A; }
+QLabel#EnvRowIcon { background-color: transparent; }
+QLabel#EnvRowName {
+    color: #E4EBF6;
+    font-size: 13px;
+    font-weight: 600;
+}
+QLabel#EnvRowTag {
+    color: #7C8AA0;
+    background-color: #1A2536;
+    border: 1px solid #263247;
+    border-radius: 8px;
+    padding: 1px 7px;
+    font-size: 10px;
+}
+QLabel#EnvRowHint {
+    color: #7C8AA0;
+    font-size: 11px;
+}
+QLabel#EnvBadge {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 9px;
+}
+QLabel#EnvBadge[state="installed"] { color: #7ED9AB; background-color: #1B3327; }
+QLabel#EnvBadge[state="auto"]      { color: #E0AE72; background-color: #332A1B; }
+QLabel#EnvBadge[state="manual"]    { color: #E88C7A; background-color: #3A231E; }
+QPushButton#EnvRowAction {
+    background-color: transparent;
+    border: 1px solid #2d6cdf;
+    border-radius: 6px;
+    color: #8FBBFF;
+    font-size: 11px;
+    padding: 5px 12px;
+    min-width: 74px;
+}
+QPushButton#EnvRowAction:hover {
+    background-color: #2d6cdf;
+    color: #FFFFFF;
+}

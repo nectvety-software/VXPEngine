@@ -4,9 +4,9 @@
   "type": "VXPScreen",
   "viewport": {
     "type": "FitViewport",
-    "width": 320,
-    "height": 240,
-    "orientation": "landscape"
+    "width": 240,
+    "height": 320,
+    "orientation": "portrait"
   },
   "engine": {
     "core": "coremre",
@@ -52,12 +52,12 @@
         0.0
       ],
       "scale": [
-        1.0,
-        1.0
+        1.3333333333333333,
+        1.3333333333333333
       ],
       "display_size": [
-        320.0,
-        240.0
+        426.6666666666667,
+        320
       ],
       "z_index": -10,
       "locked": true,
@@ -184,11 +184,11 @@
       "code_name": "ResourceBar",
       "type": "Rectangle2D",
       "position": [
-        0.0,
-        -106.0
+        0,
+        -146
       ],
       "shape": {
-        "width": 304,
+        "width": 224,
         "height": 22,
         "fill": "#172235E8",
         "stroke": "#C7A269",
@@ -199,8 +199,8 @@
         1.0
       ],
       "display_size": [
-        305.0,
-        23.0
+        224,
+        23
       ],
       "z_index": 20,
       "pixel_snap": true,

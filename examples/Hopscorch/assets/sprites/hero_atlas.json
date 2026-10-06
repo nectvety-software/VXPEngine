@@ -1,0 +1,363 @@
+{
+  "format": "Hopscorch Actor Atlas",
+  "size": [
+    160,
+    120
+  ],
+  "frame_size": [
+    20,
+    30
+  ],
+  "anchor": [
+    10,
+    28
+  ],
+  "clips": {
+    "idle": {
+      "first": 0,
+      "count": 1,
+      "frame_ms": 180,
+      "loop": true
+    },
+    "walk": {
+      "first": 1,
+      "count": 4,
+      "frame_ms": 100,
+      "loop": true
+    },
+    "cast": {
+      "first": 5,
+      "count": 2,
+      "frame_ms": 140,
+      "loop": false
+    },
+    "reel": {
+      "first": 7,
+      "count": 1,
+      "frame_ms": 180,
+      "loop": false
+    }
+  },
+  "frames": [
+    {
+      "direction": "north",
+      "column": 0,
+      "rect": [
+        0,
+        0,
+        20,
+        30
+      ]
+    },
+    {
+      "direction": "north",
+      "column": 1,
+      "rect": [
+        20,
+        0,
+        20,
+        30
+      ]
+    },
+    {
+      "direction": "north",
+      "column": 2,
+      "rect": [
+        40,
+        0,
+        20,
+        30
+      ]
+    },
+    {
+      "direction": "north",
+      "column": 3,
+      "rect": [
+        60,
+        0,
+        20,
+        30
+      ]
+    },
+    {
+      "direction": "north",
+      "column": 4,
+      "rect": [
+        80,
+        0,
+        20,
+        30
+      ]
+    },
+    {
+      "direction": "north",
+      "column": 5,
+      "rect": [
+        100,
+        0,
+        20,
+        30
+      ]
+    },
+    {
+      "direction": "north",
+      "column": 6,
+      "rect": [
+        120,
+        0,
+        20,
+        30
+      ]
+    },
+    {
+      "direction": "north",
+      "column": 7,
+      "rect": [
+        140,
+        0,
+        20,
+        30
+      ]
+    },
+    {
+      "direction": "east",
+      "column": 0,
+      "rect": [
+        0,
+        30,
+        20,
+        30
+      ]
+    },
+    {
+      "direction": "east",
+      "column": 1,
+      "rect": [
+        20,
+        30,
+        20,
+        30
+      ]
+    },
+    {
+      "direction": "east",
+      "column": 2,
+      "rect": [
+        40,
+        30,
+        20,
+        30
+      ]
+    },
+    {
+      "direction": "east",
+      "column": 3,
+      "rect": [
+        60,
+        30,
+        20,
+        30
+      ]
+    },
+    {
+      "direction": "east",
+      "column": 4,
+      "rect": [
+        80,
+        30,
+        20,
+        30
+      ]
+    },
+    {
+      "direction": "east",
+      "column": 5,
+      "rect": [
+        100,
+        30,
+        20,
+        30
+      ]
+    },
+    {
+      "direction": "east",
+      "column": 6,
+      "rect": [
+        120,
+        30,
+        20,
+        30
+      ]
+    },
+    {
+      "direction": "east",
+      "column": 7,
+      "rect": [
+        140,
+        30,
+        20,
+        30
+      ]
+    },
+    {
+      "direction": "south",
+      "column": 0,
+      "rect": [
+        0,
+        60,
+        20,
+        30
+      ]
+    },
+    {
+      "direction": "south",
+      "column": 1,
+      "rect": [
+        20,
+        60,
+        20,
+        30
+      ]
+    },
+    {
+      "direction": "south",
+      "column": 2,
+      "rect": [
+        40,
+        60,
+        20,
+        30
+      ]
+    },
+    {
+      "direction": "south",
+      "column": 3,
+      "rect": [
+        60,
+        60,
+        20,
+        30
+      ]
+    },
+    {
+      "direction": "south",
+      "column": 4,
+      "rect": [
+        80,
+        60,
+        20,
+        30
+      ]
+    },
+    {
+      "direction": "south",
+      "column": 5,
+      "rect": [
+        100,
+        60,
+        20,
+        30
+      ]
+    },
+    {
+      "direction": "south",
+      "column": 6,
+      "rect": [
+        120,
+        60,
+        20,
+        30
+      ]
+    },
+    {
+      "direction": "south",
+      "column": 7,
+      "rect": [
+        140,
+        60,
+        20,
+        30
+      ]
+    },
+    {
+      "direction": "west",
+      "column": 0,
+      "rect": [
+        0,
+        90,
+        20,
+        30
+      ]
+    },
+    {
+      "direction": "west",
+      "column": 1,
+      "rect": [
+        20,
+        90,
+        20,
+        30
+      ]
+    },
+    {
+      "direction": "west",
+      "column": 2,
+      "rect": [
+        40,
+        90,
+        20,
+        30
+      ]
+    },
+    {
+      "direction": "west",
+      "column": 3,
+      "rect": [
+        60,
+        90,
+        20,
+        30
+      ]
+    },
+    {
+      "direction": "west",
+      "column": 4,
+      "rect": [
+        80,
+        90,
+        20,
+        30
+      ]
+    },
+    {
+      "direction": "west",
+      "column": 5,
+      "rect": [
+        100,
+        90,
+        20,
+        30
+      ]
+    },
+    {
+      "direction": "west",
+      "column": 6,
+      "rect": [
+        120,
+        90,
+        20,
+        30
+      ]
+    },
+    {
+      "direction": "west",
+      "column": 7,
+      "rect": [
+        140,
+        90,
+        20,
+        30
+      ]
+    }
+  ]
+}

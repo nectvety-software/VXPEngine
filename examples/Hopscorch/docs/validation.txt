@@ -1,0 +1,3 @@
+Portrait 240x320: all 8 rendered screens verified.
+Host assertions: menu, localization, settings, fishing, exit, framebuffer canaries PASS.
+ARM build PASS. RSA signature VERIFY OK.

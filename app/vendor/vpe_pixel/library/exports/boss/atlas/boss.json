@@ -1,0 +1,1606 @@
+{
+  "image": "boss.png",
+  "width": 513,
+  "height": 588,
+  "scale": 1,
+  "transparentWhite": false,
+  "format": "VPE565/RGB565 -> RGBA8",
+  "frames": [
+    {
+      "filename": "dragon_bite_00",
+      "textureRect": {
+        "x": 0,
+        "y": 0,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_bite.vpea",
+      "frame": 0,
+      "frameCount": 4,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "dragon_bite_01",
+      "textureRect": {
+        "x": 49,
+        "y": 0,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_bite.vpea",
+      "frame": 1,
+      "frameCount": 4,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "dragon_bite_02",
+      "textureRect": {
+        "x": 98,
+        "y": 0,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_bite.vpea",
+      "frame": 2,
+      "frameCount": 4,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "dragon_bite_03",
+      "textureRect": {
+        "x": 147,
+        "y": 0,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_bite.vpea",
+      "frame": 3,
+      "frameCount": 4,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "dragon_breath_00",
+      "textureRect": {
+        "x": 196,
+        "y": 0,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_breath.vpea",
+      "frame": 0,
+      "frameCount": 6,
+      "delayMs": 70,
+      "loop": false
+    },
+    {
+      "filename": "dragon_breath_01",
+      "textureRect": {
+        "x": 245,
+        "y": 0,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_breath.vpea",
+      "frame": 1,
+      "frameCount": 6,
+      "delayMs": 70,
+      "loop": false
+    },
+    {
+      "filename": "dragon_breath_02",
+      "textureRect": {
+        "x": 294,
+        "y": 0,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_breath.vpea",
+      "frame": 2,
+      "frameCount": 6,
+      "delayMs": 70,
+      "loop": false
+    },
+    {
+      "filename": "dragon_breath_03",
+      "textureRect": {
+        "x": 343,
+        "y": 0,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_breath.vpea",
+      "frame": 3,
+      "frameCount": 6,
+      "delayMs": 70,
+      "loop": false
+    },
+    {
+      "filename": "dragon_breath_04",
+      "textureRect": {
+        "x": 392,
+        "y": 0,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_breath.vpea",
+      "frame": 4,
+      "frameCount": 6,
+      "delayMs": 70,
+      "loop": false
+    },
+    {
+      "filename": "dragon_breath_05",
+      "textureRect": {
+        "x": 441,
+        "y": 0,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_breath.vpea",
+      "frame": 5,
+      "frameCount": 6,
+      "delayMs": 70,
+      "loop": false
+    },
+    {
+      "filename": "dragon_die_00",
+      "textureRect": {
+        "x": 0,
+        "y": 49,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_die.vpea",
+      "frame": 0,
+      "frameCount": 6,
+      "delayMs": 150,
+      "loop": false
+    },
+    {
+      "filename": "dragon_die_01",
+      "textureRect": {
+        "x": 49,
+        "y": 49,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_die.vpea",
+      "frame": 1,
+      "frameCount": 6,
+      "delayMs": 150,
+      "loop": false
+    },
+    {
+      "filename": "dragon_die_02",
+      "textureRect": {
+        "x": 98,
+        "y": 49,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_die.vpea",
+      "frame": 2,
+      "frameCount": 6,
+      "delayMs": 150,
+      "loop": false
+    },
+    {
+      "filename": "dragon_die_03",
+      "textureRect": {
+        "x": 147,
+        "y": 49,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_die.vpea",
+      "frame": 3,
+      "frameCount": 6,
+      "delayMs": 150,
+      "loop": false
+    },
+    {
+      "filename": "dragon_die_04",
+      "textureRect": {
+        "x": 196,
+        "y": 49,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_die.vpea",
+      "frame": 4,
+      "frameCount": 6,
+      "delayMs": 150,
+      "loop": false
+    },
+    {
+      "filename": "dragon_die_05",
+      "textureRect": {
+        "x": 245,
+        "y": 49,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_die.vpea",
+      "frame": 5,
+      "frameCount": 6,
+      "delayMs": 150,
+      "loop": false
+    },
+    {
+      "filename": "dragon_fly_00",
+      "textureRect": {
+        "x": 294,
+        "y": 49,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_fly.vpea",
+      "frame": 0,
+      "frameCount": 4,
+      "delayMs": 110,
+      "loop": true
+    },
+    {
+      "filename": "dragon_fly_01",
+      "textureRect": {
+        "x": 343,
+        "y": 49,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_fly.vpea",
+      "frame": 1,
+      "frameCount": 4,
+      "delayMs": 110,
+      "loop": true
+    },
+    {
+      "filename": "dragon_fly_02",
+      "textureRect": {
+        "x": 392,
+        "y": 49,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_fly.vpea",
+      "frame": 2,
+      "frameCount": 4,
+      "delayMs": 110,
+      "loop": true
+    },
+    {
+      "filename": "dragon_fly_03",
+      "textureRect": {
+        "x": 441,
+        "y": 49,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_fly.vpea",
+      "frame": 3,
+      "frameCount": 4,
+      "delayMs": 110,
+      "loop": true
+    },
+    {
+      "filename": "dragon_hurt_00",
+      "textureRect": {
+        "x": 0,
+        "y": 98,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_hurt.vpea",
+      "frame": 0,
+      "frameCount": 3,
+      "delayMs": 120,
+      "loop": false
+    },
+    {
+      "filename": "dragon_hurt_01",
+      "textureRect": {
+        "x": 49,
+        "y": 98,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_hurt.vpea",
+      "frame": 1,
+      "frameCount": 3,
+      "delayMs": 120,
+      "loop": false
+    },
+    {
+      "filename": "dragon_hurt_02",
+      "textureRect": {
+        "x": 98,
+        "y": 98,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_hurt.vpea",
+      "frame": 2,
+      "frameCount": 3,
+      "delayMs": 120,
+      "loop": false
+    },
+    {
+      "filename": "dragon_idle_00",
+      "textureRect": {
+        "x": 147,
+        "y": 98,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_idle.vpea",
+      "frame": 0,
+      "frameCount": 4,
+      "delayMs": 160,
+      "loop": true
+    },
+    {
+      "filename": "dragon_idle_01",
+      "textureRect": {
+        "x": 196,
+        "y": 98,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_idle.vpea",
+      "frame": 1,
+      "frameCount": 4,
+      "delayMs": 160,
+      "loop": true
+    },
+    {
+      "filename": "dragon_idle_02",
+      "textureRect": {
+        "x": 245,
+        "y": 98,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_idle.vpea",
+      "frame": 2,
+      "frameCount": 4,
+      "delayMs": 160,
+      "loop": true
+    },
+    {
+      "filename": "dragon_idle_03",
+      "textureRect": {
+        "x": 294,
+        "y": 98,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_idle.vpea",
+      "frame": 3,
+      "frameCount": 4,
+      "delayMs": 160,
+      "loop": true
+    },
+    {
+      "filename": "dragon_slam_00",
+      "textureRect": {
+        "x": 343,
+        "y": 98,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_slam.vpea",
+      "frame": 0,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "dragon_slam_01",
+      "textureRect": {
+        "x": 392,
+        "y": 98,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_slam.vpea",
+      "frame": 1,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "dragon_slam_02",
+      "textureRect": {
+        "x": 441,
+        "y": 98,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_slam.vpea",
+      "frame": 2,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "dragon_slam_03",
+      "textureRect": {
+        "x": 0,
+        "y": 147,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_slam.vpea",
+      "frame": 3,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "dragon_slam_04",
+      "textureRect": {
+        "x": 49,
+        "y": 147,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_slam.vpea",
+      "frame": 4,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "dragon_walk_00",
+      "textureRect": {
+        "x": 98,
+        "y": 147,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_walk.vpea",
+      "frame": 0,
+      "frameCount": 4,
+      "delayMs": 130,
+      "loop": true
+    },
+    {
+      "filename": "dragon_walk_01",
+      "textureRect": {
+        "x": 147,
+        "y": 147,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_walk.vpea",
+      "frame": 1,
+      "frameCount": 4,
+      "delayMs": 130,
+      "loop": true
+    },
+    {
+      "filename": "dragon_walk_02",
+      "textureRect": {
+        "x": 196,
+        "y": 147,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_walk.vpea",
+      "frame": 2,
+      "frameCount": 4,
+      "delayMs": 130,
+      "loop": true
+    },
+    {
+      "filename": "dragon_walk_03",
+      "textureRect": {
+        "x": 245,
+        "y": 147,
+        "w": 48,
+        "h": 48
+      },
+      "source": "dragon_walk.vpea",
+      "frame": 3,
+      "frameCount": 4,
+      "delayMs": 130,
+      "loop": true
+    },
+    {
+      "filename": "golem_beam_00",
+      "textureRect": {
+        "x": 294,
+        "y": 147,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_beam.vpea",
+      "frame": 0,
+      "frameCount": 6,
+      "delayMs": 70,
+      "loop": false
+    },
+    {
+      "filename": "golem_beam_01",
+      "textureRect": {
+        "x": 343,
+        "y": 147,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_beam.vpea",
+      "frame": 1,
+      "frameCount": 6,
+      "delayMs": 70,
+      "loop": false
+    },
+    {
+      "filename": "golem_beam_02",
+      "textureRect": {
+        "x": 392,
+        "y": 147,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_beam.vpea",
+      "frame": 2,
+      "frameCount": 6,
+      "delayMs": 70,
+      "loop": false
+    },
+    {
+      "filename": "golem_beam_03",
+      "textureRect": {
+        "x": 441,
+        "y": 147,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_beam.vpea",
+      "frame": 3,
+      "frameCount": 6,
+      "delayMs": 70,
+      "loop": false
+    },
+    {
+      "filename": "golem_beam_04",
+      "textureRect": {
+        "x": 0,
+        "y": 196,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_beam.vpea",
+      "frame": 4,
+      "frameCount": 6,
+      "delayMs": 70,
+      "loop": false
+    },
+    {
+      "filename": "golem_beam_05",
+      "textureRect": {
+        "x": 49,
+        "y": 196,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_beam.vpea",
+      "frame": 5,
+      "frameCount": 6,
+      "delayMs": 70,
+      "loop": false
+    },
+    {
+      "filename": "golem_boulder_00",
+      "textureRect": {
+        "x": 98,
+        "y": 196,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_boulder.vpea",
+      "frame": 0,
+      "frameCount": 6,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "golem_boulder_01",
+      "textureRect": {
+        "x": 147,
+        "y": 196,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_boulder.vpea",
+      "frame": 1,
+      "frameCount": 6,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "golem_boulder_02",
+      "textureRect": {
+        "x": 196,
+        "y": 196,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_boulder.vpea",
+      "frame": 2,
+      "frameCount": 6,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "golem_boulder_03",
+      "textureRect": {
+        "x": 245,
+        "y": 196,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_boulder.vpea",
+      "frame": 3,
+      "frameCount": 6,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "golem_boulder_04",
+      "textureRect": {
+        "x": 294,
+        "y": 196,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_boulder.vpea",
+      "frame": 4,
+      "frameCount": 6,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "golem_boulder_05",
+      "textureRect": {
+        "x": 343,
+        "y": 196,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_boulder.vpea",
+      "frame": 5,
+      "frameCount": 6,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "golem_die_00",
+      "textureRect": {
+        "x": 392,
+        "y": 196,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_die.vpea",
+      "frame": 0,
+      "frameCount": 6,
+      "delayMs": 150,
+      "loop": false
+    },
+    {
+      "filename": "golem_die_01",
+      "textureRect": {
+        "x": 441,
+        "y": 196,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_die.vpea",
+      "frame": 1,
+      "frameCount": 6,
+      "delayMs": 150,
+      "loop": false
+    },
+    {
+      "filename": "golem_die_02",
+      "textureRect": {
+        "x": 0,
+        "y": 245,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_die.vpea",
+      "frame": 2,
+      "frameCount": 6,
+      "delayMs": 150,
+      "loop": false
+    },
+    {
+      "filename": "golem_die_03",
+      "textureRect": {
+        "x": 49,
+        "y": 245,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_die.vpea",
+      "frame": 3,
+      "frameCount": 6,
+      "delayMs": 150,
+      "loop": false
+    },
+    {
+      "filename": "golem_die_04",
+      "textureRect": {
+        "x": 98,
+        "y": 245,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_die.vpea",
+      "frame": 4,
+      "frameCount": 6,
+      "delayMs": 150,
+      "loop": false
+    },
+    {
+      "filename": "golem_die_05",
+      "textureRect": {
+        "x": 147,
+        "y": 245,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_die.vpea",
+      "frame": 5,
+      "frameCount": 6,
+      "delayMs": 150,
+      "loop": false
+    },
+    {
+      "filename": "golem_hurt_00",
+      "textureRect": {
+        "x": 196,
+        "y": 245,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_hurt.vpea",
+      "frame": 0,
+      "frameCount": 3,
+      "delayMs": 120,
+      "loop": false
+    },
+    {
+      "filename": "golem_hurt_01",
+      "textureRect": {
+        "x": 245,
+        "y": 245,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_hurt.vpea",
+      "frame": 1,
+      "frameCount": 3,
+      "delayMs": 120,
+      "loop": false
+    },
+    {
+      "filename": "golem_hurt_02",
+      "textureRect": {
+        "x": 294,
+        "y": 245,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_hurt.vpea",
+      "frame": 2,
+      "frameCount": 3,
+      "delayMs": 120,
+      "loop": false
+    },
+    {
+      "filename": "golem_idle_00",
+      "textureRect": {
+        "x": 343,
+        "y": 245,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_idle.vpea",
+      "frame": 0,
+      "frameCount": 4,
+      "delayMs": 200,
+      "loop": true
+    },
+    {
+      "filename": "golem_idle_01",
+      "textureRect": {
+        "x": 392,
+        "y": 245,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_idle.vpea",
+      "frame": 1,
+      "frameCount": 4,
+      "delayMs": 200,
+      "loop": true
+    },
+    {
+      "filename": "golem_idle_02",
+      "textureRect": {
+        "x": 441,
+        "y": 245,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_idle.vpea",
+      "frame": 2,
+      "frameCount": 4,
+      "delayMs": 200,
+      "loop": true
+    },
+    {
+      "filename": "golem_idle_03",
+      "textureRect": {
+        "x": 0,
+        "y": 294,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_idle.vpea",
+      "frame": 3,
+      "frameCount": 4,
+      "delayMs": 200,
+      "loop": true
+    },
+    {
+      "filename": "golem_roar_00",
+      "textureRect": {
+        "x": 49,
+        "y": 294,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_roar.vpea",
+      "frame": 0,
+      "frameCount": 4,
+      "delayMs": 120,
+      "loop": false
+    },
+    {
+      "filename": "golem_roar_01",
+      "textureRect": {
+        "x": 98,
+        "y": 294,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_roar.vpea",
+      "frame": 1,
+      "frameCount": 4,
+      "delayMs": 120,
+      "loop": false
+    },
+    {
+      "filename": "golem_roar_02",
+      "textureRect": {
+        "x": 147,
+        "y": 294,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_roar.vpea",
+      "frame": 2,
+      "frameCount": 4,
+      "delayMs": 120,
+      "loop": false
+    },
+    {
+      "filename": "golem_roar_03",
+      "textureRect": {
+        "x": 196,
+        "y": 294,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_roar.vpea",
+      "frame": 3,
+      "frameCount": 4,
+      "delayMs": 120,
+      "loop": false
+    },
+    {
+      "filename": "golem_slam_00",
+      "textureRect": {
+        "x": 245,
+        "y": 294,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_slam.vpea",
+      "frame": 0,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "golem_slam_01",
+      "textureRect": {
+        "x": 294,
+        "y": 294,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_slam.vpea",
+      "frame": 1,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "golem_slam_02",
+      "textureRect": {
+        "x": 343,
+        "y": 294,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_slam.vpea",
+      "frame": 2,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "golem_slam_03",
+      "textureRect": {
+        "x": 392,
+        "y": 294,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_slam.vpea",
+      "frame": 3,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "golem_slam_04",
+      "textureRect": {
+        "x": 441,
+        "y": 294,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_slam.vpea",
+      "frame": 4,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "golem_walk_00",
+      "textureRect": {
+        "x": 0,
+        "y": 343,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_walk.vpea",
+      "frame": 0,
+      "frameCount": 4,
+      "delayMs": 150,
+      "loop": true
+    },
+    {
+      "filename": "golem_walk_01",
+      "textureRect": {
+        "x": 49,
+        "y": 343,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_walk.vpea",
+      "frame": 1,
+      "frameCount": 4,
+      "delayMs": 150,
+      "loop": true
+    },
+    {
+      "filename": "golem_walk_02",
+      "textureRect": {
+        "x": 98,
+        "y": 343,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_walk.vpea",
+      "frame": 2,
+      "frameCount": 4,
+      "delayMs": 150,
+      "loop": true
+    },
+    {
+      "filename": "golem_walk_03",
+      "textureRect": {
+        "x": 147,
+        "y": 343,
+        "w": 48,
+        "h": 48
+      },
+      "source": "golem_walk.vpea",
+      "frame": 3,
+      "frameCount": 4,
+      "delayMs": 150,
+      "loop": true
+    },
+    {
+      "filename": "wizard_blizzard_00",
+      "textureRect": {
+        "x": 196,
+        "y": 343,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_blizzard.vpea",
+      "frame": 0,
+      "frameCount": 6,
+      "delayMs": 70,
+      "loop": false
+    },
+    {
+      "filename": "wizard_blizzard_01",
+      "textureRect": {
+        "x": 245,
+        "y": 343,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_blizzard.vpea",
+      "frame": 1,
+      "frameCount": 6,
+      "delayMs": 70,
+      "loop": false
+    },
+    {
+      "filename": "wizard_blizzard_02",
+      "textureRect": {
+        "x": 294,
+        "y": 343,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_blizzard.vpea",
+      "frame": 2,
+      "frameCount": 6,
+      "delayMs": 70,
+      "loop": false
+    },
+    {
+      "filename": "wizard_blizzard_03",
+      "textureRect": {
+        "x": 343,
+        "y": 343,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_blizzard.vpea",
+      "frame": 3,
+      "frameCount": 6,
+      "delayMs": 70,
+      "loop": false
+    },
+    {
+      "filename": "wizard_blizzard_04",
+      "textureRect": {
+        "x": 392,
+        "y": 343,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_blizzard.vpea",
+      "frame": 4,
+      "frameCount": 6,
+      "delayMs": 70,
+      "loop": false
+    },
+    {
+      "filename": "wizard_blizzard_05",
+      "textureRect": {
+        "x": 441,
+        "y": 343,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_blizzard.vpea",
+      "frame": 5,
+      "frameCount": 6,
+      "delayMs": 70,
+      "loop": false
+    },
+    {
+      "filename": "wizard_bolt_00",
+      "textureRect": {
+        "x": 0,
+        "y": 392,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_bolt.vpea",
+      "frame": 0,
+      "frameCount": 6,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "wizard_bolt_01",
+      "textureRect": {
+        "x": 49,
+        "y": 392,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_bolt.vpea",
+      "frame": 1,
+      "frameCount": 6,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "wizard_bolt_02",
+      "textureRect": {
+        "x": 98,
+        "y": 392,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_bolt.vpea",
+      "frame": 2,
+      "frameCount": 6,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "wizard_bolt_03",
+      "textureRect": {
+        "x": 147,
+        "y": 392,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_bolt.vpea",
+      "frame": 3,
+      "frameCount": 6,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "wizard_bolt_04",
+      "textureRect": {
+        "x": 196,
+        "y": 392,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_bolt.vpea",
+      "frame": 4,
+      "frameCount": 6,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "wizard_bolt_05",
+      "textureRect": {
+        "x": 245,
+        "y": 392,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_bolt.vpea",
+      "frame": 5,
+      "frameCount": 6,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "wizard_cast_00",
+      "textureRect": {
+        "x": 294,
+        "y": 392,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_cast.vpea",
+      "frame": 0,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "wizard_cast_01",
+      "textureRect": {
+        "x": 343,
+        "y": 392,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_cast.vpea",
+      "frame": 1,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "wizard_cast_02",
+      "textureRect": {
+        "x": 392,
+        "y": 392,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_cast.vpea",
+      "frame": 2,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "wizard_cast_03",
+      "textureRect": {
+        "x": 441,
+        "y": 392,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_cast.vpea",
+      "frame": 3,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "wizard_cast_04",
+      "textureRect": {
+        "x": 0,
+        "y": 441,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_cast.vpea",
+      "frame": 4,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "wizard_die_00",
+      "textureRect": {
+        "x": 49,
+        "y": 441,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_die.vpea",
+      "frame": 0,
+      "frameCount": 6,
+      "delayMs": 150,
+      "loop": false
+    },
+    {
+      "filename": "wizard_die_01",
+      "textureRect": {
+        "x": 98,
+        "y": 441,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_die.vpea",
+      "frame": 1,
+      "frameCount": 6,
+      "delayMs": 150,
+      "loop": false
+    },
+    {
+      "filename": "wizard_die_02",
+      "textureRect": {
+        "x": 147,
+        "y": 441,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_die.vpea",
+      "frame": 2,
+      "frameCount": 6,
+      "delayMs": 150,
+      "loop": false
+    },
+    {
+      "filename": "wizard_die_03",
+      "textureRect": {
+        "x": 196,
+        "y": 441,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_die.vpea",
+      "frame": 3,
+      "frameCount": 6,
+      "delayMs": 150,
+      "loop": false
+    },
+    {
+      "filename": "wizard_die_04",
+      "textureRect": {
+        "x": 245,
+        "y": 441,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_die.vpea",
+      "frame": 4,
+      "frameCount": 6,
+      "delayMs": 150,
+      "loop": false
+    },
+    {
+      "filename": "wizard_die_05",
+      "textureRect": {
+        "x": 294,
+        "y": 441,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_die.vpea",
+      "frame": 5,
+      "frameCount": 6,
+      "delayMs": 150,
+      "loop": false
+    },
+    {
+      "filename": "wizard_freeze_00",
+      "textureRect": {
+        "x": 343,
+        "y": 441,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_freeze.vpea",
+      "frame": 0,
+      "frameCount": 6,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "wizard_freeze_01",
+      "textureRect": {
+        "x": 392,
+        "y": 441,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_freeze.vpea",
+      "frame": 1,
+      "frameCount": 6,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "wizard_freeze_02",
+      "textureRect": {
+        "x": 441,
+        "y": 441,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_freeze.vpea",
+      "frame": 2,
+      "frameCount": 6,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "wizard_freeze_03",
+      "textureRect": {
+        "x": 0,
+        "y": 490,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_freeze.vpea",
+      "frame": 3,
+      "frameCount": 6,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "wizard_freeze_04",
+      "textureRect": {
+        "x": 49,
+        "y": 490,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_freeze.vpea",
+      "frame": 4,
+      "frameCount": 6,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "wizard_freeze_05",
+      "textureRect": {
+        "x": 98,
+        "y": 490,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_freeze.vpea",
+      "frame": 5,
+      "frameCount": 6,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "wizard_hurt_00",
+      "textureRect": {
+        "x": 147,
+        "y": 490,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_hurt.vpea",
+      "frame": 0,
+      "frameCount": 3,
+      "delayMs": 120,
+      "loop": false
+    },
+    {
+      "filename": "wizard_hurt_01",
+      "textureRect": {
+        "x": 196,
+        "y": 490,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_hurt.vpea",
+      "frame": 1,
+      "frameCount": 3,
+      "delayMs": 120,
+      "loop": false
+    },
+    {
+      "filename": "wizard_hurt_02",
+      "textureRect": {
+        "x": 245,
+        "y": 490,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_hurt.vpea",
+      "frame": 2,
+      "frameCount": 3,
+      "delayMs": 120,
+      "loop": false
+    },
+    {
+      "filename": "wizard_idle_00",
+      "textureRect": {
+        "x": 294,
+        "y": 490,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_idle.vpea",
+      "frame": 0,
+      "frameCount": 4,
+      "delayMs": 160,
+      "loop": true
+    },
+    {
+      "filename": "wizard_idle_01",
+      "textureRect": {
+        "x": 343,
+        "y": 490,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_idle.vpea",
+      "frame": 1,
+      "frameCount": 4,
+      "delayMs": 160,
+      "loop": true
+    },
+    {
+      "filename": "wizard_idle_02",
+      "textureRect": {
+        "x": 392,
+        "y": 490,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_idle.vpea",
+      "frame": 2,
+      "frameCount": 4,
+      "delayMs": 160,
+      "loop": true
+    },
+    {
+      "filename": "wizard_idle_03",
+      "textureRect": {
+        "x": 441,
+        "y": 490,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_idle.vpea",
+      "frame": 3,
+      "frameCount": 4,
+      "delayMs": 160,
+      "loop": true
+    },
+    {
+      "filename": "wizard_walk_00",
+      "textureRect": {
+        "x": 0,
+        "y": 539,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_walk.vpea",
+      "frame": 0,
+      "frameCount": 4,
+      "delayMs": 150,
+      "loop": true
+    },
+    {
+      "filename": "wizard_walk_01",
+      "textureRect": {
+        "x": 49,
+        "y": 539,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_walk.vpea",
+      "frame": 1,
+      "frameCount": 4,
+      "delayMs": 150,
+      "loop": true
+    },
+    {
+      "filename": "wizard_walk_02",
+      "textureRect": {
+        "x": 98,
+        "y": 539,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_walk.vpea",
+      "frame": 2,
+      "frameCount": 4,
+      "delayMs": 150,
+      "loop": true
+    },
+    {
+      "filename": "wizard_walk_03",
+      "textureRect": {
+        "x": 147,
+        "y": 539,
+        "w": 48,
+        "h": 48
+      },
+      "source": "wizard_walk.vpea",
+      "frame": 3,
+      "frameCount": 4,
+      "delayMs": 150,
+      "loop": true
+    }
+  ]
+}

@@ -12,6 +12,19 @@ set(COREMRE_SOURCES
   ${_COREMRE_ROOT}/src/graphics/Font5x7.cpp
   ${_COREMRE_ROOT}/src/graphics/FontManager.cpp
   ${_COREMRE_ROOT}/src/graphics/StaticTilemapLayerCache.cpp
+  ${_COREMRE_ROOT}/src/graphics/VxpRender2D.cpp
+  ${_COREMRE_ROOT}/src/graphics/VxpColorGrade.cpp
+  ${_COREMRE_ROOT}/src/graphics/VxpStage2D.cpp
+  ${_COREMRE_ROOT}/src/graphics/VxpScene25D.cpp
+  ${_COREMRE_ROOT}/src/graphics/VxpArtStyle.cpp
+  ${_COREMRE_ROOT}/src/graphics/VxpToon3D.cpp
+  ${_COREMRE_ROOT}/src/graphics/VxpDungeonFx.cpp
+  ${_COREMRE_ROOT}/src/graphics/VxpCinematic2D.cpp
+  ${_COREMRE_ROOT}/src/graphics/VxpLight2D.cpp
+  ${_COREMRE_ROOT}/src/graphics/VxpSpriteFx.cpp
+  ${_COREMRE_ROOT}/src/graphics/VxpActorSprite2D.cpp
+  ${_COREMRE_ROOT}/src/graphics/VxpVfx2D.cpp
+  ${_COREMRE_ROOT}/src/graphics/particles/VxpParticlePool.cpp
   ${_COREMRE_ROOT}/src/graphics/particles/ParticleEmitter.cpp
   ${_COREMRE_ROOT}/src/graphics/ui/UIAnchorLayout.cpp
   ${_COREMRE_ROOT}/src/graphics/ui/UIButton.cpp

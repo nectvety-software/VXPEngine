@@ -1,0 +1,2075 @@
+{
+  "image": "atlas.png",
+  "width": 206,
+  "height": 238,
+  "scale": 1,
+  "transparentWhite": false,
+  "format": "VPE565/RGB565 -> RGBA8",
+  "frames": [
+    {
+      "filename": "hero_down_attack_00",
+      "textureRect": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_down_attack.vpea",
+      "frame": 0,
+      "frameCount": 4,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "hero_down_attack_01",
+      "textureRect": {
+        "x": 17,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_down_attack.vpea",
+      "frame": 1,
+      "frameCount": 4,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "hero_down_attack_02",
+      "textureRect": {
+        "x": 34,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_down_attack.vpea",
+      "frame": 2,
+      "frameCount": 4,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "hero_down_attack_03",
+      "textureRect": {
+        "x": 51,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_down_attack.vpea",
+      "frame": 3,
+      "frameCount": 4,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "hero_down_cast_00",
+      "textureRect": {
+        "x": 68,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_down_cast.vpea",
+      "frame": 0,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "hero_down_cast_01",
+      "textureRect": {
+        "x": 85,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_down_cast.vpea",
+      "frame": 1,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "hero_down_cast_02",
+      "textureRect": {
+        "x": 102,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_down_cast.vpea",
+      "frame": 2,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "hero_down_cast_03",
+      "textureRect": {
+        "x": 119,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_down_cast.vpea",
+      "frame": 3,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "hero_down_cast_04",
+      "textureRect": {
+        "x": 136,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_down_cast.vpea",
+      "frame": 4,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "hero_down_die_00",
+      "textureRect": {
+        "x": 153,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_down_die.vpea",
+      "frame": 0,
+      "frameCount": 5,
+      "delayMs": 130,
+      "loop": false
+    },
+    {
+      "filename": "hero_down_die_01",
+      "textureRect": {
+        "x": 170,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_down_die.vpea",
+      "frame": 1,
+      "frameCount": 5,
+      "delayMs": 130,
+      "loop": false
+    },
+    {
+      "filename": "hero_down_die_02",
+      "textureRect": {
+        "x": 187,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_down_die.vpea",
+      "frame": 2,
+      "frameCount": 5,
+      "delayMs": 130,
+      "loop": false
+    },
+    {
+      "filename": "hero_down_die_03",
+      "textureRect": {
+        "x": 0,
+        "y": 17,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_down_die.vpea",
+      "frame": 3,
+      "frameCount": 5,
+      "delayMs": 130,
+      "loop": false
+    },
+    {
+      "filename": "hero_down_die_04",
+      "textureRect": {
+        "x": 17,
+        "y": 17,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_down_die.vpea",
+      "frame": 4,
+      "frameCount": 5,
+      "delayMs": 130,
+      "loop": false
+    },
+    {
+      "filename": "hero_down_hurt_00",
+      "textureRect": {
+        "x": 34,
+        "y": 17,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_down_hurt.vpea",
+      "frame": 0,
+      "frameCount": 3,
+      "delayMs": 110,
+      "loop": false
+    },
+    {
+      "filename": "hero_down_hurt_01",
+      "textureRect": {
+        "x": 51,
+        "y": 17,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_down_hurt.vpea",
+      "frame": 1,
+      "frameCount": 3,
+      "delayMs": 110,
+      "loop": false
+    },
+    {
+      "filename": "hero_down_hurt_02",
+      "textureRect": {
+        "x": 68,
+        "y": 17,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_down_hurt.vpea",
+      "frame": 2,
+      "frameCount": 3,
+      "delayMs": 110,
+      "loop": false
+    },
+    {
+      "filename": "hero_down_idle_00",
+      "textureRect": {
+        "x": 85,
+        "y": 17,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_down_idle.vpea",
+      "frame": 0,
+      "frameCount": 4,
+      "delayMs": 200,
+      "loop": true
+    },
+    {
+      "filename": "hero_down_idle_01",
+      "textureRect": {
+        "x": 102,
+        "y": 17,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_down_idle.vpea",
+      "frame": 1,
+      "frameCount": 4,
+      "delayMs": 200,
+      "loop": true
+    },
+    {
+      "filename": "hero_down_idle_02",
+      "textureRect": {
+        "x": 119,
+        "y": 17,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_down_idle.vpea",
+      "frame": 2,
+      "frameCount": 4,
+      "delayMs": 200,
+      "loop": true
+    },
+    {
+      "filename": "hero_down_idle_03",
+      "textureRect": {
+        "x": 136,
+        "y": 17,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_down_idle.vpea",
+      "frame": 3,
+      "frameCount": 4,
+      "delayMs": 200,
+      "loop": true
+    },
+    {
+      "filename": "hero_down_run_00",
+      "textureRect": {
+        "x": 153,
+        "y": 17,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_down_run.vpea",
+      "frame": 0,
+      "frameCount": 4,
+      "delayMs": 90,
+      "loop": true
+    },
+    {
+      "filename": "hero_down_run_01",
+      "textureRect": {
+        "x": 170,
+        "y": 17,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_down_run.vpea",
+      "frame": 1,
+      "frameCount": 4,
+      "delayMs": 90,
+      "loop": true
+    },
+    {
+      "filename": "hero_down_run_02",
+      "textureRect": {
+        "x": 187,
+        "y": 17,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_down_run.vpea",
+      "frame": 2,
+      "frameCount": 4,
+      "delayMs": 90,
+      "loop": true
+    },
+    {
+      "filename": "hero_down_run_03",
+      "textureRect": {
+        "x": 0,
+        "y": 34,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_down_run.vpea",
+      "frame": 3,
+      "frameCount": 4,
+      "delayMs": 90,
+      "loop": true
+    },
+    {
+      "filename": "hero_down_walk_00",
+      "textureRect": {
+        "x": 17,
+        "y": 34,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_down_walk.vpea",
+      "frame": 0,
+      "frameCount": 4,
+      "delayMs": 140,
+      "loop": true
+    },
+    {
+      "filename": "hero_down_walk_01",
+      "textureRect": {
+        "x": 34,
+        "y": 34,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_down_walk.vpea",
+      "frame": 1,
+      "frameCount": 4,
+      "delayMs": 140,
+      "loop": true
+    },
+    {
+      "filename": "hero_down_walk_02",
+      "textureRect": {
+        "x": 51,
+        "y": 34,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_down_walk.vpea",
+      "frame": 2,
+      "frameCount": 4,
+      "delayMs": 140,
+      "loop": true
+    },
+    {
+      "filename": "hero_down_walk_03",
+      "textureRect": {
+        "x": 68,
+        "y": 34,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_down_walk.vpea",
+      "frame": 3,
+      "frameCount": 4,
+      "delayMs": 140,
+      "loop": true
+    },
+    {
+      "filename": "hero_left_attack_00",
+      "textureRect": {
+        "x": 85,
+        "y": 34,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_left_attack.vpea",
+      "frame": 0,
+      "frameCount": 4,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "hero_left_attack_01",
+      "textureRect": {
+        "x": 102,
+        "y": 34,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_left_attack.vpea",
+      "frame": 1,
+      "frameCount": 4,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "hero_left_attack_02",
+      "textureRect": {
+        "x": 119,
+        "y": 34,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_left_attack.vpea",
+      "frame": 2,
+      "frameCount": 4,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "hero_left_attack_03",
+      "textureRect": {
+        "x": 136,
+        "y": 34,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_left_attack.vpea",
+      "frame": 3,
+      "frameCount": 4,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "hero_left_cast_00",
+      "textureRect": {
+        "x": 153,
+        "y": 34,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_left_cast.vpea",
+      "frame": 0,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "hero_left_cast_01",
+      "textureRect": {
+        "x": 170,
+        "y": 34,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_left_cast.vpea",
+      "frame": 1,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "hero_left_cast_02",
+      "textureRect": {
+        "x": 187,
+        "y": 34,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_left_cast.vpea",
+      "frame": 2,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "hero_left_cast_03",
+      "textureRect": {
+        "x": 0,
+        "y": 51,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_left_cast.vpea",
+      "frame": 3,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "hero_left_cast_04",
+      "textureRect": {
+        "x": 17,
+        "y": 51,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_left_cast.vpea",
+      "frame": 4,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "hero_left_die_00",
+      "textureRect": {
+        "x": 34,
+        "y": 51,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_left_die.vpea",
+      "frame": 0,
+      "frameCount": 5,
+      "delayMs": 130,
+      "loop": false
+    },
+    {
+      "filename": "hero_left_die_01",
+      "textureRect": {
+        "x": 51,
+        "y": 51,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_left_die.vpea",
+      "frame": 1,
+      "frameCount": 5,
+      "delayMs": 130,
+      "loop": false
+    },
+    {
+      "filename": "hero_left_die_02",
+      "textureRect": {
+        "x": 68,
+        "y": 51,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_left_die.vpea",
+      "frame": 2,
+      "frameCount": 5,
+      "delayMs": 130,
+      "loop": false
+    },
+    {
+      "filename": "hero_left_die_03",
+      "textureRect": {
+        "x": 85,
+        "y": 51,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_left_die.vpea",
+      "frame": 3,
+      "frameCount": 5,
+      "delayMs": 130,
+      "loop": false
+    },
+    {
+      "filename": "hero_left_die_04",
+      "textureRect": {
+        "x": 102,
+        "y": 51,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_left_die.vpea",
+      "frame": 4,
+      "frameCount": 5,
+      "delayMs": 130,
+      "loop": false
+    },
+    {
+      "filename": "hero_left_hurt_00",
+      "textureRect": {
+        "x": 119,
+        "y": 51,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_left_hurt.vpea",
+      "frame": 0,
+      "frameCount": 3,
+      "delayMs": 110,
+      "loop": false
+    },
+    {
+      "filename": "hero_left_hurt_01",
+      "textureRect": {
+        "x": 136,
+        "y": 51,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_left_hurt.vpea",
+      "frame": 1,
+      "frameCount": 3,
+      "delayMs": 110,
+      "loop": false
+    },
+    {
+      "filename": "hero_left_hurt_02",
+      "textureRect": {
+        "x": 153,
+        "y": 51,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_left_hurt.vpea",
+      "frame": 2,
+      "frameCount": 3,
+      "delayMs": 110,
+      "loop": false
+    },
+    {
+      "filename": "hero_left_idle_00",
+      "textureRect": {
+        "x": 170,
+        "y": 51,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_left_idle.vpea",
+      "frame": 0,
+      "frameCount": 4,
+      "delayMs": 200,
+      "loop": true
+    },
+    {
+      "filename": "hero_left_idle_01",
+      "textureRect": {
+        "x": 187,
+        "y": 51,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_left_idle.vpea",
+      "frame": 1,
+      "frameCount": 4,
+      "delayMs": 200,
+      "loop": true
+    },
+    {
+      "filename": "hero_left_idle_02",
+      "textureRect": {
+        "x": 0,
+        "y": 68,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_left_idle.vpea",
+      "frame": 2,
+      "frameCount": 4,
+      "delayMs": 200,
+      "loop": true
+    },
+    {
+      "filename": "hero_left_idle_03",
+      "textureRect": {
+        "x": 17,
+        "y": 68,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_left_idle.vpea",
+      "frame": 3,
+      "frameCount": 4,
+      "delayMs": 200,
+      "loop": true
+    },
+    {
+      "filename": "hero_left_run_00",
+      "textureRect": {
+        "x": 34,
+        "y": 68,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_left_run.vpea",
+      "frame": 0,
+      "frameCount": 4,
+      "delayMs": 90,
+      "loop": true
+    },
+    {
+      "filename": "hero_left_run_01",
+      "textureRect": {
+        "x": 51,
+        "y": 68,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_left_run.vpea",
+      "frame": 1,
+      "frameCount": 4,
+      "delayMs": 90,
+      "loop": true
+    },
+    {
+      "filename": "hero_left_run_02",
+      "textureRect": {
+        "x": 68,
+        "y": 68,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_left_run.vpea",
+      "frame": 2,
+      "frameCount": 4,
+      "delayMs": 90,
+      "loop": true
+    },
+    {
+      "filename": "hero_left_run_03",
+      "textureRect": {
+        "x": 85,
+        "y": 68,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_left_run.vpea",
+      "frame": 3,
+      "frameCount": 4,
+      "delayMs": 90,
+      "loop": true
+    },
+    {
+      "filename": "hero_left_walk_00",
+      "textureRect": {
+        "x": 102,
+        "y": 68,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_left_walk.vpea",
+      "frame": 0,
+      "frameCount": 4,
+      "delayMs": 140,
+      "loop": true
+    },
+    {
+      "filename": "hero_left_walk_01",
+      "textureRect": {
+        "x": 119,
+        "y": 68,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_left_walk.vpea",
+      "frame": 1,
+      "frameCount": 4,
+      "delayMs": 140,
+      "loop": true
+    },
+    {
+      "filename": "hero_left_walk_02",
+      "textureRect": {
+        "x": 136,
+        "y": 68,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_left_walk.vpea",
+      "frame": 2,
+      "frameCount": 4,
+      "delayMs": 140,
+      "loop": true
+    },
+    {
+      "filename": "hero_left_walk_03",
+      "textureRect": {
+        "x": 153,
+        "y": 68,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_left_walk.vpea",
+      "frame": 3,
+      "frameCount": 4,
+      "delayMs": 140,
+      "loop": true
+    },
+    {
+      "filename": "hero_right_attack_00",
+      "textureRect": {
+        "x": 170,
+        "y": 68,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_right_attack.vpea",
+      "frame": 0,
+      "frameCount": 4,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "hero_right_attack_01",
+      "textureRect": {
+        "x": 187,
+        "y": 68,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_right_attack.vpea",
+      "frame": 1,
+      "frameCount": 4,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "hero_right_attack_02",
+      "textureRect": {
+        "x": 0,
+        "y": 85,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_right_attack.vpea",
+      "frame": 2,
+      "frameCount": 4,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "hero_right_attack_03",
+      "textureRect": {
+        "x": 17,
+        "y": 85,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_right_attack.vpea",
+      "frame": 3,
+      "frameCount": 4,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "hero_right_cast_00",
+      "textureRect": {
+        "x": 34,
+        "y": 85,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_right_cast.vpea",
+      "frame": 0,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "hero_right_cast_01",
+      "textureRect": {
+        "x": 51,
+        "y": 85,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_right_cast.vpea",
+      "frame": 1,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "hero_right_cast_02",
+      "textureRect": {
+        "x": 68,
+        "y": 85,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_right_cast.vpea",
+      "frame": 2,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "hero_right_cast_03",
+      "textureRect": {
+        "x": 85,
+        "y": 85,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_right_cast.vpea",
+      "frame": 3,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "hero_right_cast_04",
+      "textureRect": {
+        "x": 102,
+        "y": 85,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_right_cast.vpea",
+      "frame": 4,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "hero_right_die_00",
+      "textureRect": {
+        "x": 119,
+        "y": 85,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_right_die.vpea",
+      "frame": 0,
+      "frameCount": 5,
+      "delayMs": 130,
+      "loop": false
+    },
+    {
+      "filename": "hero_right_die_01",
+      "textureRect": {
+        "x": 136,
+        "y": 85,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_right_die.vpea",
+      "frame": 1,
+      "frameCount": 5,
+      "delayMs": 130,
+      "loop": false
+    },
+    {
+      "filename": "hero_right_die_02",
+      "textureRect": {
+        "x": 153,
+        "y": 85,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_right_die.vpea",
+      "frame": 2,
+      "frameCount": 5,
+      "delayMs": 130,
+      "loop": false
+    },
+    {
+      "filename": "hero_right_die_03",
+      "textureRect": {
+        "x": 170,
+        "y": 85,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_right_die.vpea",
+      "frame": 3,
+      "frameCount": 5,
+      "delayMs": 130,
+      "loop": false
+    },
+    {
+      "filename": "hero_right_die_04",
+      "textureRect": {
+        "x": 187,
+        "y": 85,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_right_die.vpea",
+      "frame": 4,
+      "frameCount": 5,
+      "delayMs": 130,
+      "loop": false
+    },
+    {
+      "filename": "hero_right_hurt_00",
+      "textureRect": {
+        "x": 0,
+        "y": 102,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_right_hurt.vpea",
+      "frame": 0,
+      "frameCount": 3,
+      "delayMs": 110,
+      "loop": false
+    },
+    {
+      "filename": "hero_right_hurt_01",
+      "textureRect": {
+        "x": 17,
+        "y": 102,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_right_hurt.vpea",
+      "frame": 1,
+      "frameCount": 3,
+      "delayMs": 110,
+      "loop": false
+    },
+    {
+      "filename": "hero_right_hurt_02",
+      "textureRect": {
+        "x": 34,
+        "y": 102,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_right_hurt.vpea",
+      "frame": 2,
+      "frameCount": 3,
+      "delayMs": 110,
+      "loop": false
+    },
+    {
+      "filename": "hero_right_idle_00",
+      "textureRect": {
+        "x": 51,
+        "y": 102,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_right_idle.vpea",
+      "frame": 0,
+      "frameCount": 4,
+      "delayMs": 200,
+      "loop": true
+    },
+    {
+      "filename": "hero_right_idle_01",
+      "textureRect": {
+        "x": 68,
+        "y": 102,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_right_idle.vpea",
+      "frame": 1,
+      "frameCount": 4,
+      "delayMs": 200,
+      "loop": true
+    },
+    {
+      "filename": "hero_right_idle_02",
+      "textureRect": {
+        "x": 85,
+        "y": 102,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_right_idle.vpea",
+      "frame": 2,
+      "frameCount": 4,
+      "delayMs": 200,
+      "loop": true
+    },
+    {
+      "filename": "hero_right_idle_03",
+      "textureRect": {
+        "x": 102,
+        "y": 102,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_right_idle.vpea",
+      "frame": 3,
+      "frameCount": 4,
+      "delayMs": 200,
+      "loop": true
+    },
+    {
+      "filename": "hero_right_run_00",
+      "textureRect": {
+        "x": 119,
+        "y": 102,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_right_run.vpea",
+      "frame": 0,
+      "frameCount": 4,
+      "delayMs": 90,
+      "loop": true
+    },
+    {
+      "filename": "hero_right_run_01",
+      "textureRect": {
+        "x": 136,
+        "y": 102,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_right_run.vpea",
+      "frame": 1,
+      "frameCount": 4,
+      "delayMs": 90,
+      "loop": true
+    },
+    {
+      "filename": "hero_right_run_02",
+      "textureRect": {
+        "x": 153,
+        "y": 102,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_right_run.vpea",
+      "frame": 2,
+      "frameCount": 4,
+      "delayMs": 90,
+      "loop": true
+    },
+    {
+      "filename": "hero_right_run_03",
+      "textureRect": {
+        "x": 170,
+        "y": 102,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_right_run.vpea",
+      "frame": 3,
+      "frameCount": 4,
+      "delayMs": 90,
+      "loop": true
+    },
+    {
+      "filename": "hero_right_walk_00",
+      "textureRect": {
+        "x": 187,
+        "y": 102,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_right_walk.vpea",
+      "frame": 0,
+      "frameCount": 4,
+      "delayMs": 140,
+      "loop": true
+    },
+    {
+      "filename": "hero_right_walk_01",
+      "textureRect": {
+        "x": 0,
+        "y": 119,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_right_walk.vpea",
+      "frame": 1,
+      "frameCount": 4,
+      "delayMs": 140,
+      "loop": true
+    },
+    {
+      "filename": "hero_right_walk_02",
+      "textureRect": {
+        "x": 17,
+        "y": 119,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_right_walk.vpea",
+      "frame": 2,
+      "frameCount": 4,
+      "delayMs": 140,
+      "loop": true
+    },
+    {
+      "filename": "hero_right_walk_03",
+      "textureRect": {
+        "x": 34,
+        "y": 119,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_right_walk.vpea",
+      "frame": 3,
+      "frameCount": 4,
+      "delayMs": 140,
+      "loop": true
+    },
+    {
+      "filename": "hero_up_attack_00",
+      "textureRect": {
+        "x": 51,
+        "y": 119,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_up_attack.vpea",
+      "frame": 0,
+      "frameCount": 4,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "hero_up_attack_01",
+      "textureRect": {
+        "x": 68,
+        "y": 119,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_up_attack.vpea",
+      "frame": 1,
+      "frameCount": 4,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "hero_up_attack_02",
+      "textureRect": {
+        "x": 85,
+        "y": 119,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_up_attack.vpea",
+      "frame": 2,
+      "frameCount": 4,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "hero_up_attack_03",
+      "textureRect": {
+        "x": 102,
+        "y": 119,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_up_attack.vpea",
+      "frame": 3,
+      "frameCount": 4,
+      "delayMs": 80,
+      "loop": false
+    },
+    {
+      "filename": "hero_up_cast_00",
+      "textureRect": {
+        "x": 119,
+        "y": 119,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_up_cast.vpea",
+      "frame": 0,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "hero_up_cast_01",
+      "textureRect": {
+        "x": 136,
+        "y": 119,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_up_cast.vpea",
+      "frame": 1,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "hero_up_cast_02",
+      "textureRect": {
+        "x": 153,
+        "y": 119,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_up_cast.vpea",
+      "frame": 2,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "hero_up_cast_03",
+      "textureRect": {
+        "x": 170,
+        "y": 119,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_up_cast.vpea",
+      "frame": 3,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "hero_up_cast_04",
+      "textureRect": {
+        "x": 187,
+        "y": 119,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_up_cast.vpea",
+      "frame": 4,
+      "frameCount": 5,
+      "delayMs": 90,
+      "loop": false
+    },
+    {
+      "filename": "hero_up_die_00",
+      "textureRect": {
+        "x": 0,
+        "y": 136,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_up_die.vpea",
+      "frame": 0,
+      "frameCount": 5,
+      "delayMs": 130,
+      "loop": false
+    },
+    {
+      "filename": "hero_up_die_01",
+      "textureRect": {
+        "x": 17,
+        "y": 136,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_up_die.vpea",
+      "frame": 1,
+      "frameCount": 5,
+      "delayMs": 130,
+      "loop": false
+    },
+    {
+      "filename": "hero_up_die_02",
+      "textureRect": {
+        "x": 34,
+        "y": 136,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_up_die.vpea",
+      "frame": 2,
+      "frameCount": 5,
+      "delayMs": 130,
+      "loop": false
+    },
+    {
+      "filename": "hero_up_die_03",
+      "textureRect": {
+        "x": 51,
+        "y": 136,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_up_die.vpea",
+      "frame": 3,
+      "frameCount": 5,
+      "delayMs": 130,
+      "loop": false
+    },
+    {
+      "filename": "hero_up_die_04",
+      "textureRect": {
+        "x": 68,
+        "y": 136,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_up_die.vpea",
+      "frame": 4,
+      "frameCount": 5,
+      "delayMs": 130,
+      "loop": false
+    },
+    {
+      "filename": "hero_up_hurt_00",
+      "textureRect": {
+        "x": 85,
+        "y": 136,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_up_hurt.vpea",
+      "frame": 0,
+      "frameCount": 3,
+      "delayMs": 110,
+      "loop": false
+    },
+    {
+      "filename": "hero_up_hurt_01",
+      "textureRect": {
+        "x": 102,
+        "y": 136,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_up_hurt.vpea",
+      "frame": 1,
+      "frameCount": 3,
+      "delayMs": 110,
+      "loop": false
+    },
+    {
+      "filename": "hero_up_hurt_02",
+      "textureRect": {
+        "x": 119,
+        "y": 136,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_up_hurt.vpea",
+      "frame": 2,
+      "frameCount": 3,
+      "delayMs": 110,
+      "loop": false
+    },
+    {
+      "filename": "hero_up_idle_00",
+      "textureRect": {
+        "x": 136,
+        "y": 136,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_up_idle.vpea",
+      "frame": 0,
+      "frameCount": 4,
+      "delayMs": 200,
+      "loop": true
+    },
+    {
+      "filename": "hero_up_idle_01",
+      "textureRect": {
+        "x": 153,
+        "y": 136,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_up_idle.vpea",
+      "frame": 1,
+      "frameCount": 4,
+      "delayMs": 200,
+      "loop": true
+    },
+    {
+      "filename": "hero_up_idle_02",
+      "textureRect": {
+        "x": 170,
+        "y": 136,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_up_idle.vpea",
+      "frame": 2,
+      "frameCount": 4,
+      "delayMs": 200,
+      "loop": true
+    },
+    {
+      "filename": "hero_up_idle_03",
+      "textureRect": {
+        "x": 187,
+        "y": 136,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_up_idle.vpea",
+      "frame": 3,
+      "frameCount": 4,
+      "delayMs": 200,
+      "loop": true
+    },
+    {
+      "filename": "hero_up_run_00",
+      "textureRect": {
+        "x": 0,
+        "y": 153,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_up_run.vpea",
+      "frame": 0,
+      "frameCount": 4,
+      "delayMs": 90,
+      "loop": true
+    },
+    {
+      "filename": "hero_up_run_01",
+      "textureRect": {
+        "x": 17,
+        "y": 153,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_up_run.vpea",
+      "frame": 1,
+      "frameCount": 4,
+      "delayMs": 90,
+      "loop": true
+    },
+    {
+      "filename": "hero_up_run_02",
+      "textureRect": {
+        "x": 34,
+        "y": 153,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_up_run.vpea",
+      "frame": 2,
+      "frameCount": 4,
+      "delayMs": 90,
+      "loop": true
+    },
+    {
+      "filename": "hero_up_run_03",
+      "textureRect": {
+        "x": 51,
+        "y": 153,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_up_run.vpea",
+      "frame": 3,
+      "frameCount": 4,
+      "delayMs": 90,
+      "loop": true
+    },
+    {
+      "filename": "hero_up_walk_00",
+      "textureRect": {
+        "x": 68,
+        "y": 153,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_up_walk.vpea",
+      "frame": 0,
+      "frameCount": 4,
+      "delayMs": 140,
+      "loop": true
+    },
+    {
+      "filename": "hero_up_walk_01",
+      "textureRect": {
+        "x": 85,
+        "y": 153,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_up_walk.vpea",
+      "frame": 1,
+      "frameCount": 4,
+      "delayMs": 140,
+      "loop": true
+    },
+    {
+      "filename": "hero_up_walk_02",
+      "textureRect": {
+        "x": 102,
+        "y": 153,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_up_walk.vpea",
+      "frame": 2,
+      "frameCount": 4,
+      "delayMs": 140,
+      "loop": true
+    },
+    {
+      "filename": "hero_up_walk_03",
+      "textureRect": {
+        "x": 119,
+        "y": 153,
+        "w": 16,
+        "h": 16
+      },
+      "source": "hero_up_walk.vpea",
+      "frame": 3,
+      "frameCount": 4,
+      "delayMs": 140,
+      "loop": true
+    },
+    {
+      "filename": "td_hero_down_idle_0.vpe",
+      "textureRect": {
+        "x": 136,
+        "y": 153,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_down_idle_1.vpe",
+      "textureRect": {
+        "x": 153,
+        "y": 153,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_down_run_0.vpe",
+      "textureRect": {
+        "x": 170,
+        "y": 153,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_down_run_1.vpe",
+      "textureRect": {
+        "x": 187,
+        "y": 153,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_down_walk_0.vpe",
+      "textureRect": {
+        "x": 0,
+        "y": 170,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_down_walk_1.vpe",
+      "textureRect": {
+        "x": 17,
+        "y": 170,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_down_walk_2.vpe",
+      "textureRect": {
+        "x": 34,
+        "y": 170,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_down_walk_3.vpe",
+      "textureRect": {
+        "x": 51,
+        "y": 170,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_left_idle_0.vpe",
+      "textureRect": {
+        "x": 68,
+        "y": 170,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_left_idle_1.vpe",
+      "textureRect": {
+        "x": 85,
+        "y": 170,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_left_run_0.vpe",
+      "textureRect": {
+        "x": 102,
+        "y": 170,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_left_run_1.vpe",
+      "textureRect": {
+        "x": 119,
+        "y": 170,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_left_walk_0.vpe",
+      "textureRect": {
+        "x": 136,
+        "y": 170,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_left_walk_1.vpe",
+      "textureRect": {
+        "x": 153,
+        "y": 170,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_left_walk_2.vpe",
+      "textureRect": {
+        "x": 170,
+        "y": 170,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_left_walk_3.vpe",
+      "textureRect": {
+        "x": 187,
+        "y": 170,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_right_attack_0.vpe",
+      "textureRect": {
+        "x": 0,
+        "y": 187,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_right_attack_1.vpe",
+      "textureRect": {
+        "x": 17,
+        "y": 187,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_right_cast_0.vpe",
+      "textureRect": {
+        "x": 34,
+        "y": 187,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_right_cast_1.vpe",
+      "textureRect": {
+        "x": 51,
+        "y": 187,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_right_die_0.vpe",
+      "textureRect": {
+        "x": 68,
+        "y": 187,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_right_die_1.vpe",
+      "textureRect": {
+        "x": 85,
+        "y": 187,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_right_dig_0.vpe",
+      "textureRect": {
+        "x": 102,
+        "y": 187,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_right_dig_1.vpe",
+      "textureRect": {
+        "x": 119,
+        "y": 187,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_right_fish_0.vpe",
+      "textureRect": {
+        "x": 136,
+        "y": 187,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_right_fish_1.vpe",
+      "textureRect": {
+        "x": 153,
+        "y": 187,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_right_hurt_0.vpe",
+      "textureRect": {
+        "x": 170,
+        "y": 187,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_right_idle_0.vpe",
+      "textureRect": {
+        "x": 187,
+        "y": 187,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_right_idle_1.vpe",
+      "textureRect": {
+        "x": 0,
+        "y": 204,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_right_pickup_0.vpe",
+      "textureRect": {
+        "x": 17,
+        "y": 204,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_right_pickup_1.vpe",
+      "textureRect": {
+        "x": 34,
+        "y": 204,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_right_push_0.vpe",
+      "textureRect": {
+        "x": 51,
+        "y": 204,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_right_push_1.vpe",
+      "textureRect": {
+        "x": 68,
+        "y": 204,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_right_run_0.vpe",
+      "textureRect": {
+        "x": 85,
+        "y": 204,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_right_run_1.vpe",
+      "textureRect": {
+        "x": 102,
+        "y": 204,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_right_walk_0.vpe",
+      "textureRect": {
+        "x": 119,
+        "y": 204,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_right_walk_1.vpe",
+      "textureRect": {
+        "x": 136,
+        "y": 204,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_right_walk_2.vpe",
+      "textureRect": {
+        "x": 153,
+        "y": 204,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_right_walk_3.vpe",
+      "textureRect": {
+        "x": 170,
+        "y": 204,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_right_water_0.vpe",
+      "textureRect": {
+        "x": 187,
+        "y": 204,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_right_water_1.vpe",
+      "textureRect": {
+        "x": 0,
+        "y": 221,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_up_idle_0.vpe",
+      "textureRect": {
+        "x": 17,
+        "y": 221,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_up_idle_1.vpe",
+      "textureRect": {
+        "x": 34,
+        "y": 221,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_up_run_0.vpe",
+      "textureRect": {
+        "x": 51,
+        "y": 221,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_up_run_1.vpe",
+      "textureRect": {
+        "x": 68,
+        "y": 221,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_up_walk_0.vpe",
+      "textureRect": {
+        "x": 85,
+        "y": 221,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_up_walk_1.vpe",
+      "textureRect": {
+        "x": 102,
+        "y": 221,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_up_walk_2.vpe",
+      "textureRect": {
+        "x": 119,
+        "y": 221,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "filename": "td_hero_up_walk_3.vpe",
+      "textureRect": {
+        "x": 136,
+        "y": 221,
+        "w": 16,
+        "h": 16
+      }
+    }
+  ]
+}

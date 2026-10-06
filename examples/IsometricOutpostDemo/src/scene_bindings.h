@@ -45,10 +45,10 @@ typedef struct VxpDesignComponent {
 #define MAIN_WORLDBACKGROUND_X 0.0000f
 #define MAIN_WORLDBACKGROUND_Y 0.0000f
 #define MAIN_WORLDBACKGROUND_ROTATION 0.0000f
-#define MAIN_WORLDBACKGROUND_SCALE_X 1.0000f
-#define MAIN_WORLDBACKGROUND_SCALE_Y 1.0000f
-#define MAIN_WORLDBACKGROUND_DISPLAY_WIDTH 320.0000f
-#define MAIN_WORLDBACKGROUND_DISPLAY_HEIGHT 240.0000f
+#define MAIN_WORLDBACKGROUND_SCALE_X 1.3333f
+#define MAIN_WORLDBACKGROUND_SCALE_Y 1.3333f
+#define MAIN_WORLDBACKGROUND_DISPLAY_WIDTH 426.6667f
+#define MAIN_WORLDBACKGROUND_DISPLAY_HEIGHT 320.0000f
 #define MAIN_WORLDBACKGROUND_RES "main_worldbackground.raw"
 #define MAIN_WORLDBACKGROUND_RESIZABLE 0
 #define MAIN_WORLDBACKGROUND_LOCK_ASPECT 1
@@ -205,11 +205,11 @@ typedef struct VxpDesignComponent {
 #define MAIN_VILLAGER_KEYFRAME_COUNT 0
 #define MAIN_RESOURCEBAR "hud" /* ResourceBar */
 #define MAIN_RESOURCEBAR_X 0.0000f
-#define MAIN_RESOURCEBAR_Y -106.0000f
+#define MAIN_RESOURCEBAR_Y -146.0000f
 #define MAIN_RESOURCEBAR_ROTATION 0.0000f
 #define MAIN_RESOURCEBAR_SCALE_X 1.0000f
 #define MAIN_RESOURCEBAR_SCALE_Y 1.0000f
-#define MAIN_RESOURCEBAR_DISPLAY_WIDTH 305.0000f
+#define MAIN_RESOURCEBAR_DISPLAY_WIDTH 224.0000f
 #define MAIN_RESOURCEBAR_DISPLAY_HEIGHT 23.0000f
 #define MAIN_RESOURCEBAR_RESIZABLE 1
 #define MAIN_RESOURCEBAR_LOCK_ASPECT 0
@@ -257,10 +257,10 @@ typedef struct VxpDesignComponent {
 #define MAIN_RESOURCEBAR_LOCK_ASPECT 0
 #define MAIN_RESOURCEBAR_KEYFRAME_COUNT 0
 static const VxpDesignComponent MAIN_DESIGN_COMPONENTS[4] = {
-    {"world", "Sprite2D", "assets/map/background/isometric_grassland_320x240.png", "main_worldbackground.raw", 0.0000f, 0.0000f, 0.0000f, 1.0000f, 1.0000f, 320.0000f, 240.0000f, -10, 1} /* z_index: -10 */,
+    {"world", "Sprite2D", "assets/map/background/isometric_grassland_320x240.png", "main_worldbackground.raw", 0.0000f, 0.0000f, 0.0000f, 1.3333f, 1.3333f, 426.6667f, 320.0000f, -10, 1} /* z_index: -10 */,
     {"hall", "Sprite2D", "assets/scenes/town_hall.png", "main_townhall.raw", 30.0000f, -12.0000f, 0.0000f, 1.0000f, 1.0000f, 72.0000f, 64.0000f, 2, 1} /* z_index: 2 */,
     {"worker1", "Sprite2D", "assets/scenes/villager.png", "main_villager.raw", -46.0000f, 34.0000f, 0.0000f, 1.0000f, 1.0000f, 24.0000f, 32.0000f, 4, 1} /* z_index: 4 */,
-    {"hud", "Rectangle2D", "", "", 0.0000f, -106.0000f, 0.0000f, 1.0000f, 1.0000f, 305.0000f, 23.0000f, 20, 1} /* z_index: 20 */
+    {"hud", "Rectangle2D", "", "", 0.0000f, -146.0000f, 0.0000f, 1.0000f, 1.0000f, 224.0000f, 23.0000f, 20, 1} /* z_index: 20 */
 };
 
 #define MAIN_ROLE_STATIC_OBSTACLE "hall"

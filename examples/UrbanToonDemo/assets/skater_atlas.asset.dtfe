@@ -1,0 +1,101 @@
+{
+  "format": "VXPEngine Asset",
+  "format_version": 2,
+  "asset": "assets/skater_atlas.png",
+  "asset_type": "Sprite / Character",
+  "size": {
+    "width": 576,
+    "height": 144
+  },
+  "texture": {
+    "pixels_per_unit": 1,
+    "render_mode": "nearest",
+    "transparent": true,
+    "pixel_mode_bits": 32
+  },
+  "grid": {
+    "width": 96,
+    "height": 144,
+    "margin": 0,
+    "spacing": 0
+  },
+  "frames": [
+    {
+      "name": "roll_0",
+      "x": 0,
+      "y": 0,
+      "width": 96,
+      "height": 144,
+      "duration_ms": 133,
+      "source_index": 0
+    },
+    {
+      "name": "roll_1",
+      "x": 96,
+      "y": 0,
+      "width": 96,
+      "height": 144,
+      "duration_ms": 133,
+      "source_index": 1
+    },
+    {
+      "name": "roll_2",
+      "x": 192,
+      "y": 0,
+      "width": 96,
+      "height": 144,
+      "duration_ms": 133,
+      "source_index": 2
+    },
+    {
+      "name": "roll_3",
+      "x": 288,
+      "y": 0,
+      "width": 96,
+      "height": 144,
+      "duration_ms": 133,
+      "source_index": 3
+    },
+    {
+      "name": "roll_4",
+      "x": 384,
+      "y": 0,
+      "width": 96,
+      "height": 144,
+      "duration_ms": 133,
+      "source_index": 4
+    },
+    {
+      "name": "roll_5",
+      "x": 480,
+      "y": 0,
+      "width": 96,
+      "height": 144,
+      "duration_ms": 133,
+      "source_index": 5
+    }
+  ],
+  "animation": {
+    "name": "skater_roll",
+    "fps": 7.5,
+    "loop": true,
+    "frame_count": 6,
+    "source_mode": "atlas_frames",
+    "asset_kind": "character",
+    "selected_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "descriptor": "assets/skater_roll.ani..dtfe"
+  },
+  "art_style": {
+    "name": "Game \u00b7 Urban Toon",
+    "role": "sprite",
+    "runtime_preset": "VXPE_ARTSTYLE_URBAN_TOON"
+  },
+  "source_mesh": "src/actor.cpp"
+}

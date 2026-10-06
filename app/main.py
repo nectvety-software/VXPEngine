@@ -1525,10 +1525,12 @@ class MainWindow(QWidget):
         self._add_center_tab(self.viewport_2d, "fa5s.map", active_screen.name, select=True)
 
         root = Path(project.path)
-        main_c = root / "src" / "main.c"
-        self._add_code_tab(tabs, main_c, "main.c", "fa5s.microchip", VXP_SAMPLE_MAIN_C)
+        entry_source = root / "src" / "main.cpp"
+        if not entry_source.exists():
+            entry_source = root / "src" / "main.c"
+        self._add_code_tab(tabs, entry_source, entry_source.name, "fa5s.microchip", VXP_SAMPLE_MAIN_C)
 
-        for source_name in ("game.c", "draw.c", "gfx.c", "res.c"):
+        for source_name in ("game.c", "game.cpp", "game.h", "scene.cpp", "scene.h", "draw.c", "gfx.c", "res.c"):
             source_path = root / "src" / source_name
             if source_path.exists():
                 self._add_code_tab(tabs, source_path, source_name, "fa5s.file-code", "")

@@ -1,0 +1,297 @@
+{
+  "format": "VXPEngine Asset",
+  "format_version": 2,
+  "asset": "assets/sprites/hero_atlas.png",
+  "asset_type": "Sprite / Character",
+  "size": {
+    "width": 160,
+    "height": 120
+  },
+  "texture": {
+    "pixels_per_unit": 1,
+    "render_mode": "nearest",
+    "transparent": true,
+    "pixel_mode_bits": 32
+  },
+  "grid": {
+    "width": 20,
+    "height": 30,
+    "margin": 0,
+    "spacing": 0
+  },
+  "animation": {
+    "name": "hero_east_walk",
+    "fps": 10,
+    "loop": true,
+    "descriptor": "assets/scenes/hero_east_walk.ani..dtfe",
+    "source_mode": "atlas_frames"
+  },
+  "frames": [
+    {
+      "name": "north_0",
+      "x": 0,
+      "y": 0,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 180
+    },
+    {
+      "name": "north_1",
+      "x": 20,
+      "y": 0,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 100
+    },
+    {
+      "name": "north_2",
+      "x": 40,
+      "y": 0,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 100
+    },
+    {
+      "name": "north_3",
+      "x": 60,
+      "y": 0,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 100
+    },
+    {
+      "name": "north_4",
+      "x": 80,
+      "y": 0,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 100
+    },
+    {
+      "name": "north_5",
+      "x": 100,
+      "y": 0,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 140
+    },
+    {
+      "name": "north_6",
+      "x": 120,
+      "y": 0,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 140
+    },
+    {
+      "name": "north_7",
+      "x": 140,
+      "y": 0,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 180
+    },
+    {
+      "name": "east_0",
+      "x": 0,
+      "y": 30,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 180
+    },
+    {
+      "name": "east_1",
+      "x": 20,
+      "y": 30,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 100
+    },
+    {
+      "name": "east_2",
+      "x": 40,
+      "y": 30,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 100
+    },
+    {
+      "name": "east_3",
+      "x": 60,
+      "y": 30,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 100
+    },
+    {
+      "name": "east_4",
+      "x": 80,
+      "y": 30,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 100
+    },
+    {
+      "name": "east_5",
+      "x": 100,
+      "y": 30,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 140
+    },
+    {
+      "name": "east_6",
+      "x": 120,
+      "y": 30,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 140
+    },
+    {
+      "name": "east_7",
+      "x": 140,
+      "y": 30,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 180
+    },
+    {
+      "name": "south_0",
+      "x": 0,
+      "y": 60,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 180
+    },
+    {
+      "name": "south_1",
+      "x": 20,
+      "y": 60,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 100
+    },
+    {
+      "name": "south_2",
+      "x": 40,
+      "y": 60,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 100
+    },
+    {
+      "name": "south_3",
+      "x": 60,
+      "y": 60,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 100
+    },
+    {
+      "name": "south_4",
+      "x": 80,
+      "y": 60,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 100
+    },
+    {
+      "name": "south_5",
+      "x": 100,
+      "y": 60,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 140
+    },
+    {
+      "name": "south_6",
+      "x": 120,
+      "y": 60,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 140
+    },
+    {
+      "name": "south_7",
+      "x": 140,
+      "y": 60,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 180
+    },
+    {
+      "name": "west_0",
+      "x": 0,
+      "y": 90,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 180
+    },
+    {
+      "name": "west_1",
+      "x": 20,
+      "y": 90,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 100
+    },
+    {
+      "name": "west_2",
+      "x": 40,
+      "y": 90,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 100
+    },
+    {
+      "name": "west_3",
+      "x": 60,
+      "y": 90,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 100
+    },
+    {
+      "name": "west_4",
+      "x": 80,
+      "y": 90,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 100
+    },
+    {
+      "name": "west_5",
+      "x": 100,
+      "y": 90,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 140
+    },
+    {
+      "name": "west_6",
+      "x": 120,
+      "y": 90,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 140
+    },
+    {
+      "name": "west_7",
+      "x": 140,
+      "y": 90,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 180
+    }
+  ],
+  "collisions": [
+    {
+      "name": "feet",
+      "x": 5,
+      "y": 23,
+      "width": 10,
+      "height": 6,
+      "kind": "bounds"
+    }
+  ]
+}

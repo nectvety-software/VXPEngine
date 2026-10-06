@@ -1,0 +1,14 @@
+{
+  "format": "VXPEngine Screen Registry",
+  "format_version": 2,
+  "active_screen": "main",
+  "screens": [
+    {
+      "id": "main",
+      "name": "Main",
+      "file": "assets/scenes/main.dtfe",
+      "code_name": "Main"
+    }
+  ],
+  "transitions": []
+}

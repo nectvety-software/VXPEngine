@@ -1,0 +1,44 @@
+{
+  "format": "VXPEngine Animation",
+  "format_version": 2,
+  "extension": ".ani..dtfe",
+  "asset": "assets/sprites/hero_atlas.png",
+  "texture": "assets/sprites/hero_atlas.png",
+  "source_mode": "atlas_frames",
+  "asset_kind": "character",
+  "package": "atlas+descriptor",
+  "preview_background": "checker",
+  "preview_zoom": 4,
+  "animation": {
+    "name": "hero_south_cast",
+    "fps": 7,
+    "loop": false,
+    "frame_count": 2,
+    "source_mode": "atlas_frames",
+    "asset_kind": "character",
+    "selected_indices": [
+      21,
+      22
+    ]
+  },
+  "frames": [
+    {
+      "name": "south_5",
+      "x": 100,
+      "y": 60,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 140,
+      "source_index": 21
+    },
+    {
+      "name": "south_6",
+      "x": 120,
+      "y": 60,
+      "width": 20,
+      "height": 30,
+      "duration_ms": 140,
+      "source_index": 22
+    }
+  ]
+}

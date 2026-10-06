@@ -10,6 +10,7 @@ import tempfile
 from pathlib import Path
 
 import pefile
+from verify_vpe_bundle import verify_bundle
 
 
 def require(path: Path) -> Path:
@@ -21,6 +22,7 @@ def require(path: Path) -> Path:
 def main() -> int:
     stage = Path(sys.argv[1]).resolve()
     ide = require(stage / "VXPEngine.exe")
+    print("VPE Pixel payload:", verify_bundle(stage / "app/vendor/vpe_pixel"))
     sdk_python = require(stage / "engine/coremre/sdk/python/VXPEPython.exe")
     require(stage / "engine/coremre/sdk/w64devkit/bin/cmake.exe")
     require(stage / "engine/coremre/sdk/w64devkit/bin/ninja.exe")

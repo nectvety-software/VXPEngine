@@ -1,0 +1,56 @@
+{
+  "format": "VXPEngine Screen Registry",
+  "format_version": 2,
+  "active_screen": "menu",
+  "screens": [
+    {
+      "id": "main",
+      "name": "Main",
+      "file": "assets/scenes/main.dtfe",
+      "code_name": "Main"
+    },
+    {
+      "id": "splash",
+      "name": "Splash",
+      "file": "assets/scenes/splash.dtfe",
+      "code_name": "Splash"
+    },
+    {
+      "id": "menu",
+      "name": "Menu",
+      "file": "assets/scenes/menu.dtfe",
+      "code_name": "Menu"
+    },
+    {
+      "id": "play",
+      "name": "Play",
+      "file": "assets/scenes/play.dtfe",
+      "code_name": "Play"
+    },
+    {
+      "id": "guide",
+      "name": "Guide",
+      "file": "assets/scenes/guide.dtfe",
+      "code_name": "Guide"
+    },
+    {
+      "id": "abouts",
+      "name": "Abouts",
+      "file": "assets/scenes/abouts.dtfe",
+      "code_name": "Abouts"
+    },
+    {
+      "id": "settings",
+      "name": "Settings",
+      "file": "assets/scenes/settings.dtfe",
+      "code_name": "Settings"
+    },
+    {
+      "id": "exit",
+      "name": "Exit",
+      "file": "assets/scenes/exit.dtfe",
+      "code_name": "Exit"
+    }
+  ],
+  "transitions": []
+}

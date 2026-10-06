@@ -1,0 +1,72 @@
+{
+  "name": "terrain",
+  "tilewidth": 16,
+  "tileheight": 16,
+  "tilecount": 30,
+  "columns": 10,
+  "image": "terrain.png",
+  "imagewidth": 160,
+  "imageheight": 48,
+  "tiles": [
+    {
+      "id": 2,
+      "properties": [
+        {
+          "name": "solid",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "properties": [
+        {
+          "name": "solid",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "properties": [
+        {
+          "name": "solid",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "properties": [
+        {
+          "name": "solid",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "properties": [
+        {
+          "name": "solid",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "properties": [
+        {
+          "name": "solid",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "format": "VXPEngine VXP Project",
+  "format_version": 2,
+  "engine_version": "2.0.0",
+  "name": "GnarlyDungeonDemo",
+  "app_name": "gnarly_dungeon",
+  "developer": "VXPstore",
+  "template": "blank",
+  "template_version": "2.0.2",
+  "layout_version": 2,
+  "created_at": "2026-10-06T04:16:24.084563+00:00",
+  "modified_at": "2026-10-06T04:16:24.084563+00:00",
+  "screen": {
+    "width": 240,
+    "height": 320,
+    "type": "MRE QVGA Portrait"
+  },
+  "mre": {
+    "sdk_version": "3.0",
+    "api": "File ProMng",
+    "ram_kb": "2048",
+    "imsi": "91234567890",
+    "app_id": "5814721"
+  },
+  "app_id": "5814721",
+  "signing": {
+    "owner": "VXPEngine",
+    "cert_id": "1",
+    "app_id_source": "engine"
+  }
+}

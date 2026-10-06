@@ -1,0 +1,13 @@
+{
+  "name": "RetroBeachFighterDemo",
+  "display_name": "Retro Beach Fighter",
+  "orientation": "portrait",
+  "resolution": "240x320",
+  "engine": "VXPEngine/VxpStage2D",
+  "description": "Saturn-style fighting beach stage with parallax bands, raster water, fighters and splash particles.",
+  "screen": {
+    "width": 240,
+    "height": 320,
+    "type": "MRE QVGA Portrait"
+  }
+}

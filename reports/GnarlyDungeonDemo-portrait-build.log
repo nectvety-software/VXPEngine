@@ -1,0 +1,50 @@
+[0/1] Re-running CMake...
+-- Configuring done (0.0s)
+-- Generating done (0.1s)
+-- Build files have been written to: D:/MRE/VXPEngine/examples/GnarlyDungeonDemo/build-arm
+[1/19] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpDungeonFx.cpp.obj
+[2/19] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpStage2D.cpp.obj
+[3/19] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpArtStyle.cpp.obj
+[4/19] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpActorSprite2D.cpp.obj
+[5/19] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpScene25D.cpp.obj
+[6/19] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpLight2D.cpp.obj
+[7/19] Building CXX object main/CMakeFiles/main.dir/__/__/__/src/main.cpp.obj
+[8/19] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/particles/VxpParticlePool.cpp.obj
+[9/19] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpRender2D.cpp.obj
+[10/19] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpVfx2D.cpp.obj
+[11/19] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpSpriteFx.cpp.obj
+[12/19] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpToon3D.cpp.obj
+[13/19] Linking CXX static library libcoremre.a
+[14/19] Building CXX object main/CMakeFiles/main.dir/__/__/__/src/scene.cpp.obj
+[15/19] Linking CXX executable main\main.axf
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-closer.o): in function `_close_r':
+C:/M/B/src/newlib-4.5.0.20241231/newlib/libc/reent/closer.c:47:(.text+0xc): warning: _close is not implemented and will always fail
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-closer.o): note: the message above does not take linker garbage collection into account
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-fstatr.o): in function `_fstat_r':
+C:/M/B/src/newlib-4.5.0.20241231/newlib/libc/reent/fstatr.c:55:(.text+0xe): warning: _fstat is not implemented and will always fail
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-fstatr.o): note: the message above does not take linker garbage collection into account
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-signalr.o): in function `_getpid_r':
+C:/M/B/src/newlib-4.5.0.20241231/newlib/libc/reent/signalr.c:83:(.text+0x2e): warning: _getpid is not implemented and will always fail
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-signalr.o): note: the message above does not take linker garbage collection into account
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-isattyr.o): in function `_isatty_r':
+C:/M/B/src/newlib-4.5.0.20241231/newlib/libc/reent/isattyr.c:52:(.text+0xc): warning: _isatty is not implemented and will always fail
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-isattyr.o): note: the message above does not take linker garbage collection into account
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-signalr.o): in function `_kill_r':
+C:/M/B/src/newlib-4.5.0.20241231/newlib/libc/reent/signalr.c:53:(.text+0xe): warning: _kill is not implemented and will always fail
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-signalr.o): note: the message above does not take linker garbage collection into account
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-lseekr.o): in function `_lseek_r':
+C:/M/B/src/newlib-4.5.0.20241231/newlib/libc/reent/lseekr.c:49:(.text+0x10): warning: _lseek is not implemented and will always fail
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-lseekr.o): note: the message above does not take linker garbage collection into account
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-readr.o): in function `_read_r':
+C:/M/B/src/newlib-4.5.0.20241231/newlib/libc/reent/readr.c:49:(.text+0x10): warning: _read is not implemented and will always fail
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-readr.o): note: the message above does not take linker garbage collection into account
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-writer.o): in function `_write_r':
+C:/M/B/src/newlib-4.5.0.20241231/newlib/libc/reent/writer.c:49:(.text+0x10): warning: _write is not implemented and will always fail
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-writer.o): note: the message above does not take linker garbage collection into account
+[16/19] Generating null_main_vxp.cpp
+[17/19] Building CXX object main/CMakeFiles/main_vxp.dir/null_main_vxp.cpp.obj
+[18/19] Linking CXX static library main\gnarly_dungeon.vxp
+FORMAT    : MRE VXP (GCC/ARM ELF32)
+APP ID    : 5814721
+VENDOR    : VXPstore
+OUTPUT    : D:\MRE\VXPEngine\examples\GnarlyDungeonDemo\build-arm\main\gnarly_dungeon.vxp

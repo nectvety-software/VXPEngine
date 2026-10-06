@@ -3,13 +3,22 @@ from pathlib import Path
 from PyInstaller.utils.hooks import collect_all
 
 ROOT = Path(SPECPATH).resolve().parents[1]
+import runpy
+runpy.run_path(str(ROOT / "packaging/windows/verify_vpe_bundle.py"))["verify_bundle"](ROOT / "app/vendor/vpe_pixel")
 qta_datas, qta_binaries, qta_hidden = collect_all("qtawesome")
 
 a = Analysis(
     [str(ROOT / "app" / "main.py")],
     pathex=[str(ROOT / "app"), str(ROOT / "simulator"), str(ROOT / "tools")],
     binaries=qta_binaries,
-    datas=[(str(ROOT / "app" / "resources"), "resources"), *qta_datas],
+    datas=[(str(ROOT / "app" / "resources"), "resources"),
+           (str(ROOT / "app" / "vendor" / "vpe_pixel" / "style"), "vendor/vpe_pixel/style"),
+           (str(ROOT / "app/vendor/vpe_pixel/library"), "vendor/vpe_pixel/library"),
+           (str(ROOT / "app/vendor/vpe_pixel/tools"), "vendor/vpe_pixel/tools"),
+           *[(str(path), "vendor/vpe_pixel/vpx_editor")
+             for path in sorted((ROOT / "app/vendor/vpe_pixel/vpx_editor").glob("*.py"))],
+           (str(ROOT / "app/vendor/vpe_pixel/library-manifest.json"), "vendor/vpe_pixel"),
+           (str(ROOT / "app/vendor/vpe_pixel/tools-manifest.json"), "vendor/vpe_pixel"), *qta_datas],
     # verify_core is loaded after the user presses Run/Build.  PyInstaller
     # cannot discover that dynamic import without listing it explicitly.
     hiddenimports=[*qta_hidden, "verify_core"],

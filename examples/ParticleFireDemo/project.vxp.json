@@ -1,0 +1,21 @@
+{
+  "format": "VXPEngine VXP Project",
+  "format_version": 1,
+  "engine_version": "2.0.0",
+  "name": "ParticleFireDemo",
+  "app_name": "particle_fire",
+  "developer": "VXPstore",
+  "template": "blank",
+  "screen": {
+    "width": 240,
+    "height": 320,
+    "type": "MRE QVGA Portrait"
+  },
+  "mre": {
+    "sdk_version": "3.0",
+    "api": "File ProMng",
+    "ram_kb": "800",
+    "app_id": "6051644"
+  },
+  "app_id": "6051644"
+}

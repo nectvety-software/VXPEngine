@@ -1,0 +1,44 @@
+{
+  "format": "VXPEngine Animation",
+  "format_version": 2,
+  "extension": ".ani..dtfe",
+  "asset": "assets/zombie_atlas.png",
+  "texture": "assets/zombie_atlas.png",
+  "source_mode": "atlas_frames",
+  "asset_kind": "character",
+  "package": "atlas+descriptor",
+  "preview_background": "checker",
+  "preview_zoom": 3,
+  "animation": {
+    "name": "zombie_walk",
+    "fps": 3,
+    "loop": true,
+    "frame_count": 2,
+    "source_mode": "atlas_frames",
+    "asset_kind": "character",
+    "selected_indices": [
+      0,
+      1
+    ]
+  },
+  "frames": [
+    {
+      "name": "walk_0",
+      "x": 0,
+      "y": 0,
+      "width": 48,
+      "height": 64,
+      "duration_ms": 400,
+      "source_index": 0
+    },
+    {
+      "name": "walk_1",
+      "x": 48,
+      "y": 0,
+      "width": 48,
+      "height": 64,
+      "duration_ms": 400,
+      "source_index": 1
+    }
+  ]
+}

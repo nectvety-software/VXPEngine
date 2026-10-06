@@ -23,8 +23,18 @@ __pycache__/
 .freebuff/
 .workbuddy-ai/
 
-# Secrets: toàn bộ kho signing (khóa riêng + public key + identity) không push
+# Secrets: khóa ký ứng dụng/private key tuyệt đối không push
 signing/
+**/private*.pem
+**/*-key.pem
+*.key
+*.p12
+*.pfx
+*.pk8
+*.jks
+*.keystore
+*.snk
+.signing.local.json
 
 # Build artifacts & binaries — không push (vượt giới hạn 100MB/file của GitHub)
 dist-installer/

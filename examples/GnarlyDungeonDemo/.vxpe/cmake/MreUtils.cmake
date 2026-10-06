@@ -1,0 +1,5 @@
+include("${CMAKE_CURRENT_LIST_DIR}/AddMreExec.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/AddPackVxp.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/AddExecVxp.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/AddPackVsm.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/AddExecVsm.cmake")

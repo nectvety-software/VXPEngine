@@ -1,0 +1,61 @@
+{
+  "name": "Splash",
+  "screen_id": "splash",
+  "type": "VXPScreen",
+  "viewport": {
+    "width": 240,
+    "height": 320,
+    "type": "FitViewport",
+    "orientation": "portrait"
+  },
+  "children": [
+    {
+      "id": "camera2d",
+      "name": "Camera2D",
+      "type": "OrthographicCamera",
+      "position": [
+        0,
+        0
+      ],
+      "zoom": [
+        1,
+        1
+      ],
+      "code_name": "Camera2D",
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "preview",
+      "name": "Splash Preview",
+      "type": "Sprite2D",
+      "asset": "docs/splash.png",
+      "position": [
+        0,
+        0
+      ],
+      "display_size": [
+        240,
+        320
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "z_index": -10,
+      "locked": true,
+      "pixel_snap": true,
+      "code_name": "SplashPreview",
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    }
+  ],
+  "groups": []
+}

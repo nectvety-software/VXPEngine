@@ -18,3 +18,5 @@ build-arm/               output ARM .vxp
 build_arm.bat
 run_vxpemu.bat
 ```
+
+Viewport dự án mẫu: 240×320 dọc (3:4). Scene bindings và tài nguyên thiết kế đã xuất lại theo viewport này.

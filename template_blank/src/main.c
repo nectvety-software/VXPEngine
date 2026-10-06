@@ -11,6 +11,7 @@
 #include "vmtimer.h"
 #include "vmres.h"
 #include "vmmm.h"
+#include "graphics/VxpRender2D.h"
 #include <string.h>
 
 #if defined(__has_include)
@@ -36,13 +37,7 @@ static VMUINT16* layer_fb(void) {
 }
 
 static void fb_fill(VMUINT16* fb, int sw, int sh, int x, int y, int w, int h, VMUINT16 c) {
-    int i, j, x0, y0, x1, y1;
-    x0 = x < 0 ? 0 : x; y0 = y < 0 ? 0 : y;
-    x1 = x + w > sw ? sw : x + w; y1 = y + h > sh ? sh : y + h;
-    for (j = y0; j < y1; j++) {
-        VMUINT16* row = fb + j * sw;
-        for (i = x0; i < x1; i++) row[i] = c;
-    }
+    vxpe2d_fill_rect((uint16_t*)fb, sw, sh, x, y, w, h, (uint16_t)c);
 }
 
 static void fb_frame(VMUINT16* fb, int sw, int sh, int x, int y, int w, int h, VMUINT16 c) {
@@ -53,27 +48,28 @@ static void fb_frame(VMUINT16* fb, int sw, int sh, int x, int y, int w, int h, V
 }
 
 static void backdrop(VMUINT16* fb, int sw, int sh) {
-    int x, y;
-    for (y = 0; y < sh; y++) {
-        VMUINT16 c = RGB565(10 + (y >> 4), 18 + (y >> 3), 32 + (y >> 3));
-        for (x = 0; x < sw; x++) fb[y * sw + x] = c;
-    }
+    vxpe2d_gradient_vertical((uint16_t*)fb, sw, sh, 0, 0, sw, sh,
+        RGB565(10, 18, 32), RGB565(30, 56, 72));
 }
 
 #if VXP_DESIGN_ACTIVE_HAS_DESIGN
 
 static VMUINT8* g_comp_data[VXP_DESIGN_ACTIVE_COUNT];
+static VMINT g_comp_size[VXP_DESIGN_ACTIVE_COUNT];
 
 static void design_load(void) {
     int i;
     for (i = 0; i < VXP_DESIGN_ACTIVE_COUNT; i++) {
         VMINT size = 0;
         g_comp_data[i] = 0;
+        g_comp_size[i] = 0;
         if (VXP_DESIGN_ACTIVE_COMPONENTS[i].res[0] != 0) {
             g_comp_data[i] = vm_load_resource((VMSTR)VXP_DESIGN_ACTIVE_COMPONENTS[i].res, &size);
             if (size <= 8) {
                 if (g_comp_data[i]) vm_free(g_comp_data[i]);
                 g_comp_data[i] = 0;
+            } else {
+                g_comp_size[i] = size;
             }
         }
     }
@@ -83,29 +79,27 @@ static void design_free(void) {
     int i;
     for (i = 0; i < VXP_DESIGN_ACTIVE_COUNT; i++) {
         if (g_comp_data[i]) { vm_free(g_comp_data[i]); g_comp_data[i] = 0; }
+        g_comp_size[i] = 0;
     }
 }
 
-/* Blit sprite .raw (header 8 byte + RGB565 + mask 1-bit) với tâm tại (cx, cy). */
-static void design_blit(VMUINT16* fb, int sw, int sh, VMUINT8* data, int cx, int cy) {
-    int w = data[0] | (data[1] << 8);
-    int h = data[2] | (data[3] << 8);
-    int opaque = data[4];
-    VMUINT16* px = (VMUINT16*)(data + 8);
-    VMUINT8* mask = data + 8 + w * h * 2;
-    int x0 = cx - w / 2, y0 = cy - h / 2;
-    int i, j;
-    for (j = 0; j < h; j++) {
-        int dy = y0 + j;
-        if (dy < 0 || dy >= sh) continue;
-        for (i = 0; i < w; i++) {
-            int dx = x0 + i, o = j * w + i;
-            if (dx < 0 || dx >= sw) continue;
-            if (opaque || (mask[o >> 3] & (0x80 >> (o & 7)))) {
-                fb[dy * sw + dx] = px[o];
-            }
-        }
-    }
+/* Blit .raw qua lõi RGB565 chung: cùng format nhưng giờ hỗ trợ crop/scale/tint/blend. */
+static void design_blit(VMUINT16* fb, int sw, int sh, VMUINT8* data, VMINT size, int cx, int cy) {
+    VxpeSprite565 sprite;
+    VxpeBlit565 op;
+    if (!vxpe2d_sprite_from_raw(data, (uint32_t)size, &sprite)) return;
+
+    memset(&op, 0, sizeof(op));
+    op.src.x = 0; op.src.y = 0;
+    op.src.w = (int16_t)sprite.width; op.src.h = (int16_t)sprite.height;
+    op.dst_x = (int16_t)(cx - sprite.width / 2);
+    op.dst_y = (int16_t)(cy - sprite.height / 2);
+    op.dst_w = sprite.width;
+    op.dst_h = sprite.height;
+    op.tint565 = 0xFFFF;
+    op.alpha = 255;
+    op.blend = VXPE_BLEND_COPY;
+    vxpe2d_blit((uint16_t*)fb, sw, sh, &sprite, &op);
 }
 
 static VMUINT16 design_type_color(const char* type) {
@@ -128,7 +122,7 @@ static void draw_design(int sw, int sh) {
         int h = (int)comp->height;
         if (!comp->visible) continue;
         if (g_comp_data[i]) {
-            design_blit(fb, sw, sh, g_comp_data[i], cx, cy);
+            design_blit(fb, sw, sh, g_comp_data[i], g_comp_size[i], cx, cy);
         } else if (w > 0 && h > 0) {
             VMUINT16 c = design_type_color(comp->type);
             fb_fill(fb, sw, sh, cx - w / 2, cy - h / 2, w, h, c);
@@ -189,7 +183,8 @@ static void start(void) {
 #if VXP_DESIGN_ACTIVE_HAS_DESIGN
     design_load();
 #endif
-    if (g_timer < 0) g_timer = vm_create_timer(50, tick);
+    /* 30 FPS target: smoother camera/animation while staying realistic for QVGA MRE. */
+    if (g_timer < 0) g_timer = vm_create_timer(33, tick);
     draw();
 }
 

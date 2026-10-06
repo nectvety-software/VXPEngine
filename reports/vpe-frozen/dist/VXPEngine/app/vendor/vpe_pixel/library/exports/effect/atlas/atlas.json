@@ -1,0 +1,598 @@
+{
+  "image": "atlas.png",
+  "width": 208,
+  "height": 231,
+  "scale": 1,
+  "transparentWhite": false,
+  "format": "VPE565/RGB565 -> RGBA8",
+  "frames": [
+    {
+      "filename": "fx_cast_circle_00",
+      "textureRect": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_cast_circle.vpea",
+      "frame": 0,
+      "frameCount": 8,
+      "delayMs": 70,
+      "loop": true
+    },
+    {
+      "filename": "fx_cast_circle_01",
+      "textureRect": {
+        "x": 33,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_cast_circle.vpea",
+      "frame": 1,
+      "frameCount": 8,
+      "delayMs": 70,
+      "loop": true
+    },
+    {
+      "filename": "fx_cast_circle_02",
+      "textureRect": {
+        "x": 66,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_cast_circle.vpea",
+      "frame": 2,
+      "frameCount": 8,
+      "delayMs": 70,
+      "loop": true
+    },
+    {
+      "filename": "fx_cast_circle_03",
+      "textureRect": {
+        "x": 99,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_cast_circle.vpea",
+      "frame": 3,
+      "frameCount": 8,
+      "delayMs": 70,
+      "loop": true
+    },
+    {
+      "filename": "fx_cast_circle_04",
+      "textureRect": {
+        "x": 132,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_cast_circle.vpea",
+      "frame": 4,
+      "frameCount": 8,
+      "delayMs": 70,
+      "loop": true
+    },
+    {
+      "filename": "fx_cast_circle_05",
+      "textureRect": {
+        "x": 165,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_cast_circle.vpea",
+      "frame": 5,
+      "frameCount": 8,
+      "delayMs": 70,
+      "loop": true
+    },
+    {
+      "filename": "fx_cast_circle_06",
+      "textureRect": {
+        "x": 0,
+        "y": 33,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_cast_circle.vpea",
+      "frame": 6,
+      "frameCount": 8,
+      "delayMs": 70,
+      "loop": true
+    },
+    {
+      "filename": "fx_cast_circle_07",
+      "textureRect": {
+        "x": 33,
+        "y": 33,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_cast_circle.vpea",
+      "frame": 7,
+      "frameCount": 8,
+      "delayMs": 70,
+      "loop": true
+    },
+    {
+      "filename": "fx_explosion_00",
+      "textureRect": {
+        "x": 66,
+        "y": 33,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_explosion.vpea",
+      "frame": 0,
+      "frameCount": 7,
+      "delayMs": 55,
+      "loop": false
+    },
+    {
+      "filename": "fx_explosion_01",
+      "textureRect": {
+        "x": 99,
+        "y": 33,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_explosion.vpea",
+      "frame": 1,
+      "frameCount": 7,
+      "delayMs": 55,
+      "loop": false
+    },
+    {
+      "filename": "fx_explosion_02",
+      "textureRect": {
+        "x": 132,
+        "y": 33,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_explosion.vpea",
+      "frame": 2,
+      "frameCount": 7,
+      "delayMs": 55,
+      "loop": false
+    },
+    {
+      "filename": "fx_explosion_03",
+      "textureRect": {
+        "x": 165,
+        "y": 33,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_explosion.vpea",
+      "frame": 3,
+      "frameCount": 7,
+      "delayMs": 55,
+      "loop": false
+    },
+    {
+      "filename": "fx_explosion_04",
+      "textureRect": {
+        "x": 0,
+        "y": 66,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_explosion.vpea",
+      "frame": 4,
+      "frameCount": 7,
+      "delayMs": 55,
+      "loop": false
+    },
+    {
+      "filename": "fx_explosion_05",
+      "textureRect": {
+        "x": 33,
+        "y": 66,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_explosion.vpea",
+      "frame": 5,
+      "frameCount": 7,
+      "delayMs": 55,
+      "loop": false
+    },
+    {
+      "filename": "fx_explosion_06",
+      "textureRect": {
+        "x": 66,
+        "y": 66,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_explosion.vpea",
+      "frame": 6,
+      "frameCount": 7,
+      "delayMs": 55,
+      "loop": false
+    },
+    {
+      "filename": "fx_fireball_00",
+      "textureRect": {
+        "x": 99,
+        "y": 66,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_fireball.vpea",
+      "frame": 0,
+      "frameCount": 6,
+      "delayMs": 60,
+      "loop": false
+    },
+    {
+      "filename": "fx_fireball_01",
+      "textureRect": {
+        "x": 132,
+        "y": 66,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_fireball.vpea",
+      "frame": 1,
+      "frameCount": 6,
+      "delayMs": 60,
+      "loop": false
+    },
+    {
+      "filename": "fx_fireball_02",
+      "textureRect": {
+        "x": 165,
+        "y": 66,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_fireball.vpea",
+      "frame": 2,
+      "frameCount": 6,
+      "delayMs": 60,
+      "loop": false
+    },
+    {
+      "filename": "fx_fireball_03",
+      "textureRect": {
+        "x": 0,
+        "y": 99,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_fireball.vpea",
+      "frame": 3,
+      "frameCount": 6,
+      "delayMs": 60,
+      "loop": false
+    },
+    {
+      "filename": "fx_fireball_04",
+      "textureRect": {
+        "x": 33,
+        "y": 99,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_fireball.vpea",
+      "frame": 4,
+      "frameCount": 6,
+      "delayMs": 60,
+      "loop": false
+    },
+    {
+      "filename": "fx_fireball_05",
+      "textureRect": {
+        "x": 66,
+        "y": 99,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_fireball.vpea",
+      "frame": 5,
+      "frameCount": 6,
+      "delayMs": 60,
+      "loop": false
+    },
+    {
+      "filename": "fx_heal_sparkle_00",
+      "textureRect": {
+        "x": 99,
+        "y": 99,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_heal_sparkle.vpea",
+      "frame": 0,
+      "frameCount": 5,
+      "delayMs": 80,
+      "loop": true
+    },
+    {
+      "filename": "fx_heal_sparkle_01",
+      "textureRect": {
+        "x": 132,
+        "y": 99,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_heal_sparkle.vpea",
+      "frame": 1,
+      "frameCount": 5,
+      "delayMs": 80,
+      "loop": true
+    },
+    {
+      "filename": "fx_heal_sparkle_02",
+      "textureRect": {
+        "x": 165,
+        "y": 99,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_heal_sparkle.vpea",
+      "frame": 2,
+      "frameCount": 5,
+      "delayMs": 80,
+      "loop": true
+    },
+    {
+      "filename": "fx_heal_sparkle_03",
+      "textureRect": {
+        "x": 0,
+        "y": 132,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_heal_sparkle.vpea",
+      "frame": 3,
+      "frameCount": 5,
+      "delayMs": 80,
+      "loop": true
+    },
+    {
+      "filename": "fx_heal_sparkle_04",
+      "textureRect": {
+        "x": 33,
+        "y": 132,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_heal_sparkle.vpea",
+      "frame": 4,
+      "frameCount": 5,
+      "delayMs": 80,
+      "loop": true
+    },
+    {
+      "filename": "fx_ice_shards_00",
+      "textureRect": {
+        "x": 66,
+        "y": 132,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_ice_shards.vpea",
+      "frame": 0,
+      "frameCount": 5,
+      "delayMs": 60,
+      "loop": false
+    },
+    {
+      "filename": "fx_ice_shards_01",
+      "textureRect": {
+        "x": 99,
+        "y": 132,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_ice_shards.vpea",
+      "frame": 1,
+      "frameCount": 5,
+      "delayMs": 60,
+      "loop": false
+    },
+    {
+      "filename": "fx_ice_shards_02",
+      "textureRect": {
+        "x": 132,
+        "y": 132,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_ice_shards.vpea",
+      "frame": 2,
+      "frameCount": 5,
+      "delayMs": 60,
+      "loop": false
+    },
+    {
+      "filename": "fx_ice_shards_03",
+      "textureRect": {
+        "x": 165,
+        "y": 132,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_ice_shards.vpea",
+      "frame": 3,
+      "frameCount": 5,
+      "delayMs": 60,
+      "loop": false
+    },
+    {
+      "filename": "fx_ice_shards_04",
+      "textureRect": {
+        "x": 0,
+        "y": 165,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_ice_shards.vpea",
+      "frame": 4,
+      "frameCount": 5,
+      "delayMs": 60,
+      "loop": false
+    },
+    {
+      "filename": "fx_lightning_00",
+      "textureRect": {
+        "x": 33,
+        "y": 165,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_lightning.vpea",
+      "frame": 0,
+      "frameCount": 5,
+      "delayMs": 45,
+      "loop": false
+    },
+    {
+      "filename": "fx_lightning_01",
+      "textureRect": {
+        "x": 66,
+        "y": 165,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_lightning.vpea",
+      "frame": 1,
+      "frameCount": 5,
+      "delayMs": 45,
+      "loop": false
+    },
+    {
+      "filename": "fx_lightning_02",
+      "textureRect": {
+        "x": 99,
+        "y": 165,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_lightning.vpea",
+      "frame": 2,
+      "frameCount": 5,
+      "delayMs": 45,
+      "loop": false
+    },
+    {
+      "filename": "fx_lightning_03",
+      "textureRect": {
+        "x": 132,
+        "y": 165,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_lightning.vpea",
+      "frame": 3,
+      "frameCount": 5,
+      "delayMs": 45,
+      "loop": false
+    },
+    {
+      "filename": "fx_lightning_04",
+      "textureRect": {
+        "x": 165,
+        "y": 165,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_lightning.vpea",
+      "frame": 4,
+      "frameCount": 5,
+      "delayMs": 45,
+      "loop": false
+    },
+    {
+      "filename": "fx_poison_cloud_00",
+      "textureRect": {
+        "x": 0,
+        "y": 198,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_poison_cloud.vpea",
+      "frame": 0,
+      "frameCount": 6,
+      "delayMs": 90,
+      "loop": true
+    },
+    {
+      "filename": "fx_poison_cloud_01",
+      "textureRect": {
+        "x": 33,
+        "y": 198,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_poison_cloud.vpea",
+      "frame": 1,
+      "frameCount": 6,
+      "delayMs": 90,
+      "loop": true
+    },
+    {
+      "filename": "fx_poison_cloud_02",
+      "textureRect": {
+        "x": 66,
+        "y": 198,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_poison_cloud.vpea",
+      "frame": 2,
+      "frameCount": 6,
+      "delayMs": 90,
+      "loop": true
+    },
+    {
+      "filename": "fx_poison_cloud_03",
+      "textureRect": {
+        "x": 99,
+        "y": 198,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_poison_cloud.vpea",
+      "frame": 3,
+      "frameCount": 6,
+      "delayMs": 90,
+      "loop": true
+    },
+    {
+      "filename": "fx_poison_cloud_04",
+      "textureRect": {
+        "x": 132,
+        "y": 198,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_poison_cloud.vpea",
+      "frame": 4,
+      "frameCount": 6,
+      "delayMs": 90,
+      "loop": true
+    },
+    {
+      "filename": "fx_poison_cloud_05",
+      "textureRect": {
+        "x": 165,
+        "y": 198,
+        "w": 32,
+        "h": 32
+      },
+      "source": "fx_poison_cloud.vpea",
+      "frame": 5,
+      "frameCount": 6,
+      "delayMs": 90,
+      "loop": true
+    }
+  ]
+}

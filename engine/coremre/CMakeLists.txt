@@ -15,6 +15,19 @@ set(COREMRE_SOURCES
     src/graphics/Font5x7.cpp
     src/graphics/FontManager.cpp
     src/graphics/StaticTilemapLayerCache.cpp
+    src/graphics/VxpRender2D.cpp
+    src/graphics/VxpColorGrade.cpp
+    src/graphics/VxpStage2D.cpp
+    src/graphics/VxpScene25D.cpp
+    src/graphics/VxpArtStyle.cpp
+    src/graphics/VxpToon3D.cpp
+      src/graphics/VxpDungeonFx.cpp
+    src/graphics/VxpCinematic2D.cpp
+    src/graphics/VxpLight2D.cpp
+    src/graphics/VxpSpriteFx.cpp
+    src/graphics/VxpActorSprite2D.cpp
+    src/graphics/VxpVfx2D.cpp
+    src/graphics/particles/VxpParticlePool.cpp
     src/graphics/particles/ParticleEmitter.cpp
     src/graphics/ui/UIAnchorLayout.cpp
     src/graphics/ui/UIButton.cpp
@@ -56,6 +69,9 @@ set(COREMRE_SOURCES
 add_library(coremre STATIC ${COREMRE_SOURCES})
 add_library(VXPEngine::coremre ALIAS coremre)
 target_include_directories(coremre PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
+if(MRE_SDK)
+    target_include_directories(coremre PUBLIC ${MRE_SDK}/include)
+endif()
 target_compile_features(coremre PUBLIC cxx_std_17)
 target_compile_definitions(coremre PUBLIC
     COREMRE_PLATFORM_MRE=1

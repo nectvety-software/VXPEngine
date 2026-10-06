@@ -1,0 +1,13 @@
+{
+  "name": "InfiltrateMissionDemo",
+  "display_name": "Infiltrate Mission",
+  "orientation": "portrait",
+  "resolution": "240x320",
+  "engine": "VXPEngine/VxpScene25D",
+  "description": "240x320 third-person stealth corridor demo with perspective scene, guards, minimap and objectives HUD.",
+  "screen": {
+    "width": 240,
+    "height": 320,
+    "type": "MRE QVGA Portrait"
+  }
+}

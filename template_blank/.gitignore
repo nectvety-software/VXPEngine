@@ -11,6 +11,14 @@ resources/pack/*
 *.o
 *.log
 .env
+# Signing secrets stay outside the project/repository.
 signing/
 *.pem
 *.key
+*.p12
+*.pfx
+*.pk8
+*.jks
+*.keystore
+*.snk
+.signing.local.json

@@ -1,0 +1,13 @@
+{
+  "name": "WaterMuseum25DDemo",
+  "display_name": "Water Museum 2.5D",
+  "orientation": "portrait",
+  "resolution": "240x320",
+  "engine": "VXPEngine/VxpScene25D",
+  "description": "Perspective pool, depth billboards, fishing rope, green fog, light and ripple demo.",
+  "screen": {
+    "width": 240,
+    "height": 320,
+    "type": "MRE QVGA Portrait"
+  }
+}

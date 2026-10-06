@@ -1,0 +1,106 @@
+-- Configuring done (0.3s)
+-- Generating done (1.0s)
+-- Build files have been written to: D:/MRE/VXPEngine/examples/IsometricOutpostDemo/build-arm
+[  2%] Built target mreapi
+[  4%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/core/PhysicsActor.cpp.obj
+[  5%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/core/Scene.cpp.obj
+[  6%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/core/SceneManager.cpp.obj
+[  8%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/gameplay/GameplayEventBus.cpp.obj
+[  9%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/gameplay/InteractionTracker.cpp.obj
+[ 10%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/gameplay/StateMachine.cpp.obj
+[ 12%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/Camera2D.cpp.obj
+[ 13%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/CameraEffects.cpp.obj
+[ 14%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/Color.cpp.obj
+[ 16%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/DirtyGrid.cpp.obj
+[ 17%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/Font5x7.cpp.obj
+[ 18%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/FontManager.cpp.obj
+[ 20%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/StaticTilemapLayerCache.cpp.obj
+[ 21%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpRender2D.cpp.obj
+[ 22%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpColorGrade.cpp.obj
+[ 24%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpStage2D.cpp.obj
+[ 25%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpScene25D.cpp.obj
+[ 27%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpArtStyle.cpp.obj
+[ 28%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpToon3D.cpp.obj
+[ 29%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpDungeonFx.cpp.obj
+[ 31%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpCinematic2D.cpp.obj
+[ 32%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpLight2D.cpp.obj
+[ 33%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpSpriteFx.cpp.obj
+[ 35%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpActorSprite2D.cpp.obj
+[ 36%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpVfx2D.cpp.obj
+[ 37%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/particles/VxpParticlePool.cpp.obj
+[ 39%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/particles/ParticleEmitter.cpp.obj
+[ 40%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UIAnchorLayout.cpp.obj
+[ 41%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UIButton.cpp.obj
+[ 43%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UICheckBox.cpp.obj
+[ 44%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UIGridLayout.cpp.obj
+[ 45%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UIHorizontalLayout.cpp.obj
+[ 47%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UILabel.cpp.obj
+[ 48%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UILayout.cpp.obj
+[ 50%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UIManager.cpp.obj
+[ 51%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UIPaddingContainer.cpp.obj
+[ 52%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UIPanel.cpp.obj
+[ 54%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UISprite.cpp.obj
+[ 55%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UISpriteRef.cpp.obj
+[ 56%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UISpriteRow.cpp.obj
+[ 58%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UITouchButton.cpp.obj
+[ 59%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UITouchCheckbox.cpp.obj
+[ 60%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UITouchSlider.cpp.obj
+[ 62%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UIVerticalLayout.cpp.obj
+[ 63%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/input/ActorTouchController.cpp.obj
+[ 64%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/input/TouchCalibration.cpp.obj
+[ 66%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/input/TouchEventDispatcher.cpp.obj
+[ 67%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/input/TouchEventQueue.cpp.obj
+[ 68%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/input/TouchManager.cpp.obj
+[ 70%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/input/TouchStateMachine.cpp.obj
+[ 71%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/physics/CollisionPrimitives.cpp.obj
+[ 72%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/physics/CollisionSystem.cpp.obj
+[ 74%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/physics/KinematicActor.cpp.obj
+[ 75%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/physics/RigidActor.cpp.obj
+[ 77%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/physics/SensorActor.cpp.obj
+[ 78%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/physics/SpatialGrid.cpp.obj
+[ 79%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/physics/StaticActor.cpp.obj
+[ 81%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/physics/TileCollisionBuilder.cpp.obj
+[ 82%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/physics/TileConsumptionHelper.cpp.obj
+[ 83%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/physics/TilePixelCollision.cpp.obj
+[ 85%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/platforms/PlatformCapabilities.cpp.obj
+[ 86%] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/platforms/PlatformLog.cpp.obj
+In file included from D:\MRE\VXPEngine\packaging\coremre\2.0.0\src\platforms\PlatformLog.cpp:11:
+D:\MRE\VXPEngine\packaging\coremre\2.0.0\src\platforms\PlatformLog.cpp: In function 'void pixelroot32::core::logging::platformPrint(const char*)':
+D:\MRE\VXPEngine\packaging\coremre\2.0.0\src\platforms\PlatformLog.cpp:51:21: warning: ISO C++ forbids converting a string constant to 'char*' [-Wwrite-strings]
+   51 |         vm_log_info("%s", text);
+      |                     ^~~~
+D:\MRE\VXPEngine\engine\coremre\sdk\mre\include/vmlog.h:113:94: note: in definition of macro 'vm_log_info'
+  113 | #define vm_log_info(...)                if(_vm_log_module(__FILE__, __LINE__)) _vm_log_info( __VA_ARGS__)
+      |                                                                                              ^~~~~~~~~~~
+[ 87%] Linking CXX static library libcoremre.a
+[ 87%] Built target coremre
+[ 89%] Building C object main/CMakeFiles/main.dir/__/src/main.c.obj
+[ 90%] Building C object main/CMakeFiles/main.dir/__/common/gccmain.c.obj
+[ 91%] Linking CXX executable main.axf
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-closer.o): in function `_close_r':
+C:/M/B/src/newlib-4.5.0.20241231/newlib/libc/reent/closer.c:47:(.text+0xc): warning: _close is not implemented and will always fail
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-closer.o): note: the message above does not take linker garbage collection into account
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-lseekr.o): in function `_lseek_r':
+C:/M/B/src/newlib-4.5.0.20241231/newlib/libc/reent/lseekr.c:49:(.text+0x10): warning: _lseek is not implemented and will always fail
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-lseekr.o): note: the message above does not take linker garbage collection into account
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-readr.o): in function `_read_r':
+C:/M/B/src/newlib-4.5.0.20241231/newlib/libc/reent/readr.c:49:(.text+0x10): warning: _read is not implemented and will always fail
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-readr.o): note: the message above does not take linker garbage collection into account
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-writer.o): in function `_write_r':
+C:/M/B/src/newlib-4.5.0.20241231/newlib/libc/reent/writer.c:49:(.text+0x10): warning: _write is not implemented and will always fail
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-writer.o): note: the message above does not take linker garbage collection into account
+[ 91%] Built target main
+[ 93%] Generating null.cpp
+[ 94%] Building CXX object resources/CMakeFiles/resources.dir/null.cpp.obj
+[ 95%] Linking CXX static library resources.res
+RESOURCE  : 6 entries
+OUTPUT    : D:\MRE\VXPEngine\examples\IsometricOutpostDemo\build-arm\resources\resources.res
+[ 95%] Built target resources
+[ 97%] Generating null_main_vxp.cpp
+[ 98%] Building CXX object main/CMakeFiles/main_vxp.dir/null_main_vxp.cpp.obj
+[100%] Linking CXX static library iso_outpost.vxp
+FORMAT    : MRE VXP (GCC/ARM ELF32)
+APP ID    : 6049873
+VENDOR    : VXPstore
+OUTPUT    : D:\MRE\VXPEngine\examples\IsometricOutpostDemo\build-arm\main\iso_outpost.vxp
+[100%] Built target main_vxp

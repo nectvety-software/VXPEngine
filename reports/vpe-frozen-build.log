@@ -1,0 +1,96 @@
+232 INFO: PyInstaller: 6.22.3, contrib hooks: 2026.7
+233 INFO: Python: 3.12.1
+266 INFO: Platform: Windows-10-10.0.19045-SP0
+266 INFO: Python environment: D:\MRE\VXPEngine\.venv
+6516 INFO: Module search paths (PYTHONPATH):
+['D:\\MRE\\VXPEngine',
+ 'D:\\Program\\Python\\python312.zip',
+ 'D:\\Program\\Python\\DLLs',
+ 'D:\\Program\\Python\\Lib',
+ 'D:\\Program\\Python',
+ 'D:\\MRE\\VXPEngine\\.venv',
+ 'D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages',
+ 'D:\\MRE\\VXPEngine\\app',
+ 'D:\\MRE\\VXPEngine\\simulator',
+ 'D:\\MRE\\VXPEngine\\tools']
+7180 INFO: Appending 'datas' from .spec
+7284 INFO: checking Analysis
+7284 INFO: Building Analysis because Analysis-00.toc is non existent
+7284 INFO: Looking for Python shared library...
+7308 INFO: Using Python shared library: D:\Program\Python\python312.dll
+7308 INFO: Running Analysis Analysis-00.toc
+7308 INFO: Target bytecode optimization level: 1
+7308 INFO: Initializing module dependency graph...
+7324 INFO: Initializing module graph hook caches...
+7405 INFO: Analyzing modules for base_library.zip ...
+8890 INFO: Processing standard module hook 'hook-heapq.py' from 'D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+9026 INFO: Processing standard module hook 'hook-encodings.py' from 'D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+11738 INFO: Processing standard module hook 'hook-math.py' from 'D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+12144 INFO: Processing standard module hook 'hook-pickle.py' from 'D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+17057 INFO: Caching module dependency graph...
+17116 INFO: Analyzing D:\MRE\VXPEngine\app\main.py
+17369 INFO: Processing standard module hook 'hook-_ctypes.py' from 'D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+17494 INFO: Processing standard module hook 'hook-PySide6.py' from 'D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+17847 INFO: Processing standard module hook 'hook-shiboken6.py' from 'D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+18174 INFO: Processing standard module hook 'hook-PySide6.QtNetwork.py' from 'D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+22941 INFO: Processing standard module hook 'hook-PySide6.QtCore.py' from 'D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+27843 INFO: Processing standard module hook 'hook-PySide6.QtGui.py' from 'D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+55226 INFO: Processing standard module hook 'hook-PySide6.QtWidgets.py' from 'D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+59852 INFO: Processing standard module hook 'hook-cryptography.py' from 'D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+61909 INFO: hook-cryptography: cryptography does not seem to be using dynamically linked OpenSSL.
+62594 INFO: Processing standard module hook 'hook-qtawesome.py' from 'D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+62621 INFO: Processing standard module hook 'hook-qtpy.py' from 'D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+62622 INFO: hook-qtpy: selected 'PySide6' as Qt bindings because hook for 'PySide6' has been run before.
+62660 INFO: Processing standard module hook 'hook-platform.py' from 'D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+62667 INFO: Processing pre-safe-import-module hook 'hook-packaging.py' from 'D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+62696 INFO: SetuptoolsInfo: initializing cached setuptools info...
+65864 INFO: Processing pre-safe-import-module hook 'hook-typing_extensions.py' from 'D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+66566 INFO: Processing standard module hook 'hook-multiprocessing.util.py' from 'D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+67086 INFO: Processing standard module hook 'hook-xml.py' from 'D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+69108 INFO: Processing standard module hook 'hook-PySide6.QtDataVisualization.py' from 'D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+73039 INFO: Processing standard module hook 'hook-PySide6.QtOpenGL.py' from 'D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+78025 INFO: Processing standard module hook 'hook-PySide6.QtOpenGLWidgets.py' from 'D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+80123 INFO: Processing standard module hook 'hook-webbrowser.py' from 'D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+81277 INFO: Analyzing hidden import 'qtawesome.icon_browser'
+81307 INFO: Processing module hooks (post-graph stage)...
+82012 INFO: Performing binary vs. data reclassification (1567 entries)
+84703 INFO: Looking for ctypes DLLs
+84814 INFO: Analyzing run-time hooks ...
+84814 INFO: Including custom run-time hook 'D:\\MRE\\VXPEngine\\packaging\\windows\\qt_runtime_hook.py'
+84820 INFO: Including run-time hook 'pyi_rth_cryptography_openssl.py' from 'D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\rthooks'
+84839 INFO: Including run-time hook 'pyi_rth_inspect.py' from 'D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+84862 INFO: Including run-time hook 'pyi_rth_pyside6.py' from 'D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+84880 INFO: Processing pre-find-module-path hook 'hook-_pyi_rth_utils.py' from 'D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_find_module_path'
+84915 INFO: Processing standard module hook 'hook-_pyi_rth_utils.py' from 'D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+84938 INFO: Including run-time hook 'pyi_rth_pkgutil.py' from 'D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+84965 INFO: Including run-time hook 'pyi_rth_multiprocessing.py' from 'D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+85036 INFO: Creating base_library.zip...
+85316 INFO: Looking for dynamic libraries
+86341 INFO: Extra DLL search directories (AddDllDirectory): ['D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\shiboken6']
+86342 INFO: Extra DLL search directories (PATH): ['D:\\MRE\\VXPEngine\\.venv\\Lib\\site-packages\\PySide6']
+90538 INFO: Warnings written to D:\MRE\VXPEngine\reports\vpe-frozen\work\VXPEngine\warn-VXPEngine.txt
+90595 INFO: Graph cross-reference written to D:\MRE\VXPEngine\reports\vpe-frozen\work\VXPEngine\xref-VXPEngine.html
+90808 INFO: checking PYZ
+90808 INFO: Building PYZ because PYZ-00.toc is non existent
+90808 INFO: Building PYZ (ZlibArchive) D:\MRE\VXPEngine\reports\vpe-frozen\work\VXPEngine\PYZ-00.pyz
+92426 INFO: Building PYZ (ZlibArchive) D:\MRE\VXPEngine\reports\vpe-frozen\work\VXPEngine\PYZ-00.pyz completed successfully.
+92490 INFO: checking PKG
+92490 INFO: Building PKG because PKG-00.toc is non existent
+92490 INFO: Building PKG (CArchive) VXPEngine.pkg
+92624 INFO: Building PKG (CArchive) VXPEngine.pkg completed successfully.
+92625 INFO: Bootloader D:\MRE\VXPEngine\.venv\Lib\site-packages\PyInstaller\bootloader\Windows-64bit-intel\runw.exe
+92625 INFO: checking EXE
+92626 INFO: Building EXE because EXE-00.toc is non existent
+92626 INFO: Building EXE from EXE-00.toc
+92626 INFO: Copying bootloader EXE to D:\MRE\VXPEngine\reports\vpe-frozen\work\VXPEngine\VXPEngine.exe
+92726 INFO: Copying icon to EXE
+92790 INFO: Copying 0 resources to EXE
+92790 INFO: Embedding manifest in EXE
+92832 INFO: Appending PKG archive to EXE
+92904 INFO: Fixing EXE headers
+93330 INFO: Building EXE from EXE-00.toc completed successfully.
+93353 INFO: checking COLLECT
+93353 INFO: Building COLLECT because COLLECT-00.toc is non existent
+93353 INFO: Building COLLECT COLLECT-00.toc
+102669 INFO: Building COLLECT COLLECT-00.toc completed successfully.
+102731 INFO: Build complete! The results are available in: D:\MRE\VXPEngine\reports\vpe-frozen\dist

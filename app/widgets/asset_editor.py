@@ -9,6 +9,7 @@ texture cleanup, simple 2D style filters, compositing and undo/redo.
 from __future__ import annotations
 
 import json
+import copy
 import math
 from dataclasses import dataclass
 from pathlib import Path
@@ -54,20 +55,57 @@ from PySide6.QtWidgets import (
     QSpinBox,
     QSplitter,
     QTabWidget,
+    QTextEdit,
     QToolButton,
     QVBoxLayout,
     QWidget,
 )
 
 from .animation_player import AnimationPlayerWindow, AnimationPreviewFrame
+from .vpe_pixel_panel import VpePixelPanel
 from .custom_dialog import ColorPickerDialog, CustomDialog, NoticeDialog
 from .icons import icon
 from smart_slice import detect_content_regions
+from game_art_styles import ART_STYLE_PROFILES, GAME_ART_STYLES, apply_game_palette
+from legacy_asset_import import (
+    LEGACY_CATEGORIES,
+    import_legacy_res,
+    load_legacy_catalog,
+    resolve_legacy_preview,
+    update_legacy_asset_metadata,
+)
 
 
 IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp", ".bmp", ".gif", ".svg"}
 ANIMATION_SUFFIX = ".ani..dtfe"
 LEGACY_ANIMATION_SUFFIX = ".ani.dtfe"
+LEGACY_CATEGORY_LABELS = {
+    "background": "Background",
+    "character": "Character",
+    "enemy": "Enemy",
+    "boss": "Boss",
+    "effect": "Effect",
+    "item": "Item",
+    "ui": "UI",
+    "animation": "Animation",
+    "audio": "Audio",
+    "map": "Map",
+    "misc": "Misc",
+}
+LEGACY_CATEGORY_ICONS = {
+    "background": "fa5s.image",
+    "character": "fa5s.user",
+    "enemy": "fa5s.skull",
+    "boss": "fa5s.crown",
+    "effect": "fa5s.magic",
+    "item": "fa5s.gem",
+    "ui": "fa5s.window-maximize",
+    "animation": "fa5s.film",
+    "audio": "fa5s.music",
+    "map": "fa5s.map",
+    "misc": "fa5s.file",
+}
+
 IMAGE_DESTINATIONS = (
     ("Scene / nhân vật chuyển động", "assets/scenes"),
     ("Map / ảnh nền", "assets/map/background"),
@@ -196,6 +234,12 @@ class EditorSnapshot:
     frames: list[FrameRecord]
     collisions: list[CollisionRecord]
     selection: QRect
+    scene_frames: list[SceneFrameRecord]
+    selected_scene: int
+    player_settings: dict
+    fps: int
+    loop: bool
+    write_animation: bool
 
 
 class NewCanvasDialog(CustomDialog):
@@ -841,6 +885,9 @@ class AssetEditorDialog(QDialog):
         self._editor_tool_buttons: list[QToolButton] = []
         self._workspace_splitter: QSplitter | None = None
         self._frame_strip_widget: QWidget | None = None
+        self._legacy_catalog: dict = {}
+        self._legacy_selected_target = ""
+        self._legacy_thumbnail_cache: dict[str, QIcon] = {}
         self.setWindowFlags(Qt.WindowType.Window | Qt.WindowType.FramelessWindowHint)
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
         self.setModal(False)
@@ -858,8 +905,16 @@ class AssetEditorDialog(QDialog):
         root_layout.setSpacing(0)
 
         root_layout.addWidget(self._build_title_bar())
-        root_layout.addWidget(self._build_toolbar())
-        root_layout.addWidget(self._build_workspace(), 1)
+        self.asset_toolbar = self._build_toolbar()
+        root_layout.addWidget(self.asset_toolbar)
+        self.workspace_tabs = QTabWidget()
+        self.workspace_tabs.addTab(self._build_workspace(), "Assets · VXPEngine")
+        self.vpe_pixel = VpePixelPanel(self)
+        self.vpe_pixel.received.connect(self._receive_vpe_pixel)
+        self.vpe_pixel.send_requested.connect(self._send_to_vpe_pixel)
+        self.workspace_tabs.addTab(self.vpe_pixel, "VPE Pixel")
+        self.workspace_tabs.currentChanged.connect(self._workspace_tab_changed)
+        root_layout.addWidget(self.workspace_tabs, 1)
         root_layout.addWidget(self._build_footer())
 
         self._install_shortcuts()
@@ -1017,6 +1072,7 @@ class AssetEditorDialog(QDialog):
 
         action_button("Tạo trống", "fa5s.file", self.new_canvas, "Tạo canvas mới", "Ctrl+N")
         action_button("Nhập ảnh", "fa5s.file-import", self.import_image, "Mở ảnh từ Windows File Picker", "Ctrl+O")
+        action_button("Nhập res cũ", "fa5s.folder-open", self.import_legacy_res_folder, "Quét res/ MRE cũ, tự phân loại và tạo catalog", "Ctrl+Alt+R")
         action_button("Ghép ảnh", "fa5s.layer-group", self.insert_image, "Chèn thêm ảnh/layer vào canvas", "Ctrl+Shift+I")
         layout.addWidget(self._separator())
         self.undo_button = action_button("Undo", "fa5s.undo", self.undo, "Hoàn tác thao tác gần nhất", "Ctrl+Z")
@@ -1098,6 +1154,13 @@ class AssetEditorDialog(QDialog):
             "Nhân vật / Sprite",
             "Tileset / Map",
             "UI / HUD",
+            "Stage2D / Parallax Layer",
+            "Stage2D / Water Band",
+            "Stage2D / Ground",
+            "Stage2D / Foreground",
+            "2.5D / Billboard",
+            "2.5D / Perspective Plane",
+            "2.5D / Water Surface",
             "Nguyên liệu / Material",
             "Biểu tượng game / ứng dụng",
             "Tài nguyên 2D khác",
@@ -1264,6 +1327,9 @@ class AssetEditorDialog(QDialog):
         self.inspector_tabs.addTab(self._build_slice_tab(), icon("fa5s.border-all"), "Cắt ô")
         self.inspector_tabs.addTab(self._build_collision_tab(), icon("fa5s.draw-polygon"), "Collision")
         self.inspector_tabs.addTab(self._build_texture_tab(), icon("fa5s.magic"), "Texture")
+        self.inspector_tabs.addTab(self._build_stage2d_tab(), icon("fa5s.water"), "Stage2D")
+        self.inspector_tabs.addTab(self._build_scene25d_tab(), icon("fa5s.cube"), "2.5D")
+        self.inspector_tabs.addTab(self._build_legacy_tab(), icon("fa5s.archive"), "Legacy")
         self.inspector_tabs.addTab(self._build_export_tab(), icon("fa5s.save"), "Áp dụng")
         layout.addWidget(self.inspector_tabs)
         return panel
@@ -1441,6 +1507,7 @@ class AssetEditorDialog(QDialog):
             "Viền pixel tối",
         ])
         layout.addWidget(self.style_combo)
+        self.style_combo.addItems(GAME_ART_STYLES)
         self.style_help = QLabel()
         self.style_help.setObjectName("AssetHelpText")
         self.style_help.setWordWrap(True)
@@ -1450,11 +1517,31 @@ class AssetEditorDialog(QDialog):
         style_button.setIcon(icon("fa5s.magic"))
         style_button.clicked.connect(self.apply_style)
         layout.addWidget(style_button)
+        profile_form = QFormLayout()
+        self.style_role_combo = QComboBox()
+        self.style_role_combo.addItem("Asset / m?c ??nh", "asset")
+        self.style_role_combo.addItem("Sprite / nh?n v?t", "sprite")
+        self.style_role_combo.addItem("Environment / n?n", "environment")
+        self.style_role_combo.addItem("UI", "ui")
+        self.style_role_combo.addItem("VFX", "vfx")
+        profile_form.addRow("Runtime role", self.style_role_combo)
+        layout.addLayout(profile_form)
         layout.addStretch()
         self._update_style_help(self.style_combo.currentText())
         return tab
 
     def _update_style_help(self, style: str) -> None:
+        if style in ART_STYLE_PROFILES:
+            profile = ART_STYLE_PROFILES[style]
+            self.style_help.setText(
+                profile.get("description", "") +
+                " Runtime: " + str(profile.get("runtime_preset", "")) +
+                ". Profile ???c l?u trong .asset.dtfe; filter c? th? Undo."
+            )
+            return
+        if style in GAME_ART_STYLES:
+            self.style_help.setText(GAME_ART_STYLES[style][0] + " Giữ alpha và kích thước; có thể Undo.")
+            return
         descriptions = {
             "Pixel Art · Classic Retro": "8-bit/16-bit cổ điển, bảng màu giới hạn, hợp game retro.",
             "Pixel Art · Modern Pixel Art": "Pixel art chi tiết cao, đổ bóng và nhấn sáng rõ hơn.",
@@ -1468,6 +1555,653 @@ class AssetEditorDialog(QDialog):
             "Comic / Cel-shaded 2D": "Viền dày, bóng cel-shade, phong cách truyện tranh.",
         }
         self.style_help.setText(descriptions.get(style, "Áp dụng bộ lọc nhanh cho texture, sprite hoặc tileset."))
+
+
+
+    def _build_stage2d_tab(self) -> QWidget:
+        tab = QWidget()
+        layout = QVBoxLayout(tab)
+        layout.setContentsMargins(10, 12, 10, 10)
+        help_label = QLabel(
+            "Stage2D cho fighting/arcade background: parallax band, water raster scanline, "
+            "ground/foreground và palette/tint cycle. Preset Retro Beach Fighter mô phỏng "
+            "sky + cliff + sea + beach kiểu Saturn trong video tham chiếu."
+        )
+        help_label.setObjectName("AssetHelpText")
+        help_label.setWordWrap(True)
+        layout.addWidget(help_label)
+
+        preset_row = QHBoxLayout()
+        self.stage2d_preset = QComboBox()
+        self.stage2d_preset.addItems([
+            "Retro Beach Fighter / Saturn",
+            "Ocean Raster Band",
+            "Cliff Parallax",
+            "Ground / Foreground",
+        ])
+        preset_button = QPushButton("Áp preset")
+        preset_button.clicked.connect(self._apply_stage2d_preset)
+        preset_row.addWidget(self.stage2d_preset, 1)
+        preset_row.addWidget(preset_button)
+        layout.addLayout(preset_row)
+
+        form = QFormLayout()
+        self.stage2d_role = QComboBox()
+        for label, value in (
+            ("Background / Sky", "background"),
+            ("Parallax Layer", "parallax"),
+            ("Water Raster Band", "water"),
+            ("Ground", "ground"),
+            ("Foreground", "foreground"),
+        ):
+            self.stage2d_role.addItem(label, value)
+
+        self.stage2d_parallax = QSpinBox(); self.stage2d_parallax.setRange(0, 200); self.stage2d_parallax.setValue(50); self.stage2d_parallax.setSuffix(" %")
+        self.stage2d_y = QSpinBox(); self.stage2d_y.setRange(-1024, 2048); self.stage2d_y.setValue(96)
+        self.stage2d_h = QSpinBox(); self.stage2d_h.setRange(1, 2048); self.stage2d_h.setValue(112)
+        self.stage2d_repeat = QCheckBox("Lặp ngang"); self.stage2d_repeat.setChecked(True)
+        self.stage2d_raster = QCheckBox("Raster wave từng scanline"); self.stage2d_raster.setChecked(False)
+        self.stage2d_wave_amp = QSpinBox(); self.stage2d_wave_amp.setRange(0, 16); self.stage2d_wave_amp.setValue(3)
+        self.stage2d_wave_shift = QSpinBox(); self.stage2d_wave_shift.setRange(0, 7); self.stage2d_wave_shift.setValue(2)
+        self.stage2d_scroll_x = QSpinBox(); self.stage2d_scroll_x.setRange(-128, 128); self.stage2d_scroll_x.setValue(6); self.stage2d_scroll_x.setSuffix(" px/s")
+        self.stage2d_scroll_y = QSpinBox(); self.stage2d_scroll_y.setRange(-128, 128); self.stage2d_scroll_y.setValue(0); self.stage2d_scroll_y.setSuffix(" px/s")
+        self.stage2d_tint = QLineEdit("#FFFFFF")
+        self.stage2d_alpha = QSpinBox(); self.stage2d_alpha.setRange(0, 255); self.stage2d_alpha.setValue(255)
+
+        form.addRow("Runtime role", self.stage2d_role)
+        form.addRow("Parallax", self.stage2d_parallax)
+        form.addRow("Band Y", self.stage2d_y)
+        form.addRow("Band height", self.stage2d_h)
+        form.addRow("", self.stage2d_repeat)
+        form.addRow("", self.stage2d_raster)
+        form.addRow("Wave amplitude", self.stage2d_wave_amp)
+        form.addRow("Wave period shift", self.stage2d_wave_shift)
+        form.addRow("Scroll X", self.stage2d_scroll_x)
+        form.addRow("Scroll Y", self.stage2d_scroll_y)
+        form.addRow("Tint", self.stage2d_tint)
+        form.addRow("Alpha", self.stage2d_alpha)
+        layout.addLayout(form)
+        layout.addStretch()
+        return tab
+
+    def _apply_stage2d_preset(self) -> None:
+        preset = self.stage2d_preset.currentText()
+        if preset.startswith("Retro Beach"):
+            self.stage2d_role.setCurrentIndex(self.stage2d_role.findData("water"))
+            self.stage2d_parallax.setValue(35)
+            self.stage2d_y.setValue(92); self.stage2d_h.setValue(126)
+            self.stage2d_repeat.setChecked(True); self.stage2d_raster.setChecked(True)
+            self.stage2d_wave_amp.setValue(3); self.stage2d_wave_shift.setValue(2)
+            self.stage2d_scroll_x.setValue(7); self.stage2d_scroll_y.setValue(1)
+            self.stage2d_tint.setText("#A6B9D8"); self.stage2d_alpha.setValue(255)
+        elif preset.startswith("Ocean"):
+            self.stage2d_role.setCurrentIndex(self.stage2d_role.findData("water"))
+            self.stage2d_parallax.setValue(40); self.stage2d_raster.setChecked(True)
+            self.stage2d_wave_amp.setValue(4); self.stage2d_wave_shift.setValue(2)
+        elif preset.startswith("Cliff"):
+            self.stage2d_role.setCurrentIndex(self.stage2d_role.findData("parallax"))
+            self.stage2d_parallax.setValue(25); self.stage2d_raster.setChecked(False)
+            self.stage2d_scroll_x.setValue(0); self.stage2d_tint.setText("#FFFFFF")
+        else:
+            self.stage2d_role.setCurrentIndex(self.stage2d_role.findData("ground"))
+            self.stage2d_parallax.setValue(100); self.stage2d_raster.setChecked(False)
+            self.stage2d_scroll_x.setValue(0)
+        self._set_status(f"Đã áp preset Stage2D: {preset}.")
+
+    def _art_style_metadata(self) -> dict:
+        name = self.style_combo.currentText()
+        profile = ART_STYLE_PROFILES.get(name)
+        if not profile:
+            return {"name": name, "role": str(self.style_role_combo.currentData() or "asset")}
+        return {
+            "name": name,
+            "role": str(self.style_role_combo.currentData() or "asset"),
+            "runtime_preset": str(profile.get("runtime_preset") or "VXPE_ARTSTYLE_NEUTRAL"),
+            "posterize_levels": int(profile.get("posterize", 0) or 0),
+            "saturation": float(profile.get("saturation", 1.0) or 1.0),
+            "contrast": float(profile.get("contrast", 1.0) or 1.0),
+            "outline_px": int(profile.get("outline_px", 0) or 0),
+            "fog": str(profile.get("fog") or "#808E96"),
+            "fog_strength": int(profile.get("fog_strength", 0) or 0),
+            "trail": profile.get("trail"),
+        }
+
+    def _load_art_style_metadata(self, metadata: dict) -> None:
+        cfg = metadata.get("art_style") if isinstance(metadata.get("art_style"), dict) else {}
+        if not cfg:
+            return
+        index = self.style_combo.findText(str(cfg.get("name") or ""))
+        if index >= 0:
+            self.style_combo.setCurrentIndex(index)
+        index = self.style_role_combo.findData(str(cfg.get("role") or "asset"))
+        if index >= 0:
+            self.style_role_combo.setCurrentIndex(index)
+
+    def _stage2d_metadata(self) -> dict:
+        return {
+            "role": str(self.stage2d_role.currentData() or "parallax"),
+            "parallax_percent": self.stage2d_parallax.value(),
+            "parallax_q8": round(self.stage2d_parallax.value() * 256 / 100),
+            "band": {
+                "y": self.stage2d_y.value(), "height": self.stage2d_h.value(),
+                "repeat_x": self.stage2d_repeat.isChecked(),
+                "raster_wave": self.stage2d_raster.isChecked(),
+                "wave_amplitude": self.stage2d_wave_amp.value(),
+                "wave_shift": self.stage2d_wave_shift.value(),
+                "scroll_x_px_s": self.stage2d_scroll_x.value(),
+                "scroll_y_px_s": self.stage2d_scroll_y.value(),
+            },
+            "tint": self.stage2d_tint.text().strip() or "#FFFFFF",
+            "alpha": self.stage2d_alpha.value(),
+        }
+
+    def _load_stage2d_metadata(self, metadata: dict) -> None:
+        cfg = metadata.get("stage2d") if isinstance(metadata.get("stage2d"), dict) else {}
+        if not cfg:
+            return
+        index = self.stage2d_role.findData(str(cfg.get("role") or "parallax"))
+        if index >= 0: self.stage2d_role.setCurrentIndex(index)
+        self.stage2d_parallax.setValue(int(cfg.get("parallax_percent", 50)))
+        band = cfg.get("band") if isinstance(cfg.get("band"), dict) else {}
+        self.stage2d_y.setValue(int(band.get("y", 96)))
+        self.stage2d_h.setValue(max(1, int(band.get("height", 112))))
+        self.stage2d_repeat.setChecked(bool(band.get("repeat_x", True)))
+        self.stage2d_raster.setChecked(bool(band.get("raster_wave", False)))
+        self.stage2d_wave_amp.setValue(int(band.get("wave_amplitude", 3)))
+        self.stage2d_wave_shift.setValue(int(band.get("wave_shift", 2)))
+        self.stage2d_scroll_x.setValue(int(band.get("scroll_x_px_s", 0)))
+        self.stage2d_scroll_y.setValue(int(band.get("scroll_y_px_s", 0)))
+        self.stage2d_tint.setText(str(cfg.get("tint") or "#FFFFFF"))
+        self.stage2d_alpha.setValue(int(cfg.get("alpha", 255)))
+
+    def _build_scene25d_tab(self) -> QWidget:
+        tab = QWidget()
+        layout = QVBoxLayout(tab)
+        layout.setContentsMargins(10, 12, 10, 10)
+        help_label = QLabel(
+            "Thiết lập metadata cho VxpScene25D: billboard theo depth, mặt phẳng phối cảnh, "
+            "water ripple, fog/grade, bóng và dây/line. Preset Water Museum mô phỏng ánh sáng xanh, "
+            "bàn/pool dạng trapezoid và dây câu như video tham chiếu."
+        )
+        help_label.setObjectName("AssetHelpText")
+        help_label.setWordWrap(True)
+        layout.addWidget(help_label)
+
+        preset_row = QHBoxLayout()
+        self.scene25d_preset = QComboBox()
+        self.scene25d_preset.addItems([
+            "Water Museum / Green Pool",
+            "Billboard / Character",
+            "Perspective Plane / Floor",
+            "Fishing Rope / Line",
+        ])
+        preset_button = QPushButton("Áp preset")
+        preset_button.clicked.connect(self._apply_scene25d_preset)
+        preset_row.addWidget(self.scene25d_preset, 1)
+        preset_row.addWidget(preset_button)
+        layout.addLayout(preset_row)
+
+        form = QFormLayout()
+        self.scene25d_role = QComboBox()
+        for label, value in (
+            ("Billboard / sprite theo depth", "billboard"),
+            ("Perspective Plane", "perspective_plane"),
+            ("Water Surface", "water_surface"),
+            ("Light / Glow sprite", "light"),
+            ("Shadow sprite", "shadow"),
+            ("Rope / Line", "rope"),
+        ):
+            self.scene25d_role.addItem(label, value)
+
+        self.scene25d_pivot_x = QSpinBox(); self.scene25d_pivot_x.setRange(0, 100); self.scene25d_pivot_x.setValue(50); self.scene25d_pivot_x.setSuffix(" %")
+        self.scene25d_pivot_y = QSpinBox(); self.scene25d_pivot_y.setRange(0, 100); self.scene25d_pivot_y.setValue(100); self.scene25d_pivot_y.setSuffix(" %")
+        self.scene25d_world_w = QSpinBox(); self.scene25d_world_w.setRange(1, 2048); self.scene25d_world_w.setValue(32)
+        self.scene25d_world_h = QSpinBox(); self.scene25d_world_h.setRange(1, 2048); self.scene25d_world_h.setValue(32)
+        self.scene25d_fog_near = QSpinBox(); self.scene25d_fog_near.setRange(0, 4096); self.scene25d_fog_near.setValue(256)
+        self.scene25d_fog_far = QSpinBox(); self.scene25d_fog_far.setRange(1, 8192); self.scene25d_fog_far.setValue(900)
+        self.scene25d_fog_strength = QSpinBox(); self.scene25d_fog_strength.setRange(0, 255); self.scene25d_fog_strength.setValue(180)
+        self.scene25d_fog_color = QLineEdit("#709174")
+        self.scene25d_top_width = QSpinBox(); self.scene25d_top_width.setRange(1, 2048); self.scene25d_top_width.setValue(120)
+        self.scene25d_bottom_width = QSpinBox(); self.scene25d_bottom_width.setRange(1, 2048); self.scene25d_bottom_width.setValue(330)
+        self.scene25d_top_y = QSpinBox(); self.scene25d_top_y.setRange(-1024, 2048); self.scene25d_top_y.setValue(82)
+        self.scene25d_bottom_y = QSpinBox(); self.scene25d_bottom_y.setRange(-1024, 2048); self.scene25d_bottom_y.setValue(248)
+        self.scene25d_ripple = QSpinBox(); self.scene25d_ripple.setRange(0, 16); self.scene25d_ripple.setValue(1)
+        self.scene25d_shadow_x = QSpinBox(); self.scene25d_shadow_x.setRange(0, 512); self.scene25d_shadow_x.setValue(12)
+        self.scene25d_shadow_y = QSpinBox(); self.scene25d_shadow_y.setRange(0, 512); self.scene25d_shadow_y.setValue(4)
+        self.scene25d_shadow_alpha = QSpinBox(); self.scene25d_shadow_alpha.setRange(0, 255); self.scene25d_shadow_alpha.setValue(96)
+        self.scene25d_grade_alpha = QSpinBox(); self.scene25d_grade_alpha.setRange(0, 255); self.scene25d_grade_alpha.setValue(42)
+        self.scene25d_vignette = QSpinBox(); self.scene25d_vignette.setRange(0, 255); self.scene25d_vignette.setValue(38)
+        self.scene25d_dither = QSpinBox(); self.scene25d_dither.setRange(0, 64); self.scene25d_dither.setValue(6)
+
+        form.addRow("Runtime role", self.scene25d_role)
+        form.addRow("Pivot X", self.scene25d_pivot_x); form.addRow("Pivot Y", self.scene25d_pivot_y)
+        form.addRow("World width", self.scene25d_world_w); form.addRow("World height", self.scene25d_world_h)
+        form.addRow("Fog near Z", self.scene25d_fog_near); form.addRow("Fog far Z", self.scene25d_fog_far)
+        form.addRow("Fog strength", self.scene25d_fog_strength); form.addRow("Fog / grade color", self.scene25d_fog_color)
+        form.addRow("Plane top width", self.scene25d_top_width); form.addRow("Plane bottom width", self.scene25d_bottom_width)
+        form.addRow("Plane top Y", self.scene25d_top_y); form.addRow("Plane bottom Y", self.scene25d_bottom_y)
+        form.addRow("Water ripple", self.scene25d_ripple)
+        form.addRow("Shadow radius X", self.scene25d_shadow_x); form.addRow("Shadow radius Y", self.scene25d_shadow_y)
+        form.addRow("Shadow alpha", self.scene25d_shadow_alpha)
+        form.addRow("Grade tint alpha", self.scene25d_grade_alpha)
+        form.addRow("Vignette", self.scene25d_vignette); form.addRow("Dither", self.scene25d_dither)
+        layout.addLayout(form)
+        layout.addStretch()
+        return tab
+
+    def _apply_scene25d_preset(self) -> None:
+        preset = self.scene25d_preset.currentText()
+        if preset.startswith("Water Museum"):
+            self.scene25d_role.setCurrentIndex(self.scene25d_role.findData("water_surface"))
+            self.scene25d_fog_color.setText("#709174")
+            self.scene25d_fog_near.setValue(220); self.scene25d_fog_far.setValue(900)
+            self.scene25d_fog_strength.setValue(180)
+            self.scene25d_top_width.setValue(120); self.scene25d_bottom_width.setValue(330)
+            self.scene25d_top_y.setValue(82); self.scene25d_bottom_y.setValue(248)
+            self.scene25d_ripple.setValue(1); self.scene25d_shadow_alpha.setValue(92)
+            self.scene25d_grade_alpha.setValue(42); self.scene25d_vignette.setValue(38); self.scene25d_dither.setValue(6)
+        elif preset.startswith("Billboard"):
+            self.scene25d_role.setCurrentIndex(self.scene25d_role.findData("billboard"))
+            self.scene25d_pivot_x.setValue(50); self.scene25d_pivot_y.setValue(100)
+            self.scene25d_world_w.setValue(max(1, self.canvas.image.width()))
+            self.scene25d_world_h.setValue(max(1, self.canvas.image.height()))
+        elif preset.startswith("Perspective"):
+            self.scene25d_role.setCurrentIndex(self.scene25d_role.findData("perspective_plane"))
+            self.scene25d_ripple.setValue(0)
+        else:
+            self.scene25d_role.setCurrentIndex(self.scene25d_role.findData("rope"))
+            self.scene25d_world_w.setValue(2); self.scene25d_world_h.setValue(2)
+        self._set_status(f"Đã áp preset 2.5D: {preset}.")
+
+    def _scene25d_metadata(self) -> dict:
+        return {
+            "role": str(self.scene25d_role.currentData() or "billboard"),
+            "pivot_percent": [self.scene25d_pivot_x.value(), self.scene25d_pivot_y.value()],
+            "pivot_q8": [round(self.scene25d_pivot_x.value() * 256 / 100), round(self.scene25d_pivot_y.value() * 256 / 100)],
+            "world_size": [self.scene25d_world_w.value(), self.scene25d_world_h.value()],
+            "fog": {
+                "near_z": self.scene25d_fog_near.value(), "far_z": self.scene25d_fog_far.value(),
+                "strength": self.scene25d_fog_strength.value(), "color": self.scene25d_fog_color.text().strip() or "#709174",
+            },
+            "plane": {
+                "top_width": self.scene25d_top_width.value(), "bottom_width": self.scene25d_bottom_width.value(),
+                "top_y": self.scene25d_top_y.value(), "bottom_y": self.scene25d_bottom_y.value(),
+                "ripple_amplitude": self.scene25d_ripple.value(),
+            },
+            "shadow": {
+                "radius_x": self.scene25d_shadow_x.value(), "radius_y": self.scene25d_shadow_y.value(),
+                "alpha": self.scene25d_shadow_alpha.value(),
+            },
+            "grade": {
+                "tint_alpha": self.scene25d_grade_alpha.value(), "vignette_alpha": self.scene25d_vignette.value(),
+                "dither_strength": self.scene25d_dither.value(),
+            },
+        }
+
+    def _load_scene25d_metadata(self, metadata: dict) -> None:
+        cfg = metadata.get("scene25d") if isinstance(metadata.get("scene25d"), dict) else {}
+        if not cfg:
+            return
+        role_index = self.scene25d_role.findData(str(cfg.get("role") or "billboard"))
+        if role_index >= 0: self.scene25d_role.setCurrentIndex(role_index)
+        pivot = cfg.get("pivot_percent") if isinstance(cfg.get("pivot_percent"), list) else [50, 100]
+        if len(pivot) >= 2:
+            self.scene25d_pivot_x.setValue(int(pivot[0])); self.scene25d_pivot_y.setValue(int(pivot[1]))
+        size = cfg.get("world_size") if isinstance(cfg.get("world_size"), list) else [32, 32]
+        if len(size) >= 2:
+            self.scene25d_world_w.setValue(max(1, int(size[0]))); self.scene25d_world_h.setValue(max(1, int(size[1])))
+        fog = cfg.get("fog") if isinstance(cfg.get("fog"), dict) else {}
+        self.scene25d_fog_near.setValue(int(fog.get("near_z", 256))); self.scene25d_fog_far.setValue(int(fog.get("far_z", 900)))
+        self.scene25d_fog_strength.setValue(int(fog.get("strength", 180))); self.scene25d_fog_color.setText(str(fog.get("color") or "#709174"))
+        plane = cfg.get("plane") if isinstance(cfg.get("plane"), dict) else {}
+        self.scene25d_top_width.setValue(int(plane.get("top_width", 120))); self.scene25d_bottom_width.setValue(int(plane.get("bottom_width", 330)))
+        self.scene25d_top_y.setValue(int(plane.get("top_y", 82))); self.scene25d_bottom_y.setValue(int(plane.get("bottom_y", 248)))
+        self.scene25d_ripple.setValue(int(plane.get("ripple_amplitude", 1)))
+        shadow = cfg.get("shadow") if isinstance(cfg.get("shadow"), dict) else {}
+        self.scene25d_shadow_x.setValue(int(shadow.get("radius_x", 12))); self.scene25d_shadow_y.setValue(int(shadow.get("radius_y", 4)))
+        self.scene25d_shadow_alpha.setValue(int(shadow.get("alpha", 96)))
+        grade = cfg.get("grade") if isinstance(cfg.get("grade"), dict) else {}
+        self.scene25d_grade_alpha.setValue(int(grade.get("tint_alpha", 42)))
+        self.scene25d_vignette.setValue(int(grade.get("vignette_alpha", 38)))
+        self.scene25d_dither.setValue(int(grade.get("dither_strength", 6)))
+
+    def _build_legacy_tab(self) -> QWidget:
+        scroll = QScrollArea()
+        scroll.setObjectName("AssetLegacyScroll")
+        scroll.setWidgetResizable(True)
+        scroll.setFrameShape(QFrame.Shape.NoFrame)
+        body = QWidget()
+        layout = QVBoxLayout(body)
+        layout.setContentsMargins(8, 10, 8, 10)
+        layout.setSpacing(7)
+
+        filter_row = QHBoxLayout()
+        self.legacy_search = QLineEdit()
+        self.legacy_search.setPlaceholderText("Tìm tên, role, tag…")
+        self.legacy_search.setClearButtonEnabled(True)
+        self.legacy_search.textChanged.connect(lambda _text: self._refresh_legacy_assets())
+        filter_row.addWidget(self.legacy_search, 1)
+
+        self.legacy_category_filter = QComboBox()
+        self.legacy_category_filter.addItem("Tất cả", "")
+        for category in LEGACY_CATEGORIES:
+            self.legacy_category_filter.addItem(
+                LEGACY_CATEGORY_LABELS.get(category, category.title()),
+                category,
+            )
+        self.legacy_category_filter.currentIndexChanged.connect(
+            lambda _index: self._refresh_legacy_assets()
+        )
+        filter_row.addWidget(self.legacy_category_filter)
+        layout.addLayout(filter_row)
+
+        count_row = QHBoxLayout()
+        self.legacy_count_label = QLabel("0 asset")
+        self.legacy_count_label.setObjectName("AssetHelpText")
+        count_row.addWidget(self.legacy_count_label)
+        count_row.addStretch()
+        refresh = QToolButton()
+        refresh.setIcon(icon("fa5s.sync-alt"))
+        refresh.setToolTip("Đọc lại legacy_assets.catalog.json")
+        refresh.clicked.connect(self._refresh_legacy_assets)
+        count_row.addWidget(refresh)
+        layout.addLayout(count_row)
+
+        self.legacy_asset_list = QListWidget()
+        self.legacy_asset_list.setViewMode(QListView.ViewMode.IconMode)
+        self.legacy_asset_list.setResizeMode(QListView.ResizeMode.Adjust)
+        self.legacy_asset_list.setMovement(QListView.Movement.Static)
+        self.legacy_asset_list.setIconSize(QSize(72, 72))
+        self.legacy_asset_list.setGridSize(QSize(112, 104))
+        self.legacy_asset_list.setSpacing(4)
+        self.legacy_asset_list.setWordWrap(True)
+        self.legacy_asset_list.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
+        self.legacy_asset_list.setMinimumHeight(210)
+        self.legacy_asset_list.currentItemChanged.connect(self._legacy_selection_changed)
+        self.legacy_asset_list.itemDoubleClicked.connect(self._legacy_open_item)
+        layout.addWidget(self.legacy_asset_list)
+
+        self.legacy_preview = QLabel("Chọn một legacy asset")
+        self.legacy_preview.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.legacy_preview.setMinimumHeight(126)
+        self.legacy_preview.setObjectName("AssetInfoLabel")
+        layout.addWidget(self.legacy_preview)
+
+        form = QFormLayout()
+        self.legacy_category_edit = QComboBox()
+        for category in LEGACY_CATEGORIES:
+            self.legacy_category_edit.addItem(
+                LEGACY_CATEGORY_LABELS.get(category, category.title()),
+                category,
+            )
+        self.legacy_display_name = QLineEdit()
+        self.legacy_display_name.setPlaceholderText("Tên hiển thị")
+        self.legacy_role = QLineEdit()
+        self.legacy_role.setPlaceholderText("vd: player_idle, water_band, hud_icon")
+        self.legacy_tags = QLineEdit()
+        self.legacy_tags.setPlaceholderText("hero, idle, combat")
+        self.legacy_notes = QTextEdit()
+        self.legacy_notes.setPlaceholderText("Ghi chú metadata…")
+        self.legacy_notes.setFixedHeight(58)
+
+        self.legacy_target_label = QLabel("—")
+        self.legacy_target_label.setWordWrap(True)
+        self.legacy_target_label.setTextInteractionFlags(Qt.TextInteractionFlag.TextSelectableByMouse)
+        self.legacy_pair_label = QLabel("—")
+        self.legacy_pair_label.setWordWrap(True)
+        self.legacy_pair_label.setTextInteractionFlags(Qt.TextInteractionFlag.TextSelectableByMouse)
+        self.legacy_hash_label = QLabel("—")
+        self.legacy_hash_label.setWordWrap(True)
+        self.legacy_hash_label.setTextInteractionFlags(Qt.TextInteractionFlag.TextSelectableByMouse)
+
+        form.addRow("Category", self.legacy_category_edit)
+        form.addRow("Display name", self.legacy_display_name)
+        form.addRow("Role", self.legacy_role)
+        form.addRow("Tags", self.legacy_tags)
+        form.addRow("Notes", self.legacy_notes)
+        form.addRow("Target", self.legacy_target_label)
+        form.addRow("Paired asset", self.legacy_pair_label)
+        form.addRow("SHA-256", self.legacy_hash_label)
+        layout.addLayout(form)
+
+        buttons = QHBoxLayout()
+        self.legacy_open_button = QPushButton("Mở trên canvas")
+        self.legacy_open_button.setIcon(icon("fa5s.external-link-alt"))
+        self.legacy_open_button.clicked.connect(self._legacy_open_item)
+        self.legacy_open_button.setEnabled(False)
+        buttons.addWidget(self.legacy_open_button)
+
+        self.legacy_save_button = QPushButton("Lưu metadata")
+        self.legacy_save_button.setIcon(icon("fa5s.save"))
+        self.legacy_save_button.clicked.connect(self._legacy_save_metadata)
+        self.legacy_save_button.setEnabled(False)
+        buttons.addWidget(self.legacy_save_button)
+        layout.addLayout(buttons)
+        layout.addStretch()
+
+        scroll.setWidget(body)
+        return scroll
+
+    def _legacy_icon_for_row(self, row: dict) -> QIcon:
+        preview = resolve_legacy_preview(self.project_root, row)
+        if preview is not None:
+            try:
+                stat = preview.stat()
+                cache_key = f"{preview.as_posix()}:{stat.st_mtime_ns}:{stat.st_size}"
+            except OSError:
+                cache_key = preview.as_posix()
+            cached = self._legacy_thumbnail_cache.get(cache_key)
+            if cached is not None:
+                return cached
+            pixmap = QPixmap(str(preview))
+            if not pixmap.isNull():
+                thumb = QPixmap(76, 76)
+                thumb.fill(Qt.GlobalColor.transparent)
+                scaled = pixmap.scaled(
+                    72,
+                    72,
+                    Qt.AspectRatioMode.KeepAspectRatio,
+                    Qt.TransformationMode.FastTransformation,
+                )
+                painter = QPainter(thumb)
+                painter.drawPixmap(
+                    (thumb.width() - scaled.width()) // 2,
+                    (thumb.height() - scaled.height()) // 2,
+                    scaled,
+                )
+                painter.end()
+                result = QIcon(thumb)
+                self._legacy_thumbnail_cache[cache_key] = result
+                return result
+        category = str(row.get("category") or "misc")
+        return icon(LEGACY_CATEGORY_ICONS.get(category, "fa5s.file"))
+
+    def _legacy_row_for_target(self, target: str) -> dict | None:
+        normalized = str(target or "").replace("\\", "/").strip("/")
+        for row in self._legacy_catalog.get("assets", []):
+            if not isinstance(row, dict):
+                continue
+            candidate = str(row.get("target") or "").replace("\\", "/").strip("/")
+            if candidate == normalized:
+                return row
+        return None
+
+    def _refresh_legacy_assets(self) -> None:
+        if not hasattr(self, "legacy_asset_list"):
+            return
+        selected_target = self._legacy_selected_target
+        current = self.legacy_asset_list.currentItem()
+        if current is not None:
+            selected_target = str(current.data(Qt.ItemDataRole.UserRole) or selected_target)
+        try:
+            self._legacy_catalog = load_legacy_catalog(self.project_root)
+        except (OSError, ValueError, json.JSONDecodeError) as error:
+            self._legacy_catalog = {"assets": []}
+            self.legacy_asset_list.clear()
+            self.legacy_count_label.setText("Catalog lỗi")
+            self.legacy_preview.setText(f"Không thể đọc catalog:\n{error}")
+            return
+
+        rows = [row for row in self._legacy_catalog.get("assets", []) if isinstance(row, dict)]
+        category_filter = str(self.legacy_category_filter.currentData() or "")
+        query = self.legacy_search.text().strip().casefold()
+        self.legacy_asset_list.blockSignals(True)
+        self.legacy_asset_list.clear()
+        restore_item = None
+        shown = 0
+        for row in rows:
+            category = str(row.get("category") or "misc")
+            if category_filter and category != category_filter:
+                continue
+            metadata = row.get("metadata") if isinstance(row.get("metadata"), dict) else {}
+            tags = metadata.get("tags") if isinstance(metadata.get("tags"), list) else []
+            searchable = " ".join([
+                str(row.get("source") or ""),
+                str(row.get("target") or ""),
+                category,
+                str(metadata.get("display_name") or ""),
+                str(metadata.get("role") or ""),
+                " ".join(str(tag) for tag in tags),
+                str(metadata.get("notes") or ""),
+            ]).casefold()
+            if query and query not in searchable:
+                continue
+
+            target = str(row.get("target") or "")
+            display_name = str(metadata.get("display_name") or "").strip()
+            name = display_name or Path(target).name or str(row.get("source") or "asset")
+            item = QListWidgetItem(self._legacy_icon_for_row(row), name)
+            item.setData(Qt.ItemDataRole.UserRole, target)
+            pair = str(row.get("paired_asset") or "")
+            tooltip = f"{target}\nCategory: {category}"
+            if pair:
+                tooltip += f"\nPaired: {pair}"
+            item.setToolTip(tooltip)
+            self.legacy_asset_list.addItem(item)
+            shown += 1
+            if target == selected_target:
+                restore_item = item
+
+        self.legacy_asset_list.blockSignals(False)
+        self.legacy_count_label.setText(f"{shown}/{len(rows)} asset")
+        if restore_item is not None:
+            self.legacy_asset_list.setCurrentItem(restore_item)
+        elif self.legacy_asset_list.count() > 0:
+            self.legacy_asset_list.setCurrentRow(0)
+        else:
+            self._legacy_clear_metadata_editor()
+
+    def _legacy_clear_metadata_editor(self) -> None:
+        self._legacy_selected_target = ""
+        if hasattr(self, "legacy_preview"):
+            self.legacy_preview.setPixmap(QPixmap())
+            self.legacy_preview.setText("Không có asset phù hợp bộ lọc")
+        for widget_name in ("legacy_display_name", "legacy_role", "legacy_tags"):
+            widget = getattr(self, widget_name, None)
+            if widget is not None:
+                widget.clear()
+        if hasattr(self, "legacy_notes"):
+            self.legacy_notes.clear()
+        if hasattr(self, "legacy_target_label"):
+            self.legacy_target_label.setText("—")
+            self.legacy_pair_label.setText("—")
+            self.legacy_hash_label.setText("—")
+            self.legacy_open_button.setEnabled(False)
+            self.legacy_save_button.setEnabled(False)
+
+    def _legacy_selection_changed(self, current: QListWidgetItem | None, _previous=None) -> None:
+        if current is None:
+            self._legacy_clear_metadata_editor()
+            return
+        target = str(current.data(Qt.ItemDataRole.UserRole) or "")
+        row = self._legacy_row_for_target(target)
+        if row is None:
+            self._legacy_clear_metadata_editor()
+            return
+        self._legacy_selected_target = target
+        metadata = row.get("metadata") if isinstance(row.get("metadata"), dict) else {}
+        category = str(row.get("category") or "misc")
+        category_index = self.legacy_category_edit.findData(category)
+        if category_index >= 0:
+            self.legacy_category_edit.setCurrentIndex(category_index)
+        self.legacy_display_name.setText(str(metadata.get("display_name") or ""))
+        self.legacy_role.setText(str(metadata.get("role") or ""))
+        tags = metadata.get("tags") if isinstance(metadata.get("tags"), list) else []
+        self.legacy_tags.setText(", ".join(str(tag) for tag in tags))
+        self.legacy_notes.setPlainText(str(metadata.get("notes") or ""))
+        self.legacy_target_label.setText(target or "—")
+        self.legacy_pair_label.setText(str(row.get("paired_asset") or "—"))
+        sha = str(row.get("sha256") or "")
+        self.legacy_hash_label.setText((sha[:16] + "…") if len(sha) > 18 else (sha or "—"))
+        self.legacy_hash_label.setToolTip(sha)
+
+        preview = resolve_legacy_preview(self.project_root, row)
+        self.legacy_open_button.setEnabled(preview is not None)
+        self.legacy_save_button.setEnabled(True)
+        self.legacy_preview.setPixmap(QPixmap())
+        if preview is not None:
+            pixmap = QPixmap(str(preview))
+            if not pixmap.isNull():
+                scaled = pixmap.scaled(
+                    190,
+                    120,
+                    Qt.AspectRatioMode.KeepAspectRatio,
+                    Qt.TransformationMode.FastTransformation,
+                )
+                self.legacy_preview.setPixmap(scaled)
+                self.legacy_preview.setToolTip(str(preview))
+                return
+        self.legacy_preview.setText(
+            f"{LEGACY_CATEGORY_LABELS.get(category, category.title())}\n{Path(target).name}"
+        )
+        self.legacy_preview.setToolTip(target)
+
+    def _legacy_open_item(self, item=None) -> None:
+        if isinstance(item, QListWidgetItem):
+            target = str(item.data(Qt.ItemDataRole.UserRole) or "")
+        else:
+            target = self._legacy_selected_target
+        row = self._legacy_row_for_target(target)
+        if row is None:
+            return
+        preview = resolve_legacy_preview(self.project_root, row)
+        if preview is None:
+            self._set_status("Asset này không có preview ảnh để mở trên canvas.", error=True)
+            return
+        self.load_image(preview)
+        pair = str(row.get("paired_asset") or "")
+        if pair and Path(target).suffix.lower() not in IMAGE_EXTENSIONS:
+            self._set_status(f"Đã mở paired preview: {pair}")
+        else:
+            self._set_status(f"Đã mở legacy asset: {target}")
+
+    def _legacy_save_metadata(self) -> None:
+        target = self._legacy_selected_target
+        if not target:
+            return
+        category = str(self.legacy_category_edit.currentData() or "misc")
+        raw_tags = self.legacy_tags.text().replace(";", ",").replace("\n", ",")
+        tags = [value.strip() for value in raw_tags.split(",") if value.strip()]
+        try:
+            update_legacy_asset_metadata(
+                self.project_root,
+                target,
+                category=category,
+                display_name=self.legacy_display_name.text(),
+                role=self.legacy_role.text(),
+                tags=tags,
+                notes=self.legacy_notes.toPlainText(),
+            )
+        except (OSError, ValueError, KeyError, json.JSONDecodeError) as error:
+            NoticeDialog("Không thể lưu metadata", str(error), self, error=True).exec()
+            return
+        self._legacy_selected_target = target
+        active_filter = str(self.legacy_category_filter.currentData() or "")
+        if active_filter and active_filter != category:
+            self.legacy_category_filter.setCurrentIndex(0)
+        else:
+            self._refresh_legacy_assets()
+        self._set_status(f"Đã lưu metadata legacy: {Path(target).name}")
 
     def _build_export_tab(self) -> QWidget:
         tab = QWidget()
@@ -1771,6 +2505,11 @@ class AssetEditorDialog(QDialog):
             frames=[FrameRecord(frame.name, QRect(frame.rect), frame.duration_ms) for frame in self.canvas.frames],
             collisions=[CollisionRecord(item.name, QRect(item.rect), item.kind) for item in self.canvas.collisions],
             selection=QRect(self.canvas.selection),
+            scene_frames=[SceneFrameRecord(frame.name, QImage(frame.image), frame.duration_ms) for frame in self.scene_frames],
+            selected_scene=self.selected_scene,
+            player_settings=copy.deepcopy(self.animation_player_settings),
+            fps=self.animation_fps.value(), loop=self.animation_loop.isChecked(),
+            write_animation=self.write_animation.isChecked(),
         )
 
     def _restore(self, snapshot: EditorSnapshot) -> None:
@@ -1778,6 +2517,12 @@ class AssetEditorDialog(QDialog):
         self.canvas.frames = [FrameRecord(frame.name, QRect(frame.rect), frame.duration_ms) for frame in snapshot.frames]
         self.canvas.collisions = [CollisionRecord(item.name, QRect(item.rect), item.kind) for item in snapshot.collisions]
         self.canvas.selection = QRect(snapshot.selection)
+        self.scene_frames = [SceneFrameRecord(frame.name, QImage(frame.image), frame.duration_ms) for frame in snapshot.scene_frames]
+        self.selected_scene = snapshot.selected_scene
+        self.animation_player_settings = copy.deepcopy(snapshot.player_settings)
+        self.animation_fps.setValue(snapshot.fps)
+        self.animation_loop.setChecked(snapshot.loop)
+        self.write_animation.setChecked(snapshot.write_animation)
         self._refresh_all()
 
     def _push_undo(self) -> None:
@@ -1834,12 +2579,41 @@ class AssetEditorDialog(QDialog):
             self,
             "Nhập ảnh vào Editor Assets",
             str(Path.home()),
-            "Ảnh 2D (*.png *.jpg *.jpeg *.webp *.bmp *.gif *.svg);;Tất cả tệp (*.*)",
+            "Ảnh / VPE (*.png *.jpg *.jpeg *.webp *.bmp *.gif *.svg *.vpe *.vpea);;Tất cả tệp (*.*)",
         )
         if path:
             self.load_image(Path(path))
 
+    def import_legacy_res_folder(self) -> None:
+        folder = QFileDialog.getExistingDirectory(
+            self,
+            "Nhập thư mục res/ MRE cũ",
+            str(Path.home()),
+        )
+        if not folder:
+            return
+        try:
+            result = import_legacy_res(Path(folder), self.project_root)
+        except (OSError, ValueError) as error:
+            NoticeDialog("Không thể nhập resource", str(error), self, error=True).exec()
+            return
+        counts = result.get("counts", {})
+        summary = ", ".join(f"{key}={value}" for key, value in sorted(counts.items()))
+        self._refresh_scenes()
+        self._legacy_thumbnail_cache.clear()
+        self._refresh_legacy_assets()
+        self._set_status(
+            f"Đã nhập {len(result.get('assets', []))} resource legacy. {summary}"
+        )
+
     def load_image(self, path: Path) -> None:
+        if path.suffix.lower() in (".vpe", ".vpea"):
+            try:
+                if self.vpe_pixel.open_native(path):
+                    self.workspace_tabs.setCurrentIndex(1)
+            except (OSError, ValueError) as error:
+                self._set_status(f"Không thể mở VPE: {error}", error=True)
+            return
         self.stop_playback()
         descriptor_override: Path | None = None
         if path.name.lower().endswith((ANIMATION_SUFFIX, LEGACY_ANIMATION_SUFFIX)):
@@ -1928,6 +2702,10 @@ class AssetEditorDialog(QDialog):
         self.pixels_per_unit.setValue(int(texture.get("pixels_per_unit", 100)))
         self.render_mode.setCurrentIndex(0 if texture.get("render_mode", "nearest") == "nearest" else 1)
         self._set_pixel_mode(int(texture.get("pixel_mode_bits", 32)), activate=False)
+
+        self._load_art_style_metadata(metadata)
+        self._load_stage2d_metadata(metadata)
+        self._load_scene25d_metadata(metadata)
 
         animation = metadata.get("animation") if isinstance(metadata.get("animation"), dict) else {}
         self.animation_name.setText(str(animation.get("name") or "default"))
@@ -2271,7 +3049,24 @@ class AssetEditorDialog(QDialog):
         style = self.style_combo.currentText()
         self._push_undo()
         image = self.canvas.image.copy()
-        if style.startswith("Pixel hóa"):
+        if style in ART_STYLE_PROFILES:
+            profile = ART_STYLE_PROFILES[style]
+            if style in GAME_ART_STYLES:
+                image = apply_game_palette(image, style)
+            levels = int(profile.get("posterize", 0) or 0)
+            if levels >= 2:
+                image = self._posterize(image, levels)
+            saturation = float(profile.get("saturation", 1.0) or 1.0)
+            contrast = float(profile.get("contrast", 1.0) or 1.0)
+            if abs(saturation - 1.0) > 0.001:
+                image = self._boost_saturation(image, saturation)
+            if abs(contrast - 1.0) > 0.001:
+                image = self._boost_contrast(image, contrast)
+            if int(profile.get("outline_px", 0) or 0) > 0:
+                image = self._outline(image)
+        elif style in GAME_ART_STYLES:
+            image = apply_game_palette(image, style)
+        elif style.startswith("Pixel hóa"):
             factor = 4 if "4×" in style else 2
             small_w = max(1, image.width() // factor)
             small_h = max(1, image.height() // factor)
@@ -2995,6 +3790,32 @@ class AssetEditorDialog(QDialog):
             target = "assets/map/tileset"
         elif text.startswith("Nhân vật"):
             target = "assets/scenes"
+        elif text.startswith("Stage2D"):
+            target = "assets/scenes"
+            if "Water Band" in text:
+                role = "water"
+            elif "Ground" in text:
+                role = "ground"
+            elif "Foreground" in text:
+                role = "foreground"
+            else:
+                role = "parallax"
+            if hasattr(self, "stage2d_role"):
+                role_index = self.stage2d_role.findData(role)
+                if role_index >= 0:
+                    self.stage2d_role.setCurrentIndex(role_index)
+        elif text.startswith("2.5D"):
+            target = "assets/scenes"
+            if "Perspective Plane" in text:
+                role = "perspective_plane"
+            elif "Water Surface" in text:
+                role = "water_surface"
+            else:
+                role = "billboard"
+            if hasattr(self, "scene25d_role"):
+                role_index = self.scene25d_role.findData(role)
+                if role_index >= 0:
+                    self.scene25d_role.setCurrentIndex(role_index)
         elif text.startswith("Biểu tượng"):
             target = "assets/app-icon"
         elif text.startswith("UI") or text.startswith("Nguyên liệu"):
@@ -3018,11 +3839,13 @@ class AssetEditorDialog(QDialog):
 
     # ---------- export ----------
     def save_and_apply(self) -> None:
+        if self.workspace_tabs.currentIndex() == 1:
+            self.vpe_pixel.receive_document()
         self.stop_playback()
         name = self.asset_name.text().strip()
         if not name:
             self._set_status("Vui lòng nhập tên PNG.", error=True)
-            self.inspector_tabs.setCurrentIndex(3)
+            self.inspector_tabs.setCurrentIndex(self.inspector_tabs.count() - 1)
             return
         if Path(name).name != name or any(ch in name for ch in '<>:"/\\|?*'):
             self._set_status("Tên tệp không hợp lệ trên Windows.", error=True)
@@ -3279,6 +4102,9 @@ class AssetEditorDialog(QDialog):
                 "margin": self.margin_spin.value(),
                 "spacing": self.spacing_spin.value(),
             },
+            "art_style": self._art_style_metadata(),
+            "stage2d": self._stage2d_metadata(),
+            "scene25d": self._scene25d_metadata(),
             "animation": {
                 "name": self.animation_name.text().strip() or "default",
                 "fps": self.animation_fps.value(),
@@ -3402,6 +4228,61 @@ class AssetEditorDialog(QDialog):
             action.setShortcut(shortcut if isinstance(shortcut, QKeySequence.StandardKey) else QKeySequence(shortcut))
             action.triggered.connect(callback)
             self.addAction(action)
+        self._asset_shortcut_actions = list(self.actions())
+
+    def _workspace_tab_changed(self, index: int) -> None:
+        self.asset_toolbar.setVisible(index == 0)
+        for action in getattr(self, "_asset_shortcut_actions", []):
+            action.setEnabled(index == 0)
+        if index == 1:
+            self.stop_playback()
+            self.vpe_pixel.ensure_editor()
+        else:
+            self.vpe_pixel.stop()
+
+    def _send_to_vpe_pixel(self) -> None:
+        settings = self._normalized_player_settings()
+        images = [frame.image.copy() for frame in self.scene_frames] if settings.get("source_mode") == "scene_timeline" and self.scene_frames else [self.canvas.image.copy()]
+        delay_ms = max(10, round(1000 / max(1, self.animation_fps.value())))
+        if settings.get("source_mode") == "scene_timeline" and self.scene_frames:
+            durations = {frame.duration_ms for frame in self.scene_frames}
+            if len(durations) == 1:
+                delay_ms = self.scene_frames[0].duration_ms
+        try:
+            self.vpe_pixel.set_images(images, Path(self.asset_name.text() or "asset").stem,
+                delay_ms, self.animation_loop.isChecked())
+            if settings.get("source_mode") == "scene_timeline" and self.scene_frames and len(durations) > 1:
+                self._set_status("VPE dùng một duration chung; timeline có duration khác nhau sẽ dùng FPS hiện tại.")
+        except ValueError as error:
+            self._set_status(str(error), error=True)
+
+    def _receive_vpe_pixel(self, images, name: str, delay_ms: int, loop: bool) -> None:
+        if not images:
+            return
+        self._push_undo()
+        self.canvas.set_image(images[0].copy())
+        self.current_source = None
+        self._editing_existing_project_asset = False
+        self.asset_name.setText(Path(name or "vpe_asset").stem + ".png")
+        self.metadata_name.setText(Path(name or "vpe_asset").stem + ".asset.dtfe")
+        self.animation_metadata_name.setText(Path(name or "vpe_asset").stem + ANIMATION_SUFFIX)
+        self.scene_frames = [SceneFrameRecord(f"frame_{i:03d}", image.copy(), delay_ms) for i, image in enumerate(images)] if len(images) > 1 else []
+        self.selected_scene = 0 if self.scene_frames else -1
+        self.animation_fps.setValue(max(1, round(1000 / max(1, delay_ms))))
+        self.animation_loop.setChecked(loop)
+        self.write_animation.setChecked(bool(self.scene_frames))
+        self.animation_player_settings.update({
+            "source_mode": "scene_timeline" if self.scene_frames else "atlas_frames",
+            "fps": self.animation_fps.value(), "loop": loop,
+            "selected_indices": [], "selected_by_source": {"atlas_frames": [], "scene_timeline": []},
+            "selection_mask_hex": "",
+        })
+        if self.scene_frames:
+            self._select_all_scene_frames()
+            self.timeline_tabs.setCurrentIndex(1)
+        self.workspace_tabs.setCurrentIndex(0)
+        self._refresh_all()
+        self._set_status(f"Đã nhận {len(images)} frame từ VPE Pixel. Dùng Áp dụng & lưu để lưu vào project.")
 
     def _show_shortcuts_hint(self) -> None:
         self._set_status("Phím tắt: Ctrl+N/O/S tạo–mở–lưu • V/B/E/F/I/C/H tool cũ • R thước • Shift+B frame tay • U frame hình học • Alt+1/2/3 Pixel Art • G lưới")
@@ -3428,6 +4309,7 @@ class AssetEditorDialog(QDialog):
         self._refresh_collisions()
         self._update_info()
         self._update_export_preview()
+        self._refresh_legacy_assets()
         self._update_history_buttons()
         self.canvas.update()
 
@@ -3472,8 +4354,16 @@ class AssetEditorDialog(QDialog):
         self.status_label.style().polish(self.status_label)
 
     def reject(self) -> None:
+        if not self.vpe_pixel.can_close():
+            return
+        self.vpe_pixel.stop()
         self.stop_playback()
         super().reject()
+
+    def accept(self) -> None:
+        self.vpe_pixel.stop()
+        self.stop_playback()
+        super().accept()
 
     def _title_mouse_press(self, event: QMouseEvent) -> None:
         if event.button() == Qt.MouseButton.LeftButton:
