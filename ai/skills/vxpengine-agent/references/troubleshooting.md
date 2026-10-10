@@ -154,6 +154,21 @@ App đang mở → đóng `VXPEngine.exe` trước khi cài lại.
 
 ---
 
+## 8. VXPEmu screen-only dừng sau vài giây
+
+Triệu chứng: `--screen-only` thoát ~4s, mã `-1073741819` (`0xC0000005`),
+Event Viewer 1000 ghi fault trong `Qt6Widgets.dll`; full-UI cùng VXP vẫn sống.
+
+1. Tái hiện bằng gate: `D:\MRE\VXPEmu\tools\screen_only_smoke.py`
+   (FAIL = thoát sớm, PASS = sống đủ số giây).
+2. Nghi phạm đã biết: reparent widget đang do layout quản lý mà không
+   `removeWidget` trước — item treo crash ở lần layout-activation sau.
+   Fix trong `VXPEmu:MainWindow::setScreenOnlyMode`, rebuild NMake, triển khai
+   lại `build/Release/VXPEmu.exe`, chạy lại smoke 2 VXP khác nhau.
+3. Xác minh render thật (sống ≠ chạy): chụp PrintWindow đúng HWND
+   `VXPEmu Screen`, so sánh 2 frame cách nhau — phải khác nhau hàng nghìn px.
+   `ImageGrab` toàn màn hình dễ chụp nhầm cửa sổ IDE, không dùng làm bằng chứng.
+
 ## 9. Checklist trước khi nói “đã sửa”
 
 ```text

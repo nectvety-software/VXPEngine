@@ -131,15 +131,20 @@ animation descriptor đi kèm để mở trong Editor Assets.
 [VxpToon3D](docs/URBAN_TOON_3D.md): mesh/texture phối cảnh, cel band, ink,
 depth, clipping, A8 billboard và camera đô thị theo nhân vật patin.
 
+[Horizon Rider / Super Scaler](examples/SuperScalerRacingDemo/README.md) là sample
+đua xe 240×320 dùng road renderer scanline fixed-point, khúc cua, curb đổi màu,
+traffic và cache điểm cao. Xem [tài liệu renderer](docs/SUPERSCALER_ROAD.md).
+
 ```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements-build.txt
 powershell -ExecutionPolicy Bypass -File packaging\windows\build_release.ps1
 ```
 
-Kết quả là một file `dist-installer/VXPEngine-2.0.0-Setup.exe`. Bộ cài theo
-tài khoản Windows, không yêu cầu quyền Administrator, chứa GUI không console,
-w64devkit, ARM GCC, MRE SDK, VXPEmu và media runtime. Pipeline tự quét dependency,
-Bandit, secret, chạy thử GUI/SDK và build game ARM trước khi tạo SHA-256.
+Kết quả phân phối một file `dist-installer/VXPEngine-2.0.0-Setup.exe`, chứa
+bootstrapper và MSI bên trong. Bộ cài đặt VXPEngine vào Program Files nên
+Windows sẽ hỏi quyền quản trị khi cài; gói bao gồm GUI không console, w64devkit,
+ARM GCC, MRE SDK, VXPEmu và media runtime. Pipeline kiểm tra GUI/SDK, build game
+ARM mẫu và tạo SHA-256 trước khi phát hành.
 
 Bottom Panel/Console mặc định ẩn và không tự chiếm chỗ khi Run/VXPEmu;
 dùng `Ctrl+J`, menu View hoặc nút terminal trên status bar để mở. UI Design

@@ -23,9 +23,17 @@ engine/coremre/include/vxpgdx/TiledMap.h
 engine/coremre/include/vxpgdx/Scene2D.h
 engine/coremre/include/vxpgdx/Scene2DUI.h
 engine/coremre/include/graphics/VxpRender2D.h
+engine/coremre/include/graphics/VxpScene25D.h
+engine/coremre/include/graphics/VxpSoft3D.h
+engine/coremre/include/graphics/VxpToon3D.h
 engine/coremre/include/graphics/particles/VxpParticlePool.h
 engine/coremre/include/physics/
 ```
+
+Tên core riêng ở tầng người dùng là **vxpstore** (alias ngắn **corevxp**,
+target `coremre`): game C++ include `vxpstore/Core.h` và dùng
+`vxpstore::Engine/Scene/Renderer`. Không dùng tên PixelRoot32 với user;
+namespace `pixelroot32::` bên trong chỉ là chi tiết triển khai.
 
 Không bịa API. Nếu tài liệu và header khác nhau, header/code hiện tại là nguồn sự thật.
 
@@ -148,6 +156,28 @@ Tránh allocation trong frame, vector growth, string tạm liên tục, scan to�
 Khi tối ưu, có thể kiểm tra soft-float bằng `arm-none-eabi-nm -u`.
 Không tuyên bố optimized nếu chưa build/test ARM.
 
+### Retro 2.5D / 3D cho thiết bị MRE
+
+Với scene retro low-poly kiểu PS1/N64 hoặc mall liminal, trước tiên chọn 2.5D billboards + perspective planes nếu thứ tự che khuất đơn giản. Dùng `VxpToon3D` khi camera yaw/pitch, depth occlusion hoặc low-poly geometry tạo khác biệt rõ rệt. Ưu tiên mesh ít mặt, texture RGB565 nhỏ lặp được, ánh sáng tĩnh theo mặt, fog theo depth và bảng màu gọn; tránh shader hoặc runtime decode texture.
+
+Ở 240x320, thử render world ở 120x160 với color+depth caller-owned (76.8 KB tổng), upscale bằng Scale2x, sau đó vẽ text/HUD ở độ phân giải gốc. Giữ pixel-art nguồn riêng và tạo runtime texture bằng script xác định được. Nước/đài phun nước dùng UV phase nhỏ; cá dùng sprite/billboard và chuyển động LUT; camera drift phải tính từ elapsed time, không từ frame count.
+
+Giữ hot loop integer/fixed-point, không cấp phát bộ nhớ. Trên ARMv5TE, ưu tiên scanline edge stepping và quotient/remainder stepping cho barycentric reciprocal/UV; không hy sinh perspective-correct texture chỉ để giảm phép tính. Chỉ dùng affine depth cho mặt phẳng không texture, ít chồng lấp và không fog/Gouraud. So sánh output pixel chính xác bằng host build bật `VXPE_TOON3D_STEPPED_RECIPROCAL`, chạy regression, rồi cross-compile module ARM. Dùng benchmark ở `reports/graphics-benchmark/README.md`; số đo host không đại diện FPS thiết bị.
+
+Khi scene tự vẽ sky/gradient phủ toàn bộ màn hình, gọi `vxpe_toon3d_clear_depth` trước world pass để tránh clear color dư; chỉ dùng `vxpe_toon3d_clear` nếu cần nền màu phẳng. Rasterizer tự loại tam giác có screen-space bounding box nằm hoàn toàn ngoài target.
+
+### VxpSoft3D (soft raster clean-room cho MRE)
+
+Module `graphics/VxpSoft3D.h` (C API, caller owns buffers, integer-only):
+raster hàm-cạnh, depth 16-bit, UV phối cảnh đúng qua nội suy `1/z`
+(`iu/iz` trực tiếp, KHÔNG nhân thêm hệ số — từng có bug collapse UV 16×),
+sampling RGB565 nearest + alpha-test, Lambert phẳng, fog theo khoảng cách,
+`mesh16`/`mesh32` (index 16/32-bit), helper bake host
+(`vxpe_soft3d_ray_triangle`, `vxpe_soft3d_bake_vertex_light`,
+`tools/vxp_bake_light.py`). Pipeline học ý tưởng đã công bố của YMGRE
+(CPU raster + depth + texture + lighting + bake offline); mã viết lại độc
+lập, không bundling mã YMGRE (giấy phép noncommercial riêng).
+
 ## 10. Regression gate
 
 ```bat
@@ -167,6 +197,14 @@ host regression → ARM build → .vxp → VXPEmu → behavior thật
 ```
 
 Không gọi test PASS nếu automation gửi input nhầm cửa sổ hoặc screenshot bị cửa sổ khác che.
+Gate hồi quy cho chế độ screen-only (từng crash Qt6Widgets sau vài giây):
+
+```bat
+D:\Program\Python\python.exe D:\MRE\VXPEmu\tools\screen_only_smoke.py <VXPEmu.exe> <app.vxp> 15
+```
+
+Xác minh render thật bằng PrintWindow (backing store, đúng cửa sổ) thay vì
+ImageGrab toàn màn hình; so sánh 2 frame cách nhau để chứng minh animate.
 
 Reference samples:
 
@@ -174,9 +212,15 @@ Reference samples:
 examples/MiniFarmDemo
 examples/IceNexusMobaDemo
 examples/ParticleFireDemo
+examples/HarborDash25D     (game 2.5D: VxpScene25D billboards/plane/fog)
+examples/SpinCube3D        (game 3D: VxpSoft3D textured cube, baked light)
 ```
 
 `MiniFarmDemo` là integration sample chính của lõi mới: VXA8/VXAT/VXTM v3, map 60×60, camera follow, tile collision, mutable cells, animation, particle, Stage, ScrollPane/List, ARM và VXPEmu.
+`HarborDash25D` là mẫu 2.5D tối thiểu (không font, HUD bằng primitive).
+`SpinCube3D` là mẫu 3D tối thiểu, đồng thời là bài kiểm tra on-device của
+module VxpSoft3D: đếm pixel không đủ — phải xác minh UV/texture bằng
+screenshot PrintWindow nội dung thật.
 
 ## 12. Workflow khi user đưa asset folder
 

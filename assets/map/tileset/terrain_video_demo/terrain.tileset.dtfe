@@ -1,0 +1,187 @@
+{
+  "format": "VXPEngine TitleSet Catalog",
+  "version": 1,
+  "name": "Terrain \u00b7 Moss Stone",
+  "source": "assets/map/tileset/terrain_video_demo/terrain_atlas.png",
+  "auto_category": "terrain",
+  "tile_width": 16,
+  "tile_height": 16,
+  "frames": [
+    {
+      "name": "Rule 0",
+      "file": "assets/map/tileset/terrain_video_demo/moss_stone__rule_0.png",
+      "category": "terrain",
+      "rect": [
+        0,
+        0,
+        16,
+        16
+      ]
+    },
+    {
+      "name": "Rule 1",
+      "file": "assets/map/tileset/terrain_video_demo/moss_stone__rule_1.png",
+      "category": "terrain",
+      "rect": [
+        16,
+        0,
+        16,
+        16
+      ]
+    },
+    {
+      "name": "Rule 2",
+      "file": "assets/map/tileset/terrain_video_demo/moss_stone__rule_2.png",
+      "category": "terrain",
+      "rect": [
+        32,
+        0,
+        16,
+        16
+      ]
+    },
+    {
+      "name": "Rule 3",
+      "file": "assets/map/tileset/terrain_video_demo/moss_stone__rule_3.png",
+      "category": "terrain",
+      "rect": [
+        48,
+        0,
+        16,
+        16
+      ]
+    },
+    {
+      "name": "Rule 4",
+      "file": "assets/map/tileset/terrain_video_demo/moss_stone__rule_4.png",
+      "category": "terrain",
+      "rect": [
+        0,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "name": "Rule 5",
+      "file": "assets/map/tileset/terrain_video_demo/moss_stone__rule_5.png",
+      "category": "terrain",
+      "rect": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "name": "Rule 6",
+      "file": "assets/map/tileset/terrain_video_demo/moss_stone__rule_6.png",
+      "category": "terrain",
+      "rect": [
+        32,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "name": "Rule 7",
+      "file": "assets/map/tileset/terrain_video_demo/moss_stone__rule_7.png",
+      "category": "terrain",
+      "rect": [
+        48,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "name": "Rule 8",
+      "file": "assets/map/tileset/terrain_video_demo/moss_stone__rule_8.png",
+      "category": "terrain",
+      "rect": [
+        0,
+        32,
+        16,
+        16
+      ]
+    },
+    {
+      "name": "Rule 9",
+      "file": "assets/map/tileset/terrain_video_demo/moss_stone__rule_9.png",
+      "category": "terrain",
+      "rect": [
+        16,
+        32,
+        16,
+        16
+      ]
+    },
+    {
+      "name": "Rule 10",
+      "file": "assets/map/tileset/terrain_video_demo/moss_stone__rule_10.png",
+      "category": "terrain",
+      "rect": [
+        32,
+        32,
+        16,
+        16
+      ]
+    },
+    {
+      "name": "Rule 11",
+      "file": "assets/map/tileset/terrain_video_demo/moss_stone__rule_11.png",
+      "category": "terrain",
+      "rect": [
+        48,
+        32,
+        16,
+        16
+      ]
+    },
+    {
+      "name": "Rule 12",
+      "file": "assets/map/tileset/terrain_video_demo/moss_stone__rule_12.png",
+      "category": "terrain",
+      "rect": [
+        0,
+        48,
+        16,
+        16
+      ]
+    },
+    {
+      "name": "Rule 13",
+      "file": "assets/map/tileset/terrain_video_demo/moss_stone__rule_13.png",
+      "category": "terrain",
+      "rect": [
+        16,
+        48,
+        16,
+        16
+      ]
+    },
+    {
+      "name": "Rule 14",
+      "file": "assets/map/tileset/terrain_video_demo/moss_stone__rule_14.png",
+      "category": "terrain",
+      "rect": [
+        32,
+        48,
+        16,
+        16
+      ]
+    },
+    {
+      "name": "Rule 15",
+      "file": "assets/map/tileset/terrain_video_demo/moss_stone__rule_15.png",
+      "category": "terrain",
+      "rect": [
+        48,
+        48,
+        16,
+        16
+      ]
+    }
+  ]
+}

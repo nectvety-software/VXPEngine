@@ -1,0 +1,177 @@
+#include "core/EngineModules.h"
+#if PIXELROOT32_ENABLE_PARTICLES
+
+/*
+ * Copyright (c) 2026 PixelRoot32
+ * Licensed under the MIT License
+ */
+#include "graphics/particles/ParticleEmitter.h"
+#include "graphics/Renderer.h"
+#include "graphics/Color.h"
+#include <cmath>
+#include "core/Engine.h"
+#include <math/MathUtil.h>
+
+namespace pr32 = pixelroot32;
+
+extern pr32::core::Engine engine;
+namespace pixelroot32::graphics::particles {
+
+    namespace core = pixelroot32::core;
+    namespace gfx = pixelroot32::graphics;
+    namespace math = pixelroot32::math;
+
+    using math::sin;
+    using math::cos;
+    using math::Vector2;
+    using math::Scalar;
+    using math::toScalar;
+    using math::kDegToRad;
+    using math::Fixed16;
+    using gfx::Renderer;
+    using core::EntityType;
+
+    namespace {
+        static uint32_t s_rngState = 123456789;
+
+        // Xorshift32 - fast PRNG
+        inline uint32_t fastRand() {
+            uint32_t x = s_rngState;
+            x ^= x << 13;
+            x ^= x >> 17;
+            x ^= x << 5;
+            s_rngState = x;
+            return x;
+        }
+
+        inline float fastRandFloat(float min, float max) {
+            float r = (fastRand() & 0xFFFF) * (1.0f / 65535.0f);
+            return min + r * (max - min);
+        }
+
+        template <typename T>
+        inline T fastRandScalar(T min, T max) {
+            if constexpr (std::is_same_v<T, float>) {
+                return fastRandFloat(min, max);
+            } else {
+                // Fixed16 implementation using integer arithmetic to avoid float conversion
+                 // 0xFFFF is 65535. We treat this as the fractional part.
+                 int32_t randomFraction = fastRand() & 0xFFFF;
+                 
+                 Fixed16 range = max - min;
+                 
+                 // result = min + range * (randomFraction / 65536)
+                 // Use int64_t to prevent overflow during multiplication
+                 int64_t deltaRaw = (static_cast<int64_t>(range.raw) * randomFraction) >> 16;
+                 
+                 Fixed16 result;
+                 result.raw = min.raw + static_cast<int32_t>(deltaRaw);
+                 return result;
+             }
+        }
+
+        inline int fastRandInt(int min, int max) {
+            if (min >= max) return min;
+            return min + (fastRand() % (max - min + 1));
+        }
+    }
+
+    ParticleEmitter::ParticleEmitter(Vector2 position, const ParticleConfig& cfg)
+        : Entity(position, 0, 0, EntityType::GENERIC),
+            config(cfg) {
+             // Seed with something somewhat random if needed, or keep deterministic
+             s_rngState = (uint32_t)((uintptr_t)this + 12345); 
+    }
+
+    void ParticleEmitter::update(unsigned long deltaTime) {
+        (void)deltaTime;
+
+        int screenW = engine.getRenderer().getLogicalWidth();
+        int screenH = engine.getRenderer().getLogicalHeight();
+
+        for (int i = 0; i < maxParticles; i++) {
+            Particle& p = particles[i];
+            if (!p.active) continue;
+
+            // Early culling: skip physics calculation if particle is already out of bounds
+            // This avoids unnecessary math for particles that will be deactivated anyway
+            if (p.position.x < -2 || p.position.x > screenW + 2 || 
+                p.position.y < -2 || p.position.y > screenH + 2) {
+                p.active = false;
+                continue;
+            }
+
+            p.position += p.velocity;
+
+            p.velocity.y += config.gravity;
+            p.velocity *= config.friction;
+
+            if (p.position.x < 0 || p.position.x > screenW || p.position.y < 0 || p.position.y > screenH) {
+                p.active = false;
+                continue;
+            }
+
+            if (p.life > 0) {
+                p.life--;
+
+                if (config.fadeColor) {
+                    Scalar t = toScalar(1) - (toScalar(p.life) / toScalar(p.maxLife));
+                    p.color = lerpColor(resolveColor(p.startColor), resolveColor(p.endColor), t);
+                }
+
+            } else {
+                p.active = false;
+            }
+        }
+    }
+
+    void ParticleEmitter::draw(Renderer& renderer) {
+        int screenW = renderer.getLogicalWidth();
+        int screenH = renderer.getLogicalHeight();
+
+        for (int i = 0; i < maxParticles; i++) {
+            Particle& p = particles[i]; 
+            if (!p.active) continue;
+            
+            int px = static_cast<int>(p.position.x);
+            int py = static_cast<int>(p.position.y);
+
+            // Culling: skip particles outside viewport (with 2px margin for 2x2 particles)
+            if (px < -2 || px >= screenW || py < -2 || py >= screenH) {
+                continue;
+            }
+            
+            renderer.drawFilledRectangleW(px, py, 2, 2, p.color);
+        }
+    }
+
+    void ParticleEmitter::burst(Vector2 position, int count) {
+        int activated = 0;
+
+        for (int i = 0; i < maxParticles && activated < count; i++) {
+            Particle& p = particles[i];
+            if (p.active) continue;
+
+            p.active = true;
+            p.position = position;
+
+            Scalar angleDeg = fastRandScalar(config.minAngleDeg, config.maxAngleDeg);
+            Scalar angle = angleDeg * kDegToRad;
+            Scalar speed = fastRandScalar(config.minSpeed, config.maxSpeed);
+
+            p.velocity.x = cos(angle) * speed;
+            p.velocity.y = sin(angle) * speed;
+
+            p.maxLife = fastRandInt(config.minLife, config.maxLife);
+            p.life = p.maxLife;
+
+            p.startColor = config.startColor;
+            p.endColor   = config.endColor;
+            p.color      = resolveColor(config.startColor);
+
+            activated++;
+        }
+    }
+}
+
+#endif // PIXELROOT32_ENABLE_PARTICLES

@@ -1,0 +1,732 @@
+/*
+ * Copyright (c) 2026 PixelRoot32
+ * Licensed under the MIT License
+ * 
+ * Flat Solver - Minimalist Physics Pipeline
+ * Order: Integrate Position → Detect → Solve Velocity → Solve Penetration
+ * Note: Integration happens first to enable spatial crossing detection for one-way platforms
+ */
+#include "physics/CollisionSystem.h"
+#include "physics/RigidActor.h"
+#include "core/Actor.h"
+#include "core/PhysicsActor.h"
+#include "math/MathUtil.h"
+#include <algorithm>
+#include <cassert>
+
+#ifndef IRAM_ATTR
+#define IRAM_ATTR
+#endif
+
+namespace pixelroot32::physics {
+
+    namespace core = pixelroot32::core;
+    namespace math = pixelroot32::math;
+    using core::Actor;
+    using core::CollisionShape;
+    using core::Entity;
+    using core::EntityType;
+    using core::PhysicsActor;
+    using core::PhysicsBodyType;
+    using core::Rect;
+    using math::Scalar;
+    using math::Vector2;
+    using math::toScalar;
+    using math::kEpsilon;
+    using math::min;
+    using math::max;
+    using math::clamp;
+
+    namespace {
+
+    constexpr Scalar kTopSurfaceAlignTolerance = toScalar(4.0f) + CollisionSystem::SLOP;
+
+    bool actorHasOneWayTopSurfaceSupport(PhysicsActor* actor, PhysicsActor* platform) {
+        if (!actor || !platform) return false;
+
+        Rect platformBox = platform->getHitBox();
+        Rect actorHitBox = actor->getHitBox();
+
+        Scalar overlapX = math::min(actorHitBox.position.x + toScalar(actorHitBox.width),
+                                    platformBox.position.x + toScalar(platformBox.width)) -
+                          math::max(actorHitBox.position.x, platformBox.position.x);
+        if (overlapX <= CollisionSystem::SLOP) return false;
+
+        Scalar platformTop = platformBox.position.y;
+        Scalar myTop = actorHitBox.position.y;
+        Scalar currentBottom = actorHitBox.position.y + toScalar(actorHitBox.height);
+        Scalar bottomDelta = currentBottom - platformTop;
+
+        if (myTop >= platformTop + CollisionSystem::SLOP) return false;
+        if (actor->getVelocity().y < toScalar(0)) return false;
+
+        if (bottomDelta >= -kTopSurfaceAlignTolerance && bottomDelta <= kTopSurfaceAlignTolerance) {
+            return true;
+        }
+
+        if (bottomDelta > kTopSurfaceAlignTolerance && myTop <= platformTop + CollisionSystem::SLOP) {
+            Scalar maxPenetration = toScalar(actorHitBox.height) + kTopSurfaceAlignTolerance;
+            return bottomDelta <= maxPenetration;
+        }
+
+        return false;
+    }
+
+    Scalar actorPreviousHitboxBottom(PhysicsActor* actor) {
+        Vector2 offset = actor->getHitboxOffset();
+        Scalar hitboxH = actor->getHitboxHeight();
+        if (hitboxH <= toScalar(0)) {
+            hitboxH = toScalar(actor->height);
+        }
+        return actor->getPreviousPosition().y + offset.y + hitboxH;
+    }
+
+        struct ScalarRect {
+            Scalar x, y, w, h;
+            static ScalarRect from(const Rect& r) {
+                return { r.position.x, r.position.y, toScalar(r.width), toScalar(r.height) };
+            }
+        };
+    }
+
+    void CollisionSystem::addEntity(Entity* e) {
+        assert(e != nullptr && "Cannot add null entity to collision system");
+        if (entityCount >= kMaxEntities) {
+            return;  // Silently ignore - could add assert or log
+        }
+        if (e->type == EntityType::ACTOR) {
+            Actor* actor = static_cast<Actor*>(e);
+            actor->entityId = nextEntityId++;
+            if (nextEntityId == 0) nextEntityId = 1;  // Wrap: 0 is reserved
+        }
+        entities[entityCount++] = e;
+        grid.markStaticDirty();
+    }
+
+    void CollisionSystem::removeEntity(Entity* e) {
+        assert(e != nullptr && "Cannot remove null entity from collision system");
+        // O(1) swap-with-last removal
+        for (uint16_t i = 0; i < entityCount; i++) {
+            if (entities[i] == e) {
+                entities[i] = entities[--entityCount];
+                grid.markStaticDirty();
+                return;
+            }
+        }
+    }
+
+    void CollisionSystem::update() {
+        // Store previous positions before integration
+        for (uint16_t i = 0; i < entityCount; i++) {
+            Entity* e = entities[i];
+            if (e->type == EntityType::ACTOR) {
+                Actor* actor = static_cast<Actor*>(e);
+                if (actor->isPhysicsBody()) {
+                    static_cast<PhysicsActor*>(actor)->updatePreviousPosition();
+                }
+            }
+        }
+        
+        // Integrate velocities/forces FIRST (RigidActor::integrate updates velocity)
+        PIXELROOT32_PROFILE_BEGIN(Physics_IntegrateVelocity);
+        for (uint16_t i = 0; i < entityCount; i++) {
+            Entity* e = entities[i];
+            if (e->type != EntityType::ACTOR) continue;
+            Actor* actor = static_cast<Actor*>(e);
+            if (!actor->isPhysicsBody()) continue;
+            PhysicsActor* pa = static_cast<PhysicsActor*>(actor);
+            if (pa->getBodyType() == PhysicsBodyType::RIGID) {
+                // Cast to RigidActor to call its integrate (updates velocity from forces/gravity)
+                RigidActor* rigid = static_cast<RigidActor*>(pa);
+                rigid->integrate(FIXED_DT);
+            }
+        }
+        PIXELROOT32_PROFILE_END(Physics_IntegrateVelocity);
+        
+        // Integrate positions SECOND to enable spatial crossing detection
+        PIXELROOT32_PROFILE_BEGIN(Physics_IntegratePositions);
+        integratePositions();
+        PIXELROOT32_PROFILE_END(Physics_IntegratePositions);
+        
+        // Then detect collisions using previous and current positions
+        PIXELROOT32_PROFILE_BEGIN(Physics_DetectCollisions);
+        detectCollisions();
+        PIXELROOT32_PROFILE_END(Physics_DetectCollisions);
+        PIXELROOT32_PROFILE_BEGIN(Physics_SolveVelocity);
+        solveVelocity();
+        PIXELROOT32_PROFILE_END(Physics_SolveVelocity);
+        PIXELROOT32_PROFILE_BEGIN(Physics_SolvePenetration);
+        solvePenetration();
+        PIXELROOT32_PROFILE_END(Physics_SolvePenetration);
+        PIXELROOT32_PROFILE_BEGIN(Physics_TriggerCallbacks);
+        triggerCallbacks();
+        PIXELROOT32_PROFILE_END(Physics_TriggerCallbacks);
+    }
+
+    void IRAM_ATTR CollisionSystem::detectCollisions() {
+        contactCount = 0;
+        grid.rebuildStaticIfNeeded(entities, entityCount);
+        grid.clearDynamic();
+
+        for (uint16_t i = 0; i < entityCount; i++) {
+            Entity* e = entities[i];
+            if (e->type != EntityType::ACTOR) continue;
+            Actor* actor = static_cast<Actor*>(e);
+            if (!actor->isPhysicsBody()) continue;
+            PhysicsActor* pa = static_cast<PhysicsActor*>(actor);
+            if (pa->getBodyType() != PhysicsBodyType::STATIC)
+                grid.insertDynamic(actor);
+        }
+
+        static Actor* potential[64];
+        
+        for (uint16_t i = 0; i < entityCount; i++) {
+            Entity* e = entities[i];
+            if (e->type != EntityType::ACTOR) continue;
+            Actor* actorA = static_cast<Actor*>(e);
+            if (!actorA->isPhysicsBody()) continue;
+            // Skip invisible entities from collision detection
+            if (!actorA->isVisible) continue;
+            PhysicsActor* pA = static_cast<PhysicsActor*>(actorA);
+            
+            int count = 0;
+            grid.getPotentialColliders(actorA, potential, count, 64);
+            
+            for (int i = 0; i < count; ++i) {
+                Actor* actorB = potential[i];
+                // Skip invisible entities from collision detection
+                if (!actorB->isVisible) continue;
+                
+                // Deduplicate by entityId: process each pair once (A with smaller id).
+                if (actorA->entityId >= actorB->entityId) continue;
+                
+                if (!actorB->isPhysicsBody()) continue;
+                PhysicsActor* pB = static_cast<PhysicsActor*>(actorB);
+                
+                // STATIC vs STATIC: never generate contact.
+                if (pA->getBodyType() == PhysicsBodyType::STATIC &&
+                    pB->getBodyType() == PhysicsBodyType::STATIC) continue;
+                // KINEMATIC vs KINEMATIC: each resolves on its own.
+                if (pA->getBodyType() == PhysicsBodyType::KINEMATIC &&
+                    pB->getBodyType() == PhysicsBodyType::KINEMATIC) continue;
+                
+                // Layer/mask filter.
+                if (!(actorA->mask & actorB->layer) && !(actorB->mask & actorA->layer)) continue;
+                
+                // CCD path: fast RIGID circle vs STATIC AABB (only for this pair type).
+                PhysicsActor* moving = nullptr;
+                PhysicsActor* staticBody = nullptr;
+                if (pA->getBodyType() != PhysicsBodyType::STATIC && pB->getBodyType() == PhysicsBodyType::STATIC) {
+                    moving = pA;
+                    staticBody = pB;
+                } else if (pB->getBodyType() != PhysicsBodyType::STATIC && pA->getBodyType() == PhysicsBodyType::STATIC) {
+                    moving = pB;
+                    staticBody = pA;
+                }
+                if (moving && staticBody && needsCCD(moving) &&
+                    moving->getShape() == CollisionShape::CIRCLE &&
+                    staticBody->getShape() == CollisionShape::AABB) {
+                    Scalar hitTime;
+                    Vector2 hitNormal;
+                    if (sweptCircleVsAABB(moving, staticBody, hitTime, hitNormal)) {
+                        // One-way platform validation
+                        if (staticBody->isOneWay()) {
+                            if (!validateOneWayPlatform(moving, staticBody, hitNormal)) {
+                                continue;  // Skip this collision
+                            }
+                        }
+                        
+                        Contact contact;
+                        contact.bodyA = moving;
+                        contact.bodyB = staticBody;
+                        contact.normal = hitNormal;
+                        Scalar rA = moving->isBounce() ? moving->getRestitution() : toScalar(0.0f);
+                        Scalar rB = staticBody->isBounce() ? staticBody->getRestitution() : toScalar(0.0f);
+                        contact.restitution = min(rA, rB);
+                        contact.penetration = toScalar(0.01f);
+                        contact.contactPoint = moving->position + moving->getVelocity() * FIXED_DT * hitTime;
+                        contact.isSensorContact = moving->isSensor() || staticBody->isSensor();
+                        if (contactCount < kMaxContacts)
+                            contacts[contactCount++] = contact;
+                    }
+                } else {
+                    generateContact(pA, pB);
+                }
+            }
+        }
+    }
+
+    bool CollisionSystem::generateContact(PhysicsActor* a, PhysicsActor* b) {
+        assert(a != nullptr && "generateContact: bodyA is null");
+        assert(b != nullptr && "generateContact: bodyB is null");
+        assert(a != b && "generateContact: bodyA and bodyB are the same actor");
+        
+        Contact contact;
+        contact.bodyA = a;
+        contact.bodyB = b;
+        contact.penetration = toScalar(0);
+        Scalar rA = a->isBounce() ? a->getRestitution() : toScalar(0.0f);
+        Scalar rB = b->isBounce() ? b->getRestitution() : toScalar(0.0f);
+        contact.restitution = min(rA, rB);
+        
+        CollisionShape shapeA = a->getShape();
+        CollisionShape shapeB = b->getShape();
+        
+        bool hit = false;
+        if (shapeA == CollisionShape::CIRCLE && shapeB == CollisionShape::CIRCLE) {
+            hit = generateCircleVsCircleContact(contact);
+        } else if (shapeA == CollisionShape::AABB && shapeB == CollisionShape::AABB) {
+            hit = generateAABBVsAABBContact(contact);
+        } else {
+            PhysicsActor* circle = (shapeA == CollisionShape::CIRCLE) ? a : b;
+            PhysicsActor* box = (shapeA == CollisionShape::CIRCLE) ? b : a;
+            hit = generateCircleVsAABBContact(contact, circle, box);
+        }
+        
+        // One-way platform filter: validate spatial crossing
+        if (hit && b->isOneWay()) {
+            hit = validateOneWayPlatform(a, b, contact.normal);
+        }
+        if (hit && a->isOneWay()) {
+            hit = validateOneWayPlatform(b, a, -contact.normal);
+        }
+        
+        if (hit) {
+            contact.isSensorContact = a->isSensor() || b->isSensor();
+            if (contactCount < kMaxContacts)
+                contacts[contactCount++] = contact;
+        }
+        return hit;
+    }
+    
+    bool CollisionSystem::generateCircleVsCircleContact(Contact& contact) {
+        PhysicsActor* pA = contact.bodyA;
+        PhysicsActor* pB = contact.bodyB;
+        
+        Vector2 centerA = pA->position + Vector2(pA->getRadius(), pA->getRadius());
+        Vector2 centerB = pB->position + Vector2(pB->getRadius(), pB->getRadius());
+        Vector2 d = centerA - centerB;
+        Scalar distSqr = d.lengthSquared();
+        Scalar radiusSum = pA->getRadius() + pB->getRadius();
+        
+        if (distSqr >= radiusSum * radiusSum) {
+            return false;
+        }
+        
+        Scalar dist = sqrt(distSqr);
+        if (dist > kEpsilon) {
+            contact.normal = d / dist;
+            contact.penetration = radiusSum - dist;
+        } else {
+            contact.normal = Vector2(0, -1);
+            contact.penetration = radiusSum;
+        }
+        contact.contactPoint = centerB + contact.normal * pB->getRadius();
+        return true;
+    }
+    
+    bool CollisionSystem::generateAABBVsAABBContact(Contact& contact) {
+        Rect rectA = contact.bodyA->getHitBox();
+        Rect rectB = contact.bodyB->getHitBox();
+
+        if (!rectA.intersects(rectB)) {
+            return false;
+        }
+
+        ScalarRect sa = ScalarRect::from(rectA);
+        ScalarRect sb = ScalarRect::from(rectB);
+        Scalar centerAX = sa.x + sa.w / 2;
+        Scalar centerAY = sa.y + sa.h / 2;
+        Scalar centerBX = sb.x + sb.w / 2;
+        Scalar centerBY = sb.y + sb.h / 2;
+        Scalar dx = centerAX - centerBX;
+        Scalar dy = centerAY - centerBY;
+        Scalar overlapX = (sa.w + sb.w) / 2 - abs(dx);
+        Scalar overlapY = (sa.h + sb.h) / 2 - abs(dy);
+
+        if (overlapX < overlapY) {
+            contact.normal = (dx > 0) ? Vector2(1, 0) : Vector2(-1, 0);
+            contact.penetration = overlapX;
+        } else {
+            contact.normal = (dy > 0) ? Vector2(0, 1) : Vector2(0, -1);
+            contact.penetration = overlapY;
+        }
+
+        contact.contactPoint = Vector2(
+            (max(sa.x, sb.x) + min(sa.x + sa.w, sb.x + sb.w)) / 2,
+            (max(sa.y, sb.y) + min(sa.y + sa.h, sb.y + sb.h)) / 2
+        );
+        return true;
+    }
+    
+    bool CollisionSystem::generateCircleVsAABBContact(Contact& contact,
+                                                       PhysicsActor* circle,
+                                                       PhysicsActor* box) {
+        Scalar r = circle->getRadius();
+        Vector2 centerC = circle->position + Vector2(r, r);
+        ScalarRect boxRec = ScalarRect::from(box->getHitBox());
+
+        Vector2 closestP = centerC;
+        closestP.x = clamp(closestP.x, boxRec.x, boxRec.x + boxRec.w);
+        closestP.y = clamp(closestP.y, boxRec.y, boxRec.y + boxRec.h);
+
+        Vector2 v = centerC - closestP;
+        Scalar distSqr = v.lengthSquared();
+
+        if (distSqr >= r * r) {
+            return false;
+        }
+
+        Scalar dist = sqrt(distSqr);
+        if (dist > kEpsilon) {
+            contact.normal = v / dist;
+            contact.penetration = r - dist;
+        } else {
+            Scalar dLeft = centerC.x - boxRec.x;
+            Scalar dRight = (boxRec.x + boxRec.w) - centerC.x;
+            Scalar dTop = centerC.y - boxRec.y;
+            Scalar dBottom = (boxRec.y + boxRec.h) - centerC.y;
+            Scalar minDist = dLeft;
+            contact.normal = Vector2(-1, 0);
+            if (dRight < minDist) { minDist = dRight; contact.normal = Vector2(1, 0); }
+            if (dTop < minDist) { minDist = dTop; contact.normal = Vector2(0, -1); }
+            if (dBottom < minDist) { minDist = dBottom; contact.normal = Vector2(0, 1); }
+            contact.penetration = r + minDist;
+        }
+
+        contact.contactPoint = closestP;
+        if (circle == contact.bodyB) {
+            contact.normal = -contact.normal;
+        }
+        return true;
+    }
+
+    void IRAM_ATTR CollisionSystem::solveVelocity() {
+        for (int iter = 0; iter < VELOCITY_ITERATIONS; iter++) {
+            for (int i = 0; i < contactCount; ++i) {
+                Contact& contact = contacts[i];
+                if (contact.isSensorContact) continue;
+                
+                PhysicsActor* bodyA = contact.bodyA;
+                PhysicsActor* bodyB = contact.bodyB;
+                
+                if (bodyA->getBodyType() == PhysicsBodyType::STATIC && 
+                    bodyB->getBodyType() == PhysicsBodyType::STATIC) {
+                    continue;
+                }
+                
+                Vector2 rv = bodyA->getVelocity() - bodyB->getVelocity();
+                Scalar vn = rv.dot(contact.normal);
+                
+                if (vn > 0) continue;
+                
+                Scalar invMassA = (bodyA->getBodyType() == PhysicsBodyType::RIGID) ? 
+                                 (toScalar(1.0f) / bodyA->getMass()) : toScalar(0.0f);
+                Scalar invMassB = (bodyB->getBodyType() == PhysicsBodyType::RIGID) ? 
+                                 (toScalar(1.0f) / bodyB->getMass()) : toScalar(0.0f);
+                
+                Scalar totalInvMass = invMassA + invMassB;
+                if (totalInvMass <= kEpsilon) continue;
+                
+                Scalar e = contact.restitution;
+                if (abs(vn) < VELOCITY_THRESHOLD) {
+                    e = toScalar(0.0f);
+                }
+                
+                Scalar j = -(toScalar(1.0f) + e) * vn;
+                j /= totalInvMass;
+                
+                Vector2 impulse = contact.normal * j;
+                
+                if (bodyA->getBodyType() == PhysicsBodyType::RIGID) {
+                    bodyA->setVelocity(bodyA->getVelocity() + impulse * invMassA);
+                }
+                if (bodyB->getBodyType() == PhysicsBodyType::RIGID) {
+                    bodyB->setVelocity(bodyB->getVelocity() - impulse * invMassB);
+                }
+            }
+        }
+    }
+
+    void IRAM_ATTR CollisionSystem::integratePositions() {
+        for (uint16_t i = 0; i < entityCount; i++) {
+            Entity* e = entities[i];
+            if (e->type != EntityType::ACTOR) continue;
+            Actor* actor = static_cast<Actor*>(e);
+            if (!actor->isPhysicsBody()) continue;
+            
+            PhysicsActor* pa = static_cast<PhysicsActor*>(actor);
+            if (pa->getBodyType() != PhysicsBodyType::RIGID) continue;
+            
+            // v1.2.0 behavior: simple position integration using existing velocity
+            // (velocity update happens in RigidActor::integrate() called by entity.update())
+            pa->position = pa->position + pa->getVelocity() * FIXED_DT;
+        }
+    }
+
+    void IRAM_ATTR CollisionSystem::solvePenetration() {
+        for (int i = 0; i < contactCount; ++i) {
+            Contact& contact = contacts[i];
+            if (contact.isSensorContact) continue;
+            if (contact.penetration <= SLOP) continue;
+            
+            PhysicsActor* bodyA = contact.bodyA;
+            PhysicsActor* bodyB = contact.bodyB;
+            
+            Scalar invMassA = (bodyA->getBodyType() == PhysicsBodyType::RIGID) ? 
+                             (toScalar(1.0f) / bodyA->getMass()) : toScalar(0.0f);
+            Scalar invMassB = (bodyB->getBodyType() == PhysicsBodyType::RIGID) ? 
+                             (toScalar(1.0f) / bodyB->getMass()) : toScalar(0.0f);
+            
+            Scalar totalInvMass = invMassA + invMassB;
+            if (totalInvMass <= kEpsilon) continue;
+            
+            Scalar correction = (contact.penetration - SLOP) * BIAS;
+            Vector2 correctionVec = contact.normal * (correction / totalInvMass);
+            
+            if (bodyA->getBodyType() == PhysicsBodyType::RIGID) {
+                bodyA->position = bodyA->position + correctionVec * invMassA;
+            }
+            if (bodyB->getBodyType() == PhysicsBodyType::RIGID) {
+                bodyB->position = bodyB->position - correctionVec * invMassB;
+            }
+        }
+    }
+
+    void CollisionSystem::triggerCallbacks() {
+#if PIXELROOT32_ENABLE_INTERACTION_TRIGGERS
+        if (interactionTracker_) interactionTracker_->beginFrame();
+#endif
+        for (int i = 0; i < contactCount; ++i) {
+            const Contact& contact = contacts[i];
+            if (contact.bodyA && contact.bodyB) {
+                contact.bodyA->onCollision(static_cast<Actor*>(contact.bodyB));
+                contact.bodyB->onCollision(static_cast<Actor*>(contact.bodyA));
+#if PIXELROOT32_ENABLE_INTERACTION_TRIGGERS
+                if (interactionTracker_) {
+                    interactionTracker_->recordPair(static_cast<Actor*>(contact.bodyA), static_cast<Actor*>(contact.bodyB));
+                }
+#endif
+            }
+        }
+#if PIXELROOT32_ENABLE_INTERACTION_TRIGGERS
+        if (interactionTracker_) interactionTracker_->endFrame();   // diff → enter/exit dispatch
+#endif
+    }
+
+    bool CollisionSystem::checkCollision(Actor* actor, Actor** outArray, int& count, int maxCount) {
+        assert(actor != nullptr && "checkCollision: actor is null");
+        assert(outArray != nullptr && "checkCollision: outArray is null");
+        assert(maxCount > 0 && "checkCollision: maxCount must be > 0");
+        count = 0;
+        for (uint16_t i = 0; i < entityCount; i++) {
+            Entity* e = entities[i];
+            if (e == actor || e->type != EntityType::ACTOR) continue;
+            Actor* other = static_cast<Actor*>(e);
+
+            if ((actor->mask & other->layer) || (other->mask & actor->layer)) {
+                bool isColliding = false;
+                PhysicsActor* pA = actor->isPhysicsBody() ? static_cast<PhysicsActor*>(actor) : nullptr;
+                PhysicsActor* pB = other->isPhysicsBody() ? static_cast<PhysicsActor*>(other) : nullptr;
+
+                if (pA && pB) {
+                    CollisionShape shapeA = pA->getShape();
+                    CollisionShape shapeB = pB->getShape();
+                    if (shapeA == CollisionShape::AABB && shapeB == CollisionShape::AABB) {
+                        isColliding = actor->getHitBox().intersects(other->getHitBox());
+                    } else if (shapeA == CollisionShape::CIRCLE && shapeB == CollisionShape::CIRCLE) {
+                        Circle cA = {pA->position.x + pA->getRadius(), pA->position.y + pA->getRadius(), pA->getRadius()};
+                        Circle cB = {pB->position.x + pB->getRadius(), pB->position.y + pB->getRadius(), pB->getRadius()};
+                        isColliding = intersects(cA, cB);
+                    } else {
+                        PhysicsActor* circP = (shapeA == CollisionShape::CIRCLE) ? pA : pB;
+                        PhysicsActor* boxP = (shapeA == CollisionShape::CIRCLE) ? pB : pA;
+                        Circle c = {circP->position.x + circP->getRadius(), circP->position.y + circP->getRadius(), circP->getRadius()};
+                        isColliding = intersects(c, boxP->getHitBox());
+                    }
+                } else {
+                    isColliding = actor->getHitBox().intersects(other->getHitBox());
+                }
+
+                if (isColliding && count < maxCount) outArray[count++] = other;
+            }
+        }
+        return count > 0;
+    }
+
+#if PIXELROOT32_ENABLE_SPATIAL_QUERY
+    int CollisionSystem::queryRadius(Vector2 center, Scalar radius, CollisionLayer mask,
+                                      Actor** outArray, int maxCount) {
+        assert(outArray != nullptr && "queryRadius: outArray is null");
+        assert(maxCount > 0 && "queryRadius: maxCount must be > 0");
+
+        // Q16.16 overflow guard (design.md D4 / Risks): the grid's cell-range
+        // clamp bounds candidate separation to roughly radius + kCellSize, so
+        // radius <= SPATIAL_QUERY_MAX_RADIUS keeps dx^2 <= 160^2 = 25600,
+        // inside the +-32768 Q16.16 range. Debug builds assert on misuse;
+        // release builds (NDEBUG, assert compiled out) clamp instead.
+        Scalar maxRadius = toScalar(pixelroot32::platforms::config::SpatialQueryMaxRadius);
+        assert(radius <= maxRadius &&
+               "queryRadius: radius exceeds SPATIAL_QUERY_MAX_RADIUS (Q16.16 "
+               "squared-distance overflow guard, see design.md D4)");
+        Scalar clampedRadius = (radius > maxRadius) ? maxRadius : radius;
+
+        // Raw grid candidates are unfiltered and un-narrow-phased; kMaxEntities
+        // is a safe fixed-size upper bound since the grid's queryId dedup pass
+        // reports each actor at most once. Zero heap allocation.
+        Actor* candidates[kMaxEntities];
+        int candidateCount = grid.queryRadius(center, clampedRadius, candidates, kMaxEntities);
+
+        int count = 0;
+        for (int i = 0; i < candidateCount && count < maxCount; ++i) {
+            Actor* other = candidates[i];
+            if ((mask & other->layer) == 0) continue;
+
+            Circle queryCircle = {center.x, center.y, clampedRadius};
+            if (intersects(queryCircle, other->getHitBox())) {
+                outArray[count++] = other;
+            }
+        }
+        return count;
+    }
+
+    int CollisionSystem::queryBox(const Rect& box, CollisionLayer mask,
+                                   Actor** outArray, int maxCount) {
+        assert(outArray != nullptr && "queryBox: outArray is null");
+        assert(maxCount > 0 && "queryBox: maxCount must be > 0");
+
+        Actor* candidates[kMaxEntities];
+        int candidateCount = grid.queryBox(box, candidates, kMaxEntities);
+
+        int count = 0;
+        for (int i = 0; i < candidateCount && count < maxCount; ++i) {
+            Actor* other = candidates[i];
+            if ((mask & other->layer) == 0) continue;
+
+            if (box.intersects(other->getHitBox())) {
+                outArray[count++] = other;
+            }
+        }
+        return count;
+    }
+#endif
+
+    bool CollisionSystem::needsCCD(PhysicsActor* body) const {
+        if (body->getShape() != CollisionShape::CIRCLE) return false;
+        
+        Scalar speed = body->getVelocity().length();
+        Scalar movement = speed * FIXED_DT;
+        Scalar threshold = body->getRadius() * CCD_THRESHOLD;
+        
+        return movement > threshold;
+    }
+    
+    bool CollisionSystem::sweptCircleVsAABB(PhysicsActor* circle,
+                                           PhysicsActor* box,
+                                           Scalar& outTime,
+                                           Vector2& outNormal) {
+        Vector2 startPos = circle->position;
+        Vector2 endPos = startPos + circle->getVelocity() * FIXED_DT;
+        Scalar radius = circle->getRadius();
+        Rect boxRect = box->getHitBox();
+        
+        Vector2 delta = endPos - startPos;
+        Scalar distance = delta.length();
+        
+        int steps = 2;
+        if (distance > radius * 2) steps = 4;
+        if (distance > radius * 4) steps = 8;
+        
+        Vector2 prevPos = startPos;
+        
+        for (int i = 1; i <= steps; i++) {
+            Scalar t = static_cast<Scalar>(i) / steps;
+            Vector2 samplePos = startPos + delta * t;
+            
+            Circle tempCircle = {samplePos.x + radius, samplePos.y + radius, radius};
+            
+            if (intersects(tempCircle, boxRect)) {
+                outTime = static_cast<Scalar>(i - 1) / steps;
+                
+                Vector2 center = Vector2(samplePos.x + radius, samplePos.y + radius);
+                Vector2 boxCenter = Vector2(
+                    boxRect.position.x + toScalar(boxRect.width) / 2,
+                    boxRect.position.y + toScalar(boxRect.height) / 2
+                );
+                Vector2 toBox = boxCenter - center;
+                
+                if (abs(toBox.x) > abs(toBox.y)) {
+                    outNormal = (toBox.x > 0) ? Vector2(-1, 0) : Vector2(1, 0);
+                } else {
+                    outNormal = (toBox.y > 0) ? Vector2(0, -1) : Vector2(0, 1);
+                }
+                
+                return true;
+            }
+            
+            prevPos = samplePos;
+        }
+        
+        return false;
+    }
+
+    bool CollisionSystem::validateOneWayPlatform(
+        PhysicsActor* actor,
+        PhysicsActor* platform,
+        const Vector2& collisionNormal,
+        Scalar motionStartHitboxBottom
+    ) {
+        // Not a one-way platform, always valid
+        if (!platform->isOneWay()) return true;
+
+        Scalar absNormalY = (collisionNormal.y < toScalar(0)) ? -collisionNormal.y : collisionNormal.y;
+
+        // Corner/edge contact: lateral narrow-phase normal with feet on the top face.
+        if (absNormalY < toScalar(0.1f)) {
+            if (actorHasOneWayTopSurfaceSupport(actor, platform)) {
+                return true;
+            }
+
+            Rect platformBox = platform->getHitBox();
+            Scalar platformTop = platformBox.position.y;
+            Rect actorHitBox = actor->getHitBox();
+            Scalar currentBottom = actorHitBox.position.y + toScalar(actorHitBox.height);
+            Scalar referenceBottom = motionStartHitboxBottom;
+            if (referenceBottom < toScalar(0)) {
+                referenceBottom = actorPreviousHitboxBottom(actor);
+            }
+
+            Scalar overlapX = math::min(actorHitBox.position.x + toScalar(actorHitBox.width),
+                                        platformBox.position.x + toScalar(platformBox.width)) -
+                              math::max(actorHitBox.position.x, platformBox.position.x);
+            if (overlapX <= CollisionSystem::SLOP) return false;
+            if (actor->getVelocity().y < toScalar(0)) return false;
+
+            return (referenceBottom <= platformTop + CollisionSystem::SLOP) &&
+                   (currentBottom >= platformTop - CollisionSystem::SLOP);
+        }
+        
+        // One-way platforms only block from above (normal pointing up to push actor up)
+        // In this engine, Y increases downward, so normal.y < 0 means pointing up
+        if (collisionNormal.y >= toScalar(0)) return false;
+        
+        // Check if actor crossed platform surface from above
+        Rect platformBox = platform->getHitBox();
+        Scalar platformTop = platformBox.position.y;
+        
+        // Use hitbox to determine crossing from above (offset-aware)
+        Rect actorHitBox = actor->getHitBox();
+        Scalar currentBottom = actorHitBox.position.y + toScalar(actorHitBox.height);
+        Scalar previousBottom = actorPreviousHitboxBottom(actor);
+        
+        // Must have been above surface and now at/below surface
+        bool crossedFromAbove = (previousBottom <= platformTop) && 
+                               (currentBottom >= platformTop);
+        
+        // Must be moving down or stationary
+        bool movingDown = actor->getVelocity().y >= toScalar(0);
+        
+        return crossedFromAbove && movingDown;
+    }
+
+}

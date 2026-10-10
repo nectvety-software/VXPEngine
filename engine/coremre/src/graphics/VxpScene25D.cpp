@@ -102,6 +102,7 @@ void vxpe25d_camera_init(
     camera->fog_near_z=256;camera->fog_far_z=900;
     camera->fog_color565=vxpe2d_rgb565(112,145,116);
     camera->fog_strength=180;
+    camera->cos_yaw_q14=16384;camera->cos_pitch_q14=16384;
 }
 
 int vxpe25d_project(
@@ -111,15 +112,23 @@ int vxpe25d_project(
 {
     if(!camera||!out)return 0;
     memset(out,0,sizeof(*out));
-    int32_t dz=world_z-camera->world_z;
+    int64_t dx=(int64_t)world_x-camera->world_x;
+    int64_t dy=(int64_t)world_y-camera->world_y;
+    int64_t dz=(int64_t)world_z-camera->world_z;
+    if(camera->sin_yaw_q14||camera->cos_yaw_q14){
+        int64_t x=(dx*camera->cos_yaw_q14-dz*camera->sin_yaw_q14)/16384;
+        dz=(dx*camera->sin_yaw_q14+dz*camera->cos_yaw_q14)/16384;dx=x;
+    }
+    if(camera->sin_pitch_q14||camera->cos_pitch_q14){
+        int64_t y=(dy*camera->cos_pitch_q14+dz*camera->sin_pitch_q14)/16384;
+        dz=(-dy*camera->sin_pitch_q14+dz*camera->cos_pitch_q14)/16384;dy=y;
+    }
     if(dz<(int32_t)camera->near_z||dz>(int32_t)camera->far_z)return 0;
-    uint32_t scale=(uint32_t)camera->focal_q8/(uint32_t)dz;
+    uint32_t scale=(uint32_t)(camera->focal_q8/dz);
     if(scale<camera->min_scale_q8)scale=camera->min_scale_q8;
     if(scale>camera->max_scale_q8)scale=camera->max_scale_q8;
-    int32_t dx=world_x-camera->world_x;
-    int32_t dy=world_y-camera->world_y;
-    int32_t sx=(int32_t)camera->center_x+((dx*(int32_t)scale)>>8);
-    int32_t sy=(int32_t)camera->horizon_y-((dy*(int32_t)scale)>>8);
+    int64_t sx=(int64_t)camera->center_x+((dx*(int64_t)scale)>>8);
+    int64_t sy=(int64_t)camera->horizon_y-((dy*(int64_t)scale)>>8);
     if(sx<-32768||sx>32767||sy<-32768||sy>32767)return 0;
     int fog=0;
     if(camera->fog_strength&&dz>(int32_t)camera->fog_near_z){

@@ -64,7 +64,7 @@ class EditorWindow(FramelessWindow):
 
         self.tool_buttons: dict[str, panels.IconButton] = {}
         glyphs = {"brush": "brush", "eraser": "eraser", "fill": "bucket", "line": "line",
-                  "rect": "rect"}
+                  "rect": "rect", "scatter": "tiles"}
         self.tool_group = QButtonGroup(self)
         self.tool_group.setExclusive(True)
         for tool in TOOLS:

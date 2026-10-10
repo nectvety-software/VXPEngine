@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 project(rift_preview LANGUAGES CXX)
 set(CORE "${CMAKE_CURRENT_LIST_DIR}/../../../engine/coremre")
-add_executable(rift_preview preview.cpp ../src/scene.cpp
+add_executable(rift_preview preview.cpp ../src/scene.cpp ../src/skill_effects.cpp ../src/lane_warfare.cpp
     "${CORE}/src/graphics/VxpRender2D.cpp"
     "${CORE}/src/graphics/VxpSpriteFx.cpp"
     "${CORE}/src/graphics/VxpStory2D.cpp"

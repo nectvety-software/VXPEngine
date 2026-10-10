@@ -1,0 +1,18 @@
+vxpe_toon3d_runtime 9 0.00277321
+vxpe_toon3d_c_api 10 0.00106341
+vxpe_scene25d_runtime 10 0.00150866
+vxpe_story2d_runtime 5 0.0617406
+vxpe_story2d_c_api 5 0.00838846
+vxpe_sprite_fast_runtime 5 0.0141041
+vxpe_actor_sprite_runtime 5 0.00948208
+vxpe_color_grade_runtime 5 0.010843
+vxpgdx_vxtm3_runtime 5 0.0194785
+vxpgdx_ui_runtime 5 0.014715
+vxpe_stage2d_runtime 5 0.0131655
+vxpe_artstyle_runtime 5 0.0103855
+vxpgdx_strategy_rpg_runtime 5 0.0106446
+vxpgdx_vxtm3_packer 5 0.0269754
+vxpe_dungeonfx_runtime 5 0.0190832
+vxpe_pixel_font_runtime 5 0.0151286
+vxpe_scatter_runtime 5 0.00330294
+---

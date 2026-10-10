@@ -1,0 +1,5 @@
+/build-arm/
+/build-host/
+/build-host-win/
+/resources/pack/*
+!/resources/pack/.gitkeep

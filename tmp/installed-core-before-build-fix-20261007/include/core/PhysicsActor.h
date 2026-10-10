@@ -1,0 +1,487 @@
+/*
+ * Copyright (c) 2026 PixelRoot32
+ * Licensed under the MIT License
+ */
+#pragma once
+#include "core/Actor.h"
+#include "math/Scalar.h"
+#include "math/Vector2.h"
+#include <type_traits>
+
+namespace pixelroot32::core {
+
+/**
+ * @enum PhysicsBodyType
+ * @brief Defines the simulation behavior of a PhysicsActor.
+ */
+enum class PhysicsBodyType {
+    STATIC,    ///< Immovable body, not affected by forces or gravity.
+    KINEMATIC, ///< Body moved manually or via script, stops at obstacles.
+    RIGID      ///< Fully simulated physics body, affected by forces and gravity.
+};
+
+/**
+ * @enum CollisionShape
+ * @brief Defines the geometric shape used for collision detection.
+ */
+enum class CollisionShape {
+    AABB,   ///< Axis-Aligned Bounding Box (Default)
+    CIRCLE  ///< Circular collider
+};
+
+/**
+ * @struct LimitRect
+ * @brief Defines a rectangular boundary for actor movement.
+ * 
+ * Used to constrain an actor within a specific area of the world.
+ * Values of -1 indicate no limit on that side.
+ */
+struct LimitRect {
+    int left = -1;
+    int top = -1;
+    int right = -1;
+    int bottom = -1;
+
+    LimitRect() = default;
+
+    /**
+     * @brief Constructs a new LimitRect.
+     * @param l Left limit.
+     * @param t Top limit.
+     * @param r Right limit.
+     * @param b Bottom limit.
+     */
+    LimitRect(int l, int t, int r, int b) : left(l), top(t), right(r), bottom(b) {}
+    
+    int width() const { return right - left; }
+    int height() const { return bottom - top; }
+};
+
+/**
+ * @struct WorldCollisionInfo
+ * @brief Stores flags indicating which world boundaries were hit in the current frame.
+ */
+struct WorldCollisionInfo {
+    bool left = false;
+    bool right = false;
+    bool top = false;
+    bool bottom = false;
+
+    WorldCollisionInfo() = default;
+    WorldCollisionInfo(bool l, bool r, bool t, bool b) : left(l), right(r), top(t), bottom(b) {}
+};
+
+/**
+ * @class PhysicsActor
+ * @brief An actor with basic 2D physics properties using adaptable Scalar type.
+ *
+ * Inherits from Actor.
+ *
+ * Handles velocity, acceleration (via integration), and collision with world boundaries.
+ * Automatically adapts to use float or Fixed16 based on the platform configuration.
+ */
+class PhysicsActor : public Actor {
+protected:
+    pixelroot32::math::Vector2 velocity;
+    pixelroot32::math::Vector2 previousPosition;
+
+    PhysicsBodyType bodyType = PhysicsBodyType::KINEMATIC;
+
+    LimitRect limits;
+    int worldWidth = 0;
+    int worldHeight = 0;
+
+    WorldCollisionInfo worldCollisionInfo;
+
+    pixelroot32::math::Scalar mass          = pixelroot32::math::toScalar(1.0f);
+    pixelroot32::math::Scalar gravityScale  = pixelroot32::math::toScalar(1.0f);
+    pixelroot32::math::Scalar restitution = pixelroot32::math::toScalar(1.0f);
+    pixelroot32::math::Scalar friction    = pixelroot32::math::toScalar(0.0f);
+
+    CollisionShape shape = CollisionShape::AABB;
+    pixelroot32::math::Scalar radius = pixelroot32::math::toScalar(0.0f);
+
+    /**
+     * @brief Opaque user data pointer for attaching custom metadata.
+     * 
+     * The engine does not interpret, manage, or free this pointer.
+     * Typical use cases:
+     * - Store tile coordinates in tilemap collision (pack x,y into uintptr_t)
+     * - Reference custom actor properties without extending the class
+     * - Debug identifiers or names
+     * 
+     * @warning The caller is responsible for ensuring the pointed data
+     *          remains valid for the lifetime of the actor.
+     */
+    void* userData = nullptr;
+
+    /** Offset of the hitbox relative to position (default: {0,0}). */
+    pixelroot32::math::Vector2 hitboxOffset;
+
+    /** Custom hitbox width (0 = use entity width). */
+    pixelroot32::math::Scalar hitboxWidth{0};
+
+    /** Custom hitbox height (0 = use entity height). */
+    pixelroot32::math::Scalar hitboxHeight{0};
+
+    /** Packed physics flags: bit0=sensor, bit1=oneWay, bit2=bounce (default: bounce=true) */
+    uint8_t physicsFlags = 0x04;
+
+public:
+    /**
+     * @brief Constructs a new PhysicsActor.
+     * @param x Initial X position.
+     * @param y Initial Y position.
+     * @param w Width of the actor.
+     * @param h Height of the actor.
+     */
+    PhysicsActor(pixelroot32::math::Scalar x, pixelroot32::math::Scalar y, int w, int h);
+
+    /**
+     * @brief Constructs a new PhysicsActor using Vector2 position.
+     * @param position Initial position.
+     * @param w Width of the actor.
+     * @param h Height of the actor.
+     */
+    PhysicsActor(pixelroot32::math::Vector2 position, int w, int h);
+
+    /**
+     * @brief Updates the actor state.
+     * 
+     * Applies physics integration using velocity and checks for world boundary collisions.
+     * @param deltaTime Time elapsed since the last frame in milliseconds.
+     */
+    void update(unsigned long deltaTime) override;
+
+    /**
+     * @brief Sets custom movement limits for the actor.
+     * @param limitRect The LimitRect structure defining the boundaries.
+     */
+    void setLimits(const LimitRect& limitRect) { limits = limitRect; }
+
+    /**
+     * @brief Sets custom movement limits for the actor.
+     * @param left Left limit.
+     * @param top Top limit.
+     * @param right Right limit.
+     * @param bottom Bottom limit.
+     */
+    void setLimits(int left, int top, int right, int bottom);
+
+    /**
+     * @brief Defines the world size for boundary checking.
+     * 
+     * Used as default limits if no custom LimitRect is provided.
+     * @param w Width of the world.
+     * @param h Height of the world.
+     */
+    void setWorldBounds(int w, int h);
+    
+    /**
+     * @brief Legacy alias for setWorldBounds.
+     * @param w Width of the world.
+     * @param h Height of the world.
+     */
+    void setWorldSize(int w, int h) { setWorldBounds(w, h); }
+
+    /**
+     * @brief Gets information about collisions with the world boundaries.
+     * @return A WorldCollisionInfo struct containing collision flags.
+     */
+    WorldCollisionInfo getWorldCollisionInfo() const;
+
+    /**
+     * @brief Checks if this actor is a physics-enabled body.
+     * @return true.
+     */
+    bool isPhysicsBody() const override { return true; }
+
+    /**
+     * @brief Resets the world collision flags for the current frame.
+     */
+    void resetWorldCollisionInfo();
+
+    /**
+     * @brief Gets the simulation body type.
+     * @return The PhysicsBodyType of this actor.
+     */
+    PhysicsBodyType getBodyType() const { return bodyType; }
+
+    /**
+     * @brief Sets the simulation body type.
+     * @param type The new PhysicsBodyType.
+     */
+    void setBodyType(PhysicsBodyType type) { bodyType = type; }
+
+    /**
+     * @brief Sets the mass of the actor.
+     * @param m Mass value.
+     */
+    void setMass(float m) { mass = pixelroot32::math::toScalar(m); }
+
+    /**
+     * @brief Gets the mass of the actor.
+     * @return Mass as Scalar.
+     */
+    pixelroot32::math::Scalar getMass() const { return mass; }
+
+    /**
+     * @brief Sets the gravity scale.
+     * @param scale Multiplier for the world gravity.
+     */
+    void setGravityScale(pixelroot32::math::Scalar scale) { gravityScale = scale; }
+
+    /**
+     * @brief Gets the gravity scale.
+     * @return Gravity scale as Scalar.
+     */
+    pixelroot32::math::Scalar getGravityScale() const { return gravityScale; }
+
+    /**
+     * @brief Integrates velocity to update position.
+     * @param dt Delta time in seconds (as Scalar).
+     */
+    virtual void integrate(pixelroot32::math::Scalar dt);
+    
+    /**
+     * @brief Resolves collisions with the defined world or custom bounds.
+     * 
+     * Constrains the actor's position to stay within limits and reverses velocity
+     * based on restitution if a collision occurs.
+     */
+    virtual void resolveWorldBounds();
+
+    /**
+     * @brief Gets the axis-aligned bounding box (AABB) hitbox of the actor.
+     * @return Rect representing the hitbox.
+     */
+    pixelroot32::core::Rect getHitBox() override;
+
+    /**
+     * @brief Sets the linear velocity of the actor using floats.
+     * @param x Horizontal velocity.
+     * @param y Vertical velocity.
+     */
+    template <typename T = float, typename std::enable_if<!std::is_same<T, pixelroot32::math::Scalar>::value, int>::type = 0>
+    void setVelocity(T x, T y) {
+        velocity.x = pixelroot32::math::toScalar(x);
+        velocity.y = pixelroot32::math::toScalar(y);
+    }
+
+    /**
+     * @brief Sets the linear velocity of the actor using Scalars.
+     * @param x Horizontal velocity.
+     * @param y Vertical velocity.
+     */
+    void setVelocity(pixelroot32::math::Scalar x, pixelroot32::math::Scalar y) {
+        velocity.x = x;
+        velocity.y = y;
+    }
+
+    /**
+     * @brief Sets the linear velocity of the actor using a Vector2.
+     * @param v Velocity vector.
+     */
+    void setVelocity(const pixelroot32::math::Vector2& v) {
+        velocity = v;
+    }
+
+    /**
+     * @brief Gets the horizontal velocity.
+     * @return Horizontal velocity as Scalar.
+     */
+    pixelroot32::math::Scalar getVelocityX() const { return velocity.x; }
+
+    /**
+     * @brief Gets the vertical velocity.
+     * @return Vertical velocity as Scalar.
+     */
+    pixelroot32::math::Scalar getVelocityY() const { return velocity.y; }
+
+    /**
+     * @brief Gets the velocity vector.
+     * @return Reference to the velocity Vector2.
+     */
+    const pixelroot32::math::Vector2& getVelocity() const { return velocity; }
+
+    /**
+     * @brief Sets the restitution (bounciness) of the actor.
+     * @param r Restitution value (0.0 to 1.0+). 1.0 means no energy is lost on bounce.
+     */
+    void setRestitution(pixelroot32::math::Scalar r) { restitution = r; }
+
+    /**
+     * @brief Gets the restitution (bounciness) of the actor.
+     * @return Restitution as Scalar.
+     */
+    pixelroot32::math::Scalar getRestitution() const { return restitution; }
+
+    /**
+     * @brief Sets the friction coefficient.
+     * @param f Friction value (0.0 means no friction).
+     */
+    void setFriction(pixelroot32::math::Scalar f) { friction = f; }
+
+    /**
+     * @brief Gets the collision shape type.
+     * @return The CollisionShape of this actor.
+     */
+    CollisionShape getShape() const { return shape; }
+
+    /**
+     * @brief Sets the collision shape type.
+     * @param s The new CollisionShape.
+     */
+    void setShape(CollisionShape s) { shape = s; }
+
+    /**
+     * @brief Gets the radius (only for Shape::CIRCLE).
+     * @return Radius as Scalar.
+     */
+    pixelroot32::math::Scalar getRadius() const { return radius; }
+
+    /**
+     * @brief Sets the radius and updates width/height to match diameter.
+     * @param r Radius value.
+     */
+    void setRadius(pixelroot32::math::Scalar r) { 
+        pixelroot32::math::Scalar dm = pixelroot32::math::Scalar(2);
+
+        radius = r; 
+        width = static_cast<int>(r * dm);
+        height = static_cast<int>(r * dm);
+    }
+
+    /**
+     * @brief Set user data pointer for custom metadata.
+     * @param data Opaque pointer. Engine does not manage lifetime.
+     */
+    void setUserData(void* data) { userData = data; }
+    
+    /**
+     * @brief Get user data pointer.
+     * @return Pointer set via setUserData, or nullptr if never set.
+     */
+    void* getUserData() const { return userData; }
+
+    /**
+     * @brief Sets the hitbox offset relative to position.
+     * @param offset Offset vector (e.g., {4, 8} shifts hitbox right and down).
+     */
+    void setHitboxOffset(pixelroot32::math::Vector2 offset) { hitboxOffset = offset; }
+
+    /**
+     * @brief Gets the current hitbox offset.
+     * @return Offset vector.
+     */
+    pixelroot32::math::Vector2 getHitboxOffset() const { return hitboxOffset; }
+
+    /**
+     * @brief Sets custom hitbox dimensions separate from entity dimensions.
+     * 
+     * Set to 0 for width or height to use the entity's original dimension in that axis.
+     * Useful when a sprite is larger than the desired collision area
+     * (e.g. 16x16 sprite with 8x8 centered hitbox).
+     * @param w Custom hitbox width (0 = use entity width).
+     * @param h Custom hitbox height (0 = use entity height).
+     */
+    void setHitboxDimensions(pixelroot32::math::Scalar w, pixelroot32::math::Scalar h) {
+        hitboxWidth = w;
+        hitboxHeight = h;
+    }
+
+    /**
+     * @brief Gets the custom hitbox width.
+     * @return Custom hitbox width as Scalar (0 means entity width is used).
+     */
+    pixelroot32::math::Scalar getHitboxWidth() const { return hitboxWidth; }
+
+    /**
+     * @brief Gets the custom hitbox height.
+     * @return Custom hitbox height as Scalar (0 means entity height is used).
+     */
+    pixelroot32::math::Scalar getHitboxHeight() const { return hitboxHeight; }
+
+    /**
+     * @brief Sets whether this body is a sensor (trigger).
+     * @param s true = sensor (events only, no physics response); false = solid (default).
+     */
+    void setSensor(bool s) { 
+        if (s) physicsFlags |= 0x01;
+        else physicsFlags &= ~0x01;
+    }
+
+    /**
+     * @brief Returns true if this body is a sensor (trigger).
+     */
+    bool isSensor() const { return (physicsFlags & 0x01) != 0; }
+
+    /**
+     * @brief Sets whether this body is a one-way platform (blocks only from one side).
+     * @param w true = one-way (e.g. land from above, pass through from below); false = solid from all sides.
+     */
+    void setOneWay(bool w) { 
+        if (w) physicsFlags |= 0x02;
+        else physicsFlags &= ~0x02;
+    }
+
+    /**
+     * @brief Returns true if this body is a one-way platform.
+     */
+    bool isOneWay() const { return (physicsFlags & 0x02) != 0; }
+
+    /**
+     * @brief Sets whether this body bounces on collision.
+     * @param b true = bounce (velocity reflected on static contact); false = no bounce (velocity zeroed).
+     */
+    void setBounce(bool b) { 
+        if (b) physicsFlags |= 0x04;
+        else physicsFlags &= ~0x04;
+    }
+
+    /**
+     * @brief Returns true if this body bounces on collision.
+     */
+    bool isBounce() const { return (physicsFlags & 0x04) != 0; }
+
+    /**
+     * @brief Updates the previous position to the current position.
+     * 
+     * Should be called at the start of each physics frame to track position history
+     * for spatial crossing detection (e.g., one-way platforms).
+     */
+    void updatePreviousPosition() { previousPosition = position; }
+
+    /**
+     * @brief Gets the previous frame position.
+     * @return The position from the previous physics frame.
+     */
+    pixelroot32::math::Vector2 getPreviousPosition() const { return previousPosition; }
+
+    /**
+     * @brief Sets the position and syncs previous position.
+     * 
+     * When position is set directly (not via physics integration), the previous
+     * position is also updated to prevent false crossing detection.
+     * @param pos The new position.
+     */
+    void setPosition(pixelroot32::math::Vector2 pos) {
+        position = pos;
+        previousPosition = pos;
+    }
+
+    /**
+     * @brief Callback triggered when this actor collides with another actor.
+     * @param other Pointer to the actor involved in the collision.
+     */
+    void onCollision(Actor* other) override;
+
+    /**
+     * @brief Callback triggered when this actor collides with world boundaries.
+     * 
+     * Override this method to implement custom behavior when hitting walls (e.g., sound effects).
+     */
+    virtual void onWorldCollision();
+};
+
+} // namespace pixelroot32::core

@@ -1,0 +1,164 @@
+{
+  "frame_size": [
+    40,
+    40
+  ],
+  "frames": [
+    {
+      "name": "velin_north_a",
+      "rect": [
+        0,
+        0,
+        40,
+        40
+      ],
+      "foot_anchor": [
+        20,
+        39
+      ]
+    },
+    {
+      "name": "velin_north_b",
+      "rect": [
+        40,
+        0,
+        40,
+        40
+      ],
+      "foot_anchor": [
+        20,
+        39
+      ]
+    },
+    {
+      "name": "velin_south_a",
+      "rect": [
+        80,
+        0,
+        40,
+        40
+      ],
+      "foot_anchor": [
+        20,
+        39
+      ]
+    },
+    {
+      "name": "velin_south_b",
+      "rect": [
+        120,
+        0,
+        40,
+        40
+      ],
+      "foot_anchor": [
+        20,
+        39
+      ]
+    },
+    {
+      "name": "torvan_north_a",
+      "rect": [
+        0,
+        40,
+        40,
+        40
+      ],
+      "foot_anchor": [
+        20,
+        39
+      ]
+    },
+    {
+      "name": "torvan_north_b",
+      "rect": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "foot_anchor": [
+        20,
+        39
+      ]
+    },
+    {
+      "name": "torvan_south_a",
+      "rect": [
+        80,
+        40,
+        40,
+        40
+      ],
+      "foot_anchor": [
+        20,
+        39
+      ]
+    },
+    {
+      "name": "torvan_south_b",
+      "rect": [
+        120,
+        40,
+        40,
+        40
+      ],
+      "foot_anchor": [
+        20,
+        39
+      ]
+    },
+    {
+      "name": "nimara_north_a",
+      "rect": [
+        0,
+        80,
+        40,
+        40
+      ],
+      "foot_anchor": [
+        20,
+        39
+      ]
+    },
+    {
+      "name": "nimara_north_b",
+      "rect": [
+        40,
+        80,
+        40,
+        40
+      ],
+      "foot_anchor": [
+        20,
+        39
+      ]
+    },
+    {
+      "name": "nimara_south_a",
+      "rect": [
+        80,
+        80,
+        40,
+        40
+      ],
+      "foot_anchor": [
+        20,
+        39
+      ]
+    },
+    {
+      "name": "nimara_south_b",
+      "rect": [
+        120,
+        80,
+        40,
+        40
+      ],
+      "foot_anchor": [
+        20,
+        39
+      ]
+    }
+  ]
+}

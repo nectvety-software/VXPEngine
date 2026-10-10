@@ -66,11 +66,26 @@ int main(int argc,char** argv) {
     QTimer::singleShot(10500,&app,[&](){capture("06_pause");});
     tap(11100,42);tap(11800,51);
     QTimer::singleShot(13200,&app,[&](){capture("07_rematch");});
-    QTimer::singleShot(14000,&app,&QCoreApplication::quit);
+    QTimer::singleShot(13700,&app,[&](){core.pressKey(50);});
+    QTimer::singleShot(15000,&app,[&](){core.pressKey(-6);});
+    QTimer::singleShot(15100,&app,[&](){capture("12_basic_attack");});
+    QTimer::singleShot(17000,&app,[&](){core.releaseKey(-6);});
+    QTimer::singleShot(24000,&app,[&](){capture("13_running_south");});
+    QTimer::singleShot(18500,&app,[&](){core.releaseKey(50);});
+    QTimer::singleShot(19000,&app,[&](){capture("08_world_scroll");});
+    tap(19500,35); // # opens equipment shop.
+    QTimer::singleShot(20700,&app,[&](){capture("09_shop");});
+    tap(21200,53); // buy selected starter blade.
+    QTimer::singleShot(22200,&app,[&](){capture("10_bought");});
+    tap(22800,35);
+    QTimer::singleShot(23500,&app,[&](){core.pressKey(56);});
+    QTimer::singleShot(27500,&app,[&](){core.releaseKey(56);});
+    QTimer::singleShot(30500,&app,[&](){capture("11_wave_march");});
+    QTimer::singleShot(32000,&app,&QCoreApplication::quit);
     app.exec();
     QImage final=core.lastFrame();
     bool ok=failure.isEmpty() && core.state()==EmulatorCore::State::Running &&
-        final.width()==240 && final.height()==320 && pixels_ok && shots==7 && hashes.size()>=5 && frames>15;
+        final.width()==240 && final.height()==320 && pixels_ok && shots==13 && hashes.size()>=5 && frames>15;
     core.stop();
     QFile report(output+"/report.txt");
     if(report.open(QIODevice::WriteOnly|QIODevice::Text)) {
@@ -80,6 +95,6 @@ int main(int argc,char** argv) {
            <<"\nloadError="<<failure<<"\nbackgroundPixelParity="<<(pixels_ok?"PASS":"FAIL")
            <<"\nresult="<<(ok?"PASS":"FAIL")<<"\n";
     }
-    std::cout<<(ok?"PASS":"FAIL")<<": ARM load, portrait framebuffer, numeric input, splash, selection, original heroes, solo bot, skills, pause/rematch; frames="<<frames<<std::endl;
+    std::cout<<(ok?"PASS":"FAIL")<<": ARM load, portrait framebuffer, numeric input, splash, selection, original heroes, solo bot, skills/basic attack, directional movement/scroll, minions, shop/purchase, pause/rematch; frames="<<frames<<std::endl;
     return ok?0:1;
 }

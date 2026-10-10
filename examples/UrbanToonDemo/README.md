@@ -29,3 +29,12 @@ Chế độ tiết kiệm RAM: cảnh 3D render 120×160, upscale Scale2x 2× ra
 Đo ARM bằng `arm-none-eabi-size`: BSS giảm từ 328.900 xuống 92.104 byte (giảm 236.796 byte, khoảng 72%). Con số này không bao gồm layer framebuffer, heap và stack của MRE.
 
 Nâng cấp đồ họa: upscale Scale2x giữ palette và cải thiện đường chéo; nhân vật mesh vẽ ở độ phân giải đầy đủ trong tile 80×120, dùng lại buffer màu 120×160 sau khi upscale. Depth của phố được giữ để clip nhân vật. Thêm bóng nhà trên đường, ban công, skyline/mây, nghiêng người khi rẽ và sparks khi grind. Không cấp thêm buffer thường trú cho nhân vật.
+
+
+PS1 street gameplay update (Erman Malak video reference): muted blue/grey palette with warm lamps, bevelled car bodies and sloped windscreens, shop interiors behind dithered glass, sloping canopies, octagonal light pools and 8-sided street bins. Actor uses directional face lighting without inverted-hull outlines. In-place RGB555 rounding and nearest upscale preserve polygon edges. No extra buffers or physics/hitbox changes.
+
+Startup opens the playable street: 4/6 steer, 2/8 speed, 5 jump, 7 grind, 0 camera, 9 pause, Back exit. The martini prop study is no longer linked into the game. Video is a style reference only; no copied video pixels or audio.
+
+Rebuild 7 textures with `tools/make_city.py`, character atlas and Editor Assets descriptors with `tools/bake_actor.py`. Asset provenance/contracts: `assets/ps1_street.manifest.json`. Viewport 240x320; world 120x160; actor tile 80x120; MRE RAM cap 1024KB.
+
+Validated PS1 street build: native gameplay/camera/buffer guards and 17/17 core checks pass; ARM signed VXP verifies OK. ARM BSS 92,136 bytes (+32 from original city), excluding MRE framebuffer/heap/stack. Native previews: `preview.png`, `preview_ps1_street.png`. Emulator screen capture is unavailable (timeout); no emulator visual verification claimed.

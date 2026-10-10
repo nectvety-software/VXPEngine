@@ -1,0 +1,22 @@
+{
+  "reference_file": "BXbsyrx3os7Pg9Ek [BXbsyrx3os7Pg9Ek].audio.mp4",
+  "reference_duration_seconds": 14.733333333333333,
+  "reference_frames": 221,
+  "scope": "grid terrain painting, connected edges, erase holes, corridors; original generated tiles",
+  "tile_size": [
+    16,
+    16
+  ],
+  "maps": [
+    [
+      240,
+      320
+    ],
+    [
+      720,
+      1280
+    ]
+  ],
+  "checks": "PASS strokes, erase, neighbours, lock, undo/redo, editable IO, Editor Assets save and portable atlas, library cache",
+  "implementation": "2D tilemap; no Blender 3D mesh extrusion"
+}

@@ -40,28 +40,36 @@
       "name": "Arena",
       "code_name": "Arena",
       "type": "Sprite2D",
-      "asset": "assets/backgrounds/arena.png",
+      "asset": "assets/backgrounds/lane_ground.png",
       "position": [
-        0,
-        0
+        0.0,
+        0.0
       ],
       "scale": [
-        1,
-        1
+        1.0,
+        1.0
       ],
       "display_size": [
-        240,
-        320
+        240.0,
+        320.0
       ],
       "z_index": -10,
       "pixel_snap": true,
       "lock_aspect": true,
-      "locked": false,
+      "locked": true,
       "blend_mode": "Normal",
       "tint": "#FFFFFFFF",
       "events": [],
       "automation": {},
-      "clipping_mask": {}
+      "clipping_mask": {},
+      "rotation": 0.0,
+      "opacity": 1.0,
+      "visible": true,
+      "group_id": "",
+      "resizable": false,
+      "component_category": "background",
+      "ui_role": "Background",
+      "input_binding": ""
     },
     {
       "id": "Logo",
@@ -70,16 +78,16 @@
       "type": "Sprite2D",
       "asset": "assets/ui/logo.png",
       "position": [
-        0,
-        -27
+        0.0,
+        -27.0
       ],
       "scale": [
-        1,
-        1
+        1.0,
+        1.0
       ],
       "display_size": [
-        200,
-        114
+        200.0,
+        114.0
       ],
       "z_index": 1,
       "pixel_snap": true,
@@ -89,7 +97,15 @@
       "tint": "#FFFFFFFF",
       "events": [],
       "automation": {},
-      "clipping_mask": {}
+      "clipping_mask": {},
+      "rotation": 0.0,
+      "opacity": 1.0,
+      "visible": true,
+      "group_id": "",
+      "resizable": true,
+      "component_category": "sprite",
+      "ui_role": "",
+      "input_binding": ""
     }
   ],
   "runtime": {

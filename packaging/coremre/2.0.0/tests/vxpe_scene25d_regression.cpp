@@ -2,6 +2,7 @@
 #include <cassert>
 #include <cstdio>
 #include <cstring>
+#include <climits>
 
 static int nonzero(const uint16_t* fb,int n){int c=0;for(int i=0;i<n;++i)if(fb[i])++c;return c;}
 
@@ -13,6 +14,17 @@ int main(){
     assert(p.x==120);
     assert(p.y==144);
     assert(p.scale_q8==256);
+    assert(cam.cos_yaw_q14==16384&&cam.cos_pitch_q14==16384);
+    // A quarter turn around the camera makes world +X point directly ahead.
+    cam.world_x=cam.world_y=cam.world_z=0;cam.sin_yaw_q14=16384;cam.cos_yaw_q14=0;cam.fog_strength=0;
+    assert(vxpe25d_project(&cam,160,0,0,&p)&&p.x==120&&p.depth==160);
+    assert(!vxpe25d_project(&cam,0,0,160,&p));
+    cam.sin_yaw_q14=0;cam.cos_yaw_q14=16384;assert(vxpe25d_project(&cam,0,0,160,&p));int level_y=p.y;
+    cam.sin_pitch_q14=8192;cam.cos_pitch_q14=14189;
+    assert(vxpe25d_project(&cam,0,0,160,&p)&&p.y<level_y);
+    cam.sin_pitch_q14=0;cam.cos_pitch_q14=16384;
+    // Extreme world deltas are rejected without overflowing signed 32-bit math.
+    cam.world_x=INT32_MIN;assert(!vxpe25d_project(&cam,INT32_MAX,0,160,&p));cam.world_x=0;
 
     const uint16_t px[4]={0xF800,0x07E0,0x001F,0xFFFF};
     VxpeSpriteA8 sprite{};

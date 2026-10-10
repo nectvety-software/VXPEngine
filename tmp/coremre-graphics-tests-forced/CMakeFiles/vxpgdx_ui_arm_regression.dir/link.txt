@@ -1,0 +1,3 @@
+"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\vxpgdx_ui_arm_regression.dir/objects.a
+C:\msys64\mingw64\bin\ar.exe qc CMakeFiles\vxpgdx_ui_arm_regression.dir/objects.a @CMakeFiles\vxpgdx_ui_arm_regression.dir\objects1.rsp
+C:\msys64\mingw64\bin\g++.exe -DVXPE_TOON3D_STEPPED_RECIPROCAL -Wl,--whole-archive CMakeFiles\vxpgdx_ui_arm_regression.dir/objects.a -Wl,--no-whole-archive -o vxpgdx_ui_arm_regression.exe -Wl,--out-implib,libvxpgdx_ui_arm_regression.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\vxpgdx_ui_arm_regression.dir\linkLibs.rsp

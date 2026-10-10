@@ -1,0 +1,9 @@
+{
+  "name": "HarborDash25D",
+  "display_name": "Harbor Dash 2.5D",
+  "orientation": "portrait",
+  "resolution": "240x320",
+  "engine": "VXPEngine/VxpScene25D",
+  "app_id": "6052701",
+  "description": "2.5D arcade sailor: steer a boat, dodge buoys, collect coins. VxpScene25D billboards + textured sea plane + fog."
+}

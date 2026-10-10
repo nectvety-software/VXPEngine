@@ -1,0 +1,86 @@
+{
+  "frame_size": [
+    64,
+    80
+  ],
+  "frames": [
+    {
+      "name": "wall_horizontal",
+      "rect": [
+        0,
+        0,
+        64,
+        80
+      ],
+      "foot_anchor": [
+        32,
+        78
+      ]
+    },
+    {
+      "name": "wall_vertical",
+      "rect": [
+        64,
+        0,
+        64,
+        80
+      ],
+      "foot_anchor": [
+        32,
+        78
+      ]
+    },
+    {
+      "name": "watch_hut",
+      "rect": [
+        128,
+        0,
+        64,
+        80
+      ],
+      "foot_anchor": [
+        32,
+        78
+      ]
+    },
+    {
+      "name": "grass",
+      "rect": [
+        0,
+        80,
+        64,
+        80
+      ],
+      "foot_anchor": [
+        32,
+        78
+      ]
+    },
+    {
+      "name": "tree",
+      "rect": [
+        64,
+        80,
+        64,
+        80
+      ],
+      "foot_anchor": [
+        32,
+        78
+      ]
+    },
+    {
+      "name": "ruins",
+      "rect": [
+        128,
+        80,
+        64,
+        80
+      ],
+      "foot_anchor": [
+        32,
+        78
+      ]
+    }
+  ]
+}

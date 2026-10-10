@@ -1,5 +1,5 @@
 {
-  "version": "2.0.2",
+  "version": "2.0.3",
   "layout_version": 2,
   "directories": [
     "assets/audio",
@@ -41,6 +41,7 @@
     {"source": "resources/CMakeLists.txt", "target": ".vxpe/platform/resources/CMakeLists.txt", "policy": "managed"},
     {"source": "run/CMakeLists.txt", "target": ".vxpe/platform/run/CMakeLists.txt", "policy": "managed"},
     {"source": "src/main.c", "target": "src/main.c", "policy": "seed"},
+    {"source": "src/vxp_public_cache.h", "target": "src/vxp_public_cache.h", "policy": "seed"},
     {"source": "src/scene_bindings.h", "target": "src/scene_bindings.h", "policy": "seed"},
     {"source": "assets/scenes/main.dtfe", "target": "assets/scenes/main.dtfe", "policy": "seed"},
     {"source": "assets/scenes/screens.dtfe", "target": "assets/scenes/screens.dtfe", "policy": "seed"}

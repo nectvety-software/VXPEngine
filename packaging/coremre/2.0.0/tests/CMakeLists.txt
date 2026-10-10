@@ -21,6 +21,8 @@ add_library(vxpgdx_test_runtime STATIC
     "${CORE_DIR}/src/graphics/VxpScene25D.cpp"
     "${CORE_DIR}/src/graphics/VxpArtStyle.cpp"
     "${CORE_DIR}/src/graphics/VxpToon3D.cpp"
+    "${CORE_DIR}/src/graphics/VxpRaycast3D.cpp"
+    "${CORE_DIR}/src/graphics/VxpSuperScaler.cpp"
     "${CORE_DIR}/src/graphics/VxpDungeonFx.cpp"
 )
 target_include_directories(vxpgdx_test_runtime PUBLIC "${CORE_DIR}/include")
@@ -42,6 +44,12 @@ add_executable(vxpe_toon3d_c_api vxpe_toon3d_c_api.c)
 set_target_properties(vxpe_toon3d_c_api PROPERTIES C_STANDARD 99 LINKER_LANGUAGE CXX)
 target_link_libraries(vxpe_toon3d_c_api PRIVATE vxpgdx_test_runtime)
 add_test(NAME vxpe_toon3d_c_api COMMAND vxpe_toon3d_c_api)
+add_executable(vxpe_raycast3d_regression vxpe_raycast3d_regression.cpp)
+target_link_libraries(vxpe_raycast3d_regression PRIVATE vxpgdx_test_runtime)
+add_test(NAME vxpe_raycast3d_runtime COMMAND vxpe_raycast3d_regression)
+add_executable(vxpe_superscaler_regression vxpe_superscaler_regression.cpp)
+target_link_libraries(vxpe_superscaler_regression PRIVATE vxpgdx_test_runtime)
+add_test(NAME vxpe_superscaler_runtime COMMAND vxpe_superscaler_regression)
 add_executable(vxpe_actor_sprite_regression vxpe_actor_sprite_regression.cpp)
 target_link_libraries(vxpe_actor_sprite_regression PRIVATE vxpgdx_test_runtime)
 add_test(NAME vxpe_actor_sprite_runtime COMMAND vxpe_actor_sprite_regression)
@@ -113,3 +121,12 @@ add_test(NAME vxpe_dungeonfx_runtime COMMAND vxpe_dungeonfx_regression)
 add_executable(vxpe_pixel_font_regression vxpe_pixel_font_regression.cpp)
 target_link_libraries(vxpe_pixel_font_regression PRIVATE vxpgdx_test_runtime)
 add_test(NAME vxpe_pixel_font_runtime COMMAND vxpe_pixel_font_regression)
+
+add_executable(vxpe_scatter_regression vxpe_scatter_regression.cpp)
+target_include_directories(vxpe_scatter_regression PRIVATE "${CORE_DIR}/include")
+add_test(NAME vxpe_scatter_runtime COMMAND vxpe_scatter_regression)
+
+# Opt-in profiler for 2.5D billboard and 3D triangle paths. It intentionally
+# stays out of CTest so timing noise never affects the regression suite.
+add_executable(vxpe_graphics_benchmark vxpe_graphics_benchmark.cpp)
+target_link_libraries(vxpe_graphics_benchmark PRIVATE vxpgdx_test_runtime)

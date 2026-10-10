@@ -1,0 +1,3 @@
+from pathlib import Path
+p=Path('examples/FoxRiftDemo/src/lane_warfare.cpp');s=p.read_text().replace('if(y-size-5>=41)bar','if(y-size-5>=41&&y-size<250)bar');s=s.replace('vxpe2d_fill_rect(fb,240,320,m.x-1,y-14+forward*(200-m.shot_ms)/12,3,m.kind==0?3:6,c);','int sy=y-14+forward*(200-m.shot_ms)/12,len=m.kind==0?3:6;\n        if(sy>=41&&sy+len<=250)vxpe2d_fill_rect(fb,240,320,m.x-1,sy,3,len,c);');p.write_text(s)
+p=Path('examples/FoxRiftDemo/docs/LANE_AND_SKINS.md');s=p.read_text().replace('This prototype has no minion waves, shop or equipment yet.','Minion waves, siege carts, gold farming and equipment are now implemented; see LANE_WARFARE.md.');p.write_text(s)

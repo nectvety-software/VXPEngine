@@ -1,0 +1,19 @@
+Start testing: Oct 08 21:06 SE Asia Standard Time
+----------------------------------------------------------
+1/1 Testing: lost_latency_gameplay
+1/1 Test: lost_latency_gameplay
+Command: "D:/MRE/VXPEngine/tmp/lost-latency-raycast-tests/lost_latency_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/lost-latency-raycast-tests
+"lost_latency_gameplay" start time: Oct 08 21:06 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+PASS Lost in Latency: 240x320 bounds, compact 120x160 3D buffers, start/walk/turn, QR scan/journal/cache, pause/exit
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"lost_latency_gameplay" end time: Oct 08 21:06 SE Asia Standard Time
+"lost_latency_gameplay" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Oct 08 21:06 SE Asia Standard Time

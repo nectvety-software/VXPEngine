@@ -5,15 +5,16 @@
 
 namespace {
 static const int64_t INV_ONE=1<<24;
-struct View { int64_t x,y,z; uint8_t incoming_ink; int64_t u,v; };
-struct Screen { int64_t x,y,inv,u_over_z,v_over_z; };
+struct View { int64_t x,y,z; uint8_t incoming_ink; int64_t u,v; uint8_t light; };
+struct Screen { int64_t x,y,inv,u_over_z,v_over_z,light_over_z,z; uint8_t light; };
 static int bound(int64_t v,int lo,int hi){return v<lo?lo:v>hi?hi:(int)v;}
+static int biased_z(int z,int bias){int v=z+bias;return v<1?1:v>65534?65534:v;}
 static bool valid(const VxpeToonCamera3D* c){return c&&c->near_z&&c->far_z>c->near_z&&c->far_z<65535&&c->focal_px&&c->focal_px<=4096;}
 static bool target(const VxpeToonTarget3D* t){return t&&t->pixels&&t->depth&&t->width&&t->height&&t->width<=2048&&t->height<=2048;}
 static View view(const VxpeToonCamera3D* c,VxpeVec3D p){
     int64_t dx=(int64_t)p.x-c->position.x,dz=(int64_t)p.z-c->position.z;
     View v={(dx*c->cos_yaw_q14-dz*c->sin_yaw_q14)/16384,(int64_t)p.y-c->position.y,
-            (dx*c->sin_yaw_q14+dz*c->cos_yaw_q14)/16384,0,0,0};
+            (dx*c->sin_yaw_q14+dz*c->cos_yaw_q14)/16384,0,0,0,0};
     // Bound input before clipping/interpolation to keep all products within int64.
     if(c->sin_pitch_q14||c->cos_pitch_q14){
         int64_t y=(v.y*c->cos_pitch_q14+v.z*c->sin_pitch_q14)/16384;
@@ -24,9 +25,17 @@ static View view(const VxpeToonCamera3D* c,VxpeVec3D p){
 static Screen project(const VxpeToonCamera3D* c,View v){
     Screen s={bound(c->center_x+v.x*c->focal_px/v.z,-262144,262144),
               bound(c->horizon_y-v.y*c->focal_px/v.z,-262144,262144),INV_ONE/v.z,
-              v.u*(INV_ONE/v.z),v.v*(INV_ONE/v.z)};return s;
+              v.u*(INV_ONE/v.z),v.v*(INV_ONE/v.z),v.light*(INV_ONE/v.z),v.z,v.light};return s;
 }
 static int64_t edge(Screen a,Screen b,int64_t x,int64_t y){return (b.x-a.x)*(y-a.y)-(b.y-a.y)*(x-a.x);}
+static inline int64_t floor_quotient(int64_t numerator,int64_t denominator,int64_t& remainder){
+    int64_t quotient=numerator/denominator;remainder=numerator%denominator;
+    if(remainder<0){--quotient;remainder+=denominator;}return quotient;
+}
+static inline void step_quotient(int64_t& quotient,int64_t& remainder,int64_t stepQ,int64_t stepR,int64_t denominator){
+    quotient+=stepQ;remainder+=stepR;
+    if(remainder>=denominator){++quotient;remainder-=denominator;}
+}
 static uint16_t mix(uint16_t a,uint16_t b,int alpha){
     int inv=255-alpha;
     return (uint16_t)(((((a>>11)*inv+(b>>11)*alpha)/255)<<11)|
@@ -46,30 +55,106 @@ static int clip(const View* in,int n,View* out,int z,bool near,bool cutInk){
             View p={previous.x+(current.x-previous.x)*numerator/denominator,previous.y+(current.y-previous.y)*numerator/denominator,z,
                     (uint8_t)(inside?cutInk:current.incoming_ink),
                     previous.u+(current.u-previous.u)*numerator/denominator,
-                    previous.v+(current.v-previous.v)*numerator/denominator};out[count++]=p;}
+                    previous.v+(current.v-previous.v)*numerator/denominator,
+                    (uint8_t)bound((int64_t)previous.light+((int64_t)current.light-previous.light)*numerator/denominator,0,255)};out[count++]=p;}
         if(inside)out[count++]=current;
         previous=current;previousInside=inside;
     }return count;
 }
 static bool covered(const VxpeSpriteA8* sprite,int x,int y);
-static int raster(VxpeToonTarget3D* t,Screen a,Screen b,Screen c,const VxpeToonMaterial3D* m,uint16_t fill,uint16_t ink,uint8_t mask,const VxpeSpriteA8* texture,uint8_t light){
+static int raster(VxpeToonTarget3D* t,Screen a,Screen b,Screen c,const VxpeToonMaterial3D* m,uint16_t fill,uint16_t ink,uint8_t mask,const VxpeSpriteA8* texture){
     int64_t area=edge(a,b,c.x,c.y);if(!area)return 0;
     if(area<0){Screen p=b;b=c;c=p;area=-area;mask=(mask&2)|((mask&1)<<2)|((mask&4)>>2);}
-    int minX=bound(a.x<b.x?(a.x<c.x?a.x:c.x):(b.x<c.x?b.x:c.x),0,t->width-1);
-    int maxX=bound(a.x>b.x?(a.x>c.x?a.x:c.x):(b.x>c.x?b.x:c.x),0,t->width-1);
-    int minY=bound(a.y<b.y?(a.y<c.y?a.y:c.y):(b.y<c.y?b.y:c.y),0,t->height-1);
-    int maxY=bound(a.y>b.y?(a.y>c.y?a.y:c.y):(b.y>c.y?b.y:c.y),0,t->height-1);
+    /* Top-left fill rule. In this screen space (y down) a positive-area triangle
+     * keeps the interior on the right of every directed edge, so a pixel lying
+     * exactly on an edge belongs to the triangle that owns it: the edge directed
+     * downwards, or a horizontal edge directed to the left. Two triangles that
+     * share an edge traverse it in opposite directions, so exactly one of them
+     * keeps the boundary pixels. Without this both triangles of a quad cover their
+     * shared diagonal and the visible pixel is whichever was submitted last, so
+     * seams and coincident faces change with draw order instead of geometry. */
+    const bool ownBC=(c.y-b.y)>0||((c.y-b.y)==0&&(c.x-b.x)<0);
+    const bool ownCA=(a.y-c.y)>0||((a.y-c.y)==0&&(a.x-c.x)<0);
+    const bool ownAB=(b.y-a.y)>0||((b.y-a.y)==0&&(b.x-a.x)<0);
+    const int64_t rawMinX=a.x<b.x?(a.x<c.x?a.x:c.x):(b.x<c.x?b.x:c.x);
+    const int64_t rawMaxX=a.x>b.x?(a.x>c.x?a.x:c.x):(b.x>c.x?b.x:c.x);
+    const int64_t rawMinY=a.y<b.y?(a.y<c.y?a.y:c.y):(b.y<c.y?b.y:c.y);
+    const int64_t rawMaxY=a.y>b.y?(a.y>c.y?a.y:c.y):(b.y>c.y?b.y:c.y);
+    if(rawMaxX<0||rawMinX>=t->width||rawMaxY<0||rawMinY>=t->height)return 0;
+    int minX=bound(rawMinX,0,t->width-1);
+    int maxX=bound(rawMaxX,0,t->width-1);
+    int minY=bound(rawMinY,0,t->height-1);
+    int maxY=bound(rawMaxY,0,t->height-1);
     int width=bound(m->outline_px,0,4),drawn=0;
     int64_t limits[3]={width*(llabs(c.x-b.x)+llabs(c.y-b.y)),width*(llabs(a.x-c.x)+llabs(a.y-c.y)),width*(llabs(b.x-a.x)+llabs(b.y-a.y))};
-    for(int y=minY;y<=maxY;++y)for(int x=minX;x<=maxX;++x){
-        int64_t w0=edge(b,c,x,y),w1=edge(c,a,x,y),w2=edge(a,b,x,y);if(w0<0||w1<0||w2<0)continue;
-        int64_t reciprocal=(w0*a.inv+w1*b.inv+w2*c.inv)/area;if(reciprocal<=0)continue;
-        int z=bound(INV_ONE/reciprocal,1,65534);int index=y*t->width+x;
-        if(z>t->depth[index])continue;
+    // Edge values form an affine plane in screen space. Start once per row,
+    // then step with additions instead of evaluating three 64-bit products
+    // for every covered candidate pixel (important on S30+ ARM without an FPU).
+    const int64_t stepX0=-(c.y-b.y),stepX1=-(a.y-c.y),stepX2=-(b.y-a.y);
+    const int64_t stepY0=c.x-b.x,stepY1=a.x-c.x,stepY2=b.x-a.x;
+    int64_t rowW0=edge(b,c,minX,minY),rowW1=edge(c,a,minX,minY),rowW2=edge(a,b,minX,minY);
+    const bool smoothLight=a.light!=b.light||b.light!=c.light;
+    const bool affineDepth=m->affine_depth&&!texture&&!smoothLight&&!m->fog_alpha;
+    // Carry exact barycentric quotients/remainders across x/y on 32-bit ARM.
+    // This preserves integer results while removing software 64-bit divides
+    // from both exact-depth and perspective-texture pixel loops.
+#if defined(VXPE_TOON3D_STEPPED_RECIPROCAL) || (defined(__arm__) && !defined(__aarch64__))
+    const bool steppedReciprocal=!affineDepth&&!smoothLight;
+#else
+    const bool steppedReciprocal=false;
+#endif
+    const bool steppedTextureWeights=steppedReciprocal&&texture;
+    const int64_t zStepX=affineDepth?(stepX0*a.z+stepX1*b.z+stepX2*c.z)/area:0;
+    const int64_t zStepY=affineDepth?(stepY0*a.z+stepY1*b.z+stepY2*c.z)/area:0;
+    int64_t rowZ=affineDepth?(rowW0*a.z+rowW1*b.z+rowW2*c.z)/area:0;
+    const int64_t reciprocalGradientX=steppedReciprocal?stepX0*a.inv+stepX1*b.inv+stepX2*c.inv:0;
+    const int64_t reciprocalGradientY=steppedReciprocal?stepY0*a.inv+stepY1*b.inv+stepY2*c.inv:0;
+    int64_t reciprocalStepX=0,reciprocalRemStepX=0,reciprocalStepY=0,reciprocalRemStepY=0;
+    int64_t rowReciprocal=0,rowReciprocalRem=0;
+    int64_t weightStepX0=0,weightRemStepX0=0,weightStepX1=0,weightRemStepX1=0;
+    int64_t weightStepY0=0,weightRemStepY0=0,weightStepY1=0,weightRemStepY1=0;
+    int64_t rowWeight0=0,rowWeightRem0=0,rowWeight1=0,rowWeightRem1=0;
+    if(steppedReciprocal){
+        reciprocalStepX=floor_quotient(reciprocalGradientX,area,reciprocalRemStepX);
+        reciprocalStepY=floor_quotient(reciprocalGradientY,area,reciprocalRemStepY);
+        int64_t rowNumerator=rowW0*a.inv+rowW1*b.inv+rowW2*c.inv;
+        rowReciprocal=floor_quotient(rowNumerator,area,rowReciprocalRem);
+    }
+    if(steppedTextureWeights){
+        weightStepX0=floor_quotient(stepX0*4096,area,weightRemStepX0);
+        weightStepX1=floor_quotient(stepX1*4096,area,weightRemStepX1);
+        weightStepY0=floor_quotient(stepY0*4096,area,weightRemStepY0);
+        weightStepY1=floor_quotient(stepY1*4096,area,weightRemStepY1);
+        rowWeight0=floor_quotient(rowW0*4096,area,rowWeightRem0);
+        rowWeight1=floor_quotient(rowW1*4096,area,rowWeightRem1);
+    }
+    for(int y=minY;y<=maxY;++y){
+      int64_t w0=rowW0,w1=rowW1,w2=rowW2;
+      int64_t z=rowZ;
+      int64_t reciprocal=rowReciprocal,reciprocalRem=rowReciprocalRem;
+      int64_t q0=rowWeight0,q0Rem=rowWeightRem0,q1=rowWeight1,q1Rem=rowWeightRem1;
+      for(int x=minX;x<=maxX;++x,w0+=stepX0,w1+=stepX1,w2+=stepX2,z+=zStepX,
+          (steppedReciprocal?(step_quotient(reciprocal,reciprocalRem,reciprocalStepX,reciprocalRemStepX,area),0):0),
+          (steppedTextureWeights?(step_quotient(q0,q0Rem,weightStepX0,weightRemStepX0,area),0):0),
+          (steppedTextureWeights?(step_quotient(q1,q1Rem,weightStepX1,weightRemStepX1,area),0):0)){
+        if(w0<0||w1<0||w2<0)continue;
+        if((!ownBC&&!w0)||(!ownCA&&!w1)||(!ownAB&&!w2))continue;
+        if(!steppedReciprocal&&!affineDepth)reciprocal=(w0*a.inv+w1*b.inv+w2*c.inv)/area;
+        if(!affineDepth&&reciprocal<=0)continue;
+        int pixelZ=affineDepth?bound(z,1,65534):bound(INV_ONE/reciprocal,1,65534);int index=y*t->width+x;
+        int testZ=biased_z(pixelZ,m->depth_bias);
+        if(testZ>t->depth[index])continue;
+        static const uint8_t bayer[16]={0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5};
+        if(m->dither_cutout&&bayer[(y&3)*4+(x&3)]*16<m->dither_cutout)continue;
+        uint8_t pixelLight=a.light;
+        if(smoothLight){int64_t lq0=w0*4096/area,lq1=w1*4096/area,lq2=4096-lq0-lq1;
+            int64_t lz=(lq0*a.light_over_z+lq1*b.light_over_z+lq2*c.light_over_z)/4096;
+            pixelLight=(uint8_t)bound(lz/reciprocal,0,255);}
         bool outline=width&&(((mask&2)&&w0<limits[0])||((mask&4)&&w1<limits[1])||((mask&1)&&w2<limits[2]));
         if(texture){
             // Normalize barycentric weights first: avoids large UV*area products.
-            int64_t q0=w0*4096/area,q1=w1*4096/area,q2=4096-q0-q1;
+            if(!steppedTextureWeights){q0=w0*4096/area;q1=w1*4096/area;}
+            int64_t q2=4096-q0-q1;
             int64_t u=(q0*a.u_over_z+q1*b.u_over_z+q2*c.u_over_z)/4096/reciprocal;
             int64_t v=(q0*a.v_over_z+q1*b.v_over_z+q2*c.v_over_z)/4096/reciprocal;
             int64_t ux=u>=0?u/256:-((-u+255)/256),vy=v>=0?v/256:-((-v+255)/256);
@@ -82,10 +167,17 @@ static int raster(VxpeToonTarget3D* t,Screen a,Screen b,Screen c,const VxpeToonM
             }else{tx=bound(ux,0,texture->width-1);ty=bound(vy,0,texture->height-1);}
             if(!covered(texture,tx,ty))continue;
             uint16_t color=texture->pixels[ty*(texture->stride?texture->stride:texture->width)+tx];
-            fill=multiply(vxpe2d_tint565(color,m->albedo565),band(m,light));
+            fill=multiply(vxpe2d_tint565(color,m->albedo565),band(m,pixelLight));
         }
-        uint16_t color=outline?ink:fill;int fog=fog_alpha(m,z);
-        t->pixels[index]=fog?mix(color,m->fog565,fog):color;t->depth[index]=(uint16_t)bound(z,1,65534);++drawn;
+        uint16_t color=outline?ink:(texture?fill:(smoothLight?vxpe_toon3d_shade(m,pixelLight):fill));int fog=fog_alpha(m,pixelZ);
+        t->pixels[index]=fog?mix(color,m->fog565,fog):color;t->depth[index]=(uint16_t)testZ;++drawn;
+      }
+      rowW0+=stepY0;rowW1+=stepY1;rowW2+=stepY2;rowZ+=zStepY;
+      if(steppedReciprocal)step_quotient(rowReciprocal,rowReciprocalRem,reciprocalStepY,reciprocalRemStepY,area);
+      if(steppedTextureWeights){
+        step_quotient(rowWeight0,rowWeightRem0,weightStepY0,weightRemStepY0,area);
+        step_quotient(rowWeight1,rowWeightRem1,weightStepY1,weightRemStepY1,area);
+      }
     }return drawn;
 }
 static bool covered(const VxpeSpriteA8* sprite,int x,int y){
@@ -93,15 +185,16 @@ static bool covered(const VxpeSpriteA8* sprite,int x,int y){
     return sprite->opaque||!sprite->alpha||sprite->alpha[y*(sprite->alpha_stride?sprite->alpha_stride:sprite->width)+x]>=128;
 }
 static bool valid_sprite(const VxpeSpriteA8* s){return s&&s->pixels&&s->width&&s->height&&(!s->stride||s->stride>=s->width)&&(!s->alpha_stride||s->alpha_stride>=s->width);}
-static int render_triangle(VxpeToonTarget3D* t,const VxpeToonCamera3D* c,View original[3],const VxpeSpriteA8* texture,const VxpeToonMaterial3D* m,uint8_t light,uint8_t mask){
+static int render_triangle(VxpeToonTarget3D* t,const VxpeToonCamera3D* c,View original[3],const VxpeSpriteA8* texture,const VxpeToonMaterial3D* m,uint8_t light,uint8_t mask,const uint8_t* vertexLight=0){
     View nearPoly[6],polygon[6];
+    for(int i=0;i<3;++i)original[i].light=vertexLight?vertexLight[i]:light;
     original[0].incoming_ink=(mask&4)!=0;original[1].incoming_ink=(mask&1)!=0;original[2].incoming_ink=(mask&2)!=0;
     int n=clip(original,3,nearPoly,c->near_z,true,mask!=0);if(n<3)return 0;
     n=clip(nearPoly,n,polygon,c->far_z,false,mask!=0);if(n<3)return 0;
     uint16_t fill=vxpe_toon3d_shade(m,light),ink=m->ink565;int drawn=0;
     for(int i=1;i<n-1;++i){
         uint8_t edges=(uint8_t)((i==1&&polygon[i].incoming_ink?1:0)|(polygon[i+1].incoming_ink?2:0)|(i==n-2&&polygon[0].incoming_ink?4:0));
-        drawn+=raster(t,project(c,polygon[0]),project(c,polygon[i]),project(c,polygon[i+1]),m,fill,ink,edges,texture,light);
+        drawn+=raster(t,project(c,polygon[0]),project(c,polygon[i]),project(c,polygon[i+1]),m,fill,ink,edges,texture);
     }return drawn;
 }
 }
@@ -176,7 +269,13 @@ void vxpe_toon3d_material_init(VxpeToonMaterial3D* m,uint16_t color){
 }
 void vxpe_toon3d_clear(VxpeToonTarget3D* t,uint16_t background){
     if(!target(t))return;
-    for(uint32_t i=0;i<(uint32_t)t->width*t->height;++i){t->pixels[i]=background;t->depth[i]=65535;}
+    const uint32_t count=(uint32_t)t->width*t->height;
+    for(uint32_t i=0;i<count;++i)t->pixels[i]=background;
+    vxpe_toon3d_clear_depth(t);
+}
+void vxpe_toon3d_clear_depth(VxpeToonTarget3D* t){
+    if(!target(t))return;
+    memset(t->depth,0xFF,(size_t)t->width*t->height*sizeof(uint16_t));
 }
 uint16_t vxpe_toon3d_shade(const VxpeToonMaterial3D* m,uint8_t light){return m?multiply(m->albedo565,band(m,light)):0;}
 int vxpe_toon3d_project(const VxpeToonCamera3D* c,VxpeVec3D p,VxpeToonPoint3D* out){
@@ -189,9 +288,19 @@ int vxpe_toon3d_triangle(VxpeToonTarget3D* t,const VxpeToonCamera3D* c,VxpeVec3D
     View original[3]={view(c,a),view(c,b),view(c,d)};
     return render_triangle(t,c,original,0,m,light,mask);
 }
+int vxpe_toon3d_triangle_gouraud(VxpeToonTarget3D* t,const VxpeToonCamera3D* c,VxpeVec3D a,VxpeVec3D b,VxpeVec3D d,const VxpeToonMaterial3D* m,const uint8_t light[3],uint8_t mask){
+    if(!target(t)||!valid(c)||!m||!light)return 0;
+    View original[3]={view(c,a),view(c,b),view(c,d)};
+    return render_triangle(t,c,original,0,m,light[0],mask,light);
+}
 int vxpe_toon3d_quad(VxpeToonTarget3D* t,const VxpeToonCamera3D* c,const VxpeVec3D* v,const VxpeToonMaterial3D* m,uint8_t light){
     if(!v)return 0;
     return vxpe_toon3d_triangle(t,c,v[0],v[1],v[2],m,light,3)+vxpe_toon3d_triangle(t,c,v[0],v[2],v[3],m,light,6);
+}
+int vxpe_toon3d_quad_gouraud(VxpeToonTarget3D* t,const VxpeToonCamera3D* c,const VxpeVec3D* v,const VxpeToonMaterial3D* m,const uint8_t light[4]){
+    if(!v||!light)return 0;
+    const uint8_t first[3]={light[0],light[1],light[2]},second[3]={light[0],light[2],light[3]};
+    return vxpe_toon3d_triangle_gouraud(t,c,v[0],v[1],v[2],m,first,3)+vxpe_toon3d_triangle_gouraud(t,c,v[0],v[2],v[3],m,second,6);
 }
 int vxpe_toon3d_triangle_textured(VxpeToonTarget3D* t,const VxpeToonCamera3D* c,const VxpeToonVertex3D* vertices,const VxpeSpriteA8* texture,const VxpeToonMaterial3D* m,uint8_t light,uint8_t mask){
     if(!target(t)||!valid(c)||!m||!vertices||!valid_sprite(texture))return 0;
@@ -203,6 +312,17 @@ int vxpe_toon3d_quad_textured(VxpeToonTarget3D* t,const VxpeToonCamera3D* c,cons
     VxpeToonVertex3D a[3]={v[0],v[1],v[2]},b[3]={v[0],v[2],v[3]};
     return vxpe_toon3d_triangle_textured(t,c,a,texture,m,light,3)+vxpe_toon3d_triangle_textured(t,c,b,texture,m,light,6);
 }
+int vxpe_toon3d_triangle_gouraud_textured(VxpeToonTarget3D* t,const VxpeToonCamera3D* c,const VxpeToonVertex3D* vertices,const VxpeSpriteA8* texture,const VxpeToonMaterial3D* m,const uint8_t light[3],uint8_t mask){
+    if(!target(t)||!valid(c)||!m||!vertices||!light||!valid_sprite(texture))return 0;
+    View original[3];for(int i=0;i<3;++i){original[i]=view(c,vertices[i].position);original[i].u=bound(vertices[i].u_q8,-16776960,16776960);original[i].v=bound(vertices[i].v_q8,-16776960,16776960);}
+    return render_triangle(t,c,original,texture,m,light[0],mask,light);
+}
+int vxpe_toon3d_quad_gouraud_textured(VxpeToonTarget3D* t,const VxpeToonCamera3D* c,const VxpeToonVertex3D* v,const VxpeSpriteA8* texture,const VxpeToonMaterial3D* m,const uint8_t light[4]){
+    if(!v||!light)return 0;
+    VxpeToonVertex3D a[3]={v[0],v[1],v[2]},b[3]={v[0],v[2],v[3]};
+    const uint8_t la[3]={light[0],light[1],light[2]},lb[3]={light[0],light[2],light[3]};
+    return vxpe_toon3d_triangle_gouraud_textured(t,c,a,texture,m,la,3)+vxpe_toon3d_triangle_gouraud_textured(t,c,b,texture,m,lb,6);
+}
 int vxpe_toon3d_billboard(VxpeToonTarget3D* t,const VxpeToonCamera3D* c,VxpeVec3D p,uint16_t ww,uint16_t wh,const VxpeSpriteA8* s,const VxpeToonMaterial3D* m,uint8_t light){
     if(!target(t)||!valid(c)||!m||!s||!s->pixels||!s->width||!s->height||!ww||!wh||(s->stride&&s->stride<s->width)||(s->alpha_stride&&s->alpha_stride<s->width))return 0;
     View v=view(c,p);if(v.z<c->near_z||v.z>c->far_z)return 0;Screen center=project(c,v);
@@ -210,7 +330,7 @@ int vxpe_toon3d_billboard(VxpeToonTarget3D* t,const VxpeToonCamera3D* c,VxpeVec3
     int inkWidth=bound(m->outline_px,0,4),drawn=0;int factor=band(m,light),fog=fog_alpha(m,(int)v.z);
     for(int y=bound(top-inkWidth,0,t->height);y<bound(top+h+inkWidth,0,t->height);++y)
         for(int x=bound(left-inkWidth,0,t->width);x<bound(left+w+inkWidth,0,t->width);++x){
-            int index=y*t->width+x;if(v.z>t->depth[index])continue;
+            int index=y*t->width+x;int testZ=biased_z((int)v.z,m->depth_bias);if(testZ>t->depth[index])continue;
             int sx=(int)((int64_t)(x-left)*s->width/w),sy=(int)((int64_t)(y-top)*s->height/h);
             // C++ division truncates negative coordinates towards zero: exclude exterior explicitly.
             bool inside=x>=left&&x<left+w&&y>=top&&y<top+h&&covered(s,sx,sy),outline=false;
@@ -218,6 +338,6 @@ int vxpe_toon3d_billboard(VxpeToonTarget3D* t,const VxpeToonCamera3D* c,VxpeVec3
                 int nx=x+dx,ny=y+dy;if(nx>=left&&nx<left+w&&ny>=top&&ny<top+h&&covered(s,(int)((int64_t)(nx-left)*s->width/w),(int)((int64_t)(ny-top)*s->height/h))){outline=true;break;}}
             if(!inside&&!outline)continue;
             uint16_t color=outline?m->ink565:multiply(s->pixels[sy*(s->stride?s->stride:s->width)+sx],factor);
-            t->pixels[index]=mix(color,m->fog565,fog);t->depth[index]=(uint16_t)v.z;++drawn;
+            t->pixels[index]=mix(color,m->fog565,fog);t->depth[index]=(uint16_t)testZ;++drawn;
         }return drawn;
 }

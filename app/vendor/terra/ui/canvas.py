@@ -9,10 +9,11 @@ from PySide6.QtWidgets import QApplication, QWidget, QSizePolicy
 from ..engine.camera import Camera2D
 from ..engine.renderer import build_batches
 from ..engine.tilemap import EMPTY
+from ..engine.scatter import scatter_cells
 from . import qtimg
 from .theme import colors as theme_colors
 
-TOOLS = ("brush", "eraser", "fill", "line", "rect")
+TOOLS = ("brush", "eraser", "fill", "line", "rect", "scatter")
 
 
 class MapCanvas(QWidget):
@@ -35,6 +36,11 @@ class MapCanvas(QWidget):
         self.camera = Camera2D()
         self.tool = "brush"
         self.tile = 0
+        self.brush_size = 1
+        self.scatter_variants = []
+        self.scatter_density = 35
+        self.scatter_spacing = 1
+        self.scatter_seed = 1
         self.show_grid = True
         self.show_labels = False
         self._panning = False
@@ -191,6 +197,30 @@ class MapCanvas(QWidget):
 
     # ------------------------------------------------------------- painting
 
+    def _apply_paint(self, coords, value: int) -> None:
+        layer = self.project.map.active_layer
+        if layer.locked:
+            return
+        radius = (self.brush_size - 1) // 2
+        cells = {(x+dx-radius, y+dy-radius) for x,y in coords
+                 for dy in range(self.brush_size) for dx in range(self.brush_size)}
+        if self._pending_tool == "scatter":
+            variants = self.scatter_variants or [self.tile]
+            self._edits.extend(scatter_cells(self.project.map, cells, variants,
+                self.scatter_density, self.scatter_spacing, self.scatter_seed))
+            return
+        edits = self.project.map._replace(layer, cells, value)
+        self._record_edits(edits)
+
+    def _record_edits(self, edits) -> None:
+        self._edits.extend(edits)
+        terrain = self.project.terrain
+        variants = terrain.get("variants", [])
+        if terrain.get("enabled") and len(variants) == 16 and self.tile in variants:
+            width = self.project.map.width
+            coords = [(ci % width, ci // width) for _,ci,_,_ in edits]
+            self._edits.extend(self.project.map.retile_terrain(coords, variants))
+
     def _begin(self, tile: QPoint, tool: str) -> None:
         self._painting = True
         self._pending_tool = tool
@@ -198,21 +228,20 @@ class MapCanvas(QWidget):
         self._last_tile = tile
         self._edits = []
         if tool == "fill":
-            self._edits += self.project.map.flood_fill(tile.x(), tile.y(),
-                                                       EMPTY if tool == "eraser" else self.tile)
+            self._record_edits(self.project.map.flood_fill(tile.x(), tile.y(), self.tile))
             self._painting = False
             self._commit("Nền vùng")
         elif tool in ("line", "rect"):
             self._preview = [(tile.x(), tile.y())]
         else:
             value = EMPTY if tool == "eraser" else self.tile
-            self._edits += self.project.map.paint(tile.x(), tile.y(), value)
+            self._apply_paint([(tile.x(), tile.y())], value)
         self.update()
 
     def _stroke_to(self, tile: QPoint) -> None:
         value = EMPTY if self._pending_tool == "eraser" else self.tile
-        self._edits += self.project.map.paint_line(self._last_tile.x(), self._last_tile.y(),
-                                                   tile.x(), tile.y(), value)
+        self._apply_paint(_bresenham(self._last_tile.x(), self._last_tile.y(),
+                                   tile.x(), tile.y()), value)
         self._last_tile = tile
         self.update()
 
@@ -233,16 +262,22 @@ class MapCanvas(QWidget):
     def _commit_shape(self, tile: QPoint) -> None:
         value = EMPTY if self._pending_tool == "eraser" else self.tile
         for x, y in self._shape_coords(tile):
-            self._edits += self.project.map.paint(x, y, value)
+            self._record_edits(self.project.map.paint(x, y, value))
         self._preview = []
 
     def _commit(self, label: str | None = None) -> None:
         if not self._edits:
             return
         name = label or {"brush": "Vẽ tile", "eraser": "Xoá tile", "fill": "Đổ vùng",
-                         "line": "Đường thẳng", "rect": "Khung chữ nhật"}.get(
+                         "line": "Đường thẳng", "rect": "Khung chữ nhật", "scatter": "Rải vật thể"}.get(
             self._pending_tool, "Sửa tile")
-        self.paintCommitted.emit(name, list(self._edits))
+        # One stroke can retile a cell repeatedly. Keep its original value for undo.
+        merged = {}
+        for li, ci, old, new in self._edits:
+            key = (li, ci)
+            merged[key] = (merged[key][0] if key in merged else old, new)
+        edits = [(li, ci, old, new) for (li, ci), (old, new) in merged.items() if old != new]
+        self.paintCommitted.emit(name, edits)
         self._edits = []
 
     # ---------------------------------------------------------------- render
@@ -357,7 +392,9 @@ class MapCanvas(QWidget):
         sx, sy = self.camera.world_to_screen(tile.x() * m.tile_w, tile.y() * m.tile_h)
         painter.setPen(QPen(QColor(pal["accent"]), 2))
         painter.setBrush(Qt.NoBrush)
-        painter.drawRect(QRectF(sx, sy, tw, th))
+        radius = (self.brush_size - 1) // 2
+        painter.drawRect(QRectF(sx-radius*tw, sy-radius*th,
+                               tw*self.brush_size, th*self.brush_size))
 
     def paintEvent(self, event) -> None:
         pal = theme_colors(self)

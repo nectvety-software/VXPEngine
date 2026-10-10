@@ -1,0 +1,2 @@
+super_scaler_gameplay 10 0.0191499
+---

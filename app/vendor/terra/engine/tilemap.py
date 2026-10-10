@@ -108,10 +108,32 @@ class TileMap:
 
     # ---------------------------------------------------------------- painting
 
+    def retile_terrain(self, coords, variants: list[int]) -> list:
+        """Update a four-neighbour terrain family (N=1,E=2,S=4,W=8)."""
+        if len(variants) != 16 or len(set(variants)) != 16:
+            raise ValueError("terrain needs 16 unique tile indices")
+        layer = self.active_layer
+        if layer.locked:
+            return []
+        family = set(variants)
+        targets = set()
+        for x, y in coords:
+            targets.update(((x, y), (x, y-1), (x+1, y), (x, y+1), (x-1, y)))
+        edits = []
+        for x, y in sorted(targets):
+            if layer.get(x, y) not in family:
+                continue
+            mask = sum(bit for dx, dy, bit in ((0,-1,1),(1,0,2),(0,1,4),(-1,0,8))
+                       if layer.get(x+dx, y+dy) in family)
+            edits.extend(self.paint(x, y, variants[mask]))
+        return edits
+
     def _replace(self, layer: Layer, coords, tile: int) -> list[tuple[int, int, int]]:
         """Apply a write and return the edits made, as (layer_index, cell_index, old, new)."""
         li = self.layers.index(layer)
         edits = []
+        if layer.locked:
+            return edits
         for x, y in coords:
             old = layer.get(x, y)
             if old == tile or not layer.inside(x, y):

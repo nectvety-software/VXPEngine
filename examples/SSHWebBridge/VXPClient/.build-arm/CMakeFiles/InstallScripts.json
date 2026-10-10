@@ -1,0 +1,11 @@
+{
+	"InstallScripts" : 
+	[
+		"D:/MRE/VXPEngine/examples/SSHWebBridge/VXPClient/.build-arm/cmake_install.cmake",
+		"D:/MRE/VXPEngine/examples/SSHWebBridge/VXPClient/.build-arm/resources/cmake_install.cmake",
+		"D:/MRE/VXPEngine/examples/SSHWebBridge/VXPClient/.build-arm/mreapi/cmake_install.cmake",
+		"D:/MRE/VXPEngine/examples/SSHWebBridge/VXPClient/.build-arm/run/cmake_install.cmake",
+		"D:/MRE/VXPEngine/examples/SSHWebBridge/VXPClient/.build-arm/main/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

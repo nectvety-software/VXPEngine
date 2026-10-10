@@ -628,3 +628,72 @@ vxpgdx_strategy_rpg_regression
 ## Skill 31 ? Multi-style game graphics
 
 Use graphics/VxpArtStyle.h. Profiles include Pixel Classic/Modern, Cozy Farm, Dark Fantasy, Neon Action, Pastel Platformer, Retro Handheld, Cel-Shaded Cartoon, Saturated Adventure, Strategy RPG, Painterly Fantasy and Low-Poly 2.5D. For jungle/cartoon traversal references prefer VXPE_ARTSTYLE_SATURATED_ADVENTURE with teal depth fog, warm light and cyan movement trails.
+
+## Skill 32 — Retro 2.5D / 3D tối ưu MRE
+
+Dùng cho game 240x320 phong cách low-poly cuối 1990s, mall liminal, aquarium, phiêu lưu góc nhìn phối cảnh.
+
+### Chọn renderer
+
+- Billboard + perspective plane (`VxpScene25D`) nếu camera chủ yếu cuộn và thứ tự vẽ biết trước.
+- `VxpToon3D` khi cần yaw/pitch, depth occlusion theo pixel, hoặc mesh góc cạnh có ánh sáng mặt.
+- Bắt đầu ở 120x160: RGB565 color + depth tốn 76.8 KB; upscale world, sau đó vẽ HUD/text ở 240x320.
+
+### Asset và chuyển động
+
+- Dùng mesh ít polygon, texture RGB565 nhỏ (ví dụ 8x8/16x16), nearest-neighbour và UV wrap.
+- Bake ánh sáng vào màu/material theo mặt; dùng depth fog để phân tách lớp.
+- Tạo texture từ source qua script deterministic; source chất lượng cao không bắt buộc đóng gói vào VXP.
+- Nước/đài phun dùng phase UV hoặc vài sprite frame; cá dùng billboard với LUT. Camera drift tính từ elapsed milliseconds.
+- Không decode texture, tạo heap hoặc dựng geometry trong frame loop.
+
+### Tối ưu và kiểm chứng
+
+- Giữ edge stepping và quotient/remainder barycentric stepping trong rasterizer ARM.
+- Nếu pass sky/gradient sẽ phủ cả màn hình, dùng `vxpe_toon3d_clear_depth` để tránh ghi màu thừa; geometry ngoài viewport được coarse-reject theo bounding box.
+- Texture perspective-correct vẫn là mặc định; affine depth chỉ dùng cho mặt phẳng phẳng, không texture/fog/Gouraud và không gần nhau theo depth.
+- Regression: `vxpe_toon3d_runtime`, `vxpe_toon3d_c_api`, `vxpe_scene25d_runtime`.
+- So sánh ảnh exact-depth trước/sau bằng host build với `VXPE_TOON3D_STEPPED_RECIPROCAL`, rồi cross-compile `VxpToon3D.cpp` ARMv5TE.
+- Xem `docs/CORE_25D_3D_RENDERING.md` và `reports/graphics-benchmark/README.md`; host timings chỉ là so sánh tương đối, không phải FPS máy.
+
+## Skill 33 — Super Scaler pseudo-3D racing
+
+Dùng cho game đua xe arcade góc nhìn sau xe trên màn hình dọc 240×320.
+
+- Ưu tiên `graphics/VxpSuperScaler.h` cho road scanline RGB565: road hẹp ở chân trời, mở rộng về camera, bend Q8, curb luân phiên và lane marker đứt đoạn.
+- Renderer không cấp phát heap; dùng LUT depth và span fill. Giữ state actor cố định, cập nhật phase theo tốc độ, không tính float hoặc chia trong vòng lặp pixel.
+- Vẽ background/horizon trước, road tiếp theo, rồi roadside objects và traffic từ xa đến gần; scale sprite theo depth và cull ngoài viewport.
+- Cho người chơi điều khiển rõ ràng: steer, accelerate, brake/boost, pause. Dùng hình gốc, không tái sử dụng logo/xe/asset có bản quyền.
+- Build host regression và ARMv5TE; chỉ công bố FPS sau khi đo trên thiết bị thật. Xem `docs/SUPERSCALER_ROAD.md` và `examples/SuperScalerRacingDemo`.
+
+## Skill 34 — VxpSoft3D (raster 3D mềm cho MRE)
+
+Header: `graphics/VxpSoft3D.h`. C API, caller owns buffers, integer-only.
+
+```c
+VxpeSoft3DTarget tgt = {fb, depth, 240, 320};
+VxpeSoft3DCamera cam;  vxpe_soft3d_camera_init(&cam, 240, 320);
+VxpeSoft3DMaterial mat; vxpe_soft3d_material_init(&mat, albedo565);
+VxpeSoft3DLight light; vxpe_soft3d_light_init(&light);
+/* bake object-space 1 lần lúc init, không tính lại mỗi frame */
+vxpe_soft3d_bake_vertex_light(pos, nrm, NULL, illum, n, &light);
+vxpe_soft3d_clear(&tgt, bg);
+vxpe_soft3d_mesh16(&tgt, &cam, &mesh, &tex, &mat, NULL);
+```
+
+Quy tắc rút từ bug thật:
+
+1. UV phối cảnh: `tu = iu/iz` trực tiếp (`iu = u_q8*S/z`, `iz = 256*S/z`).
+   Thừa một hệ số `S/256` sẽ collapse UV 16× → mặt phẳng lì mà test đếm
+   pixel không phát hiện. Regression bắt buộc: texture 2 texel khác màu +
+   assert cả hai màu đều xuất hiện (`vxpe_soft3d_runtime`).
+2. Tọa độ world của billboard/mesh là tuyệt đối theo camera
+   (`dz = world_z - camera->world_z`); vật bám camera phải cộng offset
+   camera mỗi frame (bug thuyền HarborDash25D).
+3. Xoay dùng LUT sin Q14 tự build lúc init; depth buffer `static`
+   (240×320×2 = 150KB), không để stack.
+4. Verify on-device bằng PrintWindow đúng HWND + so sánh 2 frame;
+   `ImageGrab` toàn màn hình dễ chụp nhầm cửa sổ IDE.
+
+Bake offline: `engine/coremre/tools/vxp_bake_light.py mesh.json -o baked.json`.
+Sample: `examples/SpinCube3D` (3D), `examples/HarborDash25D` (2.5D).

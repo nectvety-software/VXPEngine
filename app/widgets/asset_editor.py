@@ -3853,6 +3853,8 @@ class AssetEditorDialog(QDialog):
     def save_and_apply(self) -> None:
         if self.workspace_tabs.currentIndex() == 1:
             self.vpe_pixel.receive_document()
+        elif self.workspace_tabs.currentIndex() == 2:
+            self.terra.receive_map()
         self.stop_playback()
         name = self.asset_name.text().strip()
         if not name:
@@ -3886,6 +3888,14 @@ class AssetEditorDialog(QDialog):
         if not self.canvas.image.save(str(output), "PNG"):
             self._set_status("Không thể ghi tệp PNG.", error=True)
             return
+
+        terra_document = getattr(self, "_pending_terra_document", None)
+        if terra_document is not None and self.canvas.image == getattr(self, "_pending_terra_image", None):
+            try:
+                self.terra.save_editable(terra_document, output)
+            except (OSError, ValueError) as exc:
+                self._set_status(f"Đã lưu PNG nhưng chưa lưu map ô: {exc}", error=True)
+                return
 
         metadata_path: Path | None = None
         if self.write_metadata.isChecked():
@@ -4257,7 +4267,9 @@ class AssetEditorDialog(QDialog):
 
     def _receive_terra(self, images, name: str) -> None:
         self._receive_vpe_pixel(images, name, 100, False)
-        self._set_status("Đã nhận tilemap từ Terra. Dùng Áp dụng & lưu để lưu vào project.")
+        self._pending_terra_document = copy.deepcopy(self.terra.editor.project)
+        self._pending_terra_image = self.canvas.image.copy()
+        self._set_status("Đã nhận tilemap. Áp dụng & lưu sẽ giữ PNG, atlas và map ô .terra.json.")
 
     def _send_to_vpe_pixel(self) -> None:
         settings = self._normalized_player_settings()

@@ -1,0 +1,86 @@
+{
+  "frame_size": [
+    32,
+    32
+  ],
+  "frames": [
+    {
+      "name": "melee_blue",
+      "rect": [
+        0,
+        0,
+        32,
+        32
+      ],
+      "foot_anchor": [
+        16,
+        31
+      ]
+    },
+    {
+      "name": "melee_red",
+      "rect": [
+        32,
+        0,
+        32,
+        32
+      ],
+      "foot_anchor": [
+        16,
+        31
+      ]
+    },
+    {
+      "name": "ranged_blue",
+      "rect": [
+        0,
+        32,
+        32,
+        32
+      ],
+      "foot_anchor": [
+        16,
+        31
+      ]
+    },
+    {
+      "name": "ranged_red",
+      "rect": [
+        32,
+        32,
+        32,
+        32
+      ],
+      "foot_anchor": [
+        16,
+        31
+      ]
+    },
+    {
+      "name": "siege_blue",
+      "rect": [
+        0,
+        64,
+        32,
+        32
+      ],
+      "foot_anchor": [
+        16,
+        31
+      ]
+    },
+    {
+      "name": "siege_red",
+      "rect": [
+        32,
+        64,
+        32,
+        32
+      ],
+      "foot_anchor": [
+        16,
+        31
+      ]
+    }
+  ]
+}

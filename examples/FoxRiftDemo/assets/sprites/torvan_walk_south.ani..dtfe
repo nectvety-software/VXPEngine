@@ -1,0 +1,42 @@
+{
+  "format": "VXPEngine Animation",
+  "format_version": 2,
+  "extension": ".ani..dtfe",
+  "asset": "assets/sprites/directional_poses_atlas.png",
+  "texture": "assets/sprites/directional_poses_atlas.png",
+  "source_mode": "atlas_frames",
+  "asset_kind": "character",
+  "package": "atlas+descriptor",
+  "animation": {
+    "name": "torvan_walk_south",
+    "fps": 8,
+    "loop": true,
+    "frame_count": 2,
+    "source_mode": "atlas_frames",
+    "asset_kind": "character",
+    "selected_indices": [
+      6,
+      7
+    ]
+  },
+  "frames": [
+    {
+      "name": "torvan_south_0",
+      "x": 80,
+      "y": 40,
+      "width": 40,
+      "height": 40,
+      "source_index": 6,
+      "duration_ms": 120
+    },
+    {
+      "name": "torvan_south_1",
+      "x": 120,
+      "y": 40,
+      "width": 40,
+      "height": 40,
+      "source_index": 7,
+      "duration_ms": 120
+    }
+  ]
+}

@@ -1,0 +1,242 @@
+{
+  "frame_size": [
+    48,
+    48
+  ],
+  "frames": [
+    {
+      "name": "velin_run_a",
+      "rect": [
+        0,
+        0,
+        48,
+        48
+      ],
+      "foot_anchor": [
+        24,
+        47
+      ]
+    },
+    {
+      "name": "velin_run_b",
+      "rect": [
+        48,
+        0,
+        48,
+        48
+      ],
+      "foot_anchor": [
+        24,
+        47
+      ]
+    },
+    {
+      "name": "velin_attack",
+      "rect": [
+        96,
+        0,
+        48,
+        48
+      ],
+      "foot_anchor": [
+        24,
+        47
+      ]
+    },
+    {
+      "name": "velin_cast_up",
+      "rect": [
+        144,
+        0,
+        48,
+        48
+      ],
+      "foot_anchor": [
+        24,
+        47
+      ]
+    },
+    {
+      "name": "velin_cast_forward",
+      "rect": [
+        192,
+        0,
+        48,
+        48
+      ],
+      "foot_anchor": [
+        24,
+        47
+      ]
+    },
+    {
+      "name": "velin_dash",
+      "rect": [
+        240,
+        0,
+        48,
+        48
+      ],
+      "foot_anchor": [
+        24,
+        47
+      ]
+    },
+    {
+      "name": "torvan_run_a",
+      "rect": [
+        0,
+        48,
+        48,
+        48
+      ],
+      "foot_anchor": [
+        24,
+        47
+      ]
+    },
+    {
+      "name": "torvan_run_b",
+      "rect": [
+        48,
+        48,
+        48,
+        48
+      ],
+      "foot_anchor": [
+        24,
+        47
+      ]
+    },
+    {
+      "name": "torvan_attack",
+      "rect": [
+        96,
+        48,
+        48,
+        48
+      ],
+      "foot_anchor": [
+        24,
+        47
+      ]
+    },
+    {
+      "name": "torvan_cast_up",
+      "rect": [
+        144,
+        48,
+        48,
+        48
+      ],
+      "foot_anchor": [
+        24,
+        47
+      ]
+    },
+    {
+      "name": "torvan_cast_forward",
+      "rect": [
+        192,
+        48,
+        48,
+        48
+      ],
+      "foot_anchor": [
+        24,
+        47
+      ]
+    },
+    {
+      "name": "torvan_dash",
+      "rect": [
+        240,
+        48,
+        48,
+        48
+      ],
+      "foot_anchor": [
+        24,
+        47
+      ]
+    },
+    {
+      "name": "nimara_run_a",
+      "rect": [
+        0,
+        96,
+        48,
+        48
+      ],
+      "foot_anchor": [
+        24,
+        47
+      ]
+    },
+    {
+      "name": "nimara_run_b",
+      "rect": [
+        48,
+        96,
+        48,
+        48
+      ],
+      "foot_anchor": [
+        24,
+        47
+      ]
+    },
+    {
+      "name": "nimara_attack",
+      "rect": [
+        96,
+        96,
+        48,
+        48
+      ],
+      "foot_anchor": [
+        24,
+        47
+      ]
+    },
+    {
+      "name": "nimara_cast_up",
+      "rect": [
+        144,
+        96,
+        48,
+        48
+      ],
+      "foot_anchor": [
+        24,
+        47
+      ]
+    },
+    {
+      "name": "nimara_cast_forward",
+      "rect": [
+        192,
+        96,
+        48,
+        48
+      ],
+      "foot_anchor": [
+        24,
+        47
+      ]
+    },
+    {
+      "name": "nimara_dash",
+      "rect": [
+        240,
+        96,
+        48,
+        48
+      ],
+      "foot_anchor": [
+        24,
+        47
+      ]
+    }
+  ]
+}

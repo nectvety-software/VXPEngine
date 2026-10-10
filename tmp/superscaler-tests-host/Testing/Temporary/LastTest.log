@@ -1,0 +1,303 @@
+Start testing: Oct 08 21:22 SE Asia Standard Time
+----------------------------------------------------------
+1/19 Testing: vxpe_story2d_runtime
+1/19 Test: vxpe_story2d_runtime
+Command: "D:/MRE/VXPEngine/tmp/superscaler-tests-host/vxpe_story2d_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/superscaler-tests-host
+"vxpe_story2d_runtime" start time: Oct 08 21:22 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+PASS: perspective, foot depth/lift, capacity, crop validation, dialogue paging/typewriter/truncation/clipping
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_story2d_runtime" end time: Oct 08 21:22 SE Asia Standard Time
+"vxpe_story2d_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/19 Testing: vxpe_story2d_c_api
+2/19 Test: vxpe_story2d_c_api
+Command: "D:/MRE/VXPEngine/tmp/superscaler-tests-host/vxpe_story2d_c_api.exe"
+Directory: D:/MRE/VXPEngine/tmp/superscaler-tests-host
+"vxpe_story2d_c_api" start time: Oct 08 21:22 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_story2d_c_api" end time: Oct 08 21:22 SE Asia Standard Time
+"vxpe_story2d_c_api" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/19 Testing: vxpe_sprite_fast_runtime
+3/19 Test: vxpe_sprite_fast_runtime
+Command: "D:/MRE/VXPEngine/tmp/superscaler-tests-host/vxpe_sprite_fast_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/superscaler-tests-host
+"vxpe_sprite_fast_runtime" start time: Oct 08 21:22 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+PASS: fast A8 parity across alpha, padded strides, scale, flips, crop and clipping
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_sprite_fast_runtime" end time: Oct 08 21:22 SE Asia Standard Time
+"vxpe_sprite_fast_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/19 Testing: vxpe_toon3d_runtime
+4/19 Test: vxpe_toon3d_runtime
+Command: "D:/MRE/VXPEngine/tmp/superscaler-tests-host/vxpe_toon3d_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/superscaler-tests-host
+"vxpe_toon3d_runtime" start time: Oct 08 21:22 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+PASS: toon bands, yaw, depth, depth-only clear, frustum reject, quad seams, clipping, alpha, perspective UV, urban style and buffer guards
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_toon3d_runtime" end time: Oct 08 21:22 SE Asia Standard Time
+"vxpe_toon3d_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/19 Testing: vxpe_toon3d_c_api
+5/19 Test: vxpe_toon3d_c_api
+Command: "D:/MRE/VXPEngine/tmp/superscaler-tests-host/vxpe_toon3d_c_api.exe"
+Directory: D:/MRE/VXPEngine/tmp/superscaler-tests-host
+"vxpe_toon3d_c_api" start time: Oct 08 21:22 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_toon3d_c_api" end time: Oct 08 21:22 SE Asia Standard Time
+"vxpe_toon3d_c_api" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/19 Testing: vxpe_raycast3d_runtime
+6/19 Test: vxpe_raycast3d_runtime
+Command: "D:/MRE/VXPEngine/tmp/superscaler-tests-host/vxpe_raycast3d_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/superscaler-tests-host
+"vxpe_raycast3d_runtime" start time: Oct 08 21:22 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+PASS: raycast DDA, RGB565 wall/floor texture, distance fog+dither, billboard depth occlusion and buffer guards
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_raycast3d_runtime" end time: Oct 08 21:22 SE Asia Standard Time
+"vxpe_raycast3d_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/19 Testing: vxpe_superscaler_runtime
+7/19 Test: vxpe_superscaler_runtime
+Command: "D:/MRE/VXPEngine/tmp/superscaler-tests-host/vxpe_superscaler_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/superscaler-tests-host
+"vxpe_superscaler_runtime" start time: Oct 08 21:22 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+SuperScaler fixed-point road spans, curve, scrolling stripes, and bounds passed
+<end of output>
+Test time =   0.11 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_superscaler_runtime" end time: Oct 08 21:22 SE Asia Standard Time
+"vxpe_superscaler_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+8/19 Testing: vxpe_actor_sprite_runtime
+8/19 Test: vxpe_actor_sprite_runtime
+Command: "D:/MRE/VXPEngine/tmp/superscaler-tests-host/vxpe_actor_sprite_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/superscaler-tests-host
+"vxpe_actor_sprite_runtime" start time: Oct 08 21:22 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_actor_sprite_runtime" end time: Oct 08 21:22 SE Asia Standard Time
+"vxpe_actor_sprite_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+9/19 Testing: vxpe_color_grade_runtime
+9/19 Test: vxpe_color_grade_runtime
+Command: "D:/MRE/VXPEngine/tmp/superscaler-tests-host/vxpe_color_grade_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/superscaler-tests-host
+"vxpe_color_grade_runtime" start time: Oct 08 21:22 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_color_grade_runtime" end time: Oct 08 21:22 SE Asia Standard Time
+"vxpe_color_grade_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+10/19 Testing: vxpgdx_vxtm3_runtime
+10/19 Test: vxpgdx_vxtm3_runtime
+Command: "D:/MRE/VXPEngine/tmp/superscaler-tests-host/vxpgdx_vxtm3_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/superscaler-tests-host
+"vxpgdx_vxtm3_runtime" start time: Oct 08 21:22 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+VXPGDX_VXTM3_REGRESSION_PASS
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"vxpgdx_vxtm3_runtime" end time: Oct 08 21:22 SE Asia Standard Time
+"vxpgdx_vxtm3_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+11/19 Testing: vxpgdx_ui_runtime
+11/19 Test: vxpgdx_ui_runtime
+Command: "D:/MRE/VXPEngine/tmp/superscaler-tests-host/vxpgdx_ui_arm_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/superscaler-tests-host
+"vxpgdx_ui_runtime" start time: Oct 08 21:22 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+VXPGDX_UI_ARM_REGRESSION_PASS
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"vxpgdx_ui_runtime" end time: Oct 08 21:22 SE Asia Standard Time
+"vxpgdx_ui_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+12/19 Testing: vxpe_scene25d_runtime
+12/19 Test: vxpe_scene25d_runtime
+Command: "D:/MRE/VXPEngine/tmp/superscaler-tests-host/vxpe_scene25d_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/superscaler-tests-host
+"vxpe_scene25d_runtime" start time: Oct 08 21:22 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+VXPE_SCENE25D_REGRESSION_PASS
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_scene25d_runtime" end time: Oct 08 21:22 SE Asia Standard Time
+"vxpe_scene25d_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+13/19 Testing: vxpe_stage2d_runtime
+13/19 Test: vxpe_stage2d_runtime
+Command: "D:/MRE/VXPEngine/tmp/superscaler-tests-host/vxpe_stage2d_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/superscaler-tests-host
+"vxpe_stage2d_runtime" start time: Oct 08 21:22 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+VXPE_STAGE2D_REGRESSION_PASS
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_stage2d_runtime" end time: Oct 08 21:22 SE Asia Standard Time
+"vxpe_stage2d_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+14/19 Testing: vxpe_artstyle_runtime
+14/19 Test: vxpe_artstyle_runtime
+Command: "D:/MRE/VXPEngine/tmp/superscaler-tests-host/vxpe_artstyle_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/superscaler-tests-host
+"vxpe_artstyle_runtime" start time: Oct 08 21:22 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+VXPE_ARTSTYLE_PASS
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_artstyle_runtime" end time: Oct 08 21:22 SE Asia Standard Time
+"vxpe_artstyle_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+15/19 Testing: vxpgdx_strategy_rpg_runtime
+15/19 Test: vxpgdx_strategy_rpg_runtime
+Command: "D:/MRE/VXPEngine/tmp/superscaler-tests-host/vxpgdx_strategy_rpg_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/superscaler-tests-host
+"vxpgdx_strategy_rpg_runtime" start time: Oct 08 21:22 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+VXPGDX_STRATEGY_RPG_PASS
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"vxpgdx_strategy_rpg_runtime" end time: Oct 08 21:22 SE Asia Standard Time
+"vxpgdx_strategy_rpg_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+16/19 Testing: vxpgdx_vxtm3_packer
+16/19 Test: vxpgdx_vxtm3_packer
+Command: "D:/Program/Python/python.exe" "D:/MRE/VXPEngine/engine/coremre/tests/test_vxtm3_packer.py" "D:/MRE/VXPEngine/engine/coremre/tests/../../../tools/vxpgdx_pack_tiled.py"
+Directory: D:/MRE/VXPEngine/tmp/superscaler-tests-host
+"vxpgdx_vxtm3_packer" start time: Oct 08 21:22 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+Packed diag.tmj: 1 tile layers, 0 object layers, 1 tilesets, 0 animations, 0 objects -> C:\Users\DOXUAN~1\AppData\Local\Temp\tmpyjcu3z_t\diag.vxtm (76 bytes)
+VXPGDX_VXTM3_PACKER_REGRESSION_PASS
+<end of output>
+Test time =   0.10 sec
+----------------------------------------------------------
+Test Passed.
+"vxpgdx_vxtm3_packer" end time: Oct 08 21:22 SE Asia Standard Time
+"vxpgdx_vxtm3_packer" time elapsed: 00:00:00
+----------------------------------------------------------
+
+17/19 Testing: vxpe_dungeonfx_runtime
+17/19 Test: vxpe_dungeonfx_runtime
+Command: "D:/MRE/VXPEngine/tmp/superscaler-tests-host/vxpe_dungeonfx_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/superscaler-tests-host
+"vxpe_dungeonfx_runtime" start time: Oct 08 21:22 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+PASS: coloured light falloff, range/extreme guards, animated sky, buffer guards and dungeon preset
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_dungeonfx_runtime" end time: Oct 08 21:22 SE Asia Standard Time
+"vxpe_dungeonfx_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+18/19 Testing: vxpe_pixel_font_runtime
+18/19 Test: vxpe_pixel_font_runtime
+Command: "D:/MRE/VXPEngine/tmp/superscaler-tests-host/vxpe_pixel_font_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/superscaler-tests-host
+"vxpe_pixel_font_runtime" start time: Oct 08 21:22 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+PASS: three faces, width/height, tabular digits, multiline, limits/fallback, effect clipping and guards
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_pixel_font_runtime" end time: Oct 08 21:22 SE Asia Standard Time
+"vxpe_pixel_font_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+19/19 Testing: vxpe_scatter_runtime
+19/19 Test: vxpe_scatter_runtime
+Command: "D:/MRE/VXPEngine/tmp/superscaler-tests-host/vxpe_scatter_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/superscaler-tests-host
+"vxpe_scatter_runtime" start time: Oct 08 21:22 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_scatter_runtime" end time: Oct 08 21:22 SE Asia Standard Time
+"vxpe_scatter_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Oct 08 21:22 SE Asia Standard Time

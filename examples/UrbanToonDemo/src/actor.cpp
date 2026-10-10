@@ -34,9 +34,9 @@ static Model model;
 static uint16_t rgb(int r,int g,int b){return (uint16_t)(((r>>3)<<11)|((g>>2)<<5)|(b>>3));}
 static void build(const UrbanActorPose* pose){
     model.reset();
-    const uint16_t colors[8]={rgb(255,204,21),rgb(30,37,39),rgb(225,177,125),rgb(231,54,26),rgb(103,229,36),rgb(10,15,18),rgb(251,227,29),rgb(239,75,102)};
+    const uint16_t colors[8]={rgb(198,181,115),rgb(42,54,59),rgb(204,166,117),rgb(112,64,44),rgb(128,155,87),rgb(17,25,29),rgb(184,190,145),rgb(155,95,82)};
     for(int i=0;i<8;++i){vxpe_toon3d_material_init(&model.materials[i],colors[i]);model.materials[i].outline_px=0;model.materials[i].fog_alpha=0;
-        model.materials[i].shadow_threshold=138;model.materials[i].highlight_threshold=200;model.materials[i].shadow_q8=140;model.materials[i].midtone_q8=210;}
+        model.materials[i].shadow_threshold=158;model.materials[i].highlight_threshold=215;model.materials[i].shadow_q8=105;model.materials[i].midtone_q8=190;}
     float phase=pose->tick*.24f,cycle=sinf(phase),lean=pose->lean*.5f;
     bool jump=pose->jump!=0,grind=pose->grind!=0;
     float crouch=grind?10.f:jump?4.f:2.f+cycle*1.5f;
@@ -89,11 +89,7 @@ void urban_actor_draw(VxpeToonTarget3D* target,const VxpeToonCamera3D* camera,Vx
         vxpe_toon3d_mesh(target,camera,&mesh,&ground,0,VXPE_TOON_CULL_NONE);
     }
     if(!render_body)return;
-    // Inverted hull: expanded back faces make ink around the 3D silhouette only.
-    for(int i=0;i<8;++i){vxpe_toon3d_material_init(&model.flat[i],rgb(13,19,22));model.flat[i].outline_px=0;model.flat[i].fog_alpha=0;}
-    mesh.materials=model.flat;transform.scale_q8=264;
-    vxpe_toon3d_mesh(target,camera,&mesh,&transform,0,VXPE_TOON_CULL_FRONT);
     mesh.materials=model.materials;transform.scale_q8=256;
-    VxpeToonLight3D light;vxpe_toon3d_light_init(&light);
+    VxpeToonLight3D light;vxpe_toon3d_light_init(&light);light.x_q14=-8192;light.y_q14=12288;light.z_q14=-7168;light.ambient=65;light.diffuse=190;
     vxpe_toon3d_mesh(target,camera,&mesh,&transform,&light,VXPE_TOON_CULL_BACK);
 }

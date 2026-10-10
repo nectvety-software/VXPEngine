@@ -1,0 +1,28 @@
+{
+  "name": "Main",
+  "screen_id": "main",
+  "type": "VXPScene",
+  "viewport": {
+    "type": "FitViewport",
+    "width": 240,
+    "height": 320
+  },
+  "groups": [],
+  "children": [
+    {
+      "id": "camera2d",
+      "code_name": "Camera2D",
+      "name": "Camera2D",
+      "type": "OrthographicCamera",
+      "position": [
+        0,
+        0
+      ],
+      "rotation": 0.0,
+      "zoom": [
+        1.0,
+        1.0
+      ]
+    }
+  ]
+}

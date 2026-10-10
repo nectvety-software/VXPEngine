@@ -1,0 +1,20 @@
+{
+  "known_hosts": "C:/secure/ssh_known_hosts",
+  "targets": [
+    {
+      "id": "homelab",
+      "label": "Home lab",
+      "host": "192.0.2.10",
+      "port": 22,
+      "username": "ops",
+      "key_file": "C:/secure/ssh/id_ed25519",
+      "services": ["nginx", "docker"],
+      "macros": [
+        {"id": "lights_on", "label": "Toggle all lights", "kind": "mqtt", "topic": "cmnd/tasmota_switch/POWER", "payload": "TOGGLE"},
+        {"id": "gate_open", "label": "Open garage gate", "kind": "mqtt", "topic": "home/garage/gate", "payload": "OPEN", "confirm": true},
+        {"id": "house_temp", "label": "Read house temperature", "kind": "script", "script": "get_temp.py", "read_only": true},
+        {"id": "sleep_mode", "label": "Sleep mode", "kind": "mqtt", "topic": "home/mode", "payload": "SLEEP", "confirm": true}
+      ]
+    }
+  ]
+}

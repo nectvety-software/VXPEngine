@@ -36,8 +36,11 @@ function Reset-SafeWorkDirectory([string]$Path) {
 function Copy-Tree([string]$Source, [string]$Destination, [string[]]$Extra = @()) {
     New-Item -ItemType Directory -Path $Destination -Force | Out-Null
     $arguments = @($Source, $Destination, "/E", "/R:2", "/W:1", "/NFL", "/NDL", "/NJH", "/NJS", "/NP") + $Extra
-    & robocopy.exe @arguments | Out-Null
-    if ($LASTEXITCODE -ge 8) { throw "Robocopy failed ($LASTEXITCODE): $Source" }
+    $quotedArguments = foreach ($argument in $arguments) {
+        if ($argument -match '\s') { '"' + $argument.Replace('"', '\"') + '"' } else { $argument }
+    }
+    $copy = Start-Process -FilePath (Get-Command robocopy.exe).Source -ArgumentList ($quotedArguments -join ' ') -Wait -PassThru -WindowStyle Hidden
+    if ($copy.ExitCode -ge 8) { throw "Robocopy failed ($($copy.ExitCode)): $Source" }
 }
 
 function Copy-ImmediateFiles([string]$Source, [string]$Destination) {
@@ -183,15 +186,16 @@ $VxpEmuSource = $env:VXPE_VXPEMU_SOURCE
 if (-not $VxpEmuSource) {
     $VxpEmuSource = @(
         "D:\MRE\VXPEmu\deploy",
+        "D:\MRE\VXPEmu\build-new",
         "D:\MRE\VXPEmu\build\Release"
-    ) | Where-Object { Test-Path -LiteralPath $_ } | Select-Object -First 1
+    ) | Where-Object { Test-Path -LiteralPath (Join-Path $_ "VXPEmu.exe") } | Select-Object -First 1
 }
 if (-not $VxpEmuSource -or -not (Test-Path -LiteralPath (Join-Path $VxpEmuSource "VXPEmu.exe"))) {
     throw "VXPEmu runtime not found. Set VXPE_VXPEMU_SOURCE or build VXPEmu first."
 }
 Write-Host "[Package] VXPEmu runtime: $VxpEmuSource"
 Copy-Tree $VxpEmuSource (Join-Path $Stage "engine\coremre\sdk\vxpemu") @(
-    "/XF", "*.log", "*.pdb", "*.lib", "*.exp"
+    "/XF", "*.log", "*.pdb", "*.lib", "*.exp", "VXPTest.exe"
 )
 New-Item -ItemType Directory -Path (Join-Path $Stage "libs") -Force | Out-Null
 Copy-Item -LiteralPath (Join-Path $Root "libs\ffmpeg.exe") -Destination (Join-Path $Stage "libs\ffmpeg.exe") -Force
@@ -265,6 +269,15 @@ $HarvestObj = Join-Path $WixWork "stage-files.wixobj"
 $ProductObj = Join-Path $WixWork "VXPEngine.wixobj"
 & $Heat dir $Stage -cg VXPEngineFiles -dr INSTALLFOLDER -srd -sreg -gg -ke -var var.StageDir -out $Harvest
 if ($LASTEXITCODE -ne 0) { throw "WiX heat harvest failed" }
+$harvestSources = [regex]::Matches((Get-Content -LiteralPath $Harvest -Raw), 'Source="\$\(var\.StageDir\)\\([^\"]+)"')
+$missingHarvestFiles = @($harvestSources | ForEach-Object {
+    $relative = $_.Groups[1].Value.Replace('\', [IO.Path]::DirectorySeparatorChar)
+    if (-not (Test-Path -LiteralPath (Join-Path $Stage $relative) -PathType Leaf)) { $relative }
+})
+if ($missingHarvestFiles.Count) {
+    $samples = ($missingHarvestFiles | Select-Object -First 8) -join ", "
+    throw "Release stage is incomplete ($($missingHarvestFiles.Count) harvested files missing): $samples"
+}
 & $Candle -nologo -arch x64 "-dStageDir=$Stage" "-dProjectRoot=$Root" -out $HarvestObj $Harvest
 if ($LASTEXITCODE -ne 0) { throw "WiX candle harvest compile failed" }
 & $Candle -nologo -arch x64 "-dProjectRoot=$Root" -out $ProductObj (Join-Path $PSScriptRoot "VXPEngine.wxs")
@@ -276,3 +289,120 @@ $hash = (Get-FileHash -LiteralPath $Installer -Algorithm SHA256).Hash
 "$hash *$([IO.Path]::GetFileName($Installer))" | Set-Content -LiteralPath "$Installer.sha256" -Encoding ascii
 Write-Host "[DONE] $Installer"
 Write-Host "[SHA256] $hash"
+
+Write-Host "[Installer] Wrap MSI as a single-file self-extracting EXE"
+$SetupExe = Join-Path $OutputDirectory "VXPEngine-2.0.0-Setup.exe"
+$SetupStub = Join-Path $WixWork "VXPEngineSetupStub.exe"
+$SetupSource = Join-Path $WixWork "VXPEngineSetupStub.cs"
+$SetupSourceText = @'
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Text;
+using System.Windows.Forms;
+
+internal static class VXPEngineSetupStub
+{
+    private static readonly byte[] Marker = Encoding.ASCII.GetBytes("VXPESETUP1");
+
+    private static bool ReadPayload(FileStream package, out long offset, out long length)
+    {
+        offset = 0; length = 0;
+        if (package.Length < Marker.Length + 16) return false;
+        package.Position = package.Length - Marker.Length - 16;
+        using (BinaryReader reader = new BinaryReader(package, Encoding.UTF8, true))
+        {
+            byte[] marker = reader.ReadBytes(Marker.Length);
+            if (!Equal(marker, Marker)) return false;
+            offset = reader.ReadInt64();
+            length = reader.ReadInt64();
+            return offset >= 0 && length > 0 && offset + length == package.Length - Marker.Length - 16;
+        }
+    }
+
+    private static bool Equal(byte[] a, byte[] b)
+    {
+        if (a.Length != b.Length) return false;
+        for (int i = 0; i < a.Length; i++) if (a[i] != b[i]) return false;
+        return true;
+    }
+
+    private static int Main(string[] args)
+    {
+        string tempDir = null;
+        try
+        {
+            string packagePath = Process.GetCurrentProcess().MainModule.FileName;
+            long offset, length;
+            using (FileStream package = File.OpenRead(packagePath))
+            {
+                if (!ReadPayload(package, out offset, out length)) throw new InvalidDataException("The embedded VXPEngine installer payload is missing or damaged.");
+                if (args.Length == 1 && args[0] == "--verify-payload")
+                {
+                    Console.WriteLine("Embedded MSI payload OK ({0} bytes).", length);
+                    return 0;
+                }
+                tempDir = Path.Combine(Path.GetTempPath(), "VXPEngineSetup-" + Guid.NewGuid().ToString("N"));
+                Directory.CreateDirectory(tempDir);
+                string msiPath = Path.Combine(tempDir, "VXPEngine-2.0.0-x64.msi");
+                package.Position = offset;
+                using (FileStream msi = File.Create(msiPath))
+                {
+                    byte[] buffer = new byte[1024 * 1024];
+                    long remaining = length;
+                    while (remaining > 0)
+                    {
+                        int read = package.Read(buffer, 0, (int)Math.Min(buffer.Length, remaining));
+                        if (read == 0) throw new EndOfStreamException("The embedded MSI ended unexpectedly.");
+                        msi.Write(buffer, 0, read);
+                        remaining -= read;
+                    }
+                }
+                ProcessStartInfo start = new ProcessStartInfo("msiexec.exe", "/i \"" + msiPath + "\"");
+                start.UseShellExecute = true;
+                start.Verb = "runas";
+                using (Process installer = Process.Start(start)) installer.WaitForExit();
+            }
+            return 0;
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("VXPEngine Setup could not continue.\r\n\r\n" + ex.Message, "VXPEngine Setup", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return 1;
+        }
+        finally
+        {
+            if (tempDir != null)
+            {
+                try { Directory.Delete(tempDir, true); } catch { }
+            }
+        }
+    }
+}
+'@
+Set-Content -LiteralPath $SetupSource -Value $SetupSourceText -Encoding ascii
+$Csc = Join-Path $env:WINDIR "Microsoft.NET\Framework64\v4.0.30319\csc.exe"
+if (-not (Test-Path -LiteralPath $Csc)) { throw "Framework C# compiler not found: $Csc" }
+& $Csc /nologo /target:winexe "/out:$SetupStub" /reference:System.Windows.Forms.dll $SetupSource
+if ($LASTEXITCODE -ne 0 -or -not (Test-Path -LiteralPath $SetupStub)) { throw "Single-file setup bootstrapper compile failed" }
+if (Test-Path -LiteralPath $SetupExe) { Remove-Item -LiteralPath $SetupExe -Force }
+$stubLength = (Get-Item -LiteralPath $SetupStub).Length
+$msiLength = (Get-Item -LiteralPath $Installer).Length
+Copy-Item -LiteralPath $SetupStub -Destination $SetupExe
+$setupStream = [IO.File]::Open($SetupExe, [IO.FileMode]::Append, [IO.FileAccess]::Write, [IO.FileShare]::None)
+try {
+    $msiStream = [IO.File]::OpenRead($Installer)
+    try { $msiStream.CopyTo($setupStream, 1MB) } finally { $msiStream.Dispose() }
+    $writer = [IO.BinaryWriter]::new($setupStream)
+    try {
+        $writer.Write([Text.Encoding]::ASCII.GetBytes("VXPESETUP1"))
+        $writer.Write([long]$stubLength)
+        $writer.Write([long]$msiLength)
+        $writer.Flush()
+    } finally { $writer.Dispose() }
+} finally { $setupStream.Dispose() }
+Sign-ReleaseFile $SetupExe
+$setupHash = (Get-FileHash -LiteralPath $SetupExe -Algorithm SHA256).Hash
+"$setupHash *$([IO.Path]::GetFileName($SetupExe))" | Set-Content -LiteralPath "$SetupExe.sha256" -Encoding ascii
+Write-Host "[DONE] $SetupExe"
+Write-Host "[SHA256] $setupHash"

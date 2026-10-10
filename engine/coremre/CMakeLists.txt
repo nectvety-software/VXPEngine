@@ -21,10 +21,13 @@ set(COREMRE_SOURCES
     src/graphics/VxpScene25D.cpp
     src/graphics/VxpArtStyle.cpp
     src/graphics/VxpToon3D.cpp
+    src/graphics/VxpRaycast3D.cpp
+    src/graphics/VxpSuperScaler.cpp
       src/graphics/VxpDungeonFx.cpp
     src/graphics/VxpCinematic2D.cpp
     src/graphics/VxpLight2D.cpp
     src/graphics/VxpSpriteFx.cpp
+    src/graphics/VxpSoft3D.cpp
     src/graphics/VxpActorSprite2D.cpp
     src/graphics/VxpStory2D.cpp
     src/graphics/VxpPixelFont.cpp

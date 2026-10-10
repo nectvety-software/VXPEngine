@@ -1,0 +1,50 @@
+Start testing: Oct 08 20:15 SE Asia Standard Time
+----------------------------------------------------------
+4/17 Testing: vxpe_toon3d_runtime
+4/17 Test: vxpe_toon3d_runtime
+Command: "D:/MRE/VXPEngine/tmp/coremre-tests/vxpe_toon3d_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/coremre-tests
+"vxpe_toon3d_runtime" start time: Oct 08 20:15 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+PASS: toon bands, yaw, depth, quad seams, clipping, alpha, perspective UV, urban style and buffer guards
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_toon3d_runtime" end time: Oct 08 20:15 SE Asia Standard Time
+"vxpe_toon3d_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/17 Testing: vxpe_toon3d_c_api
+5/17 Test: vxpe_toon3d_c_api
+Command: "D:/MRE/VXPEngine/tmp/coremre-tests/vxpe_toon3d_c_api.exe"
+Directory: D:/MRE/VXPEngine/tmp/coremre-tests
+"vxpe_toon3d_c_api" start time: Oct 08 20:15 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_toon3d_c_api" end time: Oct 08 20:15 SE Asia Standard Time
+"vxpe_toon3d_c_api" time elapsed: 00:00:00
+----------------------------------------------------------
+
+10/17 Testing: vxpe_scene25d_runtime
+10/17 Test: vxpe_scene25d_runtime
+Command: "D:/MRE/VXPEngine/tmp/coremre-tests/vxpe_scene25d_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/coremre-tests
+"vxpe_scene25d_runtime" start time: Oct 08 20:15 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+VXPE_SCENE25D_REGRESSION_PASS
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_scene25d_runtime" end time: Oct 08 20:15 SE Asia Standard Time
+"vxpe_scene25d_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Oct 08 20:15 SE Asia Standard Time

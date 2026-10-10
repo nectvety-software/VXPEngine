@@ -1,0 +1,70 @@
+/*
+ * Copyright (c) 2026 PixelRoot32
+ * Licensed under the MIT License
+ */
+#pragma once
+
+#include "core/EngineModules.h"
+#if PIXELROOT32_ENABLE_UI_SYSTEM
+
+#include "UIElement.h"
+#include "graphics/Color.h"
+#include <string>
+#include <string_view>
+
+namespace pixelroot32::graphics::ui {
+
+    /**
+    * @class UILabel
+    * @brief A simple text label UI element.
+    *
+    * Inherits from UIElement.
+    *
+    * Displays a string of text on the screen. Auto-calculates its bounds based on text length and size.
+    */
+class UILabel : public UIElement {
+public:
+    /**
+        * @brief Constructs a new UILabel.
+        * @param t Initial text.
+        * @param position Position.
+        * @param col Text color.
+        * @param sz Text size multiplier.
+        */
+    UILabel(std::string_view t, pixelroot32::math::Vector2 position, Color col, uint8_t sz);
+
+    /**
+        * @brief Updates the label's text.
+        * Recalculates dimensions if text changes.
+        * @param t New text.
+        */
+    void setText(std::string_view t);
+
+    /**
+        * @brief Sets visibility.
+        * @param v True to show, false to hide.
+        */
+    void setVisible(bool v) { isVisible = v; }
+
+    /**
+        * @brief Centers the label horizontally on the screen.
+        * @param screenWidth Width of the screen/container.
+        */
+    void centerX(int screenWidth);
+
+    void update(unsigned long deltaTime) override;
+    void draw(pixelroot32::graphics::Renderer& renderer) override;
+
+private:
+    std::string text;
+    Color color;
+    uint8_t size;
+
+    /**
+        * @brief Recalculates width and height based on current text and font size.
+        */
+    void recalcSize();
+};
+}
+
+#endif // PIXELROOT32_ENABLE_UI_SYSTEM

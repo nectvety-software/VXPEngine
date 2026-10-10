@@ -45,6 +45,18 @@ Renderer hỗ trợ yaw/pitch, mesh indexed, transform affine Q14, culling, ánh
 Dùng facade/bảng hiệu/graffiti như quad texture và sprite A8 cho nhân vật.
 Tránh coi preset postprocess sprite là phép chuyển ảnh 2D thành mesh 3D.
 
+Ánh sáng có thể phẳng theo từng mặt (`illumination` đơn) hoặc theo từng đỉnh
+(`vxpe_toon3d_triangle_gouraud`, và bản có texture
+`vxpe_toon3d_triangle_gouraud_textured` / `vxpe_toon3d_quad_gouraud_textured`).
+Bản texture + Gouraud cho phép một dải sáng lan qua nhiều cel band trên mặt
+phẳng lớn (sàn, panel cong) mà không phải chẻ thêm tam giác; UV vẫn
+perspective-correct và band vẫn áp lên texel đã sample. Mặt nhỏ hoặc đã phẳng
+nên giữ bản flat cho rẻ hơn.
+
+Khi cần đọc kết quả pixel (band, UV phối cảnh, wrapper quad, guard đầu vào),
+`tests/vxpe_toon3d_regression.cpp` và `tests/vxpe_toon3d_c_api.c` là nơi kiểm
+chứng; cả hai chạy trong CTest của core.
+
 ## Editor và mẫu chạy
 
 **Editor Assets → Game · Urban Toon**: palette mực đen, vàng, cyan, magenta,
@@ -68,3 +80,5 @@ Atlas Editor của UrbanToonDemo được bake từ mesh live: 6 frame 96×144, 
 UrbanToonDemo mặc định 240×320 dọc: world target 120×160 (RGB565 + depth: 76.800 byte), upscale `vxpe2d_upscale2x565`, HUD full resolution. Không còn buffer xoay. Mesh buffer cố định 384 vertex / 640 face. RAM khai báo 1024KB; chưa đo peak heap trên thiết bị.
 
 UrbanToonDemo dùng `vxpe2d_scale2x565` để phóng cảnh 120×160, giữ các màu nguồn và xử lý đường chéo. Sau đó dùng lại 19.200 phần tử worldPixels làm tile nhân vật 80×120 màu + depth, compositing với depth cảnh để giữ che khuất. HUD/nhân vật full resolution, phố half resolution. Scale2x không thêm buffer và không khôi phục chi tiết đã mất khi raster cảnh nhỏ.
+
+Material `dither_cutout` (mesh only): 0 kín, 255 không vẽ, trung gian dùng ma trận Bayer 4×4. Fragment bị loại không ghi màu/depth. Dùng cho kính PS1 tiết kiệm RAM; không có refraction hay alpha blending vật lý. Vẽ opaque trước lớp kính. UrbanToonDemo phím 1 có lab mesh martini xoay 3D và góc cố định 2.5D.

@@ -12,6 +12,7 @@
 #include "vmres.h"
 #include "vmmm.h"
 #include "graphics/VxpRender2D.h"
+#include "vxp_public_cache.h"
 #include <string.h>
 
 #if defined(__has_include)
@@ -29,6 +30,7 @@
 static VMINT g_layer = -1;
 static VMINT g_timer = -1;
 static VMINT g_tick = 0;
+static VMINT g_cache_checkpoint = 0;
 
 #define RGB565(r, g, b) (VMUINT16)((((r) & 0xF8) << 8) | (((g) & 0xFC) << 3) | ((b) >> 3))
 
@@ -172,6 +174,10 @@ static void draw(void) {
 static void tick(VMINT tid) {
     (void)tid;
     g_tick++;
+    if (g_tick - g_cache_checkpoint >= 300) {
+        (void)vxpe_cache_save(&g_tick, (uint32_t)sizeof(g_tick));
+        g_cache_checkpoint = g_tick;
+    }
     draw();
 }
 
@@ -183,6 +189,8 @@ static void start(void) {
 #if VXP_DESIGN_ACTIVE_HAS_DESIGN
     design_load();
 #endif
+    vxpe_cache_init();
+    if (vxpe_cache_load(&g_tick, (uint32_t)sizeof(g_tick))) g_cache_checkpoint = g_tick;
     /* 30 FPS target: smoother camera/animation while staying realistic for QVGA MRE. */
     if (g_timer < 0) g_timer = vm_create_timer(33, tick);
     draw();
@@ -193,6 +201,7 @@ static void stop(void) {
 #if VXP_DESIGN_ACTIVE_HAS_DESIGN
     design_free();
 #endif
+    (void)vxpe_cache_save(&g_tick, (uint32_t)sizeof(g_tick));
     if (g_layer >= 0) { vm_graphic_delete_layer(g_layer); g_layer = -1; }
 }
 

@@ -42,6 +42,6 @@ def main():
     subprocess.run(['cmd','/c',str(batch)],check=True,cwd=OUT)
     env=dict(os.environ);env['PATH']=str(QT/'bin')+';'+str(BUILD)+';'+env.get('PATH','')
     subprocess.run([str(executable),str(ROOT/'build-arm/main/vaelora_duel.vxp'),str(OUT),
-        str(ROOT/'assets/backgrounds/arena.png')],check=True,env=env)
+        str(ROOT/'assets/backgrounds/lane_ground.png')],check=True,env=env)
 
 if __name__=='__main__': main()

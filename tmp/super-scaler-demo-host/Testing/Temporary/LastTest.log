@@ -1,0 +1,19 @@
+Start testing: Oct 08 21:22 SE Asia Standard Time
+----------------------------------------------------------
+1/1 Testing: super_scaler_gameplay
+1/1 Test: super_scaler_gameplay
+Command: "D:/MRE/VXPEngine/tmp/super-scaler-demo-host/super_scaler_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/super-scaler-demo-host
+"super_scaler_gameplay" start time: Oct 08 21:22 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+SuperScaler racing input, speed, steering, pause, traffic and frame render passed
+<end of output>
+Test time =   0.19 sec
+----------------------------------------------------------
+Test Passed.
+"super_scaler_gameplay" end time: Oct 08 21:22 SE Asia Standard Time
+"super_scaler_gameplay" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Oct 08 21:22 SE Asia Standard Time

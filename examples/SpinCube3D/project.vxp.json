@@ -1,0 +1,9 @@
+{
+  "name": "SpinCube3D",
+  "display_name": "Spin Cube 3D",
+  "orientation": "portrait",
+  "resolution": "240x320",
+  "engine": "VXPEngine/VxpSoft3D",
+  "app_id": "6052702",
+  "description": "3D sample: spinning textured cube with perspective-correct UV, 16-bit depth, baked light and fog. Integer-only VxpSoft3D."
+}

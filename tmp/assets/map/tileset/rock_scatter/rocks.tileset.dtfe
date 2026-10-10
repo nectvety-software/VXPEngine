@@ -1,0 +1,44 @@
+{
+  "name": "Original rock scatter",
+  "sprite_file": "rocks_atlas.png",
+  "frame_width": 16,
+  "frame_height": 16,
+  "frames": [
+    {
+      "name": "rock_0",
+      "rect": [
+        0,
+        0,
+        16,
+        16
+      ]
+    },
+    {
+      "name": "rock_1",
+      "rect": [
+        16,
+        0,
+        16,
+        16
+      ]
+    },
+    {
+      "name": "rock_2",
+      "rect": [
+        32,
+        0,
+        16,
+        16
+      ]
+    },
+    {
+      "name": "rock_3",
+      "rect": [
+        48,
+        0,
+        16,
+        16
+      ]
+    }
+  ]
+}

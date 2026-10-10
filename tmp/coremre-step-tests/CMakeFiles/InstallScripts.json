@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"D:/MRE/VXPEngine/tmp/coremre-step-tests/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

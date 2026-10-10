@@ -30,6 +30,8 @@ typedef struct VxpeCamera25D {
     uint16_t fog_far_z;
     uint16_t fog_color565;
     uint8_t fog_strength;
+    int16_t sin_yaw_q14,cos_yaw_q14;   /* optional camera orientation; 0/0 preserves legacy +Z */
+    int16_t sin_pitch_q14,cos_pitch_q14; /* positive pitch looks down; 0/0 preserves legacy level view */
 } VxpeCamera25D;
 
 typedef struct VxpeProjected25D {

@@ -1,0 +1,9 @@
+{
+  "name": "TacticsKingdom",
+  "display_name": "Tactics Kingdom",
+  "orientation": "portrait",
+  "resolution": "240x320",
+  "engine": "VXPEngine/VxpRender2D",
+  "app_id": "6052703",
+  "description": "Turn-based tactics on a 15x20 tile grid: knights vs soldiers, BFS move range, greedy enemy AI, castle heal. All art procedural."
+}

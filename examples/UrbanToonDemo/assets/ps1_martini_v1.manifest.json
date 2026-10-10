@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "type": "original procedural mesh study",
+  "reference": "Erman Malak - a dry martini for a ps1 cocktail bar that does not exist yet",
+  "reference_use": "visual study only; no video pixels, audio or third-party assets included",
+  "source_mesh": "src/ps1.cpp",
+  "baker": "tools/bake_ps1.py",
+  "output": "assets/ps1_martini_v1.png",
+  "frame_size": [
+    120,
+    160
+  ],
+  "frame_order": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "ticks": [
+    0,
+    31,
+    62,
+    93,
+    124,
+    155,
+    186,
+    217
+  ],
+  "alpha": "binary depth coverage; dither holes remain transparent",
+  "physics": "visual prop only, no change to actor hitboxes",
+  "viewport": [
+    240,
+    320
+  ]
+}

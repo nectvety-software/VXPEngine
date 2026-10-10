@@ -1,8 +1,14 @@
-# Windows MSI release
+# Windows release
 
 VXPEngine is installed per-machine under Program Files and bundles the GUI, coremre, MRE SDK,
 w64devkit, ARM GCC, restricted SDK Python and VXPEmu. Updating the
 MSI replaces this frozen set atomically, so libraries cannot drift independently.
+
+The release pipeline emits both `VXPEngine-2.0.0-Setup.exe` (a single-file
+bootstrapper containing the MSI) and the standalone MSI. Distribute the Setup
+EXE when you want users to download one file. The bootstrapper extracts the
+embedded MSI to a temporary directory, starts Windows Installer with elevation,
+and removes the temporary payload after setup exits.
 
 ## Local test build
 
@@ -22,9 +28,11 @@ store, then build with its SHA-1 thumbprint:
   -SigningCertificateThumbprint "CERTIFICATE_SHA1_THUMBPRINT"
 ```
 
-The pipeline signs `VXPEngine.exe`, the restricted SDK host, and the MSI with
-SHA-256 plus an RFC3161 timestamp. It fails if signing or signature validation
-fails. Upload both `.msi` and `.msi.sha256` as assets of the same GitHub release.
+The pipeline signs `VXPEngine.exe`, the restricted SDK host, the MSI, and the
+single-file Setup EXE with SHA-256 plus an RFC3161 timestamp. It fails if
+signing or signature validation fails. Upload the Setup EXE and its `.sha256`
+for a one-file download; the MSI and its checksum are also available for
+administrative distribution and in-app updates.
 The in-app updater downloads both, verifies SHA-256 and the pinned Authenticode
 certificate, starts `msiexec`, and exits the running IDE before replacement.
 

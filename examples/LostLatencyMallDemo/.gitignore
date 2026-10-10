@@ -1,0 +1,4 @@
+/build-arm/
+/build-host/
+/resources/pack/*
+!/resources/pack/.gitkeep

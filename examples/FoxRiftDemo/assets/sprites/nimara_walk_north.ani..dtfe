@@ -1,0 +1,42 @@
+{
+  "format": "VXPEngine Animation",
+  "format_version": 2,
+  "extension": ".ani..dtfe",
+  "asset": "assets/sprites/directional_poses_atlas.png",
+  "texture": "assets/sprites/directional_poses_atlas.png",
+  "source_mode": "atlas_frames",
+  "asset_kind": "character",
+  "package": "atlas+descriptor",
+  "animation": {
+    "name": "nimara_walk_north",
+    "fps": 8,
+    "loop": true,
+    "frame_count": 2,
+    "source_mode": "atlas_frames",
+    "asset_kind": "character",
+    "selected_indices": [
+      8,
+      9
+    ]
+  },
+  "frames": [
+    {
+      "name": "nimara_north_0",
+      "x": 0,
+      "y": 80,
+      "width": 40,
+      "height": 40,
+      "source_index": 8,
+      "duration_ms": 120
+    },
+    {
+      "name": "nimara_north_1",
+      "x": 40,
+      "y": 80,
+      "width": 40,
+      "height": 40,
+      "source_index": 9,
+      "duration_ms": 120
+    }
+  ]
+}

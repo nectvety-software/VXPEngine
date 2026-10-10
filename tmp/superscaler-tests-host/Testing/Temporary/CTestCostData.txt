@@ -1,0 +1,20 @@
+vxpe_superscaler_runtime 4 0.0273636
+vxpe_story2d_runtime 3 0.00438633
+vxpe_story2d_c_api 3 0.00362017
+vxpe_sprite_fast_runtime 3 0.00579807
+vxpe_toon3d_runtime 3 0.0069391
+vxpe_toon3d_c_api 3 0.00368247
+vxpe_raycast3d_runtime 3 0.00375057
+vxpe_actor_sprite_runtime 3 0.00534667
+vxpe_color_grade_runtime 3 0.00601203
+vxpgdx_vxtm3_runtime 3 0.00591677
+vxpgdx_ui_runtime 3 0.00514523
+vxpe_scene25d_runtime 3 0.00489937
+vxpe_stage2d_runtime 3 0.00394937
+vxpe_artstyle_runtime 3 0.004416
+vxpgdx_strategy_rpg_runtime 3 0.0052058
+vxpgdx_vxtm3_packer 3 0.0341817
+vxpe_dungeonfx_runtime 3 0.00374297
+vxpe_pixel_font_runtime 3 0.0059316
+vxpe_scatter_runtime 3 0.00379387
+---

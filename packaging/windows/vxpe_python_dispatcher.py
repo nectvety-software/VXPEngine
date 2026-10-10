@@ -5,6 +5,21 @@ import runpy
 import sys
 from pathlib import Path
 
+# Scripts are loaded dynamically by runpy, so PyInstaller cannot discover
+# their dependencies. Keep the bundled SDK host complete for all three tools.
+import argparse
+import base64
+import dataclasses
+import hashlib
+import os
+import secrets
+import shutil
+import struct
+import zlib
+from datetime import datetime
+from cryptography.hazmat.primitives import hashes, serialization
+from cryptography.hazmat.primitives.asymmetric import padding
+
 
 ALLOWED_SCRIPTS = {"vxp_pack.py", "vxp_resource.py", "vxp_signer.py"}
 

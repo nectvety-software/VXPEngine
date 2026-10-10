@@ -23,6 +23,7 @@ class Project:
     map: TileMap = field(default_factory=TileMap)
     background: tuple[int, int, int, int] = (18, 20, 24, 255)
     dirty: bool = False
+    terrain: dict = field(default_factory=dict)
 
     # ---------------------------------------------------------------- setup
 
@@ -38,6 +39,7 @@ class Project:
     def attach_sheet(self, path: str | Path, cell: int | str = "auto") -> TileSheet:
         sheet = TileSheet.open(path, cell)
         self.sheet = sheet
+        self.terrain = {}
         self.map.tile_w, self.map.tile_h = sheet.cell
         for layer in self.map.layers:
             layer.tile_w, layer.tile_h = sheet.cell
@@ -53,7 +55,8 @@ class Project:
         return {"format": FORMAT, "version": VERSION, "name": self.name,
                 "sheet": self._sheet_ref(),
                 "sheet_cell": list(self.sheet.cell) if self.sheet else None,
-                "background": list(self.background), "map": self.map.to_dict()}
+                "background": list(self.background), "map": self.map.to_dict(),
+                "terrain": self.terrain}
 
     def _sheet_ref(self) -> str | None:
         if not self.sheet:
@@ -83,10 +86,17 @@ class Project:
         project = cls(name=data.get("name", "project"), map=TileMap.from_dict(data["map"]),
                       background=tuple(data.get("background", (18, 20, 24, 255))))
         project.path = Path(path)
+        project.terrain = data.get("terrain", {}) if isinstance(data.get("terrain"), dict) else {}
         ref = data.get("sheet")
         resolved = project._resolve_sheet(ref) if ref else None
         if resolved:
             project.sheet = TileSheet.open(resolved, tuple(data.get("sheet_cell") or "auto"))
+        variants = project.terrain.get("variants", [])
+        if (not isinstance(variants, list) or len(variants) != 16
+                or any(type(tile) is not int or tile < 0 for tile in variants)
+                or len(set(variants)) != 16 or project.sheet is None
+                or max(variants) >= len(project.sheet.tiles)):
+            project.terrain = {}
         return project
 
     def _resolve_sheet(self, ref: str) -> Path | None:

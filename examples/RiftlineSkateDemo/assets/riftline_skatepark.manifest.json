@@ -1,0 +1,23 @@
+{
+  "format": "VXPEngine Game Art and Scene Manifest",
+  "format_version": 1,
+  "project": "RiftlineSkateDemo",
+  "reference_use": "Skateboarding camera, concrete bowl and trick-combo vocabulary only; no source video pixels or audio copied.",
+  "original_work": {
+    "scene_geometry": "src/scene.cpp: deterministic low-poly curved bowl, rideable segmented quarterpipe, coping, plaza blocks, floodlights, concrete seams and paint",
+    "skateboard": "src/scene.cpp: hand-coded RGB565 deck, trucks and wheels",
+    "park_palette": "faceted cool slate concrete with subtle panel variation, oxidized teal coping, warm board deck, lime HUD accents and a dusk gradient",
+    "character": "existing original VXPEngine low-poly skater mesh and Editor Assets atlas, repainted with a park-ready teal/coral palette"
+  },
+  "runtime": {
+    "viewport": [240, 320],
+    "world_target": [120, 160],
+    "color_depth": "RGB565",
+    "depth_target": "uint16",
+    "framebuffer_bytes": 76800,
+    "allocations_per_frame": 0,
+    "cache_writes_per_frame": 0,
+    "camera": "follow camera tracks both horizontal steering and ramp elevation",
+    "shadow": "two nested low-poly ground-shadow discs, reuses scene depth target"
+  }
+}

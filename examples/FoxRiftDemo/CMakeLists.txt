@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.10)
+cmake_minimum_required (VERSION 3.19)
 
 project("vaelora_duel")
 
@@ -38,6 +38,12 @@ include(.vxpe/cmake/MreUtils.cmake)
 # --- VXPEngine core: coremre (core duy nhất, gộp từ vxpstore/corevxp) ---
 # Core dùng chung: ưu tiên gói coremre đã ký do VXPEngine truyền qua
 # -DCOREMRE_PACKAGE_DIR; project cũ còn engine/ trong cây thì dùng tại chỗ.
+if(NOT EXISTS "${COREMRE_PACKAGE_DIR}/include/graphics/VxpStory2D.h")
+    # Older installed SDKs lack the renderer this game requires. Keep a
+    # portable signed core snapshot rather than modifying Program Files.
+    set(COREMRE_PACKAGE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/.vxpe/coremre/2.0.0")
+    message(STATUS "Vaelora: using bundled coremre with Story2D support")
+endif()
 if(DEFINED COREMRE_PACKAGE_DIR AND EXISTS "${COREMRE_PACKAGE_DIR}/cmake/UseCoremre.cmake")
     include("${COREMRE_PACKAGE_DIR}/cmake/UseCoremre.cmake")
 elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/engine/coremre/CMakeLists.txt")

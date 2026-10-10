@@ -106,6 +106,16 @@ void vxpe2d_gradient_vertical(
     uint16_t* fb, int fb_w, int fb_h,
     int x, int y, int w, int h,
     uint16_t top_color, uint16_t bottom_color);
+/* Same gradient with 4x4 ordered dithering against RGB565 quantization. A tall
+ * sky band steps through few 565 levels per channel, which reads as flat stripes
+ * (a 160-row cobalt-to-aqua sky repeats the same row 51 times). Dithering trades
+ * those bands for a stable checker pattern. Costs one small table lookup and
+ * three extra multiplies per pixel versus the plain fill, so prefer the plain
+ * version when the gradient is short or already spans many levels. */
+void vxpe2d_gradient_vertical_dithered(
+    uint16_t* fb, int fb_w, int fb_h,
+    int x, int y, int w, int h,
+    uint16_t top_color, uint16_t bottom_color);
 
 /* Blend a solid colour over a rectangle. */
 void vxpe2d_overlay_rect(

@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"D:/MRE/VXPEngine/tmp/superscaler-tests-host/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

@@ -23,7 +23,7 @@ def pack() -> Path:
         for path in sorted(ASSETS.rglob("*")):
             if not path.is_file():
                 continue
-            if path.suffix.lower() not in {".png", ".mp3", ".json"}:
+            if path.suffix.lower() not in {".png", ".mp3", ".json", ".dtfe"}:
                 continue
             zf.write(path, path.relative_to(ASSETS).as_posix())
             count += 1

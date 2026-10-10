@@ -18,6 +18,8 @@ set(COREMRE_SOURCES
   ${_COREMRE_ROOT}/src/graphics/VxpScene25D.cpp
   ${_COREMRE_ROOT}/src/graphics/VxpArtStyle.cpp
   ${_COREMRE_ROOT}/src/graphics/VxpToon3D.cpp
+  ${_COREMRE_ROOT}/src/graphics/VxpRaycast3D.cpp
+  ${_COREMRE_ROOT}/src/graphics/VxpSuperScaler.cpp
   ${_COREMRE_ROOT}/src/graphics/VxpDungeonFx.cpp
   ${_COREMRE_ROOT}/src/graphics/VxpCinematic2D.cpp
   ${_COREMRE_ROOT}/src/graphics/VxpLight2D.cpp

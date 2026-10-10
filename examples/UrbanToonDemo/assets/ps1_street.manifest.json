@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "project": "UrbanToonDemo",
+  "style": "PS1 low-poly street gameplay",
+  "reference": {
+    "author": "Erman Malak",
+    "title": "a dry martini for a ps1 cocktail bar that doesn't exist yet",
+    "use": "visual reference only; no copied video pixels or audio"
+  },
+  "sources": [
+    "src/scene.cpp",
+    "src/actor.cpp",
+    "tools/make_city.py",
+    "tools/bake_actor.py"
+  ],
+  "textures": {
+    "city_texture_count": 7,
+    "format": "RGB565 embedded; source PNG RGB",
+    "sampling": "nearest",
+    "alpha": "opaque"
+  },
+  "character_atlas": {
+    "path": "assets/skater_atlas.png",
+    "frame_count": 6,
+    "frame_width": 96,
+    "frame_height": 144,
+    "order": "horizontal, indices 0..5",
+    "alpha": "RGBA coverage from depth",
+    "descriptor": "assets/skater_roll.ani..dtfe"
+  },
+  "runtime": {
+    "viewport": [
+      240,
+      320
+    ],
+    "world_render": [
+      120,
+      160
+    ],
+    "actor_tile": [
+      80,
+      120
+    ],
+    "additional_framebuffers": 0,
+    "ram_cap_kb": 1024,
+    "glass": "ordered coverage, holes preserve depth; no refraction",
+    "lighting": "flat directional actor; baked geometric street pools; no dynamic per-pixel lighting"
+  },
+  "gameplay": "steering, jump, grind, hitboxes unchanged"
+}

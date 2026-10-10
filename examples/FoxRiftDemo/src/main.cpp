@@ -7,15 +7,11 @@
 
 static FoxScene scene;
 static VMINT layer=-1,timer=-1;
-static VMINT base_layer=-1;
 static int layer_w=0,layer_h=0;
 
 static void resize_layers(int w,int h) {
     if(layer>=0 && w==layer_w && h==layer_h) return;
     if(layer>=0) { vm_graphic_delete_layer(layer); layer=-1; }
-    if(base_layer>=0) { vm_graphic_delete_layer(base_layer); base_layer=-1; }
-    base_layer=vm_graphic_create_layer(0,0,w,h,-1);
-    if(base_layer<0) return;
     // The drawing layer owns a current-size canvas stride for the native portrait display.
     layer=vm_graphic_create_layer(0,0,w,h,-1);
     layer_w=w; layer_h=h;
@@ -36,7 +32,6 @@ static void stop() {
     scene.held=0;
     if(timer>=0) { vm_delete_timer(timer); timer=-1; }
     if(layer>=0) { vm_graphic_delete_layer(layer); layer=-1; }
-    if(base_layer>=0) { vm_graphic_delete_layer(base_layer); base_layer=-1; }
     layer_w=layer_h=0;
 }
 static void system_event(VMINT e,VMINT) {
@@ -50,6 +45,11 @@ static void system_event(VMINT e,VMINT) {
     if(e==VM_MSG_QUIT) { stop(); vm_exit_app(); }
 }
 static void key_event(VMINT e,VMINT key) {
+    if(key==VM_KEY_LEFT_SOFTKEY){
+        scene.hold(12,e!=VM_KEY_EVENT_UP);
+        if(e==VM_KEY_EVENT_DOWN)scene.input(12);
+        return;
+    }
     int k=-2;
     if(key==VM_KEY_UP || key==VM_KEY_NUM2) k=2;
     if(key==VM_KEY_DOWN || key==VM_KEY_NUM8) k=8;
@@ -66,11 +66,13 @@ static void key_event(VMINT e,VMINT key) {
         if(key==VM_KEY_NUM1) k=1;
         if(key==VM_KEY_NUM3) k=3;
         if(key==VM_KEY_STAR) k=10;
+        if(key==VM_KEY_POUND) k=11;
         if(key==VM_KEY_BACK || key==VM_KEY_CLEAR || key==VM_KEY_RIGHT_SOFTKEY) k=-1;
         if(k!=-2) scene.input(k);
     }
     if(scene.exiting) { stop(); vm_exit_app(); return; }
-    draw();
+    // Match rendering is paced by the 33ms timer, not keyboard-repeat events.
+    if(scene.screen!=DUEL_MATCH)draw();
 }
 extern "C" void vm_main() {
     vm_reg_sysevt_callback(system_event);

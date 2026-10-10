@@ -94,6 +94,7 @@ def pack() -> Path:
     shutil.copy2(ROOT / "docs" / "ACTOR_SPRITES.md", out / "docs" / "ACTOR_SPRITES.md")
     shutil.copy2(ROOT / "docs" / "STORY_STAGES_2D.md", out / "docs" / "STORY_STAGES_2D.md")
     shutil.copy2(ROOT / "docs" / "PIXEL_FONT_STYLES.md", out / "docs" / "PIXEL_FONT_STYLES.md")
+    shutil.copy2(ROOT / "docs" / "CORE_25D_3D_RENDERING.md", out / "docs" / "CORE_25D_3D_RENDERING.md")
 
     cmake_text = (CORE_SRC / "CMakeLists.txt").read_text(encoding="utf-8")
     match = re.search(r"set\(COREMRE_SOURCES\s+(.*?)\n\)", cmake_text, re.DOTALL)

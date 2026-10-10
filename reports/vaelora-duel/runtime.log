@@ -68,3 +68,83 @@
 [20:03:42.614] [INFO ] [EmulatorCore] worker: init done
 [20:03:42.614] [INFO ] [EmulatorCore] worker: queueing VXP for launch
 [20:03:42.614] [INFO ] [EmulatorCore] worker: VXP queued
+[05:32:58.906] [INFO ] [EmulatorCore] Display resize requested: 240x320
+[05:32:58.989] [INFO ] [EmulatorCore] VXP queued: D:\MRE\VXPEngine\examples\FoxRiftDemo\build-arm\main\vaelora_duel.vxp
+[05:32:58.989] [INFO ] [EmulatorCore] worker: Memory::init
+[05:32:58.989] [INFO ] [EmulatorCore] worker: Cpu::init
+[05:32:58.991] [INFO ] [EmulatorCore] worker: Bridge::init
+[05:32:58.994] [INFO ] [EmulatorCore] worker: SIM/System/CharSet/Audio/IO init
+[05:32:58.996] [INFO ] [EmulatorCore] worker: AppManager new
+[05:32:58.996] [INFO ] [EmulatorCore] worker: init done
+[05:32:58.996] [INFO ] [EmulatorCore] worker: queueing VXP for launch
+[05:32:58.996] [INFO ] [EmulatorCore] worker: VXP queued
+[05:39:46.793] [INFO ] [EmulatorCore] Display resize requested: 240x320
+[05:39:46.793] [INFO ] [EmulatorCore] VXP queued: D:\MRE\VXPEngine\examples\FoxRiftDemo\build-arm\main\vaelora_duel.vxp
+[05:39:46.794] [INFO ] [EmulatorCore] worker: Memory::init
+[05:39:46.794] [INFO ] [EmulatorCore] worker: Cpu::init
+[05:39:46.796] [INFO ] [EmulatorCore] worker: Bridge::init
+[05:39:46.797] [INFO ] [EmulatorCore] worker: SIM/System/CharSet/Audio/IO init
+[05:39:46.799] [INFO ] [EmulatorCore] worker: AppManager new
+[05:39:46.799] [INFO ] [EmulatorCore] worker: init done
+[05:39:46.799] [INFO ] [EmulatorCore] worker: queueing VXP for launch
+[05:39:46.799] [INFO ] [EmulatorCore] worker: VXP queued
+[05:49:45.305] [INFO ] [EmulatorCore] Display resize requested: 240x320
+[05:49:45.305] [INFO ] [EmulatorCore] VXP queued: D:\MRE\VXPEngine\examples\FoxRiftDemo\build-arm\main\vaelora_duel.vxp
+[05:49:45.306] [INFO ] [EmulatorCore] worker: Memory::init
+[05:49:45.306] [INFO ] [EmulatorCore] worker: Cpu::init
+[05:49:45.309] [INFO ] [EmulatorCore] worker: Bridge::init
+[05:49:45.309] [INFO ] [EmulatorCore] worker: SIM/System/CharSet/Audio/IO init
+[05:49:45.311] [INFO ] [EmulatorCore] worker: AppManager new
+[05:49:45.311] [INFO ] [EmulatorCore] worker: init done
+[05:49:45.311] [INFO ] [EmulatorCore] worker: queueing VXP for launch
+[05:49:45.311] [INFO ] [EmulatorCore] worker: VXP queued
+[05:51:58.909] [INFO ] [EmulatorCore] Display resize requested: 240x320
+[05:51:58.910] [INFO ] [EmulatorCore] VXP queued: D:\MRE\VXPEngine\examples\FoxRiftDemo\build-arm\main\vaelora_duel.vxp
+[05:51:58.910] [INFO ] [EmulatorCore] worker: Memory::init
+[05:51:58.910] [INFO ] [EmulatorCore] worker: Cpu::init
+[05:51:58.913] [INFO ] [EmulatorCore] worker: Bridge::init
+[05:51:58.914] [INFO ] [EmulatorCore] worker: SIM/System/CharSet/Audio/IO init
+[05:51:58.916] [INFO ] [EmulatorCore] worker: AppManager new
+[05:51:58.916] [INFO ] [EmulatorCore] worker: init done
+[05:51:58.916] [INFO ] [EmulatorCore] worker: queueing VXP for launch
+[05:51:58.916] [INFO ] [EmulatorCore] worker: VXP queued
+[06:00:31.100] [INFO ] [EmulatorCore] Display resize requested: 240x320
+[06:00:31.101] [INFO ] [EmulatorCore] VXP queued: D:/MRE/VXPEngine/examples/FoxRiftDemo/build-arm-signed/main/vaelora_duel-signed.vxp
+[06:00:31.101] [INFO ] [EmulatorCore] worker: Memory::init
+[06:00:31.101] [INFO ] [EmulatorCore] worker: Cpu::init
+[06:00:31.104] [INFO ] [EmulatorCore] worker: Bridge::init
+[06:00:31.105] [INFO ] [EmulatorCore] worker: SIM/System/CharSet/Audio/IO init
+[06:00:31.107] [INFO ] [EmulatorCore] worker: AppManager new
+[06:00:31.107] [INFO ] [EmulatorCore] worker: init done
+[06:00:31.107] [INFO ] [EmulatorCore] worker: queueing VXP for launch
+[06:00:31.107] [INFO ] [EmulatorCore] worker: VXP queued
+[06:10:18.440] [INFO ] [EmulatorCore] Display resize requested: 240x320
+[06:10:18.441] [INFO ] [EmulatorCore] VXP queued: D:\MRE\VXPEngine\examples\FoxRiftDemo\build-arm\main\vaelora_duel.vxp
+[06:10:18.441] [INFO ] [EmulatorCore] worker: Memory::init
+[06:10:18.441] [INFO ] [EmulatorCore] worker: Cpu::init
+[06:10:18.445] [INFO ] [EmulatorCore] worker: Bridge::init
+[06:10:18.445] [INFO ] [EmulatorCore] worker: SIM/System/CharSet/Audio/IO init
+[06:10:18.448] [INFO ] [EmulatorCore] worker: AppManager new
+[06:10:18.448] [INFO ] [EmulatorCore] worker: init done
+[06:10:18.448] [INFO ] [EmulatorCore] worker: queueing VXP for launch
+[06:10:18.448] [INFO ] [EmulatorCore] worker: VXP queued
+[06:11:19.707] [INFO ] [EmulatorCore] Display resize requested: 240x320
+[06:11:19.707] [INFO ] [EmulatorCore] VXP queued: D:/MRE/VXPEngine/examples/FoxRiftDemo/build-arm-signed/main/vaelora_duel-signed.vxp
+[06:11:19.708] [INFO ] [EmulatorCore] worker: Memory::init
+[06:11:19.708] [INFO ] [EmulatorCore] worker: Cpu::init
+[06:11:19.710] [INFO ] [EmulatorCore] worker: Bridge::init
+[06:11:19.711] [INFO ] [EmulatorCore] worker: SIM/System/CharSet/Audio/IO init
+[06:11:19.713] [INFO ] [EmulatorCore] worker: AppManager new
+[06:11:19.713] [INFO ] [EmulatorCore] worker: init done
+[06:11:19.713] [INFO ] [EmulatorCore] worker: queueing VXP for launch
+[06:11:19.713] [INFO ] [EmulatorCore] worker: VXP queued
+[06:22:47.486] [INFO ] [EmulatorCore] Display resize requested: 240x320
+[06:22:47.487] [INFO ] [EmulatorCore] VXP queued: D:/MRE/VXPEngine/examples/FoxRiftDemo/build-arm-signed/main/vaelora_duel-signed.vxp
+[06:22:47.487] [INFO ] [EmulatorCore] worker: Memory::init
+[06:22:47.487] [INFO ] [EmulatorCore] worker: Cpu::init
+[06:22:47.490] [INFO ] [EmulatorCore] worker: Bridge::init
+[06:22:47.517] [INFO ] [EmulatorCore] worker: SIM/System/CharSet/Audio/IO init
+[06:22:47.519] [INFO ] [EmulatorCore] worker: AppManager new
+[06:22:47.519] [INFO ] [EmulatorCore] worker: init done
+[06:22:47.519] [INFO ] [EmulatorCore] worker: queueing VXP for launch
+[06:22:47.519] [INFO ] [EmulatorCore] worker: VXP queued

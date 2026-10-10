@@ -1,0 +1,12 @@
+{
+  "format": "VXPEngine VXP Project",
+  "format_version": 1,
+  "engine_version": "2.0.0",
+  "name": "SSH Web Bridge VXP",
+  "app_name": "ssh_bridge",
+  "developer": "VXPstore",
+  "template": "blank",
+  "screen": {"width": 240, "height": 320, "type": "MRE QVGA Portrait"},
+  "mre": {"sdk_version": "3.0", "api": "File Internet ProMng", "ram_kb": "800", "app_id": "6423191"},
+  "app_id": "6423191"
+}

@@ -1,0 +1,12 @@
+vxp=D:\MRE\VXPEngine\examples\SSHWebBridge\VXPClient\build-arm\main\ssh_bridge.vxp
+seconds=4.015
+state=Stopped
+frames=4
+fps=1
+loadError=
+consoleLines=4
+--- console tail (last 60) ---
+[INFO ] [Loader] Queued D:\MRE\VXPEngine\examples\SSHWebBridge\VXPClient\build-arm\main\ssh_bridge.vxp
+[INFO ] [AudioOut] waveOut backend ready
+[INFO ] [Engine] Worker running — vm_app_log will appear here live
+[INFO ] [Launcher] App started (VM_MSG_CREATE/PAINT queued)

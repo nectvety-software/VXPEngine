@@ -40,7 +40,7 @@
       "name": "Arena",
       "code_name": "Arena",
       "type": "Sprite2D",
-      "asset": "assets/backgrounds/arena.png",
+      "asset": "assets/backgrounds/lane_ground.png",
       "position": [
         0,
         0

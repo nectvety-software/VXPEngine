@@ -1,0 +1,109 @@
+[1/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/gameplay/InteractionTracker.cpp.obj
+[2/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/gameplay/GameplayEventBus.cpp.obj
+[3/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/gameplay/StateMachine.cpp.obj
+[4/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpScene25D.cpp.obj
+[5/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpColorGrade.cpp.obj
+[6/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/Color.cpp.obj
+[7/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpStage2D.cpp.obj
+[8/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpRender2D.cpp.obj
+[9/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/DirtyGrid.cpp.obj
+[10/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpDungeonFx.cpp.obj
+[11/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/FontManager.cpp.obj
+[12/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpCinematic2D.cpp.obj
+[13/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpArtStyle.cpp.obj
+[14/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/Font5x7.cpp.obj
+[15/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/Camera2D.cpp.obj
+[16/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpLight2D.cpp.obj
+[17/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/CameraEffects.cpp.obj
+[18/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/StaticTilemapLayerCache.cpp.obj
+[19/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpActorSprite2D.cpp.obj
+[20/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpSpriteFx.cpp.obj
+[21/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/core/Scene.cpp.obj
+[22/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpToon3D.cpp.obj
+[23/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpPixelFont.cpp.obj
+[24/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/core/PhysicsActor.cpp.obj
+[25/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/core/SceneManager.cpp.obj
+[26/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/particles/ParticleEmitter.cpp.obj
+[27/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpStory2D.cpp.obj
+[28/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/particles/VxpParticlePool.cpp.obj
+[29/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/VxpVfx2D.cpp.obj
+[30/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UILayout.cpp.obj
+[31/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UISpriteRef.cpp.obj
+[32/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UIAnchorLayout.cpp.obj
+[33/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UIManager.cpp.obj
+[34/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UILabel.cpp.obj
+[35/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UIButton.cpp.obj
+[36/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UIPanel.cpp.obj
+[37/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UIHorizontalLayout.cpp.obj
+[38/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UICheckBox.cpp.obj
+[39/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UIPaddingContainer.cpp.obj
+[40/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UISprite.cpp.obj
+[41/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/input/TouchEventDispatcher.cpp.obj
+[42/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UISpriteRow.cpp.obj
+[43/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UITouchButton.cpp.obj
+[44/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UIGridLayout.cpp.obj
+[45/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UITouchCheckbox.cpp.obj
+[46/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/input/TouchEventQueue.cpp.obj
+[47/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/input/TouchManager.cpp.obj
+[48/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UITouchSlider.cpp.obj
+[49/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/input/TouchCalibration.cpp.obj
+[50/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/input/TouchStateMachine.cpp.obj
+[51/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/input/ActorTouchController.cpp.obj
+[52/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/graphics/ui/UIVerticalLayout.cpp.obj
+[53/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/platforms/PlatformCapabilities.cpp.obj
+[54/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/platforms/PlatformLog.cpp.obj
+In file included from D:/MRE/VXPEngine/packaging/coremre/2.0.0/src/platforms/PlatformLog.cpp:11:
+D:/MRE/VXPEngine/packaging/coremre/2.0.0/src/platforms/PlatformLog.cpp: In function 'void pixelroot32::core::logging::platformPrint(const char*)':
+D:/MRE/VXPEngine/packaging/coremre/2.0.0/src/platforms/PlatformLog.cpp:51:21: warning: ISO C++ forbids converting a string constant to 'char*' [-Wwrite-strings]
+   51 |         vm_log_info("%s", text);
+      |                     ^~~~
+D:/MRE/VXPEngine/engine/coremre/sdk/mre/include/vmlog.h:113:94: note: in definition of macro 'vm_log_info'
+  113 | #define vm_log_info(...)                if(_vm_log_module(__FILE__, __LINE__)) _vm_log_info( __VA_ARGS__)
+      |                                                                                              ^~~~~~~~~~~
+[55/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/physics/SpatialGrid.cpp.obj
+[56/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/physics/CollisionSystem.cpp.obj
+[57/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/physics/RigidActor.cpp.obj
+[58/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/physics/SensorActor.cpp.obj
+[59/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/physics/CollisionPrimitives.cpp.obj
+[60/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/physics/TilePixelCollision.cpp.obj
+[61/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/physics/TileCollisionBuilder.cpp.obj
+[62/73] Building CXX object main/CMakeFiles/main.dir/__/__/__/src/main.cpp.obj
+[63/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/physics/TileConsumptionHelper.cpp.obj
+[64/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/physics/StaticActor.cpp.obj
+[65/73] Building CXX object CMakeFiles/coremre.dir/D_/MRE/VXPEngine/packaging/coremre/2.0.0/src/physics/KinematicActor.cpp.obj
+[66/73] Building CXX object main/CMakeFiles/main.dir/__/__/__/src/ps1.cpp.obj
+[67/73] Linking CXX static library libcoremre.a
+[68/73] Building CXX object main/CMakeFiles/main.dir/__/__/__/src/scene.cpp.obj
+[69/73] Building CXX object main/CMakeFiles/main.dir/__/__/__/src/actor.cpp.obj
+[70/73] Linking CXX executable main\main.axf
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-closer.o): in function `_close_r':
+C:/M/B/src/newlib-4.5.0.20241231/newlib/libc/reent/closer.c:47:(.text+0xc): warning: _close is not implemented and will always fail
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-closer.o): note: the message above does not take linker garbage collection into account
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-fstatr.o): in function `_fstat_r':
+C:/M/B/src/newlib-4.5.0.20241231/newlib/libc/reent/fstatr.c:55:(.text+0xe): warning: _fstat is not implemented and will always fail
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-fstatr.o): note: the message above does not take linker garbage collection into account
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-signalr.o): in function `_getpid_r':
+C:/M/B/src/newlib-4.5.0.20241231/newlib/libc/reent/signalr.c:83:(.text+0x2e): warning: _getpid is not implemented and will always fail
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-signalr.o): note: the message above does not take linker garbage collection into account
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-isattyr.o): in function `_isatty_r':
+C:/M/B/src/newlib-4.5.0.20241231/newlib/libc/reent/isattyr.c:52:(.text+0xc): warning: _isatty is not implemented and will always fail
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-isattyr.o): note: the message above does not take linker garbage collection into account
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-signalr.o): in function `_kill_r':
+C:/M/B/src/newlib-4.5.0.20241231/newlib/libc/reent/signalr.c:53:(.text+0xe): warning: _kill is not implemented and will always fail
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-signalr.o): note: the message above does not take linker garbage collection into account
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-lseekr.o): in function `_lseek_r':
+C:/M/B/src/newlib-4.5.0.20241231/newlib/libc/reent/lseekr.c:49:(.text+0x10): warning: _lseek is not implemented and will always fail
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-lseekr.o): note: the message above does not take linker garbage collection into account
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-readr.o): in function `_read_r':
+C:/M/B/src/newlib-4.5.0.20241231/newlib/libc/reent/readr.c:49:(.text+0x10): warning: _read is not implemented and will always fail
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-readr.o): note: the message above does not take linker garbage collection into account
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-writer.o): in function `_write_r':
+C:/M/B/src/newlib-4.5.0.20241231/newlib/libc/reent/writer.c:49:(.text+0x10): warning: _write is not implemented and will always fail
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-writer.o): note: the message above does not take linker garbage collection into account
+[71/73] Generating null_main_vxp.cpp
+[72/73] Building CXX object main/CMakeFiles/main_vxp.dir/null_main_vxp.cpp.obj
+[73/73] Linking CXX static library main\urban_toon.vxp
+FORMAT    : MRE VXP (GCC/ARM ELF32)
+APP ID    : 9499581
+VENDOR    : VXPstore
+OUTPUT    : D:\MRE\VXPEngine\examples\UrbanToonDemo\build-arm\main\urban_toon.vxp

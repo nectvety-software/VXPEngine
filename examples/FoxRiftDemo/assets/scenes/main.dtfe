@@ -40,7 +40,7 @@
       "name": "Arena",
       "code_name": "Arena",
       "type": "Sprite2D",
-      "asset": "assets/backgrounds/arena.png",
+      "asset": "assets/backgrounds/lane_ground.png",
       "position": [
         0,
         0
@@ -56,6 +56,949 @@
       "z_index": -10,
       "pixel_snap": true,
       "lock_aspect": true,
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "wall_horizontal_0",
+      "name": "wall_horizontal_0",
+      "code_name": "WallHorizontal0",
+      "type": "Sprite2D",
+      "asset": "assets/sprites/environment_wall_horizontal.png",
+      "position": [
+        -77.0,
+        -430.0
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        58,
+        30
+      ],
+      "z_index": 305,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "world_position": [
+        14,
+        275
+      ],
+      "collision": {
+        "solid": true,
+        "rect": [
+          3,
+          17,
+          52,
+          11
+        ]
+      },
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "wall_horizontal_1",
+      "name": "wall_horizontal_1",
+      "code_name": "WallHorizontal1",
+      "type": "Sprite2D",
+      "asset": "assets/sprites/environment_wall_horizontal.png",
+      "position": [
+        77.0,
+        -245.0
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        58,
+        30
+      ],
+      "z_index": 490,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "world_position": [
+        168,
+        460
+      ],
+      "collision": {
+        "solid": true,
+        "rect": [
+          3,
+          17,
+          52,
+          11
+        ]
+      },
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "wall_horizontal_2",
+      "name": "wall_horizontal_2",
+      "code_name": "WallHorizontal2",
+      "type": "Sprite2D",
+      "asset": "assets/sprites/environment_wall_horizontal.png",
+      "position": [
+        -76.0,
+        -20.0
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        58,
+        30
+      ],
+      "z_index": 715,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "world_position": [
+        15,
+        685
+      ],
+      "collision": {
+        "solid": true,
+        "rect": [
+          3,
+          17,
+          52,
+          11
+        ]
+      },
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "wall_horizontal_3",
+      "name": "wall_horizontal_3",
+      "code_name": "WallHorizontal3",
+      "type": "Sprite2D",
+      "asset": "assets/sprites/environment_wall_horizontal.png",
+      "position": [
+        76.0,
+        -585.0
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        58,
+        30
+      ],
+      "z_index": 150,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "world_position": [
+        167,
+        120
+      ],
+      "collision": {
+        "solid": true,
+        "rect": [
+          3,
+          17,
+          52,
+          11
+        ]
+      },
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "wall_vertical_4",
+      "name": "wall_vertical_4",
+      "code_name": "WallVertical4",
+      "type": "Sprite2D",
+      "asset": "assets/sprites/environment_wall_vertical.png",
+      "position": [
+        -98.0,
+        -544.0
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        28,
+        72
+      ],
+      "z_index": 212,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "world_position": [
+        8,
+        140
+      ],
+      "collision": {
+        "solid": true,
+        "rect": [
+          6,
+          5,
+          16,
+          63
+        ]
+      },
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "wall_vertical_5",
+      "name": "wall_vertical_5",
+      "code_name": "WallVertical5",
+      "type": "Sprite2D",
+      "asset": "assets/sprites/environment_wall_vertical.png",
+      "position": [
+        98.0,
+        -134.0
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        28,
+        72
+      ],
+      "z_index": 622,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "world_position": [
+        204,
+        550
+      ],
+      "collision": {
+        "solid": true,
+        "rect": [
+          6,
+          5,
+          16,
+          63
+        ]
+      },
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "wall_vertical_6",
+      "name": "wall_vertical_6",
+      "code_name": "WallVertical6",
+      "type": "Sprite2D",
+      "asset": "assets/sprites/environment_wall_vertical.png",
+      "position": [
+        -98.0,
+        -274.0
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        28,
+        72
+      ],
+      "z_index": 482,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "world_position": [
+        8,
+        410
+      ],
+      "collision": {
+        "solid": true,
+        "rect": [
+          6,
+          5,
+          16,
+          63
+        ]
+      },
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "wall_vertical_7",
+      "name": "wall_vertical_7",
+      "code_name": "WallVertical7",
+      "type": "Sprite2D",
+      "asset": "assets/sprites/environment_wall_vertical.png",
+      "position": [
+        98.0,
+        106.0
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        28,
+        72
+      ],
+      "z_index": 862,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "world_position": [
+        204,
+        790
+      ],
+      "collision": {
+        "solid": true,
+        "rect": [
+          6,
+          5,
+          16,
+          63
+        ]
+      },
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "watch_hut_8",
+      "name": "watch_hut_8",
+      "code_name": "WatchHut8",
+      "type": "Sprite2D",
+      "asset": "assets/sprites/environment_watch_hut.png",
+      "position": [
+        -83.0,
+        -178.0
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        62,
+        64
+      ],
+      "z_index": 574,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "world_position": [
+        6,
+        510
+      ],
+      "collision": {
+        "solid": true,
+        "rect": [
+          12,
+          43,
+          38,
+          18
+        ]
+      },
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "watch_hut_9",
+      "name": "watch_hut_9",
+      "code_name": "WatchHut9",
+      "type": "Sprite2D",
+      "asset": "assets/sprites/environment_watch_hut.png",
+      "position": [
+        83.0,
+        -428.0
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        62,
+        64
+      ],
+      "z_index": 324,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "world_position": [
+        172,
+        260
+      ],
+      "collision": {
+        "solid": true,
+        "rect": [
+          12,
+          43,
+          38,
+          18
+        ]
+      },
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "watch_hut_10",
+      "name": "watch_hut_10",
+      "code_name": "WatchHut10",
+      "type": "Sprite2D",
+      "asset": "assets/sprites/environment_watch_hut.png",
+      "position": [
+        83.0,
+        12.0
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        62,
+        64
+      ],
+      "z_index": 764,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "world_position": [
+        172,
+        700
+      ],
+      "collision": {
+        "solid": true,
+        "rect": [
+          12,
+          43,
+          38,
+          18
+        ]
+      },
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "grass_11",
+      "name": "grass_11",
+      "code_name": "Grass11",
+      "type": "Sprite2D",
+      "asset": "assets/sprites/environment_grass.png",
+      "position": [
+        -75.0,
+        -364.0
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        50,
+        32
+      ],
+      "z_index": 372,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "world_position": [
+        20,
+        340
+      ],
+      "collision": {
+        "solid": false,
+        "rect": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "grass_12",
+      "name": "grass_12",
+      "code_name": "Grass12",
+      "type": "Sprite2D",
+      "asset": "assets/sprites/environment_grass.png",
+      "position": [
+        76.0,
+        -314.0
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        50,
+        32
+      ],
+      "z_index": 422,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "world_position": [
+        171,
+        390
+      ],
+      "collision": {
+        "solid": false,
+        "rect": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "grass_13",
+      "name": "grass_13",
+      "code_name": "Grass13",
+      "type": "Sprite2D",
+      "asset": "assets/sprites/environment_grass.png",
+      "position": [
+        -75.0,
+        71.0
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        50,
+        32
+      ],
+      "z_index": 807,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "world_position": [
+        20,
+        775
+      ],
+      "collision": {
+        "solid": false,
+        "rect": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "grass_14",
+      "name": "grass_14",
+      "code_name": "Grass14",
+      "type": "Sprite2D",
+      "asset": "assets/sprites/environment_grass.png",
+      "position": [
+        73.0,
+        -74.0
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        50,
+        32
+      ],
+      "z_index": 662,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "world_position": [
+        168,
+        630
+      ],
+      "collision": {
+        "solid": false,
+        "rect": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "grass_15",
+      "name": "grass_15",
+      "code_name": "Grass15",
+      "type": "Sprite2D",
+      "asset": "assets/sprites/environment_grass.png",
+      "position": [
+        -73.0,
+        -134.0
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        50,
+        32
+      ],
+      "z_index": 602,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "world_position": [
+        22,
+        570
+      ],
+      "collision": {
+        "solid": false,
+        "rect": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "grass_16",
+      "name": "grass_16",
+      "code_name": "Grass16",
+      "type": "Sprite2D",
+      "asset": "assets/sprites/environment_grass.png",
+      "position": [
+        73.0,
+        -529.0
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        50,
+        32
+      ],
+      "z_index": 207,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "world_position": [
+        168,
+        175
+      ],
+      "collision": {
+        "solid": false,
+        "rect": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "tree_17",
+      "name": "tree_17",
+      "code_name": "Tree17",
+      "type": "Sprite2D",
+      "asset": "assets/sprites/environment_tree.png",
+      "position": [
+        -92.0,
+        -24.0
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        56,
+        72
+      ],
+      "z_index": 732,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "world_position": [
+        0,
+        660
+      ],
+      "collision": {
+        "solid": true,
+        "rect": [
+          23,
+          56,
+          12,
+          12
+        ]
+      },
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "tree_18",
+      "name": "tree_18",
+      "code_name": "Tree18",
+      "type": "Sprite2D",
+      "asset": "assets/sprites/environment_tree.png",
+      "position": [
+        90.0,
+        -254.0
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        56,
+        72
+      ],
+      "z_index": 502,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "world_position": [
+        182,
+        430
+      ],
+      "collision": {
+        "solid": true,
+        "rect": [
+          23,
+          56,
+          12,
+          12
+        ]
+      },
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "tree_19",
+      "name": "tree_19",
+      "code_name": "Tree19",
+      "type": "Sprite2D",
+      "asset": "assets/sprites/environment_tree.png",
+      "position": [
+        -92.0,
+        -484.0
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        56,
+        72
+      ],
+      "z_index": 272,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "world_position": [
+        0,
+        200
+      ],
+      "collision": {
+        "solid": true,
+        "rect": [
+          23,
+          56,
+          12,
+          12
+        ]
+      },
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "tree_20",
+      "name": "tree_20",
+      "code_name": "Tree20",
+      "type": "Sprite2D",
+      "asset": "assets/sprites/environment_tree.png",
+      "position": [
+        92.0,
+        136.0
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        56,
+        72
+      ],
+      "z_index": 892,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "world_position": [
+        184,
+        820
+      ],
+      "collision": {
+        "solid": true,
+        "rect": [
+          23,
+          56,
+          12,
+          12
+        ]
+      },
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "ruins_21",
+      "name": "ruins_21",
+      "code_name": "Ruins21",
+      "type": "Sprite2D",
+      "asset": "assets/sprites/environment_ruins.png",
+      "position": [
+        -75.5,
+        146.0
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        55,
+        32
+      ],
+      "z_index": 882,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "world_position": [
+        17,
+        850
+      ],
+      "collision": {
+        "solid": true,
+        "rect": [
+          12,
+          18,
+          30,
+          10
+        ]
+      },
+      "locked": false,
+      "blend_mode": "Normal",
+      "tint": "#FFFFFFFF",
+      "events": [],
+      "automation": {},
+      "clipping_mask": {}
+    },
+    {
+      "id": "ruins_22",
+      "name": "ruins_22",
+      "code_name": "Ruins22",
+      "type": "Sprite2D",
+      "asset": "assets/sprites/environment_ruins.png",
+      "position": [
+        75.5,
+        -184.0
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "display_size": [
+        55,
+        32
+      ],
+      "z_index": 552,
+      "pixel_snap": true,
+      "lock_aspect": true,
+      "world_position": [
+        168,
+        520
+      ],
+      "collision": {
+        "solid": true,
+        "rect": [
+          12,
+          18,
+          30,
+          10
+        ]
+      },
       "locked": false,
       "blend_mode": "Normal",
       "tint": "#FFFFFFFF",

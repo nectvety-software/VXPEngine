@@ -6,4 +6,6 @@ static void save(UrbanScene& scene,const char* path){static uint16_t pixels[240*
 int main(){static UrbanScene scene;assert(sizeof(scene)<=78000);save(scene,"urban_toon.ppm");scene.input(7);scene.input(5);for(int i=0;i<14;++i)scene.update();save(scene,"urban_grind.ppm");assert(scene.points>=150&&scene.jump&&scene.grind);
     scene.input(0);save(scene,"urban_camera.ppm");scene.input(0);save(scene,"urban_camera2.ppm");scene.input(9);int z=scene.pz;scene.update();assert(scene.pz==z);scene.paused=false;static uint16_t stress[240*320+2];
     for(int mode=0;mode<3;++mode)for(int side=-1;side<=1;++side)for(int jump=1;jump<=35;jump+=17){scene.cameraMode=mode;scene.px=side*130;scene.jump=jump;scene.pz=319;stress[0]=stress[240*320+1]=0x1234;scene.draw(stress+1);assert(stress[0]==0x1234&&stress[240*320+1]==0x1234);}
+    static UrbanScene travel;for(int i=0;i<110;++i)travel.update();assert(travel.pz==440);save(travel,"urban_travel.ppm");
+    travel.pz=19999;travel.update();assert(travel.pz==803);save(travel,"urban_wrap.ppm");
     puts("PASS: urban renderer, steering, jump/grind, camera and pause");}

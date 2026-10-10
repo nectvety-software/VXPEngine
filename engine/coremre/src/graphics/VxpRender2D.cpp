@@ -183,6 +183,64 @@ void vxpe2d_fill_rect(uint16_t* fb, int fb_w, int fb_h,
     }
 }
 
+/* 4x4 ordered dither, same matrix the toon materials use for cutout. */
+static const uint8_t gradient_bayer[16] = {0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5};
+
+void vxpe2d_gradient_vertical_dithered(uint16_t* fb, int fb_w, int fb_h,
+                                       int x, int y, int w, int h,
+                                       uint16_t top_color, uint16_t bottom_color) {
+    if (fb == nullptr || fb_w <= 0 || fb_h <= 0 || w <= 0 || h <= 0) return;
+
+    const int x0 = clamp_i(x, 0, fb_w);
+    const int x1 = clamp_i(x + w, 0, fb_w);
+    const int y0 = clamp_i(y, 0, fb_h);
+    const int y1 = clamp_i(y + h, 0, fb_h);
+    if (x1 <= x0 || y1 <= y0) return;
+
+    /* Interpolate in 8-bit channels and add the dither bias before quantizing,
+     * instead of dithering the already-quantized 565 values. */
+    const int topR = ((top_color >> 11) & 31) * 255 / 31;
+    const int topG = ((top_color >> 5) & 63) * 255 / 63;
+    const int topB = (top_color & 31) * 255 / 31;
+    const int botR = ((bottom_color >> 11) & 31) * 255 / 31;
+    const int botG = ((bottom_color >> 5) & 63) * 255 / 63;
+    const int botB = (bottom_color & 31) * 255 / 31;
+
+    const int denom = h > 1 ? h - 1 : 1;
+    for (int py = y0; py < y1; ++py) {
+        int local_y = py - y;
+        if (local_y < 0) local_y = 0;
+        if (local_y > denom) local_y = denom;
+        const int t = (local_y * 256) / denom;
+        const int inv = 256 - t;
+        const int r8 = (topR * inv + botR * t) >> 8;
+        const int g8 = (topG * inv + botG * t) >> 8;
+        const int b8 = (topB * inv + botB * t) >> 8;
+        uint16_t* row = fb + py * fb_w;
+        const int dither_row = (py & 3) * 4;
+        /* Work in 1/16 level units: the dither spans one whole destination level,
+         * so a pixel whose ideal value sits between two levels picks the upper one
+         * for the threshold rows of the 4x4 matrix instead of rounding down.
+         * The bias only depends on the column modulo four, so each row needs four
+         * output colours and the pixel loop is a masked store. */
+        const int rLevel = r8 * (31 * 16) + 127;
+        const int gLevel = g8 * (63 * 16) + 127;
+        const int bLevel = b8 * (31 * 16) + 127;
+        uint16_t variants[4];
+        for (int k = 0; k < 4; ++k) {
+            const int d = gradient_bayer[dither_row + k];
+            int r = (rLevel / 255 + d) >> 4;
+            int g = (gLevel / 255 + d) >> 4;
+            int b = (bLevel / 255 + d) >> 4;
+            if (r > 31) r = 31;
+            if (g > 63) g = 63;
+            if (b > 31) b = 31;
+            variants[k] = static_cast<uint16_t>((r << 11) | (g << 5) | b);
+        }
+        for (int px = x0; px < x1; ++px) row[px] = variants[px & 3];
+    }
+}
+
 void vxpe2d_gradient_vertical(uint16_t* fb, int fb_w, int fb_h,
                               int x, int y, int w, int h,
                               uint16_t top_color, uint16_t bottom_color) {

@@ -20,7 +20,15 @@ typedef struct VxpeToonMaterial3D {
     uint8_t shadow_threshold,highlight_threshold;
     uint8_t shadow_q8,midtone_q8,highlight_q8;
     uint8_t outline_px,fog_alpha;
+    uint8_t dither_cutout; /* mesh coverage: 0 opaque, 255 invisible; holes preserve depth */
     uint8_t texture_wrap; /* 0 clamp, 1 repeat; supports signed UV */
+    uint8_t affine_depth; /* opt-in low-power z interpolation for flat, untextured faces */
+    /* Polygon offset in whole camera-space z units, applied to the depth test
+     * and to the stored depth only (never to fog). Negative values pull the
+     * face towards the camera. Use it to separate coincident surfaces such as
+     * decals, glass over a wall, or a stripe sitting on a shell: two faces at
+     * the same depth otherwise resolve by submission order and flicker. */
+    int16_t depth_bias;
 } VxpeToonMaterial3D;
 typedef struct VxpeToonTarget3D {
     uint16_t* pixels;
@@ -66,21 +74,48 @@ uint8_t vxpe_toon3d_face_light(VxpeVec3D a,VxpeVec3D b,VxpeVec3D c,const VxpeToo
 int vxpe_toon3d_mesh(VxpeToonTarget3D*,const VxpeToonCamera3D*,const VxpeToonMesh3D*,
     const VxpeToonTransform3D*,const VxpeToonLight3D*,VxpeToonCull3D);
 void vxpe_toon3d_clear(VxpeToonTarget3D*,uint16_t background565);
+/* Clear only the caller-owned depth buffer when color is filled by a sky/grade pass. */
+void vxpe_toon3d_clear_depth(VxpeToonTarget3D*);
 uint16_t vxpe_toon3d_shade(const VxpeToonMaterial3D*,uint8_t illumination);
+/* Material affine_depth defaults off. Enabling it replaces per-pixel reciprocal
+ * depth division with an affine screen-space z plane for flat untextured faces;
+ * best for low-resolution S30+ scenes with separated geometry. */
 int vxpe_toon3d_project(const VxpeToonCamera3D*,VxpeVec3D,VxpeToonPoint3D*);
 /* illumination 0..255 chooses one of three flat bands. Winding is two-sided.
  * edge_mask: bit0=A-B, bit1=B-C, bit2=C-A. Set 0 to avoid internal mesh seams. */
 int vxpe_toon3d_triangle(VxpeToonTarget3D*,const VxpeToonCamera3D*,
     VxpeVec3D a,VxpeVec3D b,VxpeVec3D c,const VxpeToonMaterial3D*,uint8_t illumination,uint8_t edge_mask);
+/* Per-vertex illumination interpolated across a triangle. This preserves the
+ * material's cel bands while allowing broad highlights and soft light falloff. */
+int vxpe_toon3d_triangle_gouraud(VxpeToonTarget3D*,const VxpeToonCamera3D*,
+    VxpeVec3D a,VxpeVec3D b,VxpeVec3D c,const VxpeToonMaterial3D*,
+    const uint8_t illumination[3],uint8_t edge_mask);
 /* Vertices ordered around a convex, planar quad; shared diagonal has no ink. */
 int vxpe_toon3d_quad(VxpeToonTarget3D*,const VxpeToonCamera3D*,
     const VxpeVec3D vertices[4],const VxpeToonMaterial3D*,uint8_t illumination);
+/* Same quad with one illumination value per corner, so a curved or leaning
+ * surface carries a directional falloff across cel bands without extra geometry.
+ * Use it for cylinder shells and terrain skirts where the normal turns. */
+int vxpe_toon3d_quad_gouraud(VxpeToonTarget3D*,const VxpeToonCamera3D*,
+    const VxpeVec3D vertices[4],const VxpeToonMaterial3D*,const uint8_t illumination[4]);
 /* Perspective-correct UV, RGB565+A8, albedo tint, the same bands/ink/depth/fog.
  * Fully transparent texels leave both framebuffer and depth unchanged. */
 int vxpe_toon3d_triangle_textured(VxpeToonTarget3D*,const VxpeToonCamera3D*,
     const VxpeToonVertex3D vertices[3],const VxpeSpriteA8*,const VxpeToonMaterial3D*,uint8_t illumination,uint8_t edge_mask);
 int vxpe_toon3d_quad_textured(VxpeToonTarget3D*,const VxpeToonCamera3D*,
     const VxpeToonVertex3D vertices[4],const VxpeSpriteA8*,const VxpeToonMaterial3D*,uint8_t illumination);
+/* Textured face with per-vertex illumination, so a broad light falloff can
+ * cross cel bands without splitting the surface into more triangles. UVs stay
+ * perspective-correct. Use on ground planes and large curved panels; flat faces
+ * should keep the cheaper flat-lit entry points above. */
+int vxpe_toon3d_triangle_gouraud_textured(VxpeToonTarget3D*,const VxpeToonCamera3D*,
+    const VxpeToonVertex3D vertices[3],const VxpeSpriteA8*,const VxpeToonMaterial3D*,
+    const uint8_t illumination[3],uint8_t edge_mask);
+/* Same as quad_textured but with one illumination value per corner. Vertices
+ * are ordered around a convex, planar quad; the shared diagonal carries no ink. */
+int vxpe_toon3d_quad_gouraud_textured(VxpeToonTarget3D*,const VxpeToonCamera3D*,
+    const VxpeToonVertex3D vertices[4],const VxpeSpriteA8*,const VxpeToonMaterial3D*,
+    const uint8_t illumination[4]);
 /* Bottom-centred, camera-facing sprite. Binary A8 coverage at 128, depth tested,
  * nearest sampling, palette-preserving cel shade and external silhouette ink. */
 int vxpe_toon3d_billboard(VxpeToonTarget3D*,const VxpeToonCamera3D*,

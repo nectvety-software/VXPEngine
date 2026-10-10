@@ -1,0 +1,7 @@
+Error calling Python override of QGraphicsView::paintEvent(): Traceback (most recent call last):
+  File "D:\MRE/VXPEngine/app\widgets\viewport.py", line 3952, in paintEvent
+    super().paintEvent(event)
+  File "D:\MRE/VXPEngine/app\widgets\viewport.py", line 3944, in drawForeground
+    camera_rect = self._camera_frame.sceneBoundingRect()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Error calling Python override of QGraphicsView::drawForeground(): libshiboken: Internal C++ object (PySide6.QtWidgets.QGraphicsRectItem) already deleted.

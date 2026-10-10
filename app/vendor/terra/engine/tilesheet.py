@@ -46,9 +46,11 @@ def _grid_scores(image: Image.Image) -> dict[int, float]:
     for c in CELL_CANDIDATES:
         if w % c or h % c:
             continue
+        if c >= w or c >= h:
+            continue
         xs = np.clip(np.arange(c - 1, w - 1, c)[:, None] + (0, 1), 0, gx.size - 1)
         ys = np.clip(np.arange(c - 1, h - 1, c)[:, None] + (0, 1), 0, gy.size - 1)
-        ex, ey = gx[xs].mean() / gx.mean(), gy[ys].mean() / gy.mean()
+        ex, ey = gx[xs].mean() / max(float(gx.mean()), 1e-6), gy[ys].mean() / max(float(gy.mean()), 1e-6)
         out[c] = round(float((ex + ey) / 2), 4)
     return out
 
