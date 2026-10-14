@@ -1,0 +1,25 @@
+window ready after poll
+app booted after 0.5 s
+probe ms t0: 23
+motion idle t0->t1 changed-samples: 6159
+probe ms t1: 19
+after throttle changed-samples t1->fast: 2183
+after attacks changed-samples fast->fight: 3781
+after super changed-samples s5->super: 4876
+after right changed-samples fight->right: 2786
+after left changed-samples right->left: 2197
+probe ms t0: 23
+probe ms t1: 19
+probe ms fast: 24
+probe ms fight: 36
+probe ms s0: 18
+probe ms s1: 19
+probe ms s2: 18
+probe ms s3: 27
+probe ms s4: 37
+probe ms s5: 35
+probe ms super: 32
+probe ms right: 27
+probe ms left: 21
+probe ms late: 18
+OK

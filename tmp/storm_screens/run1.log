@@ -1,0 +1,19 @@
+vxp mtime: 17:54:23
+window after 3.04 s
+splash caught at +3.04 s, loading fill 26 px
+splash fill after 1 s: 97 px   bar moved, changed-samples: 201
+auto-advance 2.07 s after the splash was first seen, cursor row 0
+menu idle diff (fighters breathing): 1063
+side toggle diff: 2729
+menu->help diff: 18691
+left via: BACK
+menu->fight diff: 19192
+left via: BACK
+fight->menu diff: 19159
+probe ms fight_1s        64
+probe ms fight_punch     21
+probe ms fight_late      19
+splash skipped by one key press
+blink samples 14, hint visible in 8, 170 bright px when on
+NOTE: pen taps verified on the host harness, not on device
+OK

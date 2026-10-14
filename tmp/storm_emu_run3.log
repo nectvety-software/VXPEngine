@@ -1,0 +1,26 @@
+vxp mtime: 17:26:40
+window ready after poll
+app booted after 0.5 s
+probe ms t0: 28
+motion idle t0->t1 changed-samples: 3746
+probe ms t1: 15
+after throttle changed-samples t1->fast: 4938
+after attacks changed-samples fast->fight: 5926
+after super changed-samples s5->super: 1548
+after right changed-samples fight->right: 6003
+after left changed-samples right->left: 4629
+probe ms t0: 28
+probe ms t1: 15
+probe ms fast: 19
+probe ms fight: 21
+probe ms s0: 28
+probe ms s1: 21
+probe ms s2: 21
+probe ms s3: 19
+probe ms s4: 21
+probe ms s5: 20
+probe ms super: 21
+probe ms right: 23
+probe ms left: 35
+probe ms late: 32
+OK

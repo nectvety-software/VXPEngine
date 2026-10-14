@@ -1,0 +1,32 @@
+attract0=0 order2first=0 p1passive=0
+  P1: starts= 12.3 hits=10.16 land=83% dmg= 73.7 hitstun=161.3 supers=0.52 wins=29.5%
+  P2: starts= 15.8 hits=13.09 land=83% dmg= 93.5 hitstun=128.4 supers=0.69 wins=70.5%   avg dur=19.0 s
+
+attract0=1 order2first=0 p1passive=0
+  P1: starts= 15.2 hits=12.53 land=82% dmg= 89.5 hitstun=142.8 supers=0.70 wins=60.0%
+  P2: starts= 14.8 hits=11.34 land=77% dmg= 82.2 hitstun=155.4 supers=0.59 wins=40.0%   avg dur=18.5 s
+
+attract0=0 order2first=1 p1passive=0
+  P1: starts= 11.6 hits= 8.99 land=78% dmg= 65.4 hitstun=164.4 supers=0.42 wins=19.5%
+  P2: starts= 15.6 hits=13.43 land=86% dmg= 95.8 hitstun=114.6 supers=0.68 wins=80.5%   avg dur=18.4 s
+
+attract0=1 order2first=1 p1passive=0
+  P1: starts= 14.9 hits=11.22 land=75% dmg= 81.2 hitstun=156.2 supers=0.59 wins=40.8%
+  P2: starts= 15.2 hits=12.59 land=83% dmg= 90.1 hitstun=140.9 supers=0.68 wins=59.2%   avg dur=18.4 s
+
+attract0=0 order2first=0 p1passive=1
+  P1: starts=  0.0 hits= 0.00 land=0% dmg=  0.0 hitstun=170.4 supers=0.00 wins= 0.0%
+  P2: starts= 14.3 hits=14.11 land=99% dmg=100.0 hitstun=  0.0 supers=0.20 wins=100.0%   avg dur=13.3 s
+
+attract0=1 order2first=0 p1passive=1
+  P1: starts=  0.0 hits= 0.00 land=0% dmg=  0.0 hitstun=170.4 supers=0.00 wins= 0.0%
+  P2: starts= 14.3 hits=14.11 land=99% dmg=100.0 hitstun=  0.0 supers=0.20 wins=100.0%   avg dur=13.3 s
+
+attract0=0 order2first=1 p1passive=1
+  P1: starts=  0.0 hits= 0.00 land=0% dmg=  0.0 hitstun=170.4 supers=0.00 wins= 0.0%
+  P2: starts= 14.3 hits=14.11 land=99% dmg=100.0 hitstun=  0.0 supers=0.20 wins=100.0%   avg dur=13.3 s
+
+attract0=1 order2first=1 p1passive=1
+  P1: starts=  0.0 hits= 0.00 land=0% dmg=  0.0 hitstun=170.4 supers=0.00 wins= 0.0%
+  P2: starts= 14.3 hits=14.11 land=99% dmg=100.0 hitstun=  0.0 supers=0.20 wins=100.0%   avg dur=13.3 s
+

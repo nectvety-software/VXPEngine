@@ -1,0 +1,31 @@
+-- Configuring done (0.8s)
+-- Generating done (0.1s)
+CMake Warning (unused-cli):
+  Manually-specified variables were not used by the project:
+
+    CMAKE_TOOLCHAIN_FILE
+
+
+-- Build files have been written to: D:/MRE/VXPEngine/examples/TacticsVanguard2D/build-arm
+[1/5] Building C object main/CMakeFiles/main.dir/__/src/main.c.obj
+[2/5] Linking CXX executable main\main.axf
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-closer.o): in function `_close_r':
+C:/M/B/src/newlib-4.5.0.20241231/newlib/libc/reent/closer.c:47:(.text+0xc): warning: _close is not implemented and will always fail
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-closer.o): note: the message above does not take linker garbage collection into account
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-lseekr.o): in function `_lseek_r':
+C:/M/B/src/newlib-4.5.0.20241231/newlib/libc/reent/lseekr.c:49:(.text+0x10): warning: _lseek is not implemented and will always fail
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-lseekr.o): note: the message above does not take linker garbage collection into account
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-readr.o): in function `_read_r':
+C:/M/B/src/newlib-4.5.0.20241231/newlib/libc/reent/readr.c:49:(.text+0x10): warning: _read is not implemented and will always fail
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-readr.o): note: the message above does not take linker garbage collection into account
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-writer.o): in function `_write_r':
+C:/M/B/src/newlib-4.5.0.20241231/newlib/libc/reent/writer.c:49:(.text+0x10): warning: _write is not implemented and will always fail
+C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/13.3.0/../../../../arm-none-eabi/lib/thumb/nofp\libc.a(libc_a-writer.o): note: the message above does not take linker garbage collection into account
+[3/5] Generating null_main_vxp.cpp
+[4/5] Building CXX object main/CMakeFiles/main_vxp.dir/null_main_vxp.cpp.obj
+[5/5] Linking CXX static library main\tactics_vanguard_2d.vxp
+FORMAT    : MRE VXP (GCC/ARM ELF32)
+APP ID    : 6053201
+VENDOR    : VXPstore
+OUTPUT    : D:\MRE\VXPEngine\examples\TacticsVanguard2D\build-arm\main\tactics_vanguard_2d.vxp
+Output: D:\MRE\VXPEngine\examples\TacticsVanguard2D\build-arm\main\tactics_vanguard_2d.vxp

@@ -1,0 +1,11 @@
+VXPE GRAPHICS BENCHMARK (median per frame; host clock, not device FPS)
+2.5D billboards 120x160: 0.243 ms/frame; color buffer 38400 B; checksum C65E579F53461D10
+2.5D billboards 240x320: 0.729 ms/frame; color buffer 153600 B; checksum 32FB1BA76EC49D6D
+2.5D ground+batch 120x160: 0.205 ms/frame; color buffer 38400 B; checksum 022D6654438E613A
+2.5D ground+batch 240x320: 0.763 ms/frame; color buffer 153600 B; checksum 5577C24CF71D98F1
+3D textured mall 120x160: 2.726 ms/frame; color+depth 76800 B; checksum 3546E0DB097D7E6A
+3D textured mall 240x320: 9.352 ms/frame; color+depth 307200 B; checksum D6482FDA655B1378
+3D exact 120x160: 1.412 ms/frame; color+depth 76800 B; checksum AC028D139031B85B
+3D affine 120x160: 0.848 ms/frame; speedup 1.66x; changed pixels 131/19200; checksum FA62EE2864D3E09E
+3D exact 240x320: 4.778 ms/frame; color+depth 307200 B; checksum 928B59D911CE5D3E
+3D affine 240x320: 2.511 ms/frame; speedup 1.90x; changed pixels 721/76800; checksum 6432645ACF5548FE

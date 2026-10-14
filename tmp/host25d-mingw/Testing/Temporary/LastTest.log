@@ -1,0 +1,335 @@
+Start testing: Oct 14 07:06 SE Asia Standard Time
+----------------------------------------------------------
+1/21 Testing: vxpe_story2d_runtime
+1/21 Test: vxpe_story2d_runtime
+Command: "D:/MRE/VXPEngine/tmp/host25d-mingw/vxpe_story2d_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/host25d-mingw
+"vxpe_story2d_runtime" start time: Oct 14 07:06 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+PASS: perspective, foot depth/lift, capacity, crop validation, dialogue paging/typewriter/truncation/clipping
+<end of output>
+Test time =   0.10 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_story2d_runtime" end time: Oct 14 07:06 SE Asia Standard Time
+"vxpe_story2d_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/21 Testing: vxpe_story2d_c_api
+2/21 Test: vxpe_story2d_c_api
+Command: "D:/MRE/VXPEngine/tmp/host25d-mingw/vxpe_story2d_c_api.exe"
+Directory: D:/MRE/VXPEngine/tmp/host25d-mingw
+"vxpe_story2d_c_api" start time: Oct 14 07:06 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_story2d_c_api" end time: Oct 14 07:06 SE Asia Standard Time
+"vxpe_story2d_c_api" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/21 Testing: vxpe_sprite_fast_runtime
+3/21 Test: vxpe_sprite_fast_runtime
+Command: "D:/MRE/VXPEngine/tmp/host25d-mingw/vxpe_sprite_fast_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/host25d-mingw
+"vxpe_sprite_fast_runtime" start time: Oct 14 07:06 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+PASS: fast A8 parity across alpha, padded strides, scale, flips, crop and clipping
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_sprite_fast_runtime" end time: Oct 14 07:06 SE Asia Standard Time
+"vxpe_sprite_fast_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/21 Testing: vxpe_toon3d_runtime
+4/21 Test: vxpe_toon3d_runtime
+Command: "D:/MRE/VXPEngine/tmp/host25d-mingw/vxpe_toon3d_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/host25d-mingw
+"vxpe_toon3d_runtime" start time: Oct 14 07:06 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+dithered gradient: rows identical to the row above  plain=24 dithered=0
+PASS: toon bands, yaw, depth, depth-only clear, frustum reject, quad seams, fill rule, depth bias, dithered gradient, gouraud quad, clipping, alpha, perspective UV, textured gouraud, urban style and buffer guards
+<end of output>
+Test time =   0.19 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_toon3d_runtime" end time: Oct 14 07:06 SE Asia Standard Time
+"vxpe_toon3d_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/21 Testing: vxpe_toon3d_c_api
+5/21 Test: vxpe_toon3d_c_api
+Command: "D:/MRE/VXPEngine/tmp/host25d-mingw/vxpe_toon3d_c_api.exe"
+Directory: D:/MRE/VXPEngine/tmp/host25d-mingw
+"vxpe_toon3d_c_api" start time: Oct 14 07:06 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_toon3d_c_api" end time: Oct 14 07:06 SE Asia Standard Time
+"vxpe_toon3d_c_api" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/21 Testing: vxpe_raycast3d_runtime
+6/21 Test: vxpe_raycast3d_runtime
+Command: "D:/MRE/VXPEngine/tmp/host25d-mingw/vxpe_raycast3d_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/host25d-mingw
+"vxpe_raycast3d_runtime" start time: Oct 14 07:06 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+PASS: raycast DDA, RGB565 wall/floor texture, distance fog+dither, billboard depth occlusion and buffer guards
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_raycast3d_runtime" end time: Oct 14 07:06 SE Asia Standard Time
+"vxpe_raycast3d_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/21 Testing: vxpe_superscaler_runtime
+7/21 Test: vxpe_superscaler_runtime
+Command: "D:/MRE/VXPEngine/tmp/host25d-mingw/vxpe_superscaler_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/host25d-mingw
+"vxpe_superscaler_runtime" start time: Oct 14 07:06 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+SuperScaler fixed-point road spans, curve, scrolling stripes, and bounds passed
+<end of output>
+Test time =   0.23 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_superscaler_runtime" end time: Oct 14 07:06 SE Asia Standard Time
+"vxpe_superscaler_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+8/21 Testing: vxpe_actor_sprite_runtime
+8/21 Test: vxpe_actor_sprite_runtime
+Command: "D:/MRE/VXPEngine/tmp/host25d-mingw/vxpe_actor_sprite_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/host25d-mingw
+"vxpe_actor_sprite_runtime" start time: Oct 14 07:06 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_actor_sprite_runtime" end time: Oct 14 07:06 SE Asia Standard Time
+"vxpe_actor_sprite_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+9/21 Testing: vxpe_color_grade_runtime
+9/21 Test: vxpe_color_grade_runtime
+Command: "D:/MRE/VXPEngine/tmp/host25d-mingw/vxpe_color_grade_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/host25d-mingw
+"vxpe_color_grade_runtime" start time: Oct 14 07:06 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_color_grade_runtime" end time: Oct 14 07:06 SE Asia Standard Time
+"vxpe_color_grade_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+10/21 Testing: vxpgdx_vxtm3_runtime
+10/21 Test: vxpgdx_vxtm3_runtime
+Command: "D:/MRE/VXPEngine/tmp/host25d-mingw/vxpgdx_vxtm3_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/host25d-mingw
+"vxpgdx_vxtm3_runtime" start time: Oct 14 07:06 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+VXPGDX_VXTM3_REGRESSION_PASS
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"vxpgdx_vxtm3_runtime" end time: Oct 14 07:06 SE Asia Standard Time
+"vxpgdx_vxtm3_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+11/21 Testing: vxpgdx_ui_runtime
+11/21 Test: vxpgdx_ui_runtime
+Command: "D:/MRE/VXPEngine/tmp/host25d-mingw/vxpgdx_ui_arm_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/host25d-mingw
+"vxpgdx_ui_runtime" start time: Oct 14 07:06 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+VXPGDX_UI_ARM_REGRESSION_PASS
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"vxpgdx_ui_runtime" end time: Oct 14 07:06 SE Asia Standard Time
+"vxpgdx_ui_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+12/21 Testing: vxpe_scene25d_runtime
+12/21 Test: vxpe_scene25d_runtime
+Command: "D:/MRE/VXPEngine/tmp/host25d-mingw/vxpe_scene25d_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/host25d-mingw
+"vxpe_scene25d_runtime" start time: Oct 14 07:06 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+VXPE_SCENE25D_REGRESSION_PASS
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_scene25d_runtime" end time: Oct 14 07:06 SE Asia Standard Time
+"vxpe_scene25d_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+13/21 Testing: vxpe_scene25d_c_api
+13/21 Test: vxpe_scene25d_c_api
+Command: "D:/MRE/VXPEngine/tmp/host25d-mingw/vxpe_scene25d_c_api.exe"
+Directory: D:/MRE/VXPEngine/tmp/host25d-mingw
+"vxpe_scene25d_c_api" start time: Oct 14 07:06 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_scene25d_c_api" end time: Oct 14 07:06 SE Asia Standard Time
+"vxpe_scene25d_c_api" time elapsed: 00:00:00
+----------------------------------------------------------
+
+14/21 Testing: vxpe_stage2d_runtime
+14/21 Test: vxpe_stage2d_runtime
+Command: "D:/MRE/VXPEngine/tmp/host25d-mingw/vxpe_stage2d_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/host25d-mingw
+"vxpe_stage2d_runtime" start time: Oct 14 07:06 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+VXPE_STAGE2D_REGRESSION_PASS
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_stage2d_runtime" end time: Oct 14 07:06 SE Asia Standard Time
+"vxpe_stage2d_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+15/21 Testing: vxpe_artstyle_runtime
+15/21 Test: vxpe_artstyle_runtime
+Command: "D:/MRE/VXPEngine/tmp/host25d-mingw/vxpe_artstyle_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/host25d-mingw
+"vxpe_artstyle_runtime" start time: Oct 14 07:06 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+VXPE_ARTSTYLE_PASS
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_artstyle_runtime" end time: Oct 14 07:06 SE Asia Standard Time
+"vxpe_artstyle_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+16/21 Testing: vxpgdx_strategy_rpg_runtime
+16/21 Test: vxpgdx_strategy_rpg_runtime
+Command: "D:/MRE/VXPEngine/tmp/host25d-mingw/vxpgdx_strategy_rpg_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/host25d-mingw
+"vxpgdx_strategy_rpg_runtime" start time: Oct 14 07:06 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+VXPGDX_STRATEGY_RPG_PASS
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"vxpgdx_strategy_rpg_runtime" end time: Oct 14 07:06 SE Asia Standard Time
+"vxpgdx_strategy_rpg_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+17/21 Testing: vxpgdx_vxtm3_packer
+17/21 Test: vxpgdx_vxtm3_packer
+Command: "D:/Program/Python/python.exe" "D:/MRE/VXPEngine/engine/coremre/tests/test_vxtm3_packer.py" "D:/MRE/VXPEngine/engine/coremre/tests/../../../tools/vxpgdx_pack_tiled.py"
+Directory: D:/MRE/VXPEngine/tmp/host25d-mingw
+"vxpgdx_vxtm3_packer" start time: Oct 14 07:06 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+Packed diag.tmj: 1 tile layers, 0 object layers, 1 tilesets, 0 animations, 0 objects -> C:\Users\DOXUAN~1\AppData\Local\Temp\tmpwmuvm7r7\diag.vxtm (76 bytes)
+VXPGDX_VXTM3_PACKER_REGRESSION_PASS
+<end of output>
+Test time =   0.76 sec
+----------------------------------------------------------
+Test Passed.
+"vxpgdx_vxtm3_packer" end time: Oct 14 07:06 SE Asia Standard Time
+"vxpgdx_vxtm3_packer" time elapsed: 00:00:00
+----------------------------------------------------------
+
+18/21 Testing: vxpe_dungeonfx_runtime
+18/21 Test: vxpe_dungeonfx_runtime
+Command: "D:/MRE/VXPEngine/tmp/host25d-mingw/vxpe_dungeonfx_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/host25d-mingw
+"vxpe_dungeonfx_runtime" start time: Oct 14 07:06 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+PASS: coloured light falloff, range/extreme guards, animated sky, buffer guards and dungeon preset
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_dungeonfx_runtime" end time: Oct 14 07:06 SE Asia Standard Time
+"vxpe_dungeonfx_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+19/21 Testing: vxpe_pixel_font_runtime
+19/21 Test: vxpe_pixel_font_runtime
+Command: "D:/MRE/VXPEngine/tmp/host25d-mingw/vxpe_pixel_font_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/host25d-mingw
+"vxpe_pixel_font_runtime" start time: Oct 14 07:06 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+PASS: three faces, width/height, tabular digits, multiline, limits/fallback, effect clipping and guards
+<end of output>
+Test time =   0.09 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_pixel_font_runtime" end time: Oct 14 07:06 SE Asia Standard Time
+"vxpe_pixel_font_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+20/21 Testing: vxpe_scatter_runtime
+20/21 Test: vxpe_scatter_runtime
+Command: "D:/MRE/VXPEngine/tmp/host25d-mingw/vxpe_scatter_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/host25d-mingw
+"vxpe_scatter_runtime" start time: Oct 14 07:06 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_scatter_runtime" end time: Oct 14 07:06 SE Asia Standard Time
+"vxpe_scatter_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+21/21 Testing: vxpe_soft3d_runtime
+21/21 Test: vxpe_soft3d_runtime
+Command: "D:/MRE/VXPEngine/tmp/host25d-mingw/vxpe_soft3d_regression.exe"
+Directory: D:/MRE/VXPEngine/tmp/host25d-mingw
+"vxpe_soft3d_runtime" start time: Oct 14 07:06 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+soft3d regression OK
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"vxpe_soft3d_runtime" end time: Oct 14 07:06 SE Asia Standard Time
+"vxpe_soft3d_runtime" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Oct 14 07:06 SE Asia Standard Time
