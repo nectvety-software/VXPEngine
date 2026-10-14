@@ -91,6 +91,33 @@ typedef struct VxpeGrade25D {
     uint8_t fog_horizon_alpha;
 } VxpeGrade25D;
 
+/*
+ * Camera-anchored ground plane for the 2.5D camera (Mode7-style).
+ * Unlike VxpePlane25D (a screen-space trapezoid whose texture ramp is linear
+ * in screen rows), this maps every covered pixel through the inverse of
+ * vxpe25d_project, so tiled textures stay glued to the world while the
+ * camera drives forward and yaws.  Rows below the camera's near plane are
+ * skipped; the horizon row itself and rows beyond far_z are left untouched
+ * unless use_fog is set, in which case they are painted
+ * camera->fog_color565 for a seamless horizon.
+ * Pitch is intentionally ignored - bake it by moving horizon_y.
+ */
+typedef struct VxpeGround25D {
+    VxpeRectI src;           /* texture region inside an A8 sprite */
+    uint16_t tile_w;         /* world units per texture repeat, >0 */
+    uint16_t tile_h;
+    uint16_t tint565;        /* 0 = neutral */
+    uint8_t alpha;           /* 0 = fully opaque */
+    uint8_t blend;           /* VXPE_BLEND_*; COPY writes rows opaquely */
+    uint8_t use_fog;         /* blend each row toward camera->fog_color565 */
+} VxpeGround25D;
+
+void vxpe25d_draw_ground(
+    uint16_t* fb, int fb_w, int fb_h,
+    const VxpeCamera25D* camera,
+    const VxpeSpriteA8* texture,
+    const VxpeGround25D* ground);
+
 void vxpe25d_camera_init(
     VxpeCamera25D* camera,
     int screen_w, int screen_h,
@@ -135,6 +162,50 @@ void vxpe25d_apply_grade(
     uint16_t* fb, int fb_w, int fb_h,
     const VxpeGrade25D* grade,
     int horizon_y);
+
+/*
+ * Depth-sorted billboard batch.  Fixed memory (no heap at runtime), mirrors
+ * VxpeSpriteBatch but sorts in projected camera space: entries are projected
+ * at flush time, culled with the same rules as vxpe25d_draw_billboard, then
+ * drawn far-to-near with per-entry fog tint.  Callers can push in any order.
+ * An optional per-entry ground shadow is drawn (also projected) just before
+ * its billboard, so shadows never bleed over nearer objects.
+ */
+#ifndef VXPE_BATCH25D_MAX
+#define VXPE_BATCH25D_MAX 64
+#endif
+
+typedef struct VxpeBatchEntry25D {
+    const VxpeSpriteA8* sprite;
+    VxpeBillboard25D billboard;
+    uint16_t shadow_radius_x;  /* 0 disables the shadow for this entry */
+    uint16_t shadow_radius_y;
+    uint16_t shadow_color565;
+    uint8_t shadow_alpha;
+    uint8_t shadow_blend;
+} VxpeBatchEntry25D;
+
+typedef struct VxpeBillboardBatch25D {
+    VxpeBatchEntry25D entries[VXPE_BATCH25D_MAX];
+    uint16_t count;
+    uint16_t dropped;   /* pushes rejected because the batch was full */
+} VxpeBillboardBatch25D;
+
+void vxpe25d_batch_init(VxpeBillboardBatch25D* batch);
+
+/* Copies the entry; returns 0 and bumps dropped when the batch is full. */
+int vxpe25d_batch_push(
+    VxpeBillboardBatch25D* batch, const VxpeBatchEntry25D* entry);
+
+/*
+ * Projects, culls, sorts far-to-near and draws.  Returns the number of
+ * billboards drawn (shadows are not counted).  Clears count but preserves
+ * dropped, same contract as vxpe2d_batch_flush.
+ */
+int vxpe25d_batch_flush(
+    VxpeBillboardBatch25D* batch,
+    uint16_t* fb, int fb_w, int fb_h,
+    const VxpeCamera25D* camera);
 
 #ifdef __cplusplus
 } /* extern "C" */

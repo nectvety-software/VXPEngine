@@ -79,6 +79,11 @@ add_executable(vxpe_scene25d_regression
 target_link_libraries(vxpe_scene25d_regression PRIVATE vxpgdx_test_runtime)
 add_test(NAME vxpe_scene25d_runtime COMMAND vxpe_scene25d_regression)
 
+add_executable(vxpe_scene25d_c_api vxpe_scene25d_c_api.c)
+set_target_properties(vxpe_scene25d_c_api PROPERTIES C_STANDARD 99 LINKER_LANGUAGE CXX)
+target_link_libraries(vxpe_scene25d_c_api PRIVATE vxpgdx_test_runtime)
+add_test(NAME vxpe_scene25d_c_api COMMAND vxpe_scene25d_c_api)
+
 add_executable(vxpe_stage2d_regression
     vxpe_stage2d_regression.cpp
 )

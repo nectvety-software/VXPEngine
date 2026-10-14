@@ -1,0 +1,9 @@
+{
+  "name": "MeadowRush25D",
+  "display_name": "Meadow Rush 2.5D",
+  "orientation": "portrait",
+  "resolution": "240x320",
+  "engine": "VXPEngine/VxpScene25D",
+  "app_id": "6052901",
+  "description": "2.5D first-person meadow racer: camera-anchored perspective grass (vxpe25d_draw_ground) plus auto depth-sorted billboard trees/rocks/coins with projected shadows (vxpe25d_batch_flush). Built-in frame-time probe bar."
+}

@@ -73,8 +73,33 @@ Materials gained `depth_bias`, polygon offset expressed in whole camera-space z 
 
 `vxpe_toon3d_quad_gouraud` is the untextured counterpart of `vxpe_toon3d_quad_gouraud_textured`: it takes one illumination value per corner, splits the quad into (0,1,2) and (0,2,3), and forwards the corner values so the shared diagonal carries no ink. Use it where a surface direction turns across the face - cylinder shells, terrain skirts, leaning towers - so the cel bands read as light falling on a form instead of one flat tone per quad. Quads whose corners share a value take the same precomputed-shade path as `vxpe_toon3d_quad`.
 
+## Camera-anchored perspective ground
+
+`vxpe25d_draw_ground` renders the world y=0 plane through the same `VxpeCamera25D` that billboards use, so tiled floors stay glued to the world while the camera drives forward and yaws. The older `vxpe25d_draw_plane` is a screen-space trapezoid whose texture ramp is linear in screen rows - acceptable for a static road strip, but its texture visibly slides when the camera moves. Every screen row below `horizon_y` maps to one world depth `z = focal_px * camera.world_y / (y - horizon_y)`; rows nearer than `near_z` are skipped, and the horizon row itself plus rows beyond `far_z` are painted `camera->fog_color565` when `use_fog` is set - without fog they are left untouched. The fog fill keeps the horizon seamless: the emulator run of `examples/MeadowRush25D` showed that leaving the horizon row and the far-culled rows stale draws a 1 px tear plus a black band between sky and ground whenever `far_z` is smaller than the depth at `horizon_y + 1`. Screen columns then step the world point linearly along that row: the per-pixel world step is `z/focal` in Q16 (`(z_q8<<16)/focal_q8`) and the row-start phase is kept in Q16 texels rather than truncated to whole world units. An earlier revision shifted by only 8, making the horizontal step 256x too small: with a level camera every row collapsed to a single texel and tiled floors degenerated into horizontal bands - the emulator run of `examples/StormArena25D` caught it because the arena's vertical grid lines never appeared, and only a yawed camera (as in `examples/MeadowRush25D`) had masked the error with row-to-row variation. The inner loop is 32-bit adds, shifts and two wrap branches, while division and modulo happen once per row. Texture coordinates accumulate in Q16 texels and wrap per row, which keeps sampling correct for negative world coordinates; rows so shallow that one pixel spans a whole texture repeat fall back to a per-pixel modulo (only far, fog-blurred rows take that branch). `use_fog` blends each row with the same distance ramp `vxpe25d_project` applies to billboards, so ground and sprites fog consistently. Pitch is intentionally ignored - bake it by moving `horizon_y`. The sampler honours the sprite's A8 channel, tint, and all four `VxpeBlendMode`s.
+
+```cpp
+VxpeGround25D ground{};
+ground.src={0,0,8,8}; ground.tile_w=32; ground.tile_h=32;
+ground.blend=VXPE_BLEND_COPY; ground.use_fog=1;
+vxpe25d_draw_ground(fb,240,320,&camera,&floor_tiles,&ground);
+```
+
+## Depth-sorted 2.5D billboard batch
+
+`VxpeBillboardBatch25D` (fixed array, `VXPE_BATCH25D_MAX`=64, zero heap) lifts the painter-order bookkeeping out of game code. Entries are a `VxpeBillboard25D`, its sprite, and an optional projected ground shadow. `vxpe25d_batch_flush` projects every entry with the camera, silently culls what `vxpe25d_draw_billboard` would reject, stable-insertion-sorts by projected depth, then draws far-to-near; each entry's shadow is drawn immediately before its billboard, so shadows never bleed over nearer objects. Push order is irrelevant, matching the 2D `VxpeSpriteBatch` contract: full pushes bump `dropped`, flush clears `count` but preserves `dropped`.
+
+```cpp
+vxpe25d_batch_init(&batch);
+vxpe25d_batch_push(&batch,&tree_entry);   /* any order */
+int drawn = vxpe25d_batch_flush(&batch,fb,240,320,&camera);
+```
+
+In the host benchmark the combined scene - one full-screen ground pass plus 48 unsorted trees with shadows - measures 0.735 ms/frame at 240×320 versus 0.583 ms for the hand-ordered billboard scene (see `reports/graphics-benchmark/README.md`); correct per-frame sorting and a perspective-correct floor cost about 0.15 ms at QVGA.
+
 ## Compatibility and tests
 
 The new 2.5D camera fields are appended to `VxpeCamera25D`; callers that zero-initialize the struct retain the legacy +Z, level camera. Rebuild projects against the updated header because the public struct has grown. Existing renderer entry points and their flat-light behavior are unchanged. Regression coverage checks yaw/pitch projection, extreme-coordinate rejection, per-vertex band transitions, textured per-vertex lighting (proving the Gouraud path yields several cel bands where flat lighting yields one), quad-wrapper byte-equivalence, clipping, and the C API.
 
 `tests/vxpe_toon3d_regression.cpp` and `tests/vxpe_toon3d_c_api.c` are the entry points for these paths; both are built and run by `ctest`. The suite pins the fill rule (a quad split into two triangles must report drawn counts that add up to the covered pixel count, and swapping their submission order must not change one pixel) and `depth_bias` (a coincident face pulled towards the camera must win whichever is submitted first).
+
+`tests/vxpe_scene25d_regression.cpp` covers the 2.5D scene on top of the existing camera/plane/shadow checks: sliding the ground exactly one tile must reproduce the previous frame pixel-for-pixel (both with and without a quarter-turn yaw), half a tile must change it, an unreachable near/far band must write nothing without fog, the horizon seam test pins that the horizon row and the far-culled band are painted the fog colour when `use_fog` is on while nearer rows still texture, a step-scale test pins that a level camera's bottom row alternates the 2-texel checker ~48 times (a 256x step error collapses it to one texel) and repeats pixel-exactly one full tile in X, and invalid tile sizes must no-op. The batch checks pin painter order (near pushed first must still end up drawn last where sprites overlap), silent culling of unprojectable entries, the `dropped`/`count` flush contract at capacity, and that a batched shadow darkens the ground beside a narrow billboard without covering the billboard itself. `tests/vxpe_scene25d_c_api.c` keeps the new entry points compiling and running under plain C99.

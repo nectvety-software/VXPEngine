@@ -69,8 +69,31 @@ static void render25d(){
         vxpe25d_draw_billboard(pixels25,width,height,&cam,&sprite,&b);
     }
 }
-static void draw_box(VxpeToonTarget3D* t,const VxpeToonCamera3D* c,int x,int z,int w,int h,int d,const VxpeToonMaterial3D* m){
-    int x1=x+w,z1=z+d,y1=h;
+static VxpeSpriteA8 treeSprite{spritePixels,spriteAlpha,16,24,16,16,0};
+static VxpeBillboardBatch25D gameBatch;
+// A drivable 2.5D scene: camera-anchored tiled ground plus 48 depth-sorted
+// billboard trees with projected shadows, pushed in random order every frame.
+static void render25d_game(){
+    VxpeCamera25D cam;vxpe25d_camera_init(&cam,width,height,height*3/10,width*164/240);
+    cam.world_y=44;cam.fog_strength=80;
+    cam.world_x=SIN_Q14[(animationPhase/2)&31]*8/16384;cam.world_z=animationPhase*6;
+    cam.sin_yaw_q14=(int16_t)(SIN_Q14[(animationPhase/2)&31]/10);cam.cos_yaw_q14=16384;
+    for(int y=0;y<height;++y){uint16_t c=y<height*3/10?rgb565(111,193,217):rgb565(175,222,210);for(int x=0;x<width;++x)pixels25[y*width+x]=c;}
+    VxpeGround25D ground{};ground.src={0,0,8,8};ground.tile_w=32;ground.tile_h=32;
+    ground.tint565=0;ground.alpha=0;ground.blend=VXPE_BLEND_COPY;ground.use_fog=1;
+    vxpe25d_draw_ground(pixels25,width,height,&cam,&floorSprite,&ground);
+    vxpe25d_batch_init(&gameBatch);
+    for(int i=0;i<48;++i){int row=i/8,col=i%8;int z=76+row*58,x=(col-4)*68+(row%2)*28;
+        VxpeBatchEntry25D e{};e.sprite=&treeSprite;
+        e.billboard.src={0,0,16,24};e.billboard.world_x=x;e.billboard.world_y=0;e.billboard.world_z=z;
+        e.billboard.world_w=22;e.billboard.world_h=34;e.billboard.pivot_x_q8=128;e.billboard.pivot_y_q8=256;
+        e.billboard.tint565=0xFFFF;e.billboard.alpha=255;e.billboard.blend=VXPE_BLEND_ALPHA;
+        e.shadow_radius_x=13;e.shadow_radius_y=4;e.shadow_color565=0x2104;e.shadow_alpha=128;e.shadow_blend=VXPE_BLEND_ALPHA;
+        vxpe25d_batch_push(&gameBatch,&e);}
+    vxpe25d_batch_flush(&gameBatch,pixels25,width,height,&cam);
+}
+static void render25d_game_dispatch(){render25d_game();animationPhase=(animationPhase+1)&63;}
+static void draw_box(VxpeToonTarget3D* t,const VxpeToonCamera3D* c,int x,int z,int w,int h,int d,const VxpeToonMaterial3D* m){    int x1=x+w,z1=z+d,y1=h;
     VxpeVec3D q[4];
     q[0]={x,0,z};q[1]={x1,0,z};q[2]={x1,y1,z};q[3]={x,y1,z};vxpe_toon3d_quad(t,c,q,m,220);
     q[0]={x,0,z1};q[1]={x,0,z};q[2]={x,y1,z};q[3]={x,y1,z1};vxpe_toon3d_quad(t,c,q,m,175);
@@ -183,6 +206,12 @@ int main(int argc,char** argv){
         if(scale==1)write_ppm("reports/graphics-benchmark/2.5d_240x320.ppm",pixels25,width,height);
         else write_ppm("reports/graphics-benchmark/2.5d_120x160.ppm",pixels25,width,height);
         std::printf("2.5D billboards %dx%d: %.3f ms/frame; color buffer %d B; checksum %016llX\n",width,height,p25,width*height*2,(unsigned long long)sum25);
+    }
+    for(int scale=0;scale<2;++scale){width=scale?240:120;height=scale?320:160;animationPhase=0;
+        double game=median_ms(render25d_game_dispatch,frames);animationPhase=20;render25d_game();
+        if(scale==1)write_ppm("reports/graphics-benchmark/2.5d_ground_batch_240x320.ppm",pixels25,width,height);
+        else write_ppm("reports/graphics-benchmark/2.5d_ground_batch_120x160.ppm",pixels25,width,height);
+        std::printf("2.5D ground+batch %dx%d: %.3f ms/frame; color buffer %d B; checksum %016llX\n",width,height,game,width*height*2,(unsigned long long)checksum(pixels25,width*height));
     }
     for(int scale=0;scale<2;++scale){width=scale?240:120;height=scale?320:160;animationPhase=0;
         double mall=median_ms(render_retro_dispatch,frames);animationPhase=20;draw_retro_mall(width,height,animationPhase);

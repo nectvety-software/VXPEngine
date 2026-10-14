@@ -84,6 +84,18 @@ static int wave_offset(int y,uint8_t phase,uint8_t shift,int amplitude){
     return (lut[idx]*amplitude)/8;
 }
 
+static uint16_t mul565(uint16_t a,uint16_t b){
+    int ar=(a>>11)&31,ag=(a>>5)&63,ab=a&31;
+    int br=(b>>11)&31,bg=(b>>5)&63,bb=b&31;
+    return (uint16_t)(((ar*br/31)<<11)|((ag*bg/63)<<5)|(ab*bb/31));
+}
+
+/* Signed modulo into [0,m), 64-bit. */
+static int64_t pmod64(int64_t v,int64_t m){
+    int64_t r=v%m;
+    return r<0?r+m:r;
+}
+
 } // namespace
 
 extern "C" {
@@ -284,6 +296,170 @@ void vxpe25d_apply_grade(
             fb[y*fb_w+x]=c;
         }
     }
+}
+
+/*
+ * Ground: every screen row below the horizon maps to one world depth
+ * z = focal_px * cam_height / (y - horizon).  Screen columns step the world
+ * point linearly along that row, so the inner loop is 32-bit adds only;
+ * division and modulo happen once per row.  Texture coordinates are
+ * accumulated in Q16 texels and wrapped per row, which keeps the sampler
+ * correct for negative world coordinates and yaw rotations.
+ */
+void vxpe25d_draw_ground(
+    uint16_t* fb,int fb_w,int fb_h,
+    const VxpeCamera25D* camera,
+    const VxpeSpriteA8* texture,
+    const VxpeGround25D* ground)
+{
+    if(!fb||!camera||!texture||!ground)return;
+    if(fb_w<=0||fb_h<=0||!ground->tile_w||!ground->tile_h)return;
+    if(!texture->pixels||!ground->src.w||!ground->src.h)return;
+    int sx=ground->src.x,sy=ground->src.y,sw=ground->src.w,sh=ground->src.h;
+    if(sx<0){sx=0;}
+    if(sy<0){sy=0;}
+    if(sx+sw>(int)texture->width)sw=texture->width-sx;
+    if(sy+sh>(int)texture->height)sh=texture->height-sy;
+    if(sw<=0||sh<=0)return;
+    const int stride=texture->stride?(int)texture->stride:(int)texture->width;
+    const int alpha_stride=texture->alpha_stride?(int)texture->alpha_stride:stride;
+    const uint16_t tint=ground->tint565?ground->tint565:0xFFFFu;
+    const int ga=ground->alpha?ground->alpha:255;
+    const int blend=ground->blend;
+    const int64_t cam_h=(int64_t)camera->world_y;
+    const int32_t tile_w=(int32_t)ground->tile_w,tile_h=(int32_t)ground->tile_h;
+    const int sin_yaw=camera->sin_yaw_q14,cos_yaw=camera->cos_yaw_q14?camera->cos_yaw_q14:16384;
+    const uint16_t* row_tex=texture->pixels;
+    const uint8_t* row_ald=texture->alpha;
+    int row0=camera->horizon_y;if(row0<0)row0=0;
+    for(int y=row0;y<fb_h;++y){
+        const int dy=y-(int)camera->horizon_y;
+        if(dy<0)continue;
+        /* Depth of this row in Q8 world units: focal_q8*cam_h/dy (focal_q8 has 8.8). */
+        int64_t z_q8=0;
+        int far_row=(dy==0);
+        if(dy>0){
+            z_q8=((int64_t)camera->focal_q8*cam_h)/dy;
+            if(z_q8<(int64_t)camera->near_z<<8)continue;
+            if(z_q8>(int64_t)camera->far_z<<8)far_row=1;
+        }
+        if(far_row){
+            /* The horizon row is infinite depth and rows past far_z are
+             * untexturable; with fog on, paint them full fog colour so the
+             * horizon stays seamless instead of leaving stale rows (a 1 px
+             * sky/ground tear plus a black band in emulator runs). */
+            if(!ground->use_fog||!camera->fog_strength)continue;
+            const uint16_t fc=camera->fog_color565;
+            uint16_t* dst=fb+y*fb_w;
+            if(ga>=255&&blend!=VXPE_BLEND_ADD&&blend!=VXPE_BLEND_MULTIPLY){
+                for(int x=0;x<fb_w;++x)dst[x]=fc;
+            }else if(blend==VXPE_BLEND_ADD){
+                for(int x=0;x<fb_w;++x)dst[x]=add565(dst[x],fc,(uint8_t)ga);
+            }else if(blend==VXPE_BLEND_MULTIPLY){
+                for(int x=0;x<fb_w;++x)dst[x]=mul565(dst[x],fc);
+            }else{
+                for(int x=0;x<fb_w;++x)dst[x]=blend565(dst[x],fc,(uint8_t)ga);
+            }
+            continue;
+        }
+        const int32_t z=(int32_t)(z_q8>>8);
+        /* World units per screen pixel on this row, Q16: z/focal, both Q8,
+         * so the numerator needs a full <<16 to land in Q16. */
+        const int64_t step_q16=((int64_t)z_q8<<16)/camera->focal_q8;
+        /* World point under screen x=0: invert the camera yaw rotation,
+         * i.e. the transpose vxpe25d_project applies to world deltas. */
+        const int64_t xc=(int64_t)(0-camera->center_x)*step_q16;
+        const int64_t zc=z_q8<<8;
+        const int64_t wxq=((int64_t)camera->world_x<<16)+((xc*cos_yaw+zc*sin_yaw)>>14);
+        const int64_t wzq=((int64_t)camera->world_z<<16)+((zc*cos_yaw-xc*sin_yaw)>>14);
+        /* Wrap the row start into texture space, then step in Q16 texels.
+         * The phase stays in Q16 texels - truncating to whole world units
+         * first made grid lines jitter up to one world unit per row. */
+        const int32_t Tu=(int32_t)((int64_t)sw<<16),Tv=(int32_t)((int64_t)sh<<16);
+        int32_t u_q16=(int32_t)pmod64((wxq*(int64_t)sw)/tile_w,Tu);
+        int32_t v_q16=(int32_t)pmod64((wzq*(int64_t)sh)/tile_h,Tv);
+        const int32_t du=(int32_t)((((step_q16*cos_yaw)>>14)*(int64_t)sw)/tile_w);
+        const int32_t dv=(int32_t)((((step_q16*sin_yaw)>>14)*(int64_t)sh)/tile_h);
+        const int slow_u=(du>=Tu||du<=-Tu),slow_v=(dv>=Tv||dv<=-Tv);
+        /* Row fog matches vxpe25d_project's distance ramp. */
+        int fog=0;
+        if(ground->use_fog&&camera->fog_strength&&z>(int32_t)camera->fog_near_z){
+            int range=(int)camera->fog_far_z-(int)camera->fog_near_z;
+            fog=range<=0?camera->fog_strength
+                :clamp_i((int)(((int64_t)(z-camera->fog_near_z)*camera->fog_strength)/range),0,camera->fog_strength);
+        }
+        uint16_t* dst=fb+y*fb_w;
+        for(int x=0;x<fb_w;++x,++dst){
+            if(slow_u){u_q16=(int32_t)(((int64_t)u_q16+du)%Tu);if(u_q16<0)u_q16+=Tu;}
+            else{u_q16+=du;if(u_q16>=Tu)u_q16-=Tu;else if(u_q16<0)u_q16+=Tu;}
+            if(slow_v){v_q16=(int32_t)(((int64_t)v_q16+dv)%Tv);if(v_q16<0)v_q16+=Tv;}
+            else{v_q16+=dv;if(v_q16>=Tv)v_q16-=Tv;else if(v_q16<0)v_q16+=Tv;}
+            const int tu=u_q16>>16,tv=v_q16>>16;
+            uint16_t c=row_tex[(sy+tv)*stride+sx+tu];
+            if(tint!=0xFFFFu)c=vxpe2d_tint565(c,tint);
+            if(fog)c=blend565(c,camera->fog_color565,(uint8_t)fog);
+            int a=ga;
+            if(!texture->opaque&&row_ald)
+                a=(int)((int32_t)a*row_ald[(sy+tv)*alpha_stride+sx+tu]/255);
+            if(a<=0)continue;
+            if(a>=255&&blend!=VXPE_BLEND_ADD&&blend!=VXPE_BLEND_MULTIPLY)*dst=c;
+            else if(blend==VXPE_BLEND_ADD)*dst=add565(*dst,c,(uint8_t)a);
+            else if(blend==VXPE_BLEND_MULTIPLY)*dst=mul565(*dst,c);
+            else if(blend==VXPE_BLEND_COPY&&ga>=255)*dst=c;
+            else *dst=blend565(*dst,c,(uint8_t)a);
+        }
+    }
+}
+
+void vxpe25d_batch_init(VxpeBillboardBatch25D* batch){
+    if(!batch)return;
+    batch->count=0;
+    batch->dropped=0;
+}
+
+int vxpe25d_batch_push(
+    VxpeBillboardBatch25D* batch,const VxpeBatchEntry25D* entry)
+{
+    if(!batch||!entry||!entry->sprite)return 0;
+    if(batch->count>=VXPE_BATCH25D_MAX){++batch->dropped;return 0;}
+    batch->entries[batch->count++]=*entry;
+    return 1;
+}
+
+int vxpe25d_batch_flush(
+    VxpeBillboardBatch25D* batch,
+    uint16_t* fb,int fb_w,int fb_h,
+    const VxpeCamera25D* camera)
+{
+    if(!batch||!fb||!camera)return 0;
+    int16_t idx[VXPE_BATCH25D_MAX];
+    uint16_t depth[VXPE_BATCH25D_MAX];
+    int n=0;
+    for(int i=0;i<(int)batch->count;++i){
+        VxpeProjected25D p;
+        const VxpeBillboard25D* b=&batch->entries[i].billboard;
+        if(!vxpe25d_project(camera,b->world_x,b->world_y,b->world_z,&p))continue;
+        idx[n]=(int16_t)i;depth[n]=p.depth;++n;
+    }
+    /* Stable insertion sort, far to near (painter order). */
+    for(int i=1;i<n;++i){
+        const int16_t move=idx[i];const uint16_t d=depth[i];
+        int j=i-1;
+        while(j>=0&&depth[j]<d){idx[j+1]=idx[j];depth[j+1]=depth[j];--j;}
+        idx[j+1]=move;depth[j+1]=d;
+    }
+    int drawn=0;
+    for(int k=0;k<n;++k){
+        const VxpeBatchEntry25D* e=&batch->entries[idx[k]];
+        if(e->shadow_radius_x&&e->shadow_radius_y&&e->shadow_alpha)
+            vxpe25d_draw_ground_shadow(fb,fb_w,fb_h,camera,
+                e->billboard.world_x,e->billboard.world_z,
+                e->shadow_radius_x,e->shadow_radius_y,
+                e->shadow_color565,e->shadow_alpha,e->shadow_blend);
+        if(vxpe25d_draw_billboard(fb,fb_w,fb_h,camera,e->sprite,&e->billboard))++drawn;
+    }
+    batch->count=0;
+    return drawn;
 }
 
 } /* extern "C" */

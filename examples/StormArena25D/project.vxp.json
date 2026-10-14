@@ -1,0 +1,9 @@
+{
+  "name": "StormArena25D",
+  "display_name": "Storm Arena 2.5D",
+  "orientation": "portrait",
+  "resolution": "240x320",
+  "engine": "VXPEngine/VxpScene25D",
+  "app_id": "6053101",
+  "description": "Anime-style 1v1 fighter sample: perspective grid arena (vxpe25d_draw_ground), cel-shaded sprite fighters with per-frame animation and facing flips (vxpe25d batch billboards), radial hit bursts and super speed lines (vxpe2d_draw_burst), combo counter and dual health/gauge HUD."
+}

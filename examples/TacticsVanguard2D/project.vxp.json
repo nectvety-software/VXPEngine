@@ -1,0 +1,9 @@
+{
+  "name": "TacticsVanguard2D",
+  "display_name": "Tactics Vanguard 2D",
+  "orientation": "portrait",
+  "resolution": "240x320",
+  "engine": "VXPEngine/VxpRender2D",
+  "app_id": "6053201",
+  "description": "Turn-based tactics sample on a 15x17 field of 16-px tiles: masked 16x26 unit sprites (vxpe2d_blit), Dijkstra move range with a hatched field and path arrow, parchment action card, skewed cut-in band with 3x scaled portraits, terrain-driven combat math, pathing AI, plus splash, army-select menu and briefing screens."
+}
