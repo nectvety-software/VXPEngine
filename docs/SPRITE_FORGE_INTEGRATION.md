@@ -38,13 +38,16 @@ Two skills ship: `codeart2d` (the code-drawn route — PixelSpec JSON, rig SVG,
 consumes). The image-model skills (`video2dsprite`, `generate2dmedia`,
 `generate2dmap`) and 81 MB of upstream demo PNGs were excluded.
 
-Measured tree: **94 files, 3,634,062 bytes**. Recompute the digest with:
+Measured tree: **91 files, 3,304,730 bytes**, `__pycache__` excluded because it
+is bytecode our own runs generate, not vendored source. Recompute the digest
+with:
 
 ```python
 import hashlib, os
 root = "third_party/agent-sprite-forge"
 recs = []
 for dirpath, dirs, files in os.walk(root):
+    dirs[:] = [d for d in dirs if d != "__pycache__"]
     for name in files:
         p = os.path.join(dirpath, name)
         rel = os.path.relpath(p, root).replace(os.sep, "/")
@@ -54,10 +57,19 @@ print(hashlib.sha256("".join("%s\0%s\n" % r for r in recs).encode()).hexdigest()
 ```
 
 The result must equal `verification.digest_sha256` in the JSON:
-`382735249746324f37d2a07d7f4ac3cf358fa4dbcac31c81fc9c5cf44e6e4f2d`. That value
-was produced by this snippet on 2026-10-16; the earlier digest recorded at
-vendor time is gone because no reproducible recipe for it survived — which is
-exactly why the snippet is checked in here.
+`44d742820f4e1ecf980247618be928fe5f1d7cc1d67148455b95f4bdcf95447d`.
+
+Two things make that number portable rather than machine-local, and both were
+added only after they failed:
+
+* `.gitattributes` pins `third_party/agent-sprite-forge/**` to `-text`. Without
+  it this repo's `* text=auto` plus `core.autocrlf=true` rewrites every vendored
+  `.py` on checkout, so the digest computed on a clone differs from the one
+  computed here. `git show :<path>` byte-compares equal to the working tree now.
+* The digest counts only committed files. An earlier value of `38273524…` was
+  measured over 94 files and never reproduced, because three `__pycache__`
+  `.pyc` files were in that count while being gitignored — so they could not be
+  in any clone. That value is retired, not reconciled.
 
 **The vendored tree is read-only.** Never patch upstream files in place; if a
 fix is needed, do it in the bridge tool or in the project's own spec files.

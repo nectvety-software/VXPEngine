@@ -748,8 +748,10 @@ combatant, `MS 07–09` đo trên máy thật).
 
 Route art thứ hai của engine: tác giả sprite bằng skill đã vendor
 (`third_party/agent-sprite-forge/skills`: chỉ `codeart2d` + `generate2dsprite`,
-MIT, commit `5324342f…`, digest 94 file / 3.634.062 byte ghi trong
-`third_party/VENDOR-agent-sprite-forge.json`), rồi bake sang header C bằng
+MIT, commit `5324342f…`, digest 91 file / 3.304.730 byte = `44d74282…` ghi trong
+`third_party/VENDOR-agent-sprite-forge.json`, tính trên byte đã commit và loại
+`__pycache__`; `.gitattributes` pin tree này bằng `-text` nên `core.autocrlf`
+không được phép làm lệch digest sau clone), rồi bake sang header C bằng
 `tools/vxp_import_sprite_forge.py`. Engine không phụ thuộc gì tree vendored:
 `.vxp` phát hành chỉ chứa header sinh ra. **Tree vendored chỉ đọc** — cần sửa gì
 thì sửa bridge tool hoặc spec của project, không vá file upstream.

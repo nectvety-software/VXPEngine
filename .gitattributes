@@ -1,2 +1,8 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Vendored agent-sprite-forge tree: store and check out byte-for-byte.
+# verification.digest_sha256 in third_party/VENDOR-agent-sprite-forge.json is
+# computed over these exact bytes, so eol normalisation must never touch them
+# (and the tree is read-only upstream code, so it must not be rewritten).
+third_party/agent-sprite-forge/** -text
