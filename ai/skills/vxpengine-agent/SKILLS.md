@@ -697,3 +697,95 @@ Quy tắc rút từ bug thật:
 
 Bake offline: `engine/coremre/tools/vxp_bake_light.py mesh.json -o baked.json`.
 Sample: `examples/SpinCube3D` (3D), `examples/HarborDash25D` (2.5D).
+
+## Skill 35 — action2d (lõi game 2D hành động / platformer)
+
+Sáu header trong `engine/coremre/include/action2d/`: `VxpTilemap2D`,
+`VxpCamera2D`, `VxpBody2D`, `VxpCombat2D`, `VxpHud2D`, `VxpInputMap2D`.
+Hướng dẫn đầy đủ: `docs/CORE_ACTION2D.md`; dự án tham chiếu:
+`examples/VampireVeilDemo` (map 128×24 tile = 2048×384 px, 35 sprite, 14 slot
+combatant, `MS 07–09` đo trên máy thật).
+
+- Game chỉ sở hữu dữ liệu và thứ tự vẽ. Nếu `main.c` bắt đầu chứa code vật lý
+  hoặc self-implement hitbox nghĩa là lõi thiếu primitive — sửa lõi, không
+  viết glue.
+- Hai `VxpeTilemap2D` view dùng chung một mảng `flags`: atlas nền opaque đi fast
+  path `copy_tile`, atlas ledge có mask 1-bit để slab "rắn với mover, trong với
+  blitter". `VxpBody2D` va chạm chỉ đọc `flags`, không đọc cell.
+- Q8.8, không float, không chia. Một tuning `VxpeBody2DTuning` cho một
+  archetype; flier = bảng tuning memset 0 (`gravity_q8 = 0`), không phải
+  nhánh code riêng. `vxpe_combat_body_step/_control` là đường đi thật của mọi
+  move; `vxpe_body_*` trực tiếp chỉ còn init/tuning/settle/touching.
+- Hitbox luôn mirror theo facing: `out->x = facing ? bx + off_x
+  : bx + body->w - off_x - w`. `off_x` âm là đòn đánh phủ cả hai phía.
+- `map->pressed` chỉ tồn tại một frame sau `vxpe_input_update`; mỗi press đúng
+  một edge. Pen không có key code nên virtual pad bơm mã giả
+  (`PEN_LEFT 200`..`PEN_BURST 206`) vào `vxpe_input_press` — game không bao giờ
+  thấy toạ độ, chỉ có một đường input để test.
+- Bẫy chơi được chỉ thiết bị thật bắt được: cửa sổ verdict phải khoá input vài
+  trăm ms (`g_title_ms > 400`, death `g_dead_ms > 1200`), nếu không nút nhảy
+  làm chết nhân vật cũng bị đọc là "đóng panel". Menu UP wrap từ row 0 xuống
+  row cuối — nếu row cuối là EXIT thì driver tự kill app và PrintWindow vẫn
+  phát lại frame cuối: capture giống nhau từng byte = app đã chết, không phải
+  treo (kiểm tra `Get-Process .CPU` flat + `EnumWindows` không có dialog).
+- Cost vẽ phải đọc được từ screenshot: `g_frame_ms = vm_get_tick_count()` bọc
+  `draw()` rồi in `MS n` ở góc thế giới không bao giờ vẽ gì. Host shim trả tick
+  không chạy trong `draw()` nên host luôn `MS 00` — con số này chỉ có ý nghĩa
+  trên máy thật.
+- VXPEmu map `vm_get_removable_driver()` = `'e'` (`MreIO.cpp:562`) và
+  `path_from_emu` trả về `%LOCALAPPDATA%\MREmu\fs\e\`, nên save của template
+  (`vxp_public_cache.h`) nằm ở `fs\e\@vxp_<app_id_hex>\save.bin`. Muốn xác nhận
+  persistence phải relaunch process rồi đọc lại menu — con số trên menu trong
+  cùng một phiên không phải bằng chứng, vì `save_write` chỉ chạy khi chết, khi
+  gặp NPC lưu, và khi destroy ngoài màn menu.
+- Regression: `vxpe_action2d_runtime/_c_api`, `vxpe_combat2d_*`, `vxpe_input2d_*`,
+  `vxpe_hud2d_*` (toàn bộ suite 31/31, 3.63 s — `tmp/sforge_full_ctest.log`).
+  Twin `_c_api` compile header bằng C để game C không bị break khai báo chỉ-C++.
+  VXPEmu single-instance: driver phải `taskkill` và
+  chờ cửa sổ biến mất, nếu không sẽ test nhầm module cũ đã load.
+
+## Skill 36 — sprite-forge bridge (art từ spec → header RGB565)
+
+Route art thứ hai của engine: tác giả sprite bằng skill đã vendor
+(`third_party/agent-sprite-forge/skills`: chỉ `codeart2d` + `generate2dsprite`,
+MIT, commit `5324342f…`, digest 94 file / 3.634.062 byte ghi trong
+`third_party/VENDOR-agent-sprite-forge.json`), rồi bake sang header C bằng
+`tools/vxp_import_sprite_forge.py`. Engine không phụ thuộc gì tree vendored:
+`.vxp` phát hành chỉ chứa header sinh ra. **Tree vendored chỉ đọc** — cần sửa gì
+thì sửa bridge tool hoặc spec của project, không vá file upstream.
+
+- Chạy mọi script bằng `D:/Program/Python/python.exe` với `PYTHONUTF8=1`.
+  `python` trên PATH (msys) không có Pillow → ImportError trông như tool hỏng.
+- Upstream từ chối `--output-dir` đã tồn tại và `--strict-qc` không publish gì
+  khi fail: mỗi lần thử phải dùng thư mục mới, đừng "sửa tại chỗ".
+- Input của importer có hai dạng: `*/frames/*.png` (loose, kèm `--variant`) hoặc
+  `animation-clips.json` / `bundle/animation-clips.json` (tên frame, thứ tự,
+  `duration_ms` từng frame, `loop`, `anchor_px` lấy từ manifest, và **mọi PNG
+  được sha256 đối chiếu với manifest trước khi đọc pixel**).
+- Output hai dạng: `--mode sprites` → bảng `VxpeSprite565` + enum chỉ số;
+  `--mode atlas` → một atlas ô đều + `VxpeRectI[]` + `uint16_t[]` +
+  `VxpeAnimClip` cho mỗi clip, tức `VxpTilemap2D` và `vxpe2d_anim_*` dùng trực tiếp.
+- Hợp đồng byte (bắt buộc từ `VxpRender2D.cpp`): mask là bit `y*width+x`, MSB
+  trước, **không pad theo row**; `pixels` = 0 tại pixel trong suốt; frame không có
+  pixel trong suốt nào phải phát `mask=0, opaque=1` để ăn nhánh memcpy; atlas bắt
+  buộc `stride == width` vì `mask_visible()` index bằng `width`, pad row là lệch
+  mọi bit từ ô thứ hai trở đi.
+- Gate fail-closed, override luôn tường minh: frame rỗng, sha256 manifest lệch,
+  **RGB565 collapse** (hai màu nguồn về cùng một giá trị 565 — art mất nét mà
+  screenshot không nói), size lệch manifest, atlas lẫn kích thước,
+  `--max-dimension 255`, `--max-colors 32`, `--max-atlas-pixels 16384`. Alpha
+  chỉ 1 bit: pixel alpha < 128 bị loại và phải báo số lượng.
+- Header **không chứa đường dẫn máy**, chỉ digest manifest + digest từng frame.
+  Nhờ vậy fixture golden diff được trên mọi máy; đổi tool có chủ đích thì phải
+  regen `engine/coremre/tests/data/sprite_forge/fixture_*.h` trong cùng commit.
+- Test: `vxpe_sprite_forge_c_api` đọc lại từng pixel qua `vxpe2d_blit`/`vxpe2d_anim_*`
+  thật và compile bằng C99; `vxpe_sprite_forge_importer` chạy 14 check có tên cộng
+  các exit-code gate. Debug không define NDEBUG — đã chứng minh bằng mutation
+  (đổi một kỳ vọng → `Assertion failed`, rc=3), nên hai test này không rỗng.
+- `anchor_px` là gốc canvas chung của cả bộ frame, không phải đáy khả kiến từng
+  frame; importer chỉ ghi chú chứ không dịch chuyển gì. Muốn chân nhân vật chạm
+  đất thì phải tác giả canvas như ô 16x26 của `VampireVeilDemo`.
+- Giá đo được: import 12 frame 16x24 (4 clip) = 0.16 s, header 45.773 byte,
+  9.792 byte `.rodata`; 3 frame slime 32x32 = 0.15 s, 6.528 byte `.rodata`.
+  Round-trip header → PNG (`tmp/sf_preview.py`) đã xem bằng mắt: silhouette và
+  palette giữ nguyên, nền xám đúng chỗ mask trống.

@@ -1,0 +1,121 @@
+{
+  "anchor_px": [
+    4,
+    7
+  ],
+  "anchor_semantics": "shared canvas/root origin, often a ground reference; not per-frame visible bottom",
+  "art_source": "code",
+  "clips": {
+    "hurt": {
+      "duration_ms": [
+        200,
+        400
+      ],
+      "frames": [
+        3,
+        0
+      ],
+      "loop": false
+    },
+    "idle": {
+      "duration_ms": [
+        160,
+        120,
+        160,
+        120
+      ],
+      "frames": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "loop": true
+    },
+    "walk": {
+      "duration_ms": [
+        120,
+        120,
+        120,
+        120
+      ],
+      "frames": [
+        0,
+        1,
+        0,
+        2
+      ],
+      "loop": true
+    }
+  },
+  "frame_size": [
+    8,
+    8
+  ],
+  "frames": [
+    {
+      "file": "frames/stand.png",
+      "index": 0,
+      "name": "stand",
+      "source": {
+        "bytes": 107,
+        "file_sha256": "7e82e813a33e1b449bf22863b86815430c2d695120146327b05edd9b72dd7108",
+        "mode": "RGBA",
+        "path": "frames/stand.png",
+        "size": [
+          8,
+          8
+        ]
+      }
+    },
+    {
+      "file": "frames/step_a.png",
+      "index": 1,
+      "name": "step_a",
+      "source": {
+        "bytes": 113,
+        "file_sha256": "ded88d6bab6545c9b7313acbdcda78d955b15b04a52fae4187e52b3b6e4b3e7a",
+        "mode": "RGBA",
+        "path": "frames/step_a.png",
+        "size": [
+          8,
+          8
+        ]
+      }
+    },
+    {
+      "file": "frames/step_b.png",
+      "index": 2,
+      "name": "step_b",
+      "source": {
+        "bytes": 112,
+        "file_sha256": "e798940eaadfd2a0ba0f4431b66a2a4dff2e67e44daf41faa6fbe3a06219b087",
+        "mode": "RGBA",
+        "path": "frames/step_b.png",
+        "size": [
+          8,
+          8
+        ]
+      }
+    },
+    {
+      "file": "frames/hurt.png",
+      "index": 3,
+      "name": "hurt",
+      "source": {
+        "bytes": 114,
+        "file_sha256": "7a37a06653728d753904a94a7ab3073b3317c074ce02286770e674803cdd1e46",
+        "mode": "RGBA",
+        "path": "frames/hurt.png",
+        "size": [
+          8,
+          8
+        ]
+      }
+    }
+  ],
+  "pixel_art": true,
+  "placeholder": false,
+  "sampling": "nearest",
+  "schema": "generate2dsprite.animation_clips.v2"
+}

@@ -32,6 +32,12 @@ set(COREMRE_SOURCES
     src/graphics/VxpStory2D.cpp
     src/graphics/VxpPixelFont.cpp
     src/graphics/VxpVfx2D.cpp
+    src/action2d/VxpTilemap2D.cpp
+    src/action2d/VxpCamera2D.cpp
+    src/action2d/VxpBody2D.cpp
+    src/action2d/VxpCombat2D.cpp
+    src/action2d/VxpInputMap2D.cpp
+    src/action2d/VxpHud2D.cpp
     src/graphics/particles/VxpParticlePool.cpp
     src/graphics/particles/ParticleEmitter.cpp
     src/graphics/ui/UIAnchorLayout.cpp

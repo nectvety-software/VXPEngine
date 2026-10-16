@@ -1,0 +1,114 @@
+MSBuild version 18.9.1+a81b43525 for .NET Framework
+
+  1>Checking Build System
+  Building Custom Rule D:/MRE/VXPEngine/engine/coremre/tests/CMakeLists.txt
+  VxpColorGrade.cpp
+  Building Custom Rule D:/MRE/VXPEngine/engine/coremre/tests/CMakeLists.txt
+  VxpRender2D.cpp
+  VxpSpriteFx.cpp
+  VxpSoft3D.cpp
+  VxpActorSprite2D.cpp
+  vxpe_scatter_regression.cpp
+  VxpStory2D.cpp
+  VxpPixelFont.cpp
+  VxpStage2D.cpp
+  VxpScene25D.cpp
+  VxpArtStyle.cpp
+  VxpToon3D.cpp
+  VxpRaycast3D.cpp
+  VxpSuperScaler.cpp
+  vxpe_scatter_regression.vcxproj -> D:\MRE\VXPEngine\tmp\veil-action2d-tests\Debug\vxpe_scatter_regression.exe
+  VxpDungeonFx.cpp
+  VxpTilemap2D.cpp
+  VxpCamera2D.cpp
+  VxpBody2D.cpp
+  VxpCombat2D.cpp
+  VxpInputMap2D.cpp
+  VxpHud2D.cpp
+  Generating Code...
+  vxpgdx_test_runtime.vcxproj -> D:\MRE\VXPEngine\tmp\veil-action2d-tests\Debug\vxpgdx_test_runtime.lib
+  Building Custom Rule D:/MRE/VXPEngine/engine/coremre/tests/CMakeLists.txt
+  Building Custom Rule D:/MRE/VXPEngine/engine/coremre/tests/CMakeLists.txt
+  Building Custom Rule D:/MRE/VXPEngine/engine/coremre/tests/CMakeLists.txt
+  Building Custom Rule D:/MRE/VXPEngine/engine/coremre/tests/CMakeLists.txt
+  Building Custom Rule D:/MRE/VXPEngine/engine/coremre/tests/CMakeLists.txt
+  Building Custom Rule D:/MRE/VXPEngine/engine/coremre/tests/CMakeLists.txt
+  Building Custom Rule D:/MRE/VXPEngine/engine/coremre/tests/CMakeLists.txt
+  Building Custom Rule D:/MRE/VXPEngine/engine/coremre/tests/CMakeLists.txt
+  vxpe_action2d_c_api.c
+  vxpe_combat2d_regression.cpp
+  vxpe_soft3d_regression.cpp
+  Building Custom Rule D:/MRE/VXPEngine/engine/coremre/tests/CMakeLists.txt
+  vxpe_scene25d_regression.cpp
+  vxpgdx_vxtm3_regression.cpp
+  vxpe_stage2d_regression.cpp
+  vxpe_sprite_fast_regression.cpp
+  vxpe_story2d_c_api.c
+  Building Custom Rule D:/MRE/VXPEngine/engine/coremre/tests/CMakeLists.txt
+  Building Custom Rule D:/MRE/VXPEngine/engine/coremre/tests/CMakeLists.txt
+  Building Custom Rule D:/MRE/VXPEngine/engine/coremre/tests/CMakeLists.txt
+  Building Custom Rule D:/MRE/VXPEngine/engine/coremre/tests/CMakeLists.txt
+  vxpe_toon3d_c_api.c
+  vxpe_action2d_c_api.vcxproj -> D:\MRE\VXPEngine\tmp\veil-action2d-tests\Debug\vxpe_action2d_c_api.exe
+  vxpe_superscaler_regression.cpp
+  vxpe_story2d_regression.cpp
+  Building Custom Rule D:/MRE/VXPEngine/engine/coremre/tests/CMakeLists.txt
+  vxpgdx_ui_arm_regression.cpp
+  vxpe_toon3d_regression.cpp
+  vxpe_scene25d_c_api.c
+  vxpe_combat2d_regression.vcxproj -> D:\MRE\VXPEngine\tmp\veil-action2d-tests\Debug\vxpe_combat2d_regression.exe
+  vxpe_story2d_c_api.vcxproj -> D:\MRE\VXPEngine\tmp\veil-action2d-tests\Debug\vxpe_story2d_c_api.exe
+  vxpe_scene25d_regression.vcxproj -> D:\MRE\VXPEngine\tmp\veil-action2d-tests\Debug\vxpe_scene25d_regression.exe
+  Building Custom Rule D:/MRE/VXPEngine/engine/coremre/tests/CMakeLists.txt
+  Building Custom Rule D:/MRE/VXPEngine/engine/coremre/tests/CMakeLists.txt
+  vxpe_toon3d_c_api.vcxproj -> D:\MRE\VXPEngine\tmp\veil-action2d-tests\Debug\vxpe_toon3d_c_api.exe
+  Building Custom Rule D:/MRE/VXPEngine/engine/coremre/tests/CMakeLists.txt
+  vxpe_hud2d_c_api.c
+  vxpgdx_strategy_rpg_regression.cpp
+  Building Custom Rule D:/MRE/VXPEngine/engine/coremre/tests/CMakeLists.txt
+  vxpe_hud2d_regression.cpp
+  vxpe_sprite_fast_regression.vcxproj -> D:\MRE\VXPEngine\tmp\veil-action2d-tests\Debug\vxpe_sprite_fast_regression.exe
+  vxpe_stage2d_regression.vcxproj -> D:\MRE\VXPEngine\tmp\veil-action2d-tests\Debug\vxpe_stage2d_regression.exe
+  vxpe_combat2d_c_api.c
+  vxpe_superscaler_regression.vcxproj -> D:\MRE\VXPEngine\tmp\veil-action2d-tests\Debug\vxpe_superscaler_regression.exe
+  vxpgdx_vxtm3_regression.vcxproj -> D:\MRE\VXPEngine\tmp\veil-action2d-tests\Debug\vxpgdx_vxtm3_regression.exe
+  vxpe_soft3d_regression.vcxproj -> D:\MRE\VXPEngine\tmp\veil-action2d-tests\Debug\vxpe_soft3d_regression.exe
+  Building Custom Rule D:/MRE/VXPEngine/engine/coremre/tests/CMakeLists.txt
+  vxpe_toon3d_regression.vcxproj -> D:\MRE\VXPEngine\tmp\veil-action2d-tests\Debug\vxpe_toon3d_regression.exe
+  vxpgdx_ui_arm_regression.vcxproj -> D:\MRE\VXPEngine\tmp\veil-action2d-tests\Debug\vxpgdx_ui_arm_regression.exe
+  Building Custom Rule D:/MRE/VXPEngine/engine/coremre/tests/CMakeLists.txt
+  vxpe_input2d_c_api.c
+  vxpgdx_strategy_rpg_regression.vcxproj -> D:\MRE\VXPEngine\tmp\veil-action2d-tests\Debug\vxpgdx_strategy_rpg_regression.exe
+  Building Custom Rule D:/MRE/VXPEngine/engine/coremre/tests/CMakeLists.txt
+  Building Custom Rule D:/MRE/VXPEngine/engine/coremre/tests/CMakeLists.txt
+  Building Custom Rule D:/MRE/VXPEngine/engine/coremre/tests/CMakeLists.txt
+  vxpe_input2d_regression.cpp
+  Building Custom Rule D:/MRE/VXPEngine/engine/coremre/tests/CMakeLists.txt
+  vxpe_hud2d_c_api.vcxproj -> D:\MRE\VXPEngine\tmp\veil-action2d-tests\Debug\vxpe_hud2d_c_api.exe
+  vxpe_dungeonfx_regression.cpp
+  vxpe_pixel_font_regression.cpp
+  vxpe_raycast3d_regression.cpp
+  vxpe_graphics_benchmark.cpp
+  Building Custom Rule D:/MRE/VXPEngine/engine/coremre/tests/CMakeLists.txt
+  Building Custom Rule D:/MRE/VXPEngine/engine/coremre/tests/CMakeLists.txt
+  vxpe_hud2d_regression.vcxproj -> D:\MRE\VXPEngine\tmp\veil-action2d-tests\Debug\vxpe_hud2d_regression.exe
+  Building Custom Rule D:/MRE/VXPEngine/engine/coremre/tests/CMakeLists.txt
+  vxpe_artstyle_regression.cpp
+  vxpe_input2d_c_api.vcxproj -> D:\MRE\VXPEngine\tmp\veil-action2d-tests\Debug\vxpe_input2d_c_api.exe
+  vxpe_actor_sprite_regression.cpp
+  vxpe_scene25d_c_api.vcxproj -> D:\MRE\VXPEngine\tmp\veil-action2d-tests\Debug\vxpe_scene25d_c_api.exe
+  vxpe_combat2d_c_api.vcxproj -> D:\MRE\VXPEngine\tmp\veil-action2d-tests\Debug\vxpe_combat2d_c_api.exe
+  vxpe_color_grade_regression.cpp
+  vxpe_raycast3d_regression.vcxproj -> D:\MRE\VXPEngine\tmp\veil-action2d-tests\Debug\vxpe_raycast3d_regression.exe
+  vxpe_dungeonfx_regression.vcxproj -> D:\MRE\VXPEngine\tmp\veil-action2d-tests\Debug\vxpe_dungeonfx_regression.exe
+  vxpe_input2d_regression.vcxproj -> D:\MRE\VXPEngine\tmp\veil-action2d-tests\Debug\vxpe_input2d_regression.exe
+  vxpe_story2d_regression.vcxproj -> D:\MRE\VXPEngine\tmp\veil-action2d-tests\Debug\vxpe_story2d_regression.exe
+  Building Custom Rule D:/MRE/VXPEngine/engine/coremre/tests/CMakeLists.txt
+  vxpe_artstyle_regression.vcxproj -> D:\MRE\VXPEngine\tmp\veil-action2d-tests\Debug\vxpe_artstyle_regression.exe
+  vxpe_pixel_font_regression.vcxproj -> D:\MRE\VXPEngine\tmp\veil-action2d-tests\Debug\vxpe_pixel_font_regression.exe
+  vxpe_action2d_regression.cpp
+  vxpe_actor_sprite_regression.vcxproj -> D:\MRE\VXPEngine\tmp\veil-action2d-tests\Debug\vxpe_actor_sprite_regression.exe
+  vxpe_color_grade_regression.vcxproj -> D:\MRE\VXPEngine\tmp\veil-action2d-tests\Debug\vxpe_color_grade_regression.exe
+  vxpe_action2d_regression.vcxproj -> D:\MRE\VXPEngine\tmp\veil-action2d-tests\Debug\vxpe_action2d_regression.exe
+  vxpe_graphics_benchmark.vcxproj -> D:\MRE\VXPEngine\tmp\veil-action2d-tests\Debug\vxpe_graphics_benchmark.exe
+  Building Custom Rule D:/MRE/VXPEngine/engine/coremre/tests/CMakeLists.txt

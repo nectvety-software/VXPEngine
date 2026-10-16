@@ -1,6 +1,9 @@
 #include "graphics/VxpScene25D.h"
 #include "graphics/VxpToon3D.h"
 #include "graphics/VxpRender2D.h"
+#include "action2d/VxpTilemap2D.h"
+#include "action2d/VxpCamera2D.h"
+#include "action2d/VxpBody2D.h"
 
 #include <algorithm>
 #include <chrono>
@@ -185,6 +188,223 @@ static void draw_retro_mall(int w,int h,int phase){
         vxpe_toon3d_triangle(&target,&cam,{fx+6,fy,z+22},{fx+13,fy+5,z+22},{fx+13,fy-5,z+22},&fish,175,0);
     }
 }
+/* --- action2d -------------------------------------------------------------
+ * A side-scrolling action frame: two scrolling tile layers, masked character
+ * sprites and the per-frame physics of one controlled body plus an enemy
+ * patrol pool. Measured here because a handset has to fit all of that inside a
+ * 33 ms frame with no FPU, no divide instruction and no heap. */
+static const int A2_W = 240, A2_H = 320;
+static const int A2_TW = 16, A2_TH = 16;
+static const int A2_COLS = 4, A2_ROWS = 2;    /* atlas holds 8 tile cells */
+static const int A2_MAPW = 40, A2_MAPH = 25;  /* world 640x400 px */
+static const int A2_SPRITES = 7, A2_BW = 12, A2_BH = 22;
+/* Deliberately not tile-aligned: mid-scroll is the normal case, and both tile
+ * measurements below use this same offset so their geometry is provably equal
+ * and the sampler is the only variable. 16 cols x 21 rows = 336 tiles, with
+ * partial tiles on the right and bottom edges. */
+static const int A2_SCROLL_X = 101, A2_SCROLL_Y = 53;
+static uint16_t a2AtlasPx[A2_COLS * A2_TW * A2_ROWS * A2_TH];
+static uint16_t a2BackCell[A2_MAPW * A2_MAPH], a2BackFlag[A2_MAPW * A2_MAPH];
+static uint16_t a2SolCell[A2_MAPW * A2_MAPH], a2SolFlag[A2_MAPW * A2_MAPH];
+static uint16_t a2CharPx[2 * 16 * 24];  /* two 16x24 frames side by side */
+static uint8_t a2CharMask[(2 * 16 * 24 + 7) / 8];
+static uint16_t a2Fb[A2_W * A2_H];
+static VxpeSprite565 a2Atlas{}, a2Char{};
+static VxpeTilemap2D a2Back{}, a2Solid{}, a2BackFlat{};
+static VxpeCamera2D a2Cam{};
+static VxpeBodyTuning2D a2Tune{};
+static VxpeBody2D a2Bodies[A2_SPRITES];
+static int a2Phase = 0;
+
+static void init_action2d() {
+    static const uint8_t cell_rgb[8][3] = {
+        {24, 18, 34}, {40, 30, 52}, {58, 44, 28}, {92, 72, 48},
+        {120, 104, 72}, {30, 54, 40}, {150, 54, 48}, {196, 164, 96}};
+    for (int cell = 0; cell < A2_COLS * A2_ROWS; ++cell) {
+        const int cx = (cell % A2_COLS) * A2_TW, cy = (cell / A2_COLS) * A2_TH;
+        const uint16_t base = vxpe2d_rgb565(cell_rgb[cell][0], cell_rgb[cell][1], cell_rgb[cell][2]);
+        for (int y = 0; y < A2_TH; ++y) {
+            for (int x = 0; x < A2_TW; ++x) {
+                const bool edge = x == 0 || y == 0 || x == A2_TW - 1 || y == A2_TH - 1;
+                const bool seam = x == 1 || y == 1;
+                a2AtlasPx[(size_t)(cy + y) * (A2_COLS * A2_TW) + cx + x] =
+                    edge ? (uint16_t)(base & 0x7BE7u) : (seam ? (uint16_t)(base | 0x0821u) : base);
+            }
+        }
+    }
+    a2Atlas.pixels = a2AtlasPx;
+    a2Atlas.mask = nullptr;
+    a2Atlas.width = (uint16_t)(A2_COLS * A2_TW);
+    a2Atlas.height = (uint16_t)(A2_ROWS * A2_TH);
+    a2Atlas.stride = (uint16_t)(A2_COLS * A2_TW);
+    a2Atlas.opaque = 1;
+
+    /* Background: a full-screen brick field. Half the tiles carry FLIP_X so the
+     * layer is not one uniform cell, which is also what pushes those tiles into
+     * the blitter instead of the whole-tile copy. */
+    for (int y = 0; y < A2_MAPH; ++y) {
+        for (int x = 0; x < A2_MAPW; ++x) {
+            const size_t i = (size_t)y * A2_MAPW + (size_t)x;
+            a2BackCell[i] = (uint16_t)((x * 3 + y * 5) & 7);
+            a2BackFlag[i] = (uint16_t)(((x + y) & 1) ? VXPE_TF_FLIP_X : 0);
+        }
+    }
+    a2Back.cells = a2BackCell; a2Back.flags = a2BackFlag; a2Back.atlas = &a2Atlas;
+    a2Back.width = A2_MAPW; a2Back.height = A2_MAPH;
+    a2Back.tile_w = A2_TW; a2Back.tile_h = A2_TH;
+    a2Back.atlas_cols = A2_COLS; a2Back.oob_blocks = 1;
+    /* Same cells, no flag table: the unmasked/untinted copy path. */
+    a2BackFlat = a2Back;
+    a2BackFlat.flags = nullptr;
+
+    /* Solid layer: a floor band, a one-way ledge and two pillars. Blank cells
+     * stay id 0 so the layer only costs the tiles a level really has. */
+    for (int y = 0; y < A2_MAPH; ++y) {
+        for (int x = 0; x < A2_MAPW; ++x) {
+            const size_t i = (size_t)y * A2_MAPW + (size_t)x;
+            uint16_t id = 0, flags = 0;
+            if (y >= 22) { id = 7; flags = VXPE_TF_SOLID; }
+            else if (y >= 17 && x >= 8 && x <= 22) { id = 6; flags = VXPE_TF_ONEWAY; }
+            else if ((x == 30 || x == 31) && y >= 12) { id = 5; flags = VXPE_TF_SOLID; }
+            if (id && ((x + y) & 1)) flags |= VXPE_TF_FLIP_X;
+            a2SolCell[i] = id; a2SolFlag[i] = flags;
+        }
+    }
+    a2Solid.cells = a2SolCell; a2Solid.flags = a2SolFlag; a2Solid.atlas = &a2Atlas;
+    a2Solid.width = A2_MAPW; a2Solid.height = A2_MAPH;
+    a2Solid.tile_w = A2_TW; a2Solid.tile_h = A2_TH;
+    a2Solid.atlas_cols = A2_COLS; a2Solid.oob_blocks = 1;
+
+    /* A 16x24 character in two walk frames, masked: head, cloak and legs with a
+     * transparent eye socket, so the blitter cannot take the memcpy branch. */
+    std::memset(a2CharMask, 0, sizeof(a2CharMask));
+    for (int frame = 0; frame < 2; ++frame) {
+        for (int y = 0; y < 24; ++y) {
+            for (int x = 0; x < 16; ++x) {
+                int visible;
+                uint16_t color;
+                if (y < 7) { visible = (x >= 5 && x <= 10); color = vxpe2d_rgb565(224, 202, 176); }
+                else if (y < 17) { visible = (x >= 3 && x <= 12); color = vxpe2d_rgb565(122, 34, 46); }
+                else {
+                    const int lead = frame ? (x > 7 ? 1 : 0) : (x < 8 ? 1 : 0);
+                    visible = (x >= 4 + lead && x <= 11 - lead);
+                    color = vxpe2d_rgb565(48, 44, 66);
+                }
+                if (visible && y == 2 && x == 6) visible = 0;
+                const size_t p = (size_t)y * 32 + (size_t)frame * 16 + (size_t)x;
+                a2CharPx[p] = color;
+                if (visible) a2CharMask[p >> 3] |= (uint8_t)(0x80u >> (p & 7u));
+            }
+        }
+    }
+    a2Char.pixels = a2CharPx; a2Char.mask = a2CharMask;
+    a2Char.width = 32; a2Char.height = 24; a2Char.stride = 32; a2Char.opaque = 0;
+
+    vxpe_cam_init(&a2Cam, A2_W, A2_H, A2_MAPW * A2_TW, A2_MAPH * A2_TH);
+    vxpe_cam_set_follow_ms(&a2Cam, 90);
+    vxpe_cam_set_lookahead(&a2Cam, 24);
+    vxpe_body_tuning_default(&a2Tune);
+    for (int i = 0; i < A2_SPRITES; ++i) {
+        vxpe_body_init(&a2Bodies[i], 40 + i * 28, 22 * A2_TH - A2_BH, A2_BW, A2_BH);
+        vxpe_body_settle(&a2Bodies[i], &a2Solid);
+    }
+}
+
+/* One simulation frame, shared by the full renderer and the physics-only
+ * benchmark so both measure the identical amount of work. */
+static void step_action2d(uint16_t dt_ms) {
+    VxpeBodyIntent2D intent{};
+    intent.x = (int8_t)(((a2Phase >> 5) & 1) ? 1 : -1);
+    intent.jump = (uint8_t)((a2Phase & 31) == 0 ? 1 : 0);
+    intent.jump_held = intent.jump;
+    vxpe_body_control(&a2Bodies[0], &a2Solid, &a2Tune, &intent, dt_ms);
+    for (int i = 1; i < A2_SPRITES; ++i) {
+        a2Bodies[i].vx_q8 = ((i & 1) ? 1 : -1) * (30 + i * 6) * 256;
+        vxpe_body_step(&a2Bodies[i], &a2Solid, &a2Tune, dt_ms);
+    }
+    vxpe_cam_follow(&a2Cam, (int)(a2Bodies[0].x_q8 >> 8), (int)(a2Bodies[0].y_q8 >> 8), dt_ms);
+    if ((a2Phase & 15) == 0) vxpe_cam_shake(&a2Cam, 3, 140);
+    vxpe_cam_update(&a2Cam, dt_ms);
+}
+
+static void render_action2d() {
+    std::memset(a2Fb, 0, sizeof(a2Fb));
+    const int cx = vxpe_cam_x(&a2Cam), cy = vxpe_cam_y(&a2Cam);
+    VxpeTileDraw2D view{};
+    vxpe_tile_view(&view, -cx, -cy);
+    view.skip_blank = 0;  /* decor covers the whole viewport */
+    vxpe_tilemap_draw(a2Fb, A2_W, A2_H, &a2Back, &view);
+    vxpe_tile_view(&view, -cx, -cy);  /* solids only, blank cells skipped */
+    vxpe_tilemap_draw(a2Fb, A2_W, A2_H, &a2Solid, &view);
+    for (int i = 0; i < A2_SPRITES; ++i) {
+        const VxpeBody2D* b = &a2Bodies[i];
+        const int wx = (int)(b->x_q8 >> 8), wy = (int)(b->y_q8 >> 8);
+        if (!vxpe_cam_visible(&a2Cam, wx, wy, A2_BW, A2_BH)) continue;
+        VxpeBlit565 op{};
+        op.src.x = (int16_t)(((a2Phase >> 4) & 1) * 16);
+        op.src.w = 16; op.src.h = 24;
+        op.dst_x = (int16_t)(vxpe_cam_to_screen_x(&a2Cam, wx) - 2);
+        op.dst_y = (int16_t)(vxpe_cam_to_screen_y(&a2Cam, wy) - 2);
+        op.dst_w = 16; op.dst_h = 24;
+        op.tint565 = 0xFFFFu; op.alpha = 255u; op.blend = VXPE_BLEND_COPY;
+        op.flip_x = (uint8_t)(b->facing ? 0 : 1);
+        vxpe2d_blit(a2Fb, A2_W, A2_H, &a2Char, &op);
+    }
+    step_action2d(33);
+    ++a2Phase;
+}
+
+/* The three ways to put the same 336 tiles on screen, at one fixed scroll. */
+static void render_a2_tiles_copy() {
+    std::memset(a2Fb, 0, sizeof(a2Fb));
+    VxpeTileDraw2D view{};
+    vxpe_tile_view(&view, -A2_SCROLL_X, -A2_SCROLL_Y);
+    view.skip_blank = 0;
+    vxpe_tilemap_draw(a2Fb, A2_W, A2_H, &a2BackFlat, &view);
+}
+
+/* Half the tiles carry FLIP_X, so those go through the general blitter instead
+ * of the whole-tile copy - but still 1:1, so the identity branch applies. */
+static void render_a2_tiles_flip() {
+    std::memset(a2Fb, 0, sizeof(a2Fb));
+    VxpeTileDraw2D view{};
+    vxpe_tile_view(&view, -A2_SCROLL_X, -A2_SCROLL_Y);
+    view.skip_blank = 0;
+    vxpe_tilemap_draw(a2Fb, A2_W, A2_H, &a2Back, &view);
+}
+
+/* The same visible window forced through the generic sampler: flip_d keeps a
+ * 1:1 blit out of the identity branch, so the only difference is the two
+ * integer divides per pixel that ARMv5TE has to call __aeabi_uidivmod for.
+ * The texels land in swapped axes, which is irrelevant here - the per-pixel
+ * work, and only that, is what this number is for. */
+static void render_a2_tiles_generic() {
+    std::memset(a2Fb, 0, sizeof(a2Fb));
+    const int tx0 = A2_SCROLL_X / A2_TW, tx1 = (A2_SCROLL_X + A2_W - 1) / A2_TW;
+    const int ty0 = A2_SCROLL_Y / A2_TH, ty1 = (A2_SCROLL_Y + A2_H - 1) / A2_TH;
+    for (int ty = ty0; ty <= ty1; ++ty) {
+        for (int tx = tx0; tx <= tx1; ++tx) {
+            const size_t i = (size_t)ty * A2_MAPW + (size_t)tx;
+            const int id = a2BackCell[i], flags = a2BackFlag[i];
+            VxpeBlit565 op{};
+            op.src.x = (int16_t)((id % A2_COLS) * A2_TW);
+            op.src.y = (int16_t)((id / A2_COLS) * A2_TH);
+            op.src.w = (int16_t)A2_TW; op.src.h = (int16_t)A2_TH;
+            op.dst_x = (int16_t)(tx * A2_TW - A2_SCROLL_X);
+            op.dst_y = (int16_t)(ty * A2_TH - A2_SCROLL_Y);
+            op.dst_w = (uint16_t)A2_TW; op.dst_h = (uint16_t)A2_TH;
+            op.tint565 = 0xFFFFu; op.alpha = 255u; op.blend = VXPE_BLEND_COPY;
+            op.flip_x = (uint8_t)((flags & VXPE_TF_FLIP_X) ? 1 : 0);
+            op.flip_d = 1;
+            vxpe2d_blit(a2Fb, A2_W, A2_H, &a2Atlas, &op);
+        }
+    }
+}
+
+static void simulate_action2d() {
+    step_action2d(33);
+    ++a2Phase;
+}
 static double median_ms(void(*render)(),int frames){
     for(int i=0;i<3;++i)render();double samples[9];
     for(int s=0;s<9;++s){auto start=Clock::now();for(int f=0;f<frames;++f)render();auto end=Clock::now();samples[s]=std::chrono::duration<double,std::milli>(end-start).count()/frames;}
@@ -226,6 +446,25 @@ int main(int argc,char** argv){
         useAffine=true;double fast=median_ms(render3d_dispatch,frames);int diff=differing_pixels(exactImage,pixels3d,n);
         if(scale==1)write_ppm("reports/graphics-benchmark/3d_affine_240x320.ppm",pixels3d,width,height);
         std::printf("3D affine %dx%d: %.3f ms/frame; speedup %.2fx; changed pixels %d/%d; checksum %016llX\n",width,height,fast,fast>0?exact/fast:0.0,diff,n,(unsigned long long)checksum(pixels3d,n));
+    }
+    init_action2d();
+    {
+        const double copy = median_ms(render_a2_tiles_copy, frames);
+        const double flip = median_ms(render_a2_tiles_flip, frames);
+        const double generic = median_ms(render_a2_tiles_generic, frames);
+        a2Phase = 0;
+        const double game = median_ms(render_action2d, frames);
+        const double phys = median_ms(simulate_action2d, frames);
+        a2Phase = 40; render_action2d();
+        const int cols = (A2_SCROLL_X + A2_W - 1) / A2_TW - A2_SCROLL_X / A2_TW + 1;
+        const int rows = (A2_SCROLL_Y + A2_H - 1) / A2_TH - A2_SCROLL_Y / A2_TH + 1;
+        write_ppm("reports/graphics-benchmark/action2d_240x320.ppm", a2Fb, A2_W, A2_H);
+        std::printf("action2d %dx%d-tile layer (%d px): whole-tile copy %.3f ms | 1:1 blit with flips %.3f ms | generic resample %.3f ms (copy %.2fx, 1:1 blit %.2fx)\n",
+            cols, rows, cols * A2_TW * rows * A2_TH, copy, flip, generic,
+            copy > 0 ? generic / copy : 0.0, flip > 0 ? generic / flip : 0.0);
+        std::printf("action2d game frame 240x320 (2 tile layers + 7 masked sprites + 7 bodies + camera): %.3f ms/frame; color buffer %d B; checksum %016llX\n",
+            game, A2_W * A2_H * 2, (unsigned long long)checksum(a2Fb, A2_W * A2_H));
+        std::printf("action2d simulation only (1 controller + 6 steppers + camera follow/shake): %.3f ms\n", phys);
     }
     width=240;height=320;uint64_t firstFrame=0,lastFrame=0;
     for(int frame=0;frame<8;++frame){int phase=frame*8;draw_retro_mall(width,height,phase);uint64_t hash=checksum(pixels3d,width*height);

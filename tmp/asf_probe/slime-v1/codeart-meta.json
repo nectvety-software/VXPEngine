@@ -1,0 +1,391 @@
+{
+  "schema": "codeart2d.codeart_meta.v1",
+  "art_source": "code",
+  "placeholder": false,
+  "disclosure": "code-drawn, no image model",
+  "generator": "render_pixelspec.py",
+  "spec_sha256": "7b529261c66884a607382ea4834c4623f7f2bcf4887c2c846a800460c168756c",
+  "renderer": {
+    "name": "codeart_core.render_pixelspec",
+    "version": "1.1"
+  },
+  "palette": {
+    "colors": {
+      "k": "#1a1c2c",
+      "d": "#257179",
+      "g": "#38b764",
+      "l": "#a7f070",
+      "H": "#f4f4f4"
+    },
+    "variants": {
+      "green": {},
+      "blue": {
+        "d": "#29366f",
+        "g": "#3b5dc9",
+        "l": "#41a6f6",
+        "H": "#f4f4f4"
+      },
+      "red": {
+        "d": "#5d275d",
+        "g": "#b13e53",
+        "l": "#ef7d57",
+        "H": "#ffcd75"
+      }
+    }
+  },
+  "outputs": [
+    {
+      "path": "green/frames/rest.png",
+      "sha256": "057900b6790b0b0f7be0a9413d65354b0e3882516e2537d215f6006ec25c4ff7",
+      "bytes": 262
+    },
+    {
+      "path": "green/frames/squash.png",
+      "sha256": "5a146569b785f1d23d9010ad128a76659c7fa9225ae12984d095daf0657eafa4",
+      "bytes": 239
+    },
+    {
+      "path": "green/frames/stretch.png",
+      "sha256": "7ae6faba8f10fdb3e3deec778ce034c77d0b32ce0e3dd7b5e31509ef94757c6d",
+      "bytes": 270
+    },
+    {
+      "path": "blue/frames/rest.png",
+      "sha256": "bb9ee4ea5ae44b684e11e72196fad78e63c295237b4e31e57d58bcb7108fab1a",
+      "bytes": 261
+    },
+    {
+      "path": "blue/frames/squash.png",
+      "sha256": "bfcd7e7cebb7ba91813a1adb1c9a9781c697160de6e482112902251760a160ea",
+      "bytes": 239
+    },
+    {
+      "path": "blue/frames/stretch.png",
+      "sha256": "16b55eeb88d9f42a2bd709810ab2c335e93bc0ab8aa3bf76b75a7d7f07f67cd4",
+      "bytes": 268
+    },
+    {
+      "path": "red/frames/rest.png",
+      "sha256": "7cbd55165b851d87b90ad214ca445ec82043ea7eba845899d983584a8e68e587",
+      "bytes": 262
+    },
+    {
+      "path": "red/frames/squash.png",
+      "sha256": "ea4c6e08965397d8d9fec51d24c8433c1fe41ee4cd3bdb801fd9a9f4982d1dd0",
+      "bytes": 240
+    },
+    {
+      "path": "red/frames/stretch.png",
+      "sha256": "63e0817c2ecde374842c7fba6f09be2593c846e7bc3967555ec01ab193cd1c55",
+      "bytes": 270
+    },
+    {
+      "path": "preview-x6.png",
+      "sha256": "8da1facd16ddabcfe001b72e6332a1beacf7302cc0b0914900406070d3ec49e6",
+      "bytes": 3097
+    }
+  ],
+  "qa": {
+    "status": "pass",
+    "method": "render_pixelspec.py: every published frame PNG is read back and measured with codeart_core.qa_pixels against the resolved palette of its variant (alpha census, exact palette lookup and, with an outline, 4-neighbour outline gaps and L-corners); each check is the worst frame against its gate in codeart_core.QA_PIXEL_GATES",
+    "notProven": [
+      "Readability, silhouette and appeal at game scale; check them on a review sheet (pixel_qa.py --review).",
+      "Motion, timing and spacing between frames; numbers do not judge animation quality.",
+      "That the art matches the brief and the intent of the spec."
+    ],
+    "checks": [
+      {
+        "id": "partial_alpha",
+        "status": "pass",
+        "value": 0,
+        "threshold": 0
+      },
+      {
+        "id": "off_palette",
+        "status": "pass",
+        "value": 0,
+        "threshold": 0
+      },
+      {
+        "id": "outline_gaps",
+        "status": "pass",
+        "value": 0,
+        "threshold": 0
+      },
+      {
+        "id": "l_corners",
+        "status": "pass",
+        "value": 0,
+        "threshold": 10
+      }
+    ],
+    "inputs": [
+      {
+        "path": "../../../third_party/agent-sprite-forge/skills/codeart2d/examples/slime.pixelspec.json",
+        "sha256": "7b529261c66884a607382ea4834c4623f7f2bcf4887c2c846a800460c168756c",
+        "bytes": 3436
+      }
+    ],
+    "outputs": [
+      {
+        "path": "green/frames/rest.png",
+        "sha256": "057900b6790b0b0f7be0a9413d65354b0e3882516e2537d215f6006ec25c4ff7",
+        "bytes": 262
+      },
+      {
+        "path": "green/frames/squash.png",
+        "sha256": "5a146569b785f1d23d9010ad128a76659c7fa9225ae12984d095daf0657eafa4",
+        "bytes": 239
+      },
+      {
+        "path": "green/frames/stretch.png",
+        "sha256": "7ae6faba8f10fdb3e3deec778ce034c77d0b32ce0e3dd7b5e31509ef94757c6d",
+        "bytes": 270
+      },
+      {
+        "path": "blue/frames/rest.png",
+        "sha256": "bb9ee4ea5ae44b684e11e72196fad78e63c295237b4e31e57d58bcb7108fab1a",
+        "bytes": 261
+      },
+      {
+        "path": "blue/frames/squash.png",
+        "sha256": "bfcd7e7cebb7ba91813a1adb1c9a9781c697160de6e482112902251760a160ea",
+        "bytes": 239
+      },
+      {
+        "path": "blue/frames/stretch.png",
+        "sha256": "16b55eeb88d9f42a2bd709810ab2c335e93bc0ab8aa3bf76b75a7d7f07f67cd4",
+        "bytes": 268
+      },
+      {
+        "path": "red/frames/rest.png",
+        "sha256": "7cbd55165b851d87b90ad214ca445ec82043ea7eba845899d983584a8e68e587",
+        "bytes": 262
+      },
+      {
+        "path": "red/frames/squash.png",
+        "sha256": "ea4c6e08965397d8d9fec51d24c8433c1fe41ee4cd3bdb801fd9a9f4982d1dd0",
+        "bytes": 240
+      },
+      {
+        "path": "red/frames/stretch.png",
+        "sha256": "63e0817c2ecde374842c7fba6f09be2593c846e7bc3967555ec01ab193cd1c55",
+        "bytes": 270
+      }
+    ],
+    "tool": {
+      "name": "render_pixelspec.py",
+      "version": "0.4.0"
+    },
+    "frames": [
+      {
+        "file": "green/frames/rest.png",
+        "variant": "green",
+        "frame": "rest",
+        "visible": 258,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 5,
+        "orphans": 11,
+        "l_corners": 0,
+        "outline_gaps": 0,
+        "bbox": [
+          5,
+          16,
+          27,
+          31
+        ]
+      },
+      {
+        "file": "green/frames/squash.png",
+        "variant": "green",
+        "frame": "squash",
+        "visible": 252,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 4,
+        "orphans": 8,
+        "l_corners": 0,
+        "outline_gaps": 0,
+        "bbox": [
+          4,
+          18,
+          28,
+          31
+        ]
+      },
+      {
+        "file": "green/frames/stretch.png",
+        "variant": "green",
+        "frame": "stretch",
+        "visible": 248,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 5,
+        "orphans": 10,
+        "l_corners": 0,
+        "outline_gaps": 0,
+        "bbox": [
+          7,
+          14,
+          25,
+          31
+        ]
+      },
+      {
+        "file": "blue/frames/rest.png",
+        "variant": "blue",
+        "frame": "rest",
+        "visible": 258,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 5,
+        "orphans": 11,
+        "l_corners": 0,
+        "outline_gaps": 0,
+        "bbox": [
+          5,
+          16,
+          27,
+          31
+        ]
+      },
+      {
+        "file": "blue/frames/squash.png",
+        "variant": "blue",
+        "frame": "squash",
+        "visible": 252,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 4,
+        "orphans": 8,
+        "l_corners": 0,
+        "outline_gaps": 0,
+        "bbox": [
+          4,
+          18,
+          28,
+          31
+        ]
+      },
+      {
+        "file": "blue/frames/stretch.png",
+        "variant": "blue",
+        "frame": "stretch",
+        "visible": 248,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 5,
+        "orphans": 10,
+        "l_corners": 0,
+        "outline_gaps": 0,
+        "bbox": [
+          7,
+          14,
+          25,
+          31
+        ]
+      },
+      {
+        "file": "red/frames/rest.png",
+        "variant": "red",
+        "frame": "rest",
+        "visible": 258,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 5,
+        "orphans": 11,
+        "l_corners": 0,
+        "outline_gaps": 0,
+        "bbox": [
+          5,
+          16,
+          27,
+          31
+        ]
+      },
+      {
+        "file": "red/frames/squash.png",
+        "variant": "red",
+        "frame": "squash",
+        "visible": 252,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 4,
+        "orphans": 8,
+        "l_corners": 0,
+        "outline_gaps": 0,
+        "bbox": [
+          4,
+          18,
+          28,
+          31
+        ]
+      },
+      {
+        "file": "red/frames/stretch.png",
+        "variant": "red",
+        "frame": "stretch",
+        "visible": 248,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 5,
+        "orphans": 10,
+        "l_corners": 0,
+        "outline_gaps": 0,
+        "bbox": [
+          7,
+          14,
+          25,
+          31
+        ]
+      }
+    ]
+  },
+  "pixelspec": {
+    "name": "slime",
+    "schema": "codeart2d.pixelspec.v1",
+    "canvas": [
+      32,
+      32
+    ],
+    "anchor_px": [
+      16,
+      31
+    ],
+    "outline": "solid",
+    "variants": {
+      "green": "green",
+      "blue": "blue",
+      "red": "red"
+    },
+    "frames": [
+      {
+        "index": 0,
+        "name": "rest",
+        "file": "frames/rest.png"
+      },
+      {
+        "index": 1,
+        "name": "squash",
+        "file": "frames/squash.png"
+      },
+      {
+        "index": 2,
+        "name": "rest-2",
+        "file": "frames/rest.png",
+        "reuses": 0
+      },
+      {
+        "index": 3,
+        "name": "stretch",
+        "file": "frames/stretch.png"
+      }
+    ],
+    "preview": {
+      "file": "preview-x6.png",
+      "scale": 6,
+      "layout": "rows are variants, columns are distinct frames"
+    }
+  }
+}

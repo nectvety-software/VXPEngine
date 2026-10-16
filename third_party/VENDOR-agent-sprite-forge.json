@@ -1,0 +1,44 @@
+{
+  "package": "agent-sprite-forge",
+  "purpose": "Third-party agent skills that author 2D game art from text specs (PixelSpec, SVG, rig, FX, autotile, parallax, layout) and QA it. VXPEngine vendors the code-drawn route and converts its PNG frames into RGB565 + 1-bit-mask C headers with tools/vxp_import_sprite_forge.py.",
+  "origin": "https://github.com/0x0funky/agent-sprite-forge",
+  "license": "MIT",
+  "license_file": "agent-sprite-forge/LICENSE",
+  "commit": "5324342fdfab72430f4e9604f3fe427009f8596d",
+  "commit_date": "2026-10-06T14:09:38Z",
+  "vendored_on": "2026-10-16",
+  "method": "git clone --depth 1 --filter=blob:none --sparse, sparse-checkout of the paths below, then the nested .git was removed so this stays a plain vendored tree",
+  "included": [
+    "/LICENSE",
+    "/README.md",
+    "/CHANGELOG.md",
+    "/requirements.txt",
+    "/requirements-codeart.txt",
+    "/shared",
+    "/skills/codeart2d",
+    "/skills/generate2dsprite"
+  ],
+  "excluded": [
+    "/src (81 MB of upstream demo PNGs)",
+    "/tests (6.3 MB of upstream fixtures, needs pytest)",
+    "/skills/generate2dmap",
+    "/skills/generate2dmedia",
+    "/skills/video2dsprite",
+    "/.claude-plugin",
+    "/tools (upstream vendor_sync.py; we do not republish upstream)"
+  ],
+  "why_these_two_skills": "skills/*/ never imports across skill folders - shared/forge_*.py is re-vendored byte-identically inside each skill (see shared/VENDORED.json). codeart2d is the only route usable without an image-model API key, and its --build-clips step calls ../generate2dsprite/scripts/build_animation_clips.py, so that skill folder is included for the clip bundles the importer consumes.",
+  "verification": {
+    "files": 94,
+    "bytes": 3634062,
+    "digest_sha256": "382735249746324f37d2a07d7f4ac3cf358fa4dbcac31c81fc9c5cf44e6e4f2d",
+    "how": "sha256 of the concatenation of '<posix path relative to third_party/agent-sprite-forge>\u0000<sha256(file bytes)>\n' for every file, records sorted by path. The exact snippet is in docs/SPRITE_FORGE_INTEGRATION.md."
+  },
+  "engine_requirements": {
+    "python": "numpy + Pillow (scipy only for some matte paths); PixelSpec rendering and pixel_qa.py need nothing else",
+    "verified_with": "D:/Program/Python/python.exe - numpy 2.2.6, Pillow 11.3.0, scipy 1.18.1",
+    "optional": "resvg-py / resvg-js / Chrome for SVG art only - not required by the PixelSpec route",
+    "env": "PYTHONUTF8=1 (upstream forge_doctor.py checks stdout encoding)"
+  },
+  "modification_policy": "The vendored tree is read-only. Engine-side behaviour lives in tools/vxp_import_sprite_forge.py; never patch upstream files in place, because they are byte-identical copies with their own digest checks."
+}

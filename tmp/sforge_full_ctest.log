@@ -1,0 +1,67 @@
+Test project D:/MRE/VXPEngine/tmp/veil-action2d-tests
+      Start  1: vxpe_story2d_runtime
+ 1/31 Test  #1: vxpe_story2d_runtime .............   Passed    0.02 sec
+      Start  2: vxpe_story2d_c_api
+ 2/31 Test  #2: vxpe_story2d_c_api ...............   Passed    0.02 sec
+      Start  3: vxpe_sprite_fast_runtime
+ 3/31 Test  #3: vxpe_sprite_fast_runtime .........   Passed    0.02 sec
+      Start  4: vxpe_toon3d_runtime
+ 4/31 Test  #4: vxpe_toon3d_runtime ..............   Passed    0.03 sec
+      Start  5: vxpe_toon3d_c_api
+ 5/31 Test  #5: vxpe_toon3d_c_api ................   Passed    0.02 sec
+      Start  6: vxpe_raycast3d_runtime
+ 6/31 Test  #6: vxpe_raycast3d_runtime ...........   Passed    0.02 sec
+      Start  7: vxpe_superscaler_runtime
+ 7/31 Test  #7: vxpe_superscaler_runtime .........   Passed    0.02 sec
+      Start  8: vxpe_actor_sprite_runtime
+ 8/31 Test  #8: vxpe_actor_sprite_runtime ........   Passed    0.02 sec
+      Start  9: vxpe_color_grade_runtime
+ 9/31 Test  #9: vxpe_color_grade_runtime .........   Passed    0.02 sec
+      Start 10: vxpgdx_vxtm3_runtime
+10/31 Test #10: vxpgdx_vxtm3_runtime .............   Passed    0.02 sec
+      Start 11: vxpgdx_ui_runtime
+11/31 Test #11: vxpgdx_ui_runtime ................   Passed    0.02 sec
+      Start 12: vxpe_scene25d_runtime
+12/31 Test #12: vxpe_scene25d_runtime ............   Passed    0.02 sec
+      Start 13: vxpe_scene25d_c_api
+13/31 Test #13: vxpe_scene25d_c_api ..............   Passed    0.02 sec
+      Start 14: vxpe_stage2d_runtime
+14/31 Test #14: vxpe_stage2d_runtime .............   Passed    0.02 sec
+      Start 15: vxpe_artstyle_runtime
+15/31 Test #15: vxpe_artstyle_runtime ............   Passed    0.02 sec
+      Start 16: vxpgdx_strategy_rpg_runtime
+16/31 Test #16: vxpgdx_strategy_rpg_runtime ......   Passed    0.02 sec
+      Start 17: vxpgdx_vxtm3_packer
+17/31 Test #17: vxpgdx_vxtm3_packer ..............   Passed    0.10 sec
+      Start 18: vxpe_dungeonfx_runtime
+18/31 Test #18: vxpe_dungeonfx_runtime ...........   Passed    0.02 sec
+      Start 19: vxpe_pixel_font_runtime
+19/31 Test #19: vxpe_pixel_font_runtime ..........   Passed    0.02 sec
+      Start 20: vxpe_scatter_runtime
+20/31 Test #20: vxpe_scatter_runtime .............   Passed    0.02 sec
+      Start 21: vxpe_soft3d_runtime
+21/31 Test #21: vxpe_soft3d_runtime ..............   Passed    0.02 sec
+      Start 22: vxpe_action2d_runtime
+22/31 Test #22: vxpe_action2d_runtime ............   Passed    0.02 sec
+      Start 23: vxpe_action2d_c_api
+23/31 Test #23: vxpe_action2d_c_api ..............   Passed    0.02 sec
+      Start 24: vxpe_combat2d_runtime
+24/31 Test #24: vxpe_combat2d_runtime ............   Passed    0.02 sec
+      Start 25: vxpe_combat2d_c_api
+25/31 Test #25: vxpe_combat2d_c_api ..............   Passed    0.02 sec
+      Start 26: vxpe_input2d_runtime
+26/31 Test #26: vxpe_input2d_runtime .............   Passed    0.02 sec
+      Start 27: vxpe_input2d_c_api
+27/31 Test #27: vxpe_input2d_c_api ...............   Passed    0.02 sec
+      Start 28: vxpe_hud2d_runtime
+28/31 Test #28: vxpe_hud2d_runtime ...............   Passed    0.03 sec
+      Start 29: vxpe_hud2d_c_api
+29/31 Test #29: vxpe_hud2d_c_api .................   Passed    0.02 sec
+      Start 30: vxpe_sprite_forge_c_api
+30/31 Test #30: vxpe_sprite_forge_c_api ..........   Passed    0.02 sec
+      Start 31: vxpe_sprite_forge_importer
+31/31 Test #31: vxpe_sprite_forge_importer .......   Passed    2.94 sec
+
+100% tests passed out of 31
+
+Total Test time (real) =   3.63 sec

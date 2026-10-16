@@ -50,7 +50,8 @@ typedef struct VxpeBlit565 {
     uint16_t dst_w;
     uint16_t dst_h;
     uint16_t tint565;   /* 0xFFFF = neutral */
-    uint8_t alpha;      /* 0..255 */
+    uint8_t alpha;      /* 0..255 coverage, honoured by every mode incl. COPY:
+                         * 0 draws nothing, so a plain blit must pass 255. */
     uint8_t blend;      /* VxpeBlendMode */
     uint8_t flip_x;
     uint8_t flip_y;

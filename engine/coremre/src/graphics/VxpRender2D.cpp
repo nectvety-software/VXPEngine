@@ -1,6 +1,7 @@
 #include "graphics/VxpRender2D.h"
 
 #include <stddef.h>
+#include <string.h>
 
 namespace {
 
@@ -326,6 +327,44 @@ void vxpe2d_blit(uint16_t* fb, int fb_w, int fb_h,
 
     const int stride = sprite->stride ? sprite->stride : sprite->width;
     const uint16_t tint = op->tint565;
+
+    /* Identity-scale fast path. The generic loop maps every destination pixel
+     * back to source with two integer divides, and ARMv5TE has no divide
+     * instruction, so each one is a __aeabi_uidivmod call: a 16x16 tile costs
+     * 512 of them. Tiles, props and animation frames are always drawn 1:1, so
+     * this branch decides the cost of a whole tilemap layer. flip_d is excluded
+     * because swapping axes is a resample whenever the sprite is not square. */
+    if (dw == sw && dh == sh && !op->flip_d) {
+        const int ex0 = dx0 - op->dst_x;
+        const int ex1 = dx1 - op->dst_x;
+        const int row_span = ex1 - ex0;
+        if (row_span > 0) {
+            const int row_bytes = row_span * (int)sizeof(uint16_t);
+            const int plain = (sprite->opaque || sprite->mask == nullptr) &&
+                              tint == 0xFFFFu && op->alpha == 255u &&
+                              op->blend == VXPE_BLEND_COPY && !op->flip_x &&
+                              !op->flip_y;
+            for (int dy = dy0; dy < dy1; ++dy) {
+                const int ly = dy - op->dst_y;
+                const int sy = sy0 + (op->flip_y ? sh - 1 - ly : ly);
+                const uint16_t* src_row = sprite->pixels + (size_t)sy * stride;
+                uint16_t* dst_row = fb + (size_t)dy * fb_w;
+                if (plain) {
+                    memcpy(dst_row + dx0, src_row + sx0 + ex0, (size_t)row_bytes);
+                    continue;
+                }
+                for (int dx = dx0; dx < dx1; ++dx) {
+                    const int lx = dx - op->dst_x;
+                    const int sx = sx0 + (op->flip_x ? sw - 1 - lx : lx);
+                    if (!mask_visible(sprite, sx, sy)) continue;
+                    dst_row[dx] = blend565(dst_row[dx],
+                                           tint565(src_row[sx], tint),
+                                           op->alpha, op->blend);
+                }
+            }
+            return;
+        }
+    }
 
     for (int dy = dy0; dy < dy1; ++dy) {
         const int local_y = dy - op->dst_y;

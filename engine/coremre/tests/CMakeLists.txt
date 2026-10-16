@@ -9,6 +9,11 @@ if(EXISTS "${CORE_DIR}/tools/vxpgdx_pack_tiled.py")
 else()
     set(VXPGDX_PACK_TILED "${CORE_DIR}/../../tools/vxpgdx_pack_tiled.py")
 endif()
+if(EXISTS "${CORE_DIR}/tools/vxp_import_sprite_forge.py")
+    set(VXPE_SPRITE_FORGE "${CORE_DIR}/tools/vxp_import_sprite_forge.py")
+else()
+    set(VXPE_SPRITE_FORGE "${CORE_DIR}/../../tools/vxp_import_sprite_forge.py")
+endif()
 
 add_library(vxpgdx_test_runtime STATIC
     "${CORE_DIR}/src/graphics/VxpColorGrade.cpp"
@@ -25,6 +30,12 @@ add_library(vxpgdx_test_runtime STATIC
     "${CORE_DIR}/src/graphics/VxpRaycast3D.cpp"
     "${CORE_DIR}/src/graphics/VxpSuperScaler.cpp"
     "${CORE_DIR}/src/graphics/VxpDungeonFx.cpp"
+    "${CORE_DIR}/src/action2d/VxpTilemap2D.cpp"
+    "${CORE_DIR}/src/action2d/VxpCamera2D.cpp"
+    "${CORE_DIR}/src/action2d/VxpBody2D.cpp"
+    "${CORE_DIR}/src/action2d/VxpCombat2D.cpp"
+    "${CORE_DIR}/src/action2d/VxpInputMap2D.cpp"
+    "${CORE_DIR}/src/action2d/VxpHud2D.cpp"
 )
 target_include_directories(vxpgdx_test_runtime PUBLIC "${CORE_DIR}/include")
 target_compile_features(vxpgdx_test_runtime PUBLIC cxx_std_17)
@@ -135,6 +146,75 @@ add_test(NAME vxpe_scatter_runtime COMMAND vxpe_scatter_regression)
 add_executable(vxpe_soft3d_regression vxpe_soft3d_regression.cpp)
 target_link_libraries(vxpe_soft3d_regression PRIVATE vxpgdx_test_runtime)
 add_test(NAME vxpe_soft3d_runtime COMMAND vxpe_soft3d_regression)
+
+# action2d core: tilemap + camera + platformer body, and the identity-scale blit
+# fast path that makes a 16 px tile affordable on ARMv5TE.
+add_executable(vxpe_action2d_regression vxpe_action2d_regression.cpp)
+target_link_libraries(vxpe_action2d_regression PRIVATE vxpgdx_test_runtime)
+add_test(NAME vxpe_action2d_runtime COMMAND vxpe_action2d_regression)
+add_executable(vxpe_action2d_c_api vxpe_action2d_c_api.c)
+set_target_properties(vxpe_action2d_c_api PROPERTIES C_STANDARD 99 LINKER_LANGUAGE CXX)
+target_link_libraries(vxpe_action2d_c_api PRIVATE vxpgdx_test_runtime)
+add_test(NAME vxpe_action2d_c_api COMMAND vxpe_action2d_c_api)
+
+# Combat layer on top of the bodies: swing windows, i-frames, hit-stop, the
+# per-swing hit mask and the projectile pool.
+add_executable(vxpe_combat2d_regression vxpe_combat2d_regression.cpp)
+target_link_libraries(vxpe_combat2d_regression PRIVATE vxpgdx_test_runtime)
+add_test(NAME vxpe_combat2d_runtime COMMAND vxpe_combat2d_regression)
+add_executable(vxpe_combat2d_c_api vxpe_combat2d_c_api.c)
+set_target_properties(vxpe_combat2d_c_api PROPERTIES C_STANDARD 99 LINKER_LANGUAGE CXX)
+target_link_libraries(vxpe_combat2d_c_api PRIVATE vxpgdx_test_runtime)
+add_test(NAME vxpe_combat2d_c_api COMMAND vxpe_combat2d_c_api)
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    target_compile_options(vxpe_combat2d_regression PRIVATE -Wall -Wextra)
+endif()
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    target_compile_options(vxpe_action2d_regression PRIVATE -Wall -Wextra)
+endif()
+
+# Action-game furniture: named key bindings with edges and auto-repeat, then the
+# zero-allocation HUD (plates, gauges with a damage ghost, icon rows, boss plate,
+# fog-of-war minimap) drawn straight into the game's RGB565 buffer.
+add_executable(vxpe_input2d_regression vxpe_input2d_regression.cpp)
+target_link_libraries(vxpe_input2d_regression PRIVATE vxpgdx_test_runtime)
+add_test(NAME vxpe_input2d_runtime COMMAND vxpe_input2d_regression)
+add_executable(vxpe_input2d_c_api vxpe_input2d_c_api.c)
+set_target_properties(vxpe_input2d_c_api PROPERTIES C_STANDARD 99 LINKER_LANGUAGE CXX)
+target_link_libraries(vxpe_input2d_c_api PRIVATE vxpgdx_test_runtime)
+add_test(NAME vxpe_input2d_c_api COMMAND vxpe_input2d_c_api)
+add_executable(vxpe_hud2d_regression vxpe_hud2d_regression.cpp)
+target_link_libraries(vxpe_hud2d_regression PRIVATE vxpgdx_test_runtime)
+add_test(NAME vxpe_hud2d_runtime COMMAND vxpe_hud2d_regression)
+add_executable(vxpe_hud2d_c_api vxpe_hud2d_c_api.c)
+set_target_properties(vxpe_hud2d_c_api PROPERTIES C_STANDARD 99 LINKER_LANGUAGE CXX)
+target_link_libraries(vxpe_hud2d_c_api PRIVATE vxpgdx_test_runtime)
+add_test(NAME vxpe_hud2d_c_api COMMAND vxpe_hud2d_c_api)
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    target_compile_options(vxpe_input2d_regression PRIVATE -Wall -Wextra)
+    target_compile_options(vxpe_hud2d_regression PRIVATE -Wall -Wextra)
+endif()
+
+# Sprite-forge bridge. The vendored skills emit transparent PNG frames;
+# tools/vxp_import_sprite_forge.py bakes them into the RGB565 + 1-bit-mask
+# tables the core draws. The C file reads the committed fixtures back through
+# the real blit and animation paths, so an importer change that shifts a mask
+# bit, pads an atlas row or drops a per-frame duration fails here rather than
+# on a handset. The Python file re-bakes those fixtures byte for byte and drives
+# every gate, so the shipped art can never drift from the tool that made it.
+add_executable(vxpe_sprite_forge_c_api vxpe_sprite_forge_c_api.c)
+set_target_properties(vxpe_sprite_forge_c_api PROPERTIES C_STANDARD 99 LINKER_LANGUAGE CXX)
+target_include_directories(vxpe_sprite_forge_c_api PRIVATE "${CMAKE_CURRENT_LIST_DIR}")
+target_link_libraries(vxpe_sprite_forge_c_api PRIVATE vxpgdx_test_runtime)
+add_test(NAME vxpe_sprite_forge_c_api COMMAND vxpe_sprite_forge_c_api)
+add_test(
+    NAME vxpe_sprite_forge_importer
+    COMMAND
+        "${Python3_EXECUTABLE}"
+        "${CMAKE_CURRENT_LIST_DIR}/test_sprite_forge_importer.py"
+        "${VXPE_SPRITE_FORGE}"
+        "${CMAKE_CURRENT_LIST_DIR}"
+)
 
 # Opt-in profiler for 2.5D billboard and 3D triangle paths. It intentionally
 # stays out of CTest so timing noise never affects the regression suite.

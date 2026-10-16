@@ -1,0 +1,1342 @@
+{
+  "schema": "codeart2d.codeart_meta.v1",
+  "art_source": "code",
+  "placeholder": false,
+  "disclosure": "code-drawn, no image model",
+  "generator": "render_pixelspec.py",
+  "spec_sha256": "c86b314545bb6ad0cc946697687567d0c92963d4dcba852601643f2d065d02c4",
+  "renderer": {
+    "name": "codeart_core.render_pixelspec",
+    "version": "1.1"
+  },
+  "palette": {
+    "colors": {
+      "k": "#22182c",
+      "s": "#f2c69a",
+      "S": "#c98f6b",
+      "h": "#6e4a33",
+      "H": "#9a6a44",
+      "t": "#3f8f68",
+      "T": "#2b5f47",
+      "b": "#e3b04b",
+      "p": "#4b3f5e",
+      "P": "#352b45",
+      "o": "#5a3a2a"
+    },
+    "variants": {
+      "forest": {},
+      "crimson": {
+        "t": "#b8433f",
+        "T": "#7c2a31"
+      },
+      "sky": {
+        "t": "#4a7fd0",
+        "T": "#2f4f8f"
+      }
+    }
+  },
+  "outputs": [
+    {
+      "path": "forest/frames/down-stand.png",
+      "sha256": "2da4afcafcd5660a8842660021694a19d7a07cd8c52823c785567a1885df689a",
+      "bytes": 352
+    },
+    {
+      "path": "forest/frames/down-step-a.png",
+      "sha256": "ff1a627448941ec1c610984995eafb19a0123b06225c814fe27c182eefcb40b1",
+      "bytes": 356
+    },
+    {
+      "path": "forest/frames/down-step-b.png",
+      "sha256": "190f9b93883182baf0fd737762959a2ffd04b3e1418f4f2a2eab368d98acb454",
+      "bytes": 355
+    },
+    {
+      "path": "forest/frames/up-stand.png",
+      "sha256": "5ffee8ecae468fc0778a07b88123db725e44274c476d33cef0b9c2d4b8647b71",
+      "bytes": 332
+    },
+    {
+      "path": "forest/frames/up-step-a.png",
+      "sha256": "7b6b6ef22a40c6b8729acdf105d88539e36895e9cc5471c0ad0ac6cf06ea606c",
+      "bytes": 338
+    },
+    {
+      "path": "forest/frames/up-step-b.png",
+      "sha256": "780f7550807668586727887535e2af535f8ff7091e09af80f58bc6aed219ce45",
+      "bytes": 335
+    },
+    {
+      "path": "forest/frames/right-stand.png",
+      "sha256": "03c3851e7a056b17059372289d6da3a731dbe29971a5fcaa62d914b6cab0b9b8",
+      "bytes": 350
+    },
+    {
+      "path": "forest/frames/right-step-a.png",
+      "sha256": "1d27c2d21939e04e5aedceb89c7ad6c4db10484d24a4f28c1b3ee7c0423a4943",
+      "bytes": 393
+    },
+    {
+      "path": "forest/frames/right-step-b.png",
+      "sha256": "2bc14356bd6fd75d7297faebb17216a5e8d14d6d33a54d3f84387c3c4c550b07",
+      "bytes": 376
+    },
+    {
+      "path": "forest/frames/left-stand.png",
+      "sha256": "f9cf6331ac671a60ef2eb32aa6aeccc0191254de7c27140e765b1e35773c31df",
+      "bytes": 357
+    },
+    {
+      "path": "forest/frames/left-step-a.png",
+      "sha256": "092aa9b852ec8910f4e9ca8a943f5a3f7be8d71105d61c1cacf259b205f139e2",
+      "bytes": 399
+    },
+    {
+      "path": "forest/frames/left-step-b.png",
+      "sha256": "b8e0425533d97435d1fd176c4250647c136d556fa67bb272aabc0e569d50911a",
+      "bytes": 401
+    },
+    {
+      "path": "crimson/frames/down-stand.png",
+      "sha256": "455ec471515cd5f894d77edbc4eea3f997874310b9396e97e614889662ac30a8",
+      "bytes": 348
+    },
+    {
+      "path": "crimson/frames/down-step-a.png",
+      "sha256": "0f3ead6f9b0defbd992b6083c9d101edfba7ec7c3563257d23ba60473c4c4361",
+      "bytes": 351
+    },
+    {
+      "path": "crimson/frames/down-step-b.png",
+      "sha256": "f6d247e80796fda0d65e4082292bdbaa3c16d0f6b94ae56f6a1a44c850cb77ff",
+      "bytes": 350
+    },
+    {
+      "path": "crimson/frames/up-stand.png",
+      "sha256": "ec67e45df08060725bea250cb2f294eb66b0c75986aa0ef577db14fad2a0252e",
+      "bytes": 330
+    },
+    {
+      "path": "crimson/frames/up-step-a.png",
+      "sha256": "8877b8d7bad9c6b141b69c5c25155260fbf63994a4f3f7e9e409a8a3c49cd8ae",
+      "bytes": 336
+    },
+    {
+      "path": "crimson/frames/up-step-b.png",
+      "sha256": "90d3179e55df68576a56bc9d63a1ee629efa303b974484e7b05ebe43dd4bf4eb",
+      "bytes": 333
+    },
+    {
+      "path": "crimson/frames/right-stand.png",
+      "sha256": "bfd1ff8e53dad07816cd9e657053ce88f5971e333fcf5a574f5bae1e9c0521bf",
+      "bytes": 349
+    },
+    {
+      "path": "crimson/frames/right-step-a.png",
+      "sha256": "eb64dcc34de7489bd4415f315efaad89b321b23830932cdae085c4d8177a5eb0",
+      "bytes": 393
+    },
+    {
+      "path": "crimson/frames/right-step-b.png",
+      "sha256": "c8c8d8d7b497c1221cb932964b02066e16f3ff60459b5e0685d6dd8a144854f8",
+      "bytes": 376
+    },
+    {
+      "path": "crimson/frames/left-stand.png",
+      "sha256": "f3d2a6fef91261a818c12ba471e1cd5fd60ff9527f3285bb37550e05029c42b6",
+      "bytes": 356
+    },
+    {
+      "path": "crimson/frames/left-step-a.png",
+      "sha256": "5125aaaeda1470aa48e50c63e3e78bf6a382f98d3c313cd4554df8e66cfdd663",
+      "bytes": 399
+    },
+    {
+      "path": "crimson/frames/left-step-b.png",
+      "sha256": "f87b5c9c26fc683cfe2e08f0eb26afc4516d7ed4974685347c68cee6454eb3c1",
+      "bytes": 399
+    },
+    {
+      "path": "sky/frames/down-stand.png",
+      "sha256": "741e8e2a73f93c86a91565f20f8db80904ed6254c53c1f25a96a950e716fe92e",
+      "bytes": 355
+    },
+    {
+      "path": "sky/frames/down-step-a.png",
+      "sha256": "e0dd72fbade1ebfa6fbe48745d07faef0c8e3a81c283ddebd01ec23802810b07",
+      "bytes": 359
+    },
+    {
+      "path": "sky/frames/down-step-b.png",
+      "sha256": "3cd5e494c7e6407b2538551904b09c43c18067017b5212a73c5818b1aed1042d",
+      "bytes": 358
+    },
+    {
+      "path": "sky/frames/up-stand.png",
+      "sha256": "819d8234b400ad30642c10664072a68010ed80c61b4970083f5fd2c730daeac9",
+      "bytes": 334
+    },
+    {
+      "path": "sky/frames/up-step-a.png",
+      "sha256": "f982611ee142bea4b9d518444b18ab35a1aa425bb305a77adb85fc6b8e6b75b0",
+      "bytes": 340
+    },
+    {
+      "path": "sky/frames/up-step-b.png",
+      "sha256": "108a989005a32924d5f7edc025b917f4765c9af0d689a9b9182950a7aa11e236",
+      "bytes": 337
+    },
+    {
+      "path": "sky/frames/right-stand.png",
+      "sha256": "28cd6b1e6c0ae10f4643e1ef21e8866439f591faff6d2efdb7b294e9292b8371",
+      "bytes": 348
+    },
+    {
+      "path": "sky/frames/right-step-a.png",
+      "sha256": "082c7b1de9fcaf79d5d949cd96d8bb99426603520d77b54ee74beacac17c69ee",
+      "bytes": 392
+    },
+    {
+      "path": "sky/frames/right-step-b.png",
+      "sha256": "8b73e490132dfdf16aafb59945d145be3c1556a1a8289ba7318cdc1fa24497b4",
+      "bytes": 381
+    },
+    {
+      "path": "sky/frames/left-stand.png",
+      "sha256": "82a63263a625d66ba39ef25490120b854db0b1dff7d05ea9f60b5f3ec981b391",
+      "bytes": 359
+    },
+    {
+      "path": "sky/frames/left-step-a.png",
+      "sha256": "b2949fe4a73601cdd023c4a7c3228b4d61c6659cc96beb53a1df1e59f33dd8b5",
+      "bytes": 401
+    },
+    {
+      "path": "sky/frames/left-step-b.png",
+      "sha256": "8326000f9c9ab426418e5ca76a2078a248f4a059ebe0dbc90f9386faf1bd5630",
+      "bytes": 398
+    },
+    {
+      "path": "forest/clips.json",
+      "sha256": "f8eb91afbf7ffde4b2afe36332f2a05077ac48fe343f0343be4d35af95790dac",
+      "bytes": 1742
+    },
+    {
+      "path": "crimson/clips.json",
+      "sha256": "f8eb91afbf7ffde4b2afe36332f2a05077ac48fe343f0343be4d35af95790dac",
+      "bytes": 1742
+    },
+    {
+      "path": "sky/clips.json",
+      "sha256": "f8eb91afbf7ffde4b2afe36332f2a05077ac48fe343f0343be4d35af95790dac",
+      "bytes": 1742
+    },
+    {
+      "path": "preview-x4.png",
+      "sha256": "95041abbd575cf7a5e7740890a9fbccf0f8a779bead9e1996059d7f5cb7afcfd",
+      "bytes": 5820
+    }
+  ],
+  "qa": {
+    "status": "warn",
+    "method": "render_pixelspec.py: every published frame PNG is read back and measured with codeart_core.qa_pixels against the resolved palette of its variant (alpha census, exact palette lookup and, with an outline, 4-neighbour outline gaps and L-corners); each check is the worst frame against its gate in codeart_core.QA_PIXEL_GATES",
+    "notProven": [
+      "Readability, silhouette and appeal at game scale; check them on a review sheet (pixel_qa.py --review).",
+      "Motion, timing and spacing between frames; numbers do not judge animation quality.",
+      "That the art matches the brief and the intent of the spec."
+    ],
+    "checks": [
+      {
+        "id": "partial_alpha",
+        "status": "pass",
+        "value": 0,
+        "threshold": 0
+      },
+      {
+        "id": "off_palette",
+        "status": "pass",
+        "value": 0,
+        "threshold": 0
+      },
+      {
+        "id": "outline_gaps",
+        "status": "pass",
+        "value": 0,
+        "threshold": 0
+      },
+      {
+        "id": "l_corners",
+        "status": "pass",
+        "value": 3,
+        "threshold": 10
+      },
+      {
+        "id": "half_cycle_duplicates",
+        "status": "warn",
+        "value": 1.0,
+        "threshold": 0.95,
+        "detail": {
+          "clips": [
+            {
+              "clip": "walk_down",
+              "frames": 4,
+              "pairs": [
+                [
+                  0,
+                  2,
+                  1.0
+                ],
+                [
+                  1,
+                  3,
+                  0.945
+                ]
+              ]
+            },
+            {
+              "clip": "walk_up",
+              "frames": 4,
+              "pairs": [
+                [
+                  0,
+                  2,
+                  1.0
+                ],
+                [
+                  1,
+                  3,
+                  0.945
+                ]
+              ]
+            },
+            {
+              "clip": "walk_right",
+              "frames": 4,
+              "pairs": [
+                [
+                  0,
+                  2,
+                  1.0
+                ],
+                [
+                  1,
+                  3,
+                  0.9896
+                ]
+              ]
+            },
+            {
+              "clip": "walk_left",
+              "frames": 4,
+              "pairs": [
+                [
+                  0,
+                  2,
+                  1.0
+                ],
+                [
+                  1,
+                  3,
+                  0.9896
+                ]
+              ]
+            }
+          ],
+          "variant": "forest"
+        },
+        "failing": [
+          "walk_down 0/2 (IoU 1.00)",
+          "walk_up 0/2 (IoU 1.00)",
+          "walk_right 0/2 (IoU 1.00)",
+          "walk_right 1/3 (IoU 0.99)",
+          "walk_left 0/2 (IoU 1.00)",
+          "walk_left 1/3 (IoU 0.99)"
+        ],
+        "note": "half-cycle frames share a silhouette, so the stride rests on leg colours alone: give the near and far legs a clear value contrast, keep the arms or forelegs visible, look at the review sheet, and pass --allow-duplicate-half-cycle only once it reads"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "../../../third_party/agent-sprite-forge/skills/codeart2d/examples/walker16x24.pixelspec.json",
+        "sha256": "c86b314545bb6ad0cc946697687567d0c92963d4dcba852601643f2d065d02c4",
+        "bytes": 5383
+      }
+    ],
+    "outputs": [
+      {
+        "path": "forest/frames/down-stand.png",
+        "sha256": "2da4afcafcd5660a8842660021694a19d7a07cd8c52823c785567a1885df689a",
+        "bytes": 352
+      },
+      {
+        "path": "forest/frames/down-step-a.png",
+        "sha256": "ff1a627448941ec1c610984995eafb19a0123b06225c814fe27c182eefcb40b1",
+        "bytes": 356
+      },
+      {
+        "path": "forest/frames/down-step-b.png",
+        "sha256": "190f9b93883182baf0fd737762959a2ffd04b3e1418f4f2a2eab368d98acb454",
+        "bytes": 355
+      },
+      {
+        "path": "forest/frames/up-stand.png",
+        "sha256": "5ffee8ecae468fc0778a07b88123db725e44274c476d33cef0b9c2d4b8647b71",
+        "bytes": 332
+      },
+      {
+        "path": "forest/frames/up-step-a.png",
+        "sha256": "7b6b6ef22a40c6b8729acdf105d88539e36895e9cc5471c0ad0ac6cf06ea606c",
+        "bytes": 338
+      },
+      {
+        "path": "forest/frames/up-step-b.png",
+        "sha256": "780f7550807668586727887535e2af535f8ff7091e09af80f58bc6aed219ce45",
+        "bytes": 335
+      },
+      {
+        "path": "forest/frames/right-stand.png",
+        "sha256": "03c3851e7a056b17059372289d6da3a731dbe29971a5fcaa62d914b6cab0b9b8",
+        "bytes": 350
+      },
+      {
+        "path": "forest/frames/right-step-a.png",
+        "sha256": "1d27c2d21939e04e5aedceb89c7ad6c4db10484d24a4f28c1b3ee7c0423a4943",
+        "bytes": 393
+      },
+      {
+        "path": "forest/frames/right-step-b.png",
+        "sha256": "2bc14356bd6fd75d7297faebb17216a5e8d14d6d33a54d3f84387c3c4c550b07",
+        "bytes": 376
+      },
+      {
+        "path": "forest/frames/left-stand.png",
+        "sha256": "f9cf6331ac671a60ef2eb32aa6aeccc0191254de7c27140e765b1e35773c31df",
+        "bytes": 357
+      },
+      {
+        "path": "forest/frames/left-step-a.png",
+        "sha256": "092aa9b852ec8910f4e9ca8a943f5a3f7be8d71105d61c1cacf259b205f139e2",
+        "bytes": 399
+      },
+      {
+        "path": "forest/frames/left-step-b.png",
+        "sha256": "b8e0425533d97435d1fd176c4250647c136d556fa67bb272aabc0e569d50911a",
+        "bytes": 401
+      },
+      {
+        "path": "crimson/frames/down-stand.png",
+        "sha256": "455ec471515cd5f894d77edbc4eea3f997874310b9396e97e614889662ac30a8",
+        "bytes": 348
+      },
+      {
+        "path": "crimson/frames/down-step-a.png",
+        "sha256": "0f3ead6f9b0defbd992b6083c9d101edfba7ec7c3563257d23ba60473c4c4361",
+        "bytes": 351
+      },
+      {
+        "path": "crimson/frames/down-step-b.png",
+        "sha256": "f6d247e80796fda0d65e4082292bdbaa3c16d0f6b94ae56f6a1a44c850cb77ff",
+        "bytes": 350
+      },
+      {
+        "path": "crimson/frames/up-stand.png",
+        "sha256": "ec67e45df08060725bea250cb2f294eb66b0c75986aa0ef577db14fad2a0252e",
+        "bytes": 330
+      },
+      {
+        "path": "crimson/frames/up-step-a.png",
+        "sha256": "8877b8d7bad9c6b141b69c5c25155260fbf63994a4f3f7e9e409a8a3c49cd8ae",
+        "bytes": 336
+      },
+      {
+        "path": "crimson/frames/up-step-b.png",
+        "sha256": "90d3179e55df68576a56bc9d63a1ee629efa303b974484e7b05ebe43dd4bf4eb",
+        "bytes": 333
+      },
+      {
+        "path": "crimson/frames/right-stand.png",
+        "sha256": "bfd1ff8e53dad07816cd9e657053ce88f5971e333fcf5a574f5bae1e9c0521bf",
+        "bytes": 349
+      },
+      {
+        "path": "crimson/frames/right-step-a.png",
+        "sha256": "eb64dcc34de7489bd4415f315efaad89b321b23830932cdae085c4d8177a5eb0",
+        "bytes": 393
+      },
+      {
+        "path": "crimson/frames/right-step-b.png",
+        "sha256": "c8c8d8d7b497c1221cb932964b02066e16f3ff60459b5e0685d6dd8a144854f8",
+        "bytes": 376
+      },
+      {
+        "path": "crimson/frames/left-stand.png",
+        "sha256": "f3d2a6fef91261a818c12ba471e1cd5fd60ff9527f3285bb37550e05029c42b6",
+        "bytes": 356
+      },
+      {
+        "path": "crimson/frames/left-step-a.png",
+        "sha256": "5125aaaeda1470aa48e50c63e3e78bf6a382f98d3c313cd4554df8e66cfdd663",
+        "bytes": 399
+      },
+      {
+        "path": "crimson/frames/left-step-b.png",
+        "sha256": "f87b5c9c26fc683cfe2e08f0eb26afc4516d7ed4974685347c68cee6454eb3c1",
+        "bytes": 399
+      },
+      {
+        "path": "sky/frames/down-stand.png",
+        "sha256": "741e8e2a73f93c86a91565f20f8db80904ed6254c53c1f25a96a950e716fe92e",
+        "bytes": 355
+      },
+      {
+        "path": "sky/frames/down-step-a.png",
+        "sha256": "e0dd72fbade1ebfa6fbe48745d07faef0c8e3a81c283ddebd01ec23802810b07",
+        "bytes": 359
+      },
+      {
+        "path": "sky/frames/down-step-b.png",
+        "sha256": "3cd5e494c7e6407b2538551904b09c43c18067017b5212a73c5818b1aed1042d",
+        "bytes": 358
+      },
+      {
+        "path": "sky/frames/up-stand.png",
+        "sha256": "819d8234b400ad30642c10664072a68010ed80c61b4970083f5fd2c730daeac9",
+        "bytes": 334
+      },
+      {
+        "path": "sky/frames/up-step-a.png",
+        "sha256": "f982611ee142bea4b9d518444b18ab35a1aa425bb305a77adb85fc6b8e6b75b0",
+        "bytes": 340
+      },
+      {
+        "path": "sky/frames/up-step-b.png",
+        "sha256": "108a989005a32924d5f7edc025b917f4765c9af0d689a9b9182950a7aa11e236",
+        "bytes": 337
+      },
+      {
+        "path": "sky/frames/right-stand.png",
+        "sha256": "28cd6b1e6c0ae10f4643e1ef21e8866439f591faff6d2efdb7b294e9292b8371",
+        "bytes": 348
+      },
+      {
+        "path": "sky/frames/right-step-a.png",
+        "sha256": "082c7b1de9fcaf79d5d949cd96d8bb99426603520d77b54ee74beacac17c69ee",
+        "bytes": 392
+      },
+      {
+        "path": "sky/frames/right-step-b.png",
+        "sha256": "8b73e490132dfdf16aafb59945d145be3c1556a1a8289ba7318cdc1fa24497b4",
+        "bytes": 381
+      },
+      {
+        "path": "sky/frames/left-stand.png",
+        "sha256": "82a63263a625d66ba39ef25490120b854db0b1dff7d05ea9f60b5f3ec981b391",
+        "bytes": 359
+      },
+      {
+        "path": "sky/frames/left-step-a.png",
+        "sha256": "b2949fe4a73601cdd023c4a7c3228b4d61c6659cc96beb53a1df1e59f33dd8b5",
+        "bytes": 401
+      },
+      {
+        "path": "sky/frames/left-step-b.png",
+        "sha256": "8326000f9c9ab426418e5ca76a2078a248f4a059ebe0dbc90f9386faf1bd5630",
+        "bytes": 398
+      }
+    ],
+    "tool": {
+      "name": "render_pixelspec.py",
+      "version": "0.4.0"
+    },
+    "frames": [
+      {
+        "file": "forest/frames/down-stand.png",
+        "variant": "forest",
+        "frame": "down-stand",
+        "visible": 224,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 10,
+        "orphans": 16,
+        "l_corners": 0,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          0,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "forest/frames/down-step-a.png",
+        "variant": "forest",
+        "frame": "down-step-a",
+        "visible": 212,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 10,
+        "orphans": 16,
+        "l_corners": 0,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          1,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "forest/frames/down-step-b.png",
+        "variant": "forest",
+        "frame": "down-step-b",
+        "visible": 212,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 10,
+        "orphans": 16,
+        "l_corners": 0,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          1,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "forest/frames/up-stand.png",
+        "variant": "forest",
+        "frame": "up-stand",
+        "visible": 224,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 10,
+        "orphans": 16,
+        "l_corners": 0,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          0,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "forest/frames/up-step-a.png",
+        "variant": "forest",
+        "frame": "up-step-a",
+        "visible": 212,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 10,
+        "orphans": 16,
+        "l_corners": 0,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          1,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "forest/frames/up-step-b.png",
+        "variant": "forest",
+        "frame": "up-step-b",
+        "visible": 212,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 10,
+        "orphans": 16,
+        "l_corners": 0,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          1,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "forest/frames/right-stand.png",
+        "variant": "forest",
+        "frame": "right-stand",
+        "visible": 185,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 11,
+        "orphans": 12,
+        "l_corners": 2,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          0,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "forest/frames/right-step-a.png",
+        "variant": "forest",
+        "frame": "right-step-a",
+        "visible": 191,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 11,
+        "orphans": 15,
+        "l_corners": 3,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          1,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "forest/frames/right-step-b.png",
+        "variant": "forest",
+        "frame": "right-step-b",
+        "visible": 191,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 11,
+        "orphans": 14,
+        "l_corners": 2,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          1,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "forest/frames/left-stand.png",
+        "variant": "forest",
+        "frame": "left-stand",
+        "visible": 185,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 11,
+        "orphans": 12,
+        "l_corners": 2,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          0,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "forest/frames/left-step-a.png",
+        "variant": "forest",
+        "frame": "left-step-a",
+        "visible": 191,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 11,
+        "orphans": 15,
+        "l_corners": 3,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          1,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "forest/frames/left-step-b.png",
+        "variant": "forest",
+        "frame": "left-step-b",
+        "visible": 191,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 11,
+        "orphans": 14,
+        "l_corners": 2,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          1,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "crimson/frames/down-stand.png",
+        "variant": "crimson",
+        "frame": "down-stand",
+        "visible": 224,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 10,
+        "orphans": 16,
+        "l_corners": 0,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          0,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "crimson/frames/down-step-a.png",
+        "variant": "crimson",
+        "frame": "down-step-a",
+        "visible": 212,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 10,
+        "orphans": 16,
+        "l_corners": 0,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          1,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "crimson/frames/down-step-b.png",
+        "variant": "crimson",
+        "frame": "down-step-b",
+        "visible": 212,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 10,
+        "orphans": 16,
+        "l_corners": 0,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          1,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "crimson/frames/up-stand.png",
+        "variant": "crimson",
+        "frame": "up-stand",
+        "visible": 224,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 10,
+        "orphans": 16,
+        "l_corners": 0,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          0,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "crimson/frames/up-step-a.png",
+        "variant": "crimson",
+        "frame": "up-step-a",
+        "visible": 212,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 10,
+        "orphans": 16,
+        "l_corners": 0,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          1,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "crimson/frames/up-step-b.png",
+        "variant": "crimson",
+        "frame": "up-step-b",
+        "visible": 212,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 10,
+        "orphans": 16,
+        "l_corners": 0,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          1,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "crimson/frames/right-stand.png",
+        "variant": "crimson",
+        "frame": "right-stand",
+        "visible": 185,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 11,
+        "orphans": 12,
+        "l_corners": 2,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          0,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "crimson/frames/right-step-a.png",
+        "variant": "crimson",
+        "frame": "right-step-a",
+        "visible": 191,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 11,
+        "orphans": 15,
+        "l_corners": 3,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          1,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "crimson/frames/right-step-b.png",
+        "variant": "crimson",
+        "frame": "right-step-b",
+        "visible": 191,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 11,
+        "orphans": 14,
+        "l_corners": 2,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          1,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "crimson/frames/left-stand.png",
+        "variant": "crimson",
+        "frame": "left-stand",
+        "visible": 185,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 11,
+        "orphans": 12,
+        "l_corners": 2,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          0,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "crimson/frames/left-step-a.png",
+        "variant": "crimson",
+        "frame": "left-step-a",
+        "visible": 191,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 11,
+        "orphans": 15,
+        "l_corners": 3,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          1,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "crimson/frames/left-step-b.png",
+        "variant": "crimson",
+        "frame": "left-step-b",
+        "visible": 191,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 11,
+        "orphans": 14,
+        "l_corners": 2,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          1,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "sky/frames/down-stand.png",
+        "variant": "sky",
+        "frame": "down-stand",
+        "visible": 224,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 10,
+        "orphans": 16,
+        "l_corners": 0,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          0,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "sky/frames/down-step-a.png",
+        "variant": "sky",
+        "frame": "down-step-a",
+        "visible": 212,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 10,
+        "orphans": 16,
+        "l_corners": 0,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          1,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "sky/frames/down-step-b.png",
+        "variant": "sky",
+        "frame": "down-step-b",
+        "visible": 212,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 10,
+        "orphans": 16,
+        "l_corners": 0,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          1,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "sky/frames/up-stand.png",
+        "variant": "sky",
+        "frame": "up-stand",
+        "visible": 224,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 10,
+        "orphans": 16,
+        "l_corners": 0,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          0,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "sky/frames/up-step-a.png",
+        "variant": "sky",
+        "frame": "up-step-a",
+        "visible": 212,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 10,
+        "orphans": 16,
+        "l_corners": 0,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          1,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "sky/frames/up-step-b.png",
+        "variant": "sky",
+        "frame": "up-step-b",
+        "visible": 212,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 10,
+        "orphans": 16,
+        "l_corners": 0,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          1,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "sky/frames/right-stand.png",
+        "variant": "sky",
+        "frame": "right-stand",
+        "visible": 185,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 11,
+        "orphans": 12,
+        "l_corners": 2,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          0,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "sky/frames/right-step-a.png",
+        "variant": "sky",
+        "frame": "right-step-a",
+        "visible": 191,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 11,
+        "orphans": 15,
+        "l_corners": 3,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          1,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "sky/frames/right-step-b.png",
+        "variant": "sky",
+        "frame": "right-step-b",
+        "visible": 191,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 11,
+        "orphans": 14,
+        "l_corners": 2,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          1,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "sky/frames/left-stand.png",
+        "variant": "sky",
+        "frame": "left-stand",
+        "visible": 185,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 11,
+        "orphans": 12,
+        "l_corners": 2,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          0,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "sky/frames/left-step-a.png",
+        "variant": "sky",
+        "frame": "left-step-a",
+        "visible": 191,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 11,
+        "orphans": 15,
+        "l_corners": 3,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          1,
+          14,
+          23
+        ]
+      },
+      {
+        "file": "sky/frames/left-step-b.png",
+        "variant": "sky",
+        "frame": "left-step-b",
+        "visible": 191,
+        "partial_alpha": 0,
+        "off_palette": 0,
+        "colors": 11,
+        "orphans": 14,
+        "l_corners": 2,
+        "outline_gaps": 0,
+        "bbox": [
+          2,
+          1,
+          14,
+          23
+        ]
+      }
+    ]
+  },
+  "pixelspec": {
+    "name": "walker",
+    "schema": "codeart2d.pixelspec.v1",
+    "canvas": [
+      16,
+      24
+    ],
+    "anchor_px": [
+      8,
+      23
+    ],
+    "outline": "solid",
+    "variants": {
+      "forest": "forest",
+      "crimson": "crimson",
+      "sky": "sky"
+    },
+    "frames": [
+      {
+        "index": 0,
+        "name": "down-stand",
+        "file": "frames/down-stand.png"
+      },
+      {
+        "index": 1,
+        "name": "down-step-a",
+        "file": "frames/down-step-a.png"
+      },
+      {
+        "index": 2,
+        "name": "down-stand-2",
+        "file": "frames/down-stand.png",
+        "reuses": 0
+      },
+      {
+        "index": 3,
+        "name": "down-step-b",
+        "file": "frames/down-step-b.png"
+      },
+      {
+        "index": 4,
+        "name": "up-stand",
+        "file": "frames/up-stand.png"
+      },
+      {
+        "index": 5,
+        "name": "up-step-a",
+        "file": "frames/up-step-a.png"
+      },
+      {
+        "index": 6,
+        "name": "up-stand-2",
+        "file": "frames/up-stand.png",
+        "reuses": 4
+      },
+      {
+        "index": 7,
+        "name": "up-step-b",
+        "file": "frames/up-step-b.png"
+      },
+      {
+        "index": 8,
+        "name": "right-stand",
+        "file": "frames/right-stand.png"
+      },
+      {
+        "index": 9,
+        "name": "right-step-a",
+        "file": "frames/right-step-a.png"
+      },
+      {
+        "index": 10,
+        "name": "right-stand-2",
+        "file": "frames/right-stand.png",
+        "reuses": 8
+      },
+      {
+        "index": 11,
+        "name": "right-step-b",
+        "file": "frames/right-step-b.png"
+      },
+      {
+        "index": 12,
+        "name": "left-stand",
+        "file": "frames/left-stand.png"
+      },
+      {
+        "index": 13,
+        "name": "left-step-a",
+        "file": "frames/left-step-a.png"
+      },
+      {
+        "index": 14,
+        "name": "left-stand-2",
+        "file": "frames/left-stand.png",
+        "reuses": 12
+      },
+      {
+        "index": 15,
+        "name": "left-step-b",
+        "file": "frames/left-step-b.png"
+      }
+    ],
+    "clips": {
+      "manifest_schema": "generate2dsprite.animation_clips.v2",
+      "manifests": {
+        "forest": "forest/clips.json",
+        "crimson": "crimson/clips.json",
+        "sky": "sky/clips.json"
+      },
+      "bundles": {
+        "forest": "forest/bundle",
+        "crimson": "crimson/bundle",
+        "sky": "sky/bundle"
+      },
+      "per_clip": {
+        "walk_down": {
+          "frames": 4,
+          "merged_empty_tail": 0
+        },
+        "walk_up": {
+          "frames": 4,
+          "merged_empty_tail": 0
+        },
+        "walk_right": {
+          "frames": 4,
+          "merged_empty_tail": 0
+        },
+        "walk_left": {
+          "frames": 4,
+          "merged_empty_tail": 0
+        }
+      }
+    },
+    "preview": {
+      "file": "preview-x4.png",
+      "scale": 4,
+      "layout": "rows are variants, columns are distinct frames"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "format": "VXPEngine VXP Project",
+  "format_version": 2,
+  "engine_version": "2.0.0",
+  "name": "VampireVeilDemo",
+  "app_name": "vampire_veil",
+  "developer": "VXPstore",
+  "template": "blank",
+  "template_version": "2.0.3",
+  "layout_version": 2,
+  "created_at": "2026-10-15T14:16:02.337132+00:00",
+  "modified_at": "2026-10-15T14:16:02.337132+00:00",
+  "screen": {
+    "width": 240,
+    "height": 320,
+    "type": "MRE QVGA Portrait"
+  },
+  "mre": {
+    "sdk_version": "3.0",
+    "api": "File Audio ProMng",
+    "ram_kb": "800",
+    "imsi": "91234567890",
+    "app_id": "9591686"
+  },
+  "app_id": "9591686",
+  "signing": {
+    "owner": "VXPEngine",
+    "cert_id": "1",
+    "app_id_source": "engine"
+  }
+}
