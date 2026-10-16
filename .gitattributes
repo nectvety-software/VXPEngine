@@ -17,12 +17,16 @@ third_party/agent-sprite-forge/** -text
 *.gif binary
 *.ico binary
 
-# Golden import fixtures are compared byte-for-byte by the importer test, and
-# tools/vxp_import_sprite_forge.py writes LF. A Windows clone with
-# core.autocrlf=true used to check them out as CRLF, which failed exactly
-# those two fixture checks (proved on a fresh clone of the pushed remote),
-# so checkout must never convert them regardless of the client setting.
-# Scoped to *.h on purpose - the sibling *.png frames must stay binary.
+# Golden import fixtures must keep their exact bytes through a clone.
+# tools/vxp_import_sprite_forge.py writes LF and the importer test compares the
+# re-baked header against the committed one byte for byte. On a Windows clone
+# with core.autocrlf=true that gate failed 2 of 15 checks: the golden headers
+# came out CRLF, and animation-clips.json came out CRLF too, which changes the
+# manifest sha256 the header embeds. Proven by cloning main and running
+# test_sprite_forge_importer.py inside the clone.
+# Scoped to *.h and *.json on purpose: the sibling *.png frames hold CR bytes
+# that a directory-wide `text` rule silently deleted.
 engine/coremre/tests/data/sprite_forge/**/*.h text eol=lf
+engine/coremre/tests/data/sprite_forge/**/*.json text eol=lf
 tools/vxp_import_sprite_forge.py text eol=lf
 tools/generate_vampireveil_assets.py text eol=lf
