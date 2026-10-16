@@ -6,3 +6,23 @@
 # computed over these exact bytes, so eol normalisation must never touch them
 # (and the tree is read-only upstream code, so it must not be rewritten).
 third_party/agent-sprite-forge/** -text
+
+# Never let the auto-detection above treat image data as text: a `text` rule
+# matching a whole directory silently stripped one CR byte out of the PNGs in
+# engine/coremre/tests/data/sprite_forge, which is a corrupt asset, not a
+# formatting difference.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+
+# Golden import fixtures are compared byte-for-byte by the importer test, and
+# tools/vxp_import_sprite_forge.py writes LF. A Windows clone with
+# core.autocrlf=true used to check them out as CRLF, which failed exactly
+# those two fixture checks (proved on a fresh clone of the pushed remote),
+# so checkout must never convert them regardless of the client setting.
+# Scoped to *.h on purpose - the sibling *.png frames must stay binary.
+engine/coremre/tests/data/sprite_forge/**/*.h text eol=lf
+tools/vxp_import_sprite_forge.py text eol=lf
+tools/generate_vampireveil_assets.py text eol=lf

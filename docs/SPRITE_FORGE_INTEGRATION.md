@@ -183,6 +183,16 @@ Two ctest cases, both added to `engine/coremre/tests/CMakeLists.txt`:
   `vxpe2d_anim_reset/_update/_frame_rect` for clip timing, including the
   per-frame durations and a non-looping clip that must stop on its last frame.
 
+Both fixture headers are pinned with `text eol=lf` in `.gitattributes`. That is
+not cosmetic: the byte-for-byte re-bake check passed on this machine and failed
+two of fifteen checks in a fresh clone of the pushed remote, because
+`core.autocrlf=true` checked the golden headers out as CRLF while the importer
+writes LF. Verified by cloning `main` and running
+`test_sprite_forge_importer.py` inside the clone. While fixing it, a `text`
+rule scoped to a whole directory also stripped one CR byte out of each fixture
+PNG — real binary corruption, which is why the image extensions are now
+explicitly `binary` and the LF rule names `*.h`.
+
 Fixtures live in `engine/coremre/tests/data/sprite_forge`: two loose frames
 (`loose/frames`, a fully opaque 8x8 tile and a 12x10 masked hero) and a four-frame
 8x8 clip bundle with a hand-written `animation-clips.json` carrying real frame
